@@ -36,7 +36,7 @@ public class UserIO {
 				String type = scan.next();
 				String id = scan.next();
 				String password = scan.next();
-				String name = scan.nextLine();
+				String name = scan.nextLine().trim();
 				if (type.equals("Manager")) {
 					clerks.add(new Manager(name, id, password));
 				} else {
