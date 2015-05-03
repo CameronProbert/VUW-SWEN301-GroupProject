@@ -2,6 +2,9 @@ package main.logic;
 
 import java.util.List;
 
+import main.fileio.NoRegisteredUsersException;
+import main.fileio.UserIO;
+
 /**
  * The monitor is the main logic class of the program. It handles user input
  * passed in from the GUI and will .
@@ -28,9 +31,19 @@ public class Monitor {
 	}
 
 	private void loadUsers() {
-		// TODO Load in a list of current users
 		if (verbose) {
 			System.out.println("Loading in users...");
+		}
+		try {
+			allUsers = UserIO.loadUsers();
+		} catch (NoRegisteredUsersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (verbose) {
+			for (Clerk user : allUsers){
+				System.out.println(user.toString());
+			}
 		}
 	}
 
