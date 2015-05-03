@@ -32,7 +32,7 @@ public class Clerk {
 	}
 
 	/**
-	 * Returns the name of the clerk
+	 * Returns the name of the Clerk
 	 * 
 	 * @return
 	 */
@@ -47,6 +47,15 @@ public class Clerk {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Returns the password of the Clerk
+	 * 
+	 * @return
+	 */
+	public String getPassword() {
+		return password;
 	}
 
 	/**
