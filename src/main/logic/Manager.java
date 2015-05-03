@@ -26,7 +26,7 @@ public class Manager extends Clerk {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Type: Manager");
-		sb.append("Name: " + name);
+		sb.append("\nName: " + name);
 		sb.append("\nID: " + id);
 		return sb.toString();
 	}
@@ -42,7 +42,7 @@ public class Manager extends Clerk {
 		System.err
 				.println("debugToString() method has been called. This should never happen in the final version of this program");
 		sb.append("Type: Manager");
-		sb.append("Name: " + name);
+		sb.append("\nName: " + name);
 		sb.append("\nID: " + id);
 		sb.append("\nPassword: " + password);
 		return sb.toString();

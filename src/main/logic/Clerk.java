@@ -77,7 +77,7 @@ public class Clerk {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Type: Clerk");
-		sb.append("Name: " + name);
+		sb.append("\nName: " + name);
 		sb.append("\nID: " + id);
 		return sb.toString();
 	}
@@ -93,7 +93,7 @@ public class Clerk {
 		System.err
 				.println("debugToString() method has been called. This should never happen in the final version of this program");
 		sb.append("Type: Clerk");
-		sb.append("Name: " + name);
+		sb.append("\nName: " + name);
 		sb.append("\nID: " + id);
 		sb.append("\nPassword: " + password);
 		return sb.toString();
