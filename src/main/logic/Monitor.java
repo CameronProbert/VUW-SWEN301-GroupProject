@@ -29,6 +29,9 @@ public class Monitor {
 
 	private void loadUsers() {
 		// TODO Load in a list of current users
+		if (verbose) {
+			System.out.println("Loading in users...");
+		}
 	}
 
 	/**
@@ -38,10 +41,10 @@ public class Monitor {
 	 * @param password
 	 * @return
 	 */
-	public Clerk logIn(String id, String password) throws InvalidLoginException{
+	public Clerk logIn(String id, String password) throws InvalidLoginException {
 		Clerk user = null;
-		for (Clerk clerk : allUsers){
-			if (clerk.equals(id, password)){
+		for (Clerk clerk : allUsers) {
+			if (clerk.isUser(id, password)) {
 				user = clerk;
 				currentUser = clerk;
 				break;
@@ -49,9 +52,14 @@ public class Monitor {
 		}
 		return user;
 	}
-	
-	public void logOut(){
-		
+
+	/**
+	 * Logs out the current user and takes the program back to the log in state
+	 */
+	public void logOut() {
+		// TODO run a confirm dialog
+		currentUser = null;
+		// TODO return to log in screen
 	}
 
 	/**
@@ -71,6 +79,21 @@ public class Monitor {
 			System.out.println("Password: " + password);
 		}
 		return validUser;
+	}
+
+	/**
+	 * Returns the monitor class as a string
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Monitor class");
+		sb.append("\nCurrently logged in: ");
+		if (currentUser != null) {
+			sb.append("\n" + currentUser.toString());
+		} else {
+			sb.append("\nNobody logged in.");
+		}
+		return sb.toString();
 	}
 
 }
