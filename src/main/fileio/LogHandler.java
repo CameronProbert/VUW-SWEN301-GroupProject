@@ -3,7 +3,7 @@ package main.fileio;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.bussEvents.BusinessEvent;
+import main.events.BusinessEvent;
 
 /**
  * This class reads in all the business events and writes all the events to file

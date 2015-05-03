@@ -1,4 +1,4 @@
-package main.bussEvents;
+package main.events;
 
 import main.logic.Clerk;
 /**
