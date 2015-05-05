@@ -94,6 +94,14 @@ public class GUI {
 	
 	
 	
+	public static int getWidth() {
+		return width;
+	}
+
+	public static int getHeight() {
+		return height;
+	}
+
 	public static void main(String[] args){
 		new GUI();
 	}

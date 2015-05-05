@@ -95,6 +95,9 @@ public class LoginGUI extends Panel{
 						//						}
 						System.out.println("username: " + gui.getUsername().getText());
 						System.out.println("password: " + gui.getPassword().getText());
+						gui.removePanel(LoginGUI.this);
+						gui.addPanel(new FuncGUI(gui));
+						
 					}}}
 		});
 
