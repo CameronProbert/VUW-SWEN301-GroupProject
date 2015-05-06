@@ -40,10 +40,10 @@ public class FunctionGUI extends Panel{
 	private JButton transportDiscontinued;
 	private JButton f5;
 	private JButton businessEvents;
-	private JButton exit;
+	private JButton logOut;
 	private JPanel displayPane;
 	private JPanel buttonPane;
-	private JPanel inforPane;
+	private JPanel inforPanel;
 	private int count = 0;
 	private String origin = "";
 	private String destination = "";
@@ -58,35 +58,39 @@ public class FunctionGUI extends Panel{
 
 	@Override
 	protected void setUpComponents() {
+		JPanel titlePanel = new JPanel(new BorderLayout());
+		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
+		JPanel bottomPanel = new JPanel(new BorderLayout());
+		bottomPanel.setPreferredSize(new Dimension(gui.getWidth(),60));
 		jSplitPanel = new JSplitPane();
 		displayPane = new JPanel(new BorderLayout());
 		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "Display Area" ) );
-		displayPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()));
+		displayPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane = new JPanel(new BorderLayout()); // 
-		buttonPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()));
+		buttonPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
-		inforPane = new JPanel(new BorderLayout());
-		inforPane.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()));
+		inforPanel = new JPanel(new BorderLayout());
+		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
 
 		mailDelivery = new JButton("Mail Delivery");
 		customerPriceUpdate = new JButton("Customer Price Update");
 		transportCostUpdate = new JButton("Transport Cost Update");
 		transportDiscontinued = new JButton("Transport Discontinued");
-		f5 = new JButton("f5");
 		businessEvents = new JButton("Business Events");
-		exit = new JButton("exit");
+		logOut = new JButton("Log Out");
 		buttonPane.add(mailDelivery);
 		buttonPane.add(customerPriceUpdate);
 		buttonPane.add(transportCostUpdate);
 		buttonPane.add(transportDiscontinued);
-		buttonPane.add(f5);
 		buttonPane.add(businessEvents);
-		buttonPane.add(exit);
+		buttonPane.add(logOut);
 		jSplitPanel.add(buttonPane, JSplitPane.LEFT);
 		jSplitPanel.add(displayPane, JSplitPane.RIGHT);
 		//jSplitPanel.add(inforPane, JSplitPane.RIGHT);
+		add(titlePanel);
 		add(jSplitPanel);
-		add(inforPane);
+		add(inforPanel);
+		add(bottomPanel);
 
 	}
 
@@ -147,13 +151,14 @@ public class FunctionGUI extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == businessEvents){
-					logPane();
+					inforPanel.add(new BusinessEventsPane(gui));
 				}
 			}
 		});
-		exit.addActionListener(new ActionListener() {
+		
+		logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				System.exit(0);	// if button Exit is clicked, the frame will be closed
+				System.exit(0);	// if button exit is clicked, the frame will be closed
 			}
 		});
 	}
@@ -165,19 +170,5 @@ public class FunctionGUI extends Panel{
 		scroll.setBounds(200, 200, 200, 200);	
 		displayPane.add ( scroll );
 	}
-//	public void mailDeliveryPane(){
-//	    String[] distributionCentres = { "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-//	    		"Wellington", "Christchurch","Dunedin"};
-//	    comboBox = new JComboBox(distributionCentres);
-//	    comboBox.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				origin = (String) ((JComboBox)e.getSource()).getSelectedItem();
-//				System.out.println(origin);
-//			}
-//		});
-	   // distributionCentreList.setSelectedIndex(1);
-//	    displayPane.add ( comboBox);
-//		System.out.println("bbb");
-//
-//	}
+
 }
