@@ -28,8 +28,28 @@ public class SaveXML {
 
 			// root elements
 			Document doc = docBuilder.newDocument();
-			Element rootElement = doc.createElement("company");
+
+			Element rootElement = doc.createElement("business events");
 			doc.appendChild(rootElement);
+
+
+			for(BusinessEvent event: events){
+				if(event instanceof CustomerPriceChange){
+					saveCustomerPriceChange();
+				}
+				else if (event instanceof OpenNewRoute){
+					saveOpenNewRoute();
+				}
+				else if (event instanceof DeleteRoute){
+					saveDeleteRoute();
+				}
+				else if (event instanceof TransportUpdate){
+					saveTransportUpdate();
+				}
+				else if (event instanceof MailDelivery){
+					saveMailDelivery();
+				}
+			}
 
 			// staff elements
 			Element staff = doc.createElement("Staff");
@@ -85,6 +105,31 @@ public class SaveXML {
 
 
 
+
+	}
+
+	private void saveMailDelivery() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void saveTransportUpdate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void saveDeleteRoute() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void saveOpenNewRoute() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void saveCustomerPriceChange() {
+		// TODO Auto-generated method stub
 
 	}
 
