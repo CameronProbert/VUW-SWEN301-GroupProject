@@ -26,4 +26,20 @@ public class CustomerPriceChange extends BusinessEvent {
 		newPricePerVolume = i;
 	}
 
+	public int getOldPricePerGram() {
+		return oldPricePerGram;
+	}
+
+	public int getNewPricePerGram() {
+		return newPricePerGram;
+	}
+
+	public int getOldPricePerVolume() {
+		return oldPricePerVolume;
+	}
+
+	public int getNewPricePerVolume() {
+		return newPricePerVolume;
+	}
+
 }
