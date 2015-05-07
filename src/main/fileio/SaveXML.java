@@ -55,36 +55,6 @@ public class SaveXML {
 				}
 			}
 
-
-
-			// set attribute to staff element
-			Attr attr = doc.createAttribute("id");
-			attr.setValue("1");
-			//staff.setAttributeNode(attr);
-
-			// shorten way
-			// staff.setAttribute("id", "1");
-
-			// firstname elements
-			Element firstname = doc.createElement("firstname");
-			firstname.appendChild(doc.createTextNode("yong"));
-			//staff.appendChild(firstname);
-
-			// lastname elements
-			Element lastname = doc.createElement("lastname");
-			lastname.appendChild(doc.createTextNode("mook kim"));
-			//staff.appendChild(lastname);
-
-			// nickname elements
-			Element nickname = doc.createElement("nickname");
-			nickname.appendChild(doc.createTextNode("mkyong"));
-			//staff.appendChild(nickname);
-
-			// salary elements
-			Element salary = doc.createElement("salary");
-			salary.appendChild(doc.createTextNode("100000"));
-			//staff.appendChild(salary);
-
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -112,7 +82,7 @@ public class SaveXML {
 
 	private void saveMailDelivery(MailDelivery event) {
 		// staff elements
-		Element mail = doc.createElement("Staff");
+		Element mail = doc.createElement("Mail Delivery");
 		rootElement.appendChild(mail);
 
 		saveRoute(event, mail);
@@ -145,30 +115,87 @@ public class SaveXML {
 		timeTaken.appendChild(doc.createTextNode(String.valueOf(event.getTimeTaken())));
 		mail.appendChild(timeTaken);
 
+		// TODO also need to get whether it has been received or not
 
 	}
 
 	private void saveTransportUpdate(TransportUpdate event) {
-		// TODO Auto-generated method stub
+		Element transport = doc.createElement("Transport Update");
+		rootElement.appendChild(transport);
+
+		saveRoute(event, transport);
+
+		Element oldPPGram = doc.createElement("old price/gram");
+		oldPPGram.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerGram())));
+		transport.appendChild(oldPPGram);
+
+		Element newPPGram = doc.createElement("new price/gram");
+		newPPGram.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerGram())));
+		transport.appendChild(newPPGram);
+
+		Element oldPPVolume = doc.createElement("old price/volume");
+		oldPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerVolume())));
+		transport.appendChild(oldPPVolume);
+
+		Element newPPVolume = doc.createElement("new price/volume");
+		newPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerVolume())));
+		transport.appendChild(newPPVolume);
 
 	}
 
 	private void saveDeleteRoute(DeleteRoute event) {
-		// TODO Auto-generated method stub
+		Element delete = doc.createElement("Delete Route");
+		rootElement.appendChild(delete);
 
+		saveRoute(event, delete);
 	}
 
 	private void saveOpenNewRoute(OpenNewRoute event) {
-		// TODO Auto-generated method stub
+		Element save = doc.createElement("Save Route");
+		rootElement.appendChild(save);
+
+		saveRoute(event, save);
 
 	}
 
 	private void saveCustomerPriceChange(CustomerPriceChange event) {
-		// TODO Auto-generated method stub
+		Element change = doc.createElement("Customer Price Change");
+		rootElement.appendChild(change);
+
+		saveRoute(event, change);
+
+		Element oldPPGram = doc.createElement("old price/gram");
+		oldPPGram.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerGram())));
+		change.appendChild(oldPPGram);
+
+		Element newPPGram = doc.createElement("new price/gram");
+		newPPGram.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerGram())));
+		change.appendChild(newPPGram);
+
+		Element oldPPVolume = doc.createElement("old price/volume");
+		oldPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerVolume())));
+		change.appendChild(oldPPVolume);
+
+		Element newPPVolume = doc.createElement("new price/volume");
+		newPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerVolume())));
+		change.appendChild(newPPVolume);
 
 	}
 
 	private void saveRoute(BusinessEvent event, Element elm){
+
+		Element route = doc.createElement("route");
+		elm.appendChild(route);
+
+		Element origin = doc.createElement("origin");
+		//origin.appendChild(doc.createTextNode(event.getRoute().getOrigin()));
+		route.appendChild(origin);
+
+		Element destination = doc.createElement("destination");
+		//destination.appendChild(doc.createTextNode(event.getRoute().getDestination()));
+		route.appendChild(destination);
+
+
 
 	}
 
