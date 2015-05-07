@@ -76,7 +76,7 @@ public class Monitor {
 	}
 
 	/**
-	 * Makes a new user and logs them in
+	 * Makes a new user
 	 * 
 	 * @param id
 	 * @param password
@@ -92,6 +92,7 @@ public class Monitor {
 			System.out.println("Password: " + password);
 		}
 		return validUser;
+		//TODO possibly log the user in
 	}
 
 	/**
