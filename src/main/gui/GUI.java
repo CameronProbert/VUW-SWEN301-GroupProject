@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
@@ -26,14 +27,14 @@ public class GUI {
 	// the dimension of the frame
 	private static int width = 900;
 	private static int height = 770;
-	
+
 	// textFields on all panels
 	private JTextField usernameTextF;
-	private JTextField passwordTextF;
+	private JPasswordField passwordTextF;
 
 	public String username;	// the entered name of the player in multiple-player mode
 	public String password;
-	
+
 	public GUI() {
 		setUp();
 	}
@@ -42,7 +43,7 @@ public class GUI {
 		frame = new JFrame();
 		frame.setTitle("KPSmart System");
 		frame.getRootPane().setBackground(new Color(141, 174, 240));
-//		frame.getRootPane().setBackground(new Color(115, 129, 240));		
+//		frame.getRootPane().setBackground(new Color(115, 129, 240));
 		frame.setSize(width, height);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
@@ -58,55 +59,55 @@ public class GUI {
 		frame.setVisible( true );
 
 		usernameTextF = new JTextField(18);
-		passwordTextF = new JTextField(18);
-		
+		passwordTextF = new JPasswordField(18);
+
 		LoginGUI loginGUI = new LoginGUI(this);
 		addPanel(loginGUI);
 	}
-	
+
 	protected void addPanel(Panel panel){
 		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
 		frame.repaint();
 	}
-	
+
 	protected void removePanel(Panel panel){
 		layeredPane.remove(panel);
 		frame.repaint();
 	}
-	
+
 	protected void addBGPanel(Panel panel){
 		layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
 	}
-	
+
 	protected Panel getBackgroundPanel(){
 		return backgroundPanel;
 	}
-	
+
 	protected Panel getBackgroundBlank(){
 		return backgroundBlank;
 	}
-	
+
 	public JTextField getUsername() {
 		return usernameTextF;
 	}
-	
-	public JTextField getPassword() {
+
+	public JPasswordField getPassword() {
 		return passwordTextF;
 	}
-	
+
 	public void setUsername(String text) {
 		username = text;
 	}
-	
+
 	public void setPassword(String text) {
 		password = text;
 	}
-	
 
-	
-	
-	
-	
+
+
+
+
+
 	public static int getWidth() {
 		return width;
 	}

@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,11 +23,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
 public class LoginGUI extends Panel{
 
@@ -33,12 +35,13 @@ public class LoginGUI extends Panel{
 	private JButton quit;
 	private JButton login;
 	private String loginType;
-	
+
 	private  JComboBox comboBoxPriority;
 
 	public LoginGUI(GUI gui) {
 		super(gui);
-		setBounds(200, 370, 400, 350);	
+		setBounds(200, 370, 400, 350);
+		loginType = "Clerk";
 	}
 
 	@Override
@@ -68,17 +71,14 @@ public class LoginGUI extends Panel{
 		gui.getPassword().setForeground(new Color(130, 130, 130));
 		gui.getPassword().setBackground(new Color(50, 50, 50));
 		gui.getPassword().setBorder(null);
-
-
-
-
+		gui.getPassword().setEchoChar((char)0);
 
 		String[] priorityList = {"Clerk", "Manager"};
 		comboBoxPriority = new JComboBox(priorityList);
 		//comboBoxPriority.setPreferredSize(new Dimension(315, 50));
 		comboBoxPriority.setFont(new Font("Arial", Font.PLAIN, 20));
 		comboBoxPriority.setRenderer(new CustomComboBox());
-		
+
 
 
 		comboBoxPriority.addActionListener(new ActionListener() {
@@ -130,20 +130,20 @@ public class LoginGUI extends Panel{
 						//						gui.setStrServerNameC(gui.getServerNameC().getText());
 						//						if(isIPAdd(gui.getStrServerNameC())){
 						//							gui.removePanel(JoinServerPanel.this);
-						//							gui.removePanel(gui.getBackgroundPanel());					
+						//							gui.removePanel(gui.getBackgroundPanel());
 						//							gui.startGame2();
 						//						}
 						System.out.println("username: " + gui.getUsername().getText());
 						System.out.println("password: " + gui.getPassword().getText());
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
-						gui.addPanel(new FunctionGUI(gui, loginType));		
 						gui.addBGPanel(gui.getBackgroundBlank());
+						gui.addPanel(new FunctionGUI(gui, loginType));
 					}}}
 		});
 
 		quit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
 				System.exit(0);	// if button exit is clicked, the frame will be closed
 			}
 		});
@@ -161,36 +161,31 @@ public class LoginGUI extends Panel{
 			public void mouseClicked(MouseEvent e) {
 				if (gui.getPassword().getText().equals("Password")){
 					gui.getPassword().setText("");
+					gui.getPassword().setForeground(new Color(255, 255, 255));
 				}
 			}
 		});
 
-		gui.getPassword().getDocument().addDocumentListener(new DocumentListener() {
-			public void changedUpdate(DocumentEvent e) {
-				changeColor();
+		gui.getPassword().addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				if (gui.getPassword().getText().equals("Password")){
+					gui.getPassword().setText("");
+					gui.getPassword().setEchoChar('*');
+					gui.getPassword().setForeground(new Color(255, 255, 255));
+				}
 			}
 
-			public void insertUpdate(DocumentEvent e) {
-				changeColor();
-			}
+			public void focusLost(FocusEvent e) {}
+        });
 
-			public void removeUpdate(DocumentEvent e) {
-				changeColor();
-			}
-
-			public void changeColor() {
-				gui.getPassword().setForeground(new Color(255, 255, 255));
-			}
-		});
 	}
 
 	static class CustomComboBox extends JLabel implements ListCellRenderer {
-		@Override
 		public Component getListCellRendererComponent(
-				JList list, 
-				Object value, 
-				int index, 
-				boolean isSelected, 
+				JList list,
+				Object value,
+				int index,
+				boolean isSelected,
 				boolean cellHasFocus) {
 
 			JLabel label = new JLabel(){
@@ -202,5 +197,5 @@ public class LoginGUI extends Panel{
 
 			return label;
 		}
-	}  
+	}
 }
