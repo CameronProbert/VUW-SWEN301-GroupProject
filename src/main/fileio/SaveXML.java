@@ -193,27 +193,27 @@ public class SaveXML {
 			elm.appendChild(route);
 
 			Element origin = doc.createElement("origin");
-			//origin.appendChild(doc.createTextNode(event.getRoute().getOrigin()));
+			origin.appendChild(doc.createTextNode(r.getOrigin().toString()));
 			route.appendChild(origin);
 
 			Element destination = doc.createElement("destination");
-			//destination.appendChild(doc.createTextNode(event.getRoute().getDestination()));
+			destination.appendChild(doc.createTextNode(r.getDestination().toString()));
 			route.appendChild(destination);
 
 			Element transportType = doc.createElement("Transport Type");
-			//transportType.appendChild(doc.createTextNode(event.getRoute().getTransportType()));
+			//transportType.appendChild(doc.createTextNode(r.getTransportType()));
 			route.appendChild(transportType);
 
 			Element averageTime = doc.createElement("Average Time");
-			//averageTime.appendChild(doc.createTextNode(event.getRoute().getAverageTime()));
+			averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
 			route.appendChild(averageTime);
 
 			Element firmName = doc.createElement("Firm Name");
-			//firmName.appendChild(doc.createTextNode(event.getRoute().getFirmName()));
+			firmName.appendChild(doc.createTextNode(r.getTransportFirm()));
 			route.appendChild(firmName);
 
 			Element gramTransport = doc.createElement("Cost/gram for transport");
-			//gramTransport.appendChild(doc.createTextNode(event.getRoute().getPricePerGramTransport()));
+			gramTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramTransport())));
 			route.appendChild(gramTransport);
 
 			Element volumeTransport = doc.createElement("Cost/volume for transport");
