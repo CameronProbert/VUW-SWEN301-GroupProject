@@ -41,7 +41,7 @@ public class RouteTests {
 		assertFalse(checkArraysEqual(savedDays, actualDays));
 		savedDays = route.getDays().toArray(
 				new DaysOfWeek[route.getDays().size()]);
-		actualDays = new DaysOfWeek[]{ DaysOfWeek.Friday, DaysOfWeek.Tuesday };
+		actualDays = new DaysOfWeek[] { DaysOfWeek.Friday, DaysOfWeek.Tuesday };
 		assertTrue(checkArraysEqual(savedDays, actualDays));
 	}
 
@@ -145,10 +145,15 @@ public class RouteTests {
 		double pricePerVolumeCustomer = 0.2;
 		double departureFrequency = 4;
 		DaysOfWeek[] days = { DaysOfWeek.Friday };
-		return new Route(origin, destination, transportFirm, transportType,
-				pricePerGramTransport, pricePerVolumeTransport,
-				pricePerGramCustomer, pricePerVolumeCustomer,
-				departureFrequency, days);
+		try {
+			return new Route(origin, destination, transportFirm, transportType,
+					pricePerGramTransport, pricePerVolumeTransport,
+					pricePerGramCustomer, pricePerVolumeCustomer,
+					departureFrequency, days);
+		} catch (NoDaysToShipException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -168,10 +173,15 @@ public class RouteTests {
 		double departureFrequency = 8;
 		DaysOfWeek[] days = { DaysOfWeek.Monday, DaysOfWeek.Wednesday,
 				DaysOfWeek.Saturday };
-		return new Route(origin, destination, transportFirm, transportType,
-				pricePerGramTransport, pricePerVolumeTransport,
-				pricePerGramCustomer, pricePerVolumeCustomer,
-				departureFrequency, days);
+		try {
+			return new Route(origin, destination, transportFirm, transportType,
+					pricePerGramTransport, pricePerVolumeTransport,
+					pricePerGramCustomer, pricePerVolumeCustomer,
+					departureFrequency, days);
+		} catch (NoDaysToShipException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {

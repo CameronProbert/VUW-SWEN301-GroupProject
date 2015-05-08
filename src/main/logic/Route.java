@@ -49,12 +49,16 @@ public class Route {
 	 * @param pricePerVolumeTransport
 	 * @param pricePerGramCustomer
 	 * @param pricePerVolumeCustomer
+	 * @throws NoDaysToShipException
 	 */
 	public Route(Location origin, Location destination, String transportFirm,
 			TransportType transportType, double pricePerGramTransport,
 			double pricePerVolumeTransport, double pricePerGramCustomer,
 			double pricePerVolumeCustomer, double departureFrequency,
-			DaysOfWeek... days) {
+			DaysOfWeek... days) throws NoDaysToShipException {
+		if (days.length == 0) {
+			throw new NoDaysToShipException();
+		}
 		this.origin = origin;
 		this.destination = destination;
 		this.transportFirm = transportFirm;
@@ -102,6 +106,7 @@ public class Route {
 
 	/**
 	 * Returns the origin location
+	 * 
 	 * @return
 	 */
 	public Location getOrigin() {
@@ -110,6 +115,7 @@ public class Route {
 
 	/**
 	 * Returns the destination location
+	 * 
 	 * @return
 	 */
 	public Location getDestination() {
@@ -138,6 +144,7 @@ public class Route {
 
 	/**
 	 * Returns the price customers pay for volume
+	 * 
 	 * @return
 	 */
 	public double getPricePerVolumeCustomer() {
@@ -146,6 +153,7 @@ public class Route {
 
 	/**
 	 * Returns how often the route runs on days that it does run
+	 * 
 	 * @return
 	 */
 	public double getDepartureFrequency() {
@@ -154,6 +162,7 @@ public class Route {
 
 	/**
 	 * Return the transport types
+	 * 
 	 * @return
 	 */
 	public TransportType getTransportType() {
@@ -166,6 +175,7 @@ public class Route {
 
 	/**
 	 * Sets the price per gram we pay the transport company
+	 * 
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerGramTransport(double pricePerGramTransport) {
@@ -174,6 +184,7 @@ public class Route {
 
 	/**
 	 * Sets the price per volume we pay the transport company
+	 * 
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerVolumeTransport(double pricePerVolumeTransport) {
@@ -182,6 +193,7 @@ public class Route {
 
 	/**
 	 * Sets the price per gram the customer pays
+	 * 
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerGramCustomer(double pricePerGramCustomer) {
@@ -190,6 +202,7 @@ public class Route {
 
 	/**
 	 * Sets the price per volume the customer pays
+	 * 
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerVolumeCustomer(double pricePerVolumeCustomer) {
@@ -241,5 +254,76 @@ public class Route {
 		builder.append(departureFrequency);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	/**
+	 * Returns whether this route is equal to the given object
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Route)) {
+			return false;
+		}
+		Route other = (Route) obj;
+		if (averageTimeToDeliver == null) {
+			if (other.averageTimeToDeliver != null) {
+				return false;
+			}
+		} else if (!averageTimeToDeliver.equals(other.averageTimeToDeliver)) {
+			return false;
+		}
+		if (days == null) {
+			if (other.days != null) {
+				return false;
+			}
+		} else if (!days.equals(other.days)) {
+			return false;
+		}
+		if (departureFrequency != other.departureFrequency) {
+			return false;
+		}
+		if (destination == null) {
+			if (other.destination != null) {
+				return false;
+			}
+		} else if (!destination.equals(other.destination)) {
+			return false;
+		}
+		if (origin == null) {
+			if (other.origin != null) {
+				return false;
+			}
+		} else if (!origin.equals(other.origin)) {
+			return false;
+		}
+		if (pricePerGramCustomer != other.pricePerGramCustomer) {
+			return false;
+		}
+		if (pricePerGramTransport != other.pricePerGramTransport) {
+			return false;
+		}
+		if (pricePerVolumeCustomer != other.pricePerVolumeCustomer) {
+			return false;
+		}
+		if (pricePerVolumeTransport != other.pricePerVolumeTransport) {
+			return false;
+		}
+		if (transportFirm == null) {
+			if (other.transportFirm != null) {
+				return false;
+			}
+		} else if (!transportFirm.equals(other.transportFirm)) {
+			return false;
+		}
+		if (transportType != other.transportType) {
+			return false;
+		}
+		return true;
 	}
 }
