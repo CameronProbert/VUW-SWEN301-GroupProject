@@ -36,7 +36,7 @@ public class TransportCostUpdatePane extends Panel{
 
 	// buttons on the panel
 	private int count = 0;
-	private String location = "";
+	private String selected = "";
 	private String origin = "";
 	private String destination = "";
 	private String priority = "";
@@ -48,12 +48,13 @@ public class TransportCostUpdatePane extends Panel{
 	private static JTextField textTPNewPricePerGram;
 	private static JTextField textTPNewCostPerCubic;
 	private static JTextField textTransportFirm;
-	
+	private static boolean updateButtonClicked = false;
 	private JButton reset;
 	private JButton update;
 
 	public TransportCostUpdatePane(GUI gui) {
 		super(gui);
+		updateButtonClicked = false;
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
 	}
 
@@ -69,17 +70,17 @@ public class TransportCostUpdatePane extends Panel{
 		String[] TransportDateList = {"Monday", "Tuesday","Wednessday","Thursday","Friday","Saturday","Sunday"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin);
-		origin = location;
+		origin = selected;
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxDestination);
-		destination = location;
+		destination = selected;
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		textTransportFirm = new JTextField(20);
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
 		comboBoxListenner(comboBoxTransportTpye);
-		transportType = location;
+		transportType = selected;
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
 		textTPNewPricePerGram = new JTextField(10);
 		JLabel labelNewCostPerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
@@ -87,7 +88,7 @@ public class TransportCostUpdatePane extends Panel{
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
 		comboBoxListenner(comboBoxPriority);
-		priority = location;
+		priority = selected;
 		reset = new JButton("Reset");
 		update = new JButton("Update");
 		add(labelComboOrigin);
@@ -107,19 +108,62 @@ public class TransportCostUpdatePane extends Panel{
 		add(reset);
 		add(update);
 
-//		add(textField);
-		System.out.println("22222222222222");
 	}
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				location = (String) ((JComboBox)e.getSource()).getSelectedItem();
-				System.out.println(location);
+				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
 			}
 		});
 	}
 	@Override
 	protected void addListenner() {
+		update.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == update){
+					updateButtonClicked = true;
+				}
+			}
+		});
 	}
+
+	public String getTPCOrigin() {
+		return origin;
+	}
+
+	public String getTPCDestination() {
+		return destination;
+	}
+
+	public String getTPCPriority() {
+		return priority;
+	}
+
+	public String getTPCType() {
+		return transportType;
+	}
+
+	public static String getTPCNewPricePerGram() {
+		return textTPNewPricePerGram.getText();
+	}
+
+	public static String getTPCNewCostPerCubic() {
+		return textTPNewCostPerCubic.getText();
+	}
+
+	public static String getTPCFirm() {
+		return textTransportFirm.getText();
+	}
+	public static boolean updateClicked(){
+		if(updateButtonClicked==true){
+			return true;
+		}
+		return false;
+	}
+	
 }

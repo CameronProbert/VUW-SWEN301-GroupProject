@@ -36,7 +36,7 @@ public class TransportDiscontinuedPane extends Panel{
 
 	// buttons on the panel
 	private int count = 0;
-	private String location = "";
+	private String selected = "";
 	private String origin = "";
 	private String destination = "";
 	private String priority = "";
@@ -65,17 +65,17 @@ public class TransportDiscontinuedPane extends Panel{
 		String[] TransportTpyeList = {"Land", "Sea","Air"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin);
-		origin = location;
+		origin = selected;
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxDestination);
-		destination = location;
+		destination = selected;
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		textTransportFirm = new JTextField(20);
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
 		comboBoxListenner(comboBoxTransportTpye);
-		transportType = location;
+		transportType = selected;
 		
 		reset = new JButton("Reset");
 		update = new JButton("Update");
@@ -94,8 +94,8 @@ public class TransportDiscontinuedPane extends Panel{
 		comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				location = (String) ((JComboBox)e.getSource()).getSelectedItem();
-				System.out.println(location);
+				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
+				System.out.println(selected);
 			}
 		});
 	}

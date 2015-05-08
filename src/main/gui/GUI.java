@@ -21,6 +21,7 @@ public class GUI {
 	private JFrame frame;	// this is the frame the KPSmart system will be shown on
 	private JLayeredPane layeredPane;	// this is used to add panel onto the frame
 	private Panel backgroundPanel;
+	private Panel backgroundBlank;
 
 	// the dimension of the frame
 	private static int width = 900;
@@ -48,8 +49,9 @@ public class GUI {
 
 		// add the background image to frame
 		layeredPane = new JLayeredPane();
-//		backgroundPanel = new BackgroundPanel(this);
-//		layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
+		backgroundPanel = new BackgroundPanel(this);
+		backgroundBlank = new BackgroundBlank(this);
+		addBGPanel(backgroundPanel);
 
 		frame.setLayeredPane(layeredPane);
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -72,8 +74,16 @@ public class GUI {
 		frame.repaint();
 	}
 	
+	protected void addBGPanel(Panel panel){
+		layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+	}
+	
 	protected Panel getBackgroundPanel(){
 		return backgroundPanel;
+	}
+	
+	protected Panel getBackgroundBlank(){
+		return backgroundBlank;
 	}
 	
 	public JTextField getUsername() {
@@ -91,6 +101,8 @@ public class GUI {
 	public void setPassword(String text) {
 		password = text;
 	}
+	
+
 	
 	
 	

@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -44,40 +46,53 @@ public class FunctionGUI extends Panel{
 	private JPanel displayPane;
 	private JPanel buttonPane;
 	private JPanel inforPanel;
-	private int count = 0;
-	private String origin = "";
-	private String destination = "";
     private static JComboBox comboBox;
-	private JButton reset;
-	private JButton login;
 	private JSplitPane jSplitPanel;
-	public FunctionGUI(GUI gui) {
+	private String loginType = "";
+	public FunctionGUI(GUI gui, String loginType) {
 		super(gui);
+		this.loginType = loginType;
 		setBounds(0, 0, gui.getWidth(), gui.getHeight());	
 	}
 
 	@Override
 	protected void setUpComponents() {
 		JPanel titlePanel = new JPanel(new BorderLayout());
+		addImage("image/topImage.jpg", titlePanel, 60);
 		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
 		JPanel bottomPanel = new JPanel(new BorderLayout());
+		addImage("image/bottomImage.jpg", bottomPanel, 60);
 		bottomPanel.setPreferredSize(new Dimension(gui.getWidth(),60));
 		jSplitPanel = new JSplitPane();
+
 		displayPane = new JPanel(new BorderLayout());
-		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "Display Area" ) );
+		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "" ) );
 		displayPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane = new JPanel(new BorderLayout()); // 
 		buttonPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
 		inforPanel = new JPanel(new BorderLayout());
+		//inforPanel.setOpaque(false);
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
+		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
+		//TODO: find a way to set the width of the button 
+		mailDelivery = new JButton("Mail Delivery                        ");
+		customerPriceUpdate = new JButton("Customer Price Update    ");
+		transportCostUpdate = new JButton("Transport Cost Update      ");
+		transportDiscontinued = new JButton("Transport Discontinued    ");
+		businessEvents = new JButton("Business Events                 ");
+		logOut = new JButton("Log Out                                  ");
+		//logOut.setBounds(0, 300, 200, 30);
+		//logOut.setPreferredSize(new Dimension(300,40));
+		mailDelivery.setBackground(Color.white);
+		customerPriceUpdate.setBackground(Color.white);
+		transportCostUpdate.setBackground(Color.white);
+		transportDiscontinued.setBackground(Color.white);
+		businessEvents.setBackground(Color.white);
+		logOut.setBackground(Color.white);
 
-		mailDelivery = new JButton("Mail Delivery");
-		customerPriceUpdate = new JButton("Customer Price Update");
-		transportCostUpdate = new JButton("Transport Cost Update");
-		transportDiscontinued = new JButton("Transport Discontinued");
-		businessEvents = new JButton("Business Events");
-		logOut = new JButton("Log Out");
+		//logOut.setSize(200, 30);
+		
 		buttonPane.add(mailDelivery);
 		buttonPane.add(customerPriceUpdate);
 		buttonPane.add(transportCostUpdate);
@@ -86,12 +101,21 @@ public class FunctionGUI extends Panel{
 		buttonPane.add(logOut);
 		jSplitPanel.add(buttonPane, JSplitPane.LEFT);
 		jSplitPanel.add(displayPane, JSplitPane.RIGHT);
+
 		//jSplitPanel.add(inforPane, JSplitPane.RIGHT);
 		add(titlePanel);
 		add(jSplitPanel);
 		add(inforPanel);
 		add(bottomPanel);
 
+	}
+
+	private void addImage(String iamgeAdd, JPanel panel, int height) {
+		// TODO Auto-generated method stub
+		ImageIcon topImage = new ImageIcon(iamgeAdd);		
+		Image scaledImage = topImage.getImage().getScaledInstance(900,height,Image.SCALE_SMOOTH);
+		JLabel jl = new JLabel(new ImageIcon(scaledImage));
+		panel.add(jl);
 	}
 
 	@Override
@@ -151,14 +175,21 @@ public class FunctionGUI extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == businessEvents){
-					inforPanel.add(new BusinessEventsPane(gui));
+					if(loginType.equals("Manager")){
+						inforPanel.add(new BusinessEventsPane(gui));
+					}
 				}
 			}
 		});
-		
+		final Panel p =  this; 
 		logOut.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {	
-				System.exit(0);	// if button exit is clicked, the frame will be closed
+				gui.removePanel(p);
+				gui.removePanel(gui.getBackgroundBlank());
+				gui.addBGPanel(gui.getBackgroundPanel());
+				gui.addPanel(new LoginGUI(gui));
+				
 			}
 		});
 	}
