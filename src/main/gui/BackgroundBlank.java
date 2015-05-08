@@ -21,7 +21,7 @@ public class BackgroundBlank extends Panel{
 
 	@Override
 	protected void setUpComponents() {
-		background = new ImageIcon("bgBlank.jpg");
+		background = new ImageIcon("image/bgBlank.jpg");
 		Image scaledImage = background.getImage().getScaledInstance(900, 770, Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		add(jl);

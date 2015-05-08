@@ -21,7 +21,7 @@ public class BackgroundPanel extends Panel{
 
 	@Override
 	protected void setUpComponents() {
-		background = new ImageIcon("bgLogin.jpg");
+		background = new ImageIcon("image/bgLogin.jpg");
 		Image scaledImage = background.getImage().getScaledInstance(900, 770, Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		add(jl);

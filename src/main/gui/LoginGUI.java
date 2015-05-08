@@ -138,7 +138,7 @@ public class LoginGUI extends Panel{
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
 						gui.addPanel(new FunctionGUI(gui, loginType));		
-						gui.addBGPanel(new BackgroundBlank(gui));
+						gui.addBGPanel(gui.getBackgroundBlank());
 					}}}
 		});
 
