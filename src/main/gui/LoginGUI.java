@@ -32,7 +32,8 @@ public class LoginGUI extends Panel{
 	// buttons on the panel
 	private JButton quit;
 	private JButton login;
-
+	private String loginType;
+	
 	private  JComboBox comboBoxPriority;
 
 	public LoginGUI(GUI gui) {
@@ -75,14 +76,15 @@ public class LoginGUI extends Panel{
 		String[] priorityList = {"Clerk", "Manager"};
 		comboBoxPriority = new JComboBox(priorityList);
 		//comboBoxPriority.setPreferredSize(new Dimension(315, 50));
+		comboBoxPriority.setFont(new Font("Arial", Font.PLAIN, 20));
 		comboBoxPriority.setRenderer(new CustomComboBox());
-
+		
 
 
 		comboBoxPriority.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println((String) ((JComboBox)e.getSource()).getSelectedItem());
+				loginType = (String) ((JComboBox)e.getSource()).getSelectedItem();
 			}
 		});
 
@@ -135,7 +137,7 @@ public class LoginGUI extends Panel{
 						System.out.println("password: " + gui.getPassword().getText());
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
-						gui.addPanel(new FunctionGUI(gui));		
+						gui.addPanel(new FunctionGUI(gui, loginType));		
 						gui.addBGPanel(new BackgroundBlank(gui));
 					}}}
 		});
@@ -181,7 +183,6 @@ public class LoginGUI extends Panel{
 			}
 		});
 	}
-
 
 	static class CustomComboBox extends JLabel implements ListCellRenderer {
 
