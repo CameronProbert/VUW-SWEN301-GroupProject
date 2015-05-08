@@ -38,7 +38,7 @@ public class MailDeliveryPane extends Panel{
 
 	// buttons on the panel
 	private int count = 0;
-	private String location = "";
+	private String selected = "";
 	private String origin = "";
 	private String destination = "";
 	private String priority = "";
@@ -67,11 +67,11 @@ public class MailDeliveryPane extends Panel{
 		String[] priorityList = {"Standard", "Air"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin);
-		origin = location;
+		origin = selected;
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxDestination);
-		destination = location;
+		destination = selected;
 		// Textfield
 		JLabel labelWeight= new JLabel("Weight", SwingConstants.CENTER);
 		textWeight = new JTextField(10);
@@ -80,7 +80,7 @@ public class MailDeliveryPane extends Panel{
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
 		comboBoxListenner(comboBoxPriority);
-		priority = location;
+		priority = selected;
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		reset = new JButton("Reset");
@@ -103,12 +103,13 @@ public class MailDeliveryPane extends Panel{
 		add(add);
 
 	}
+	
+
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				location = (String) ((JComboBox)e.getSource()).getSelectedItem();
-				System.out.println(location);
+				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
 			}
 		});
 	}
@@ -127,5 +128,28 @@ public class MailDeliveryPane extends Panel{
 			}
 		});
 
+	}
+	public String getMDOrigin() {
+		return origin;
+	}
+
+	public String getMDDestination() {
+		return destination;
+	}
+
+	public String getMDPriority() {
+		return priority;
+	}
+
+	public static JTextField getMDTextWeight() {
+		return textWeight;
+	}
+
+	public static JTextField getMDTextVolume() {
+		return textVolume;
+	}
+
+	public static JTextField getMDTextTime() {
+		return textTime;
 	}
 }
