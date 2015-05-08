@@ -186,6 +186,8 @@ public class FunctionGUI extends Panel{
 			
 			public void actionPerformed(ActionEvent e) {	
 				gui.removePanel(p);
+				gui.removePanel(gui.getBackgroundBlank());
+				gui.addBGPanel(gui.getBackgroundPanel());
 				gui.addPanel(new LoginGUI(gui));
 				
 			}

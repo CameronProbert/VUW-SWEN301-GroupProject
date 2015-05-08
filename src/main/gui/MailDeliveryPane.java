@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -49,6 +50,7 @@ public class MailDeliveryPane extends Panel{
 	private static JTextField textTime;
 	private JButton reset;
 	private JButton add;
+	private JButton setDate;
 
 	public MailDeliveryPane(GUI gui) {
 		super(gui);
@@ -62,7 +64,7 @@ public class MailDeliveryPane extends Panel{
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
 				"Wellington", "Christchurch","Dunedin"};
-		String[] priorityList = {"", "Air","Standard"};
+		String[] priorityList = {"Standard", "Air"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin);
 		origin = location;
@@ -83,6 +85,7 @@ public class MailDeliveryPane extends Panel{
 		textTime = new JTextField(20);
 		reset = new JButton("Reset");
 		add = new JButton("Add");
+		setDate = new JButton("Set Date and Time");
 		add(labelComboOrigin);
 		add(comboBoxOrigin);
 		add(labelComboDestination);
@@ -95,6 +98,7 @@ public class MailDeliveryPane extends Panel{
 		add(comboBoxPriority);
 		add(labelCurrentTime);
 		add(textTime);
+		add(setDate);
 		add(reset);
 		add(add);
 
@@ -110,13 +114,18 @@ public class MailDeliveryPane extends Panel{
 	}
 	@Override
 	protected void addListenner() {
-		
-		textTime.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {	
-				System.out.println("aaaa");
-				Date currentDate = new Date();
-				textTime.setText(currentDate.toString());			}
+		setDate.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == setDate){
+					Date currentDate = new Date();
+					textTime.setText(currentDate.toString());	
+				}
+			}
 		});
+
 	}
 }
