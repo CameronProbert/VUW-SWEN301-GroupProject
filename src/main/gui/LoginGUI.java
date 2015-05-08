@@ -71,10 +71,7 @@ public class LoginGUI extends Panel{
 		gui.getPassword().setForeground(new Color(130, 130, 130));
 		gui.getPassword().setBackground(new Color(50, 50, 50));
 		gui.getPassword().setBorder(null);
-
-
-
-
+		gui.getPassword().setEchoChar((char)0);
 
 		String[] priorityList = {"Clerk", "Manager"};
 		comboBoxPriority = new JComboBox(priorityList);
@@ -173,6 +170,7 @@ public class LoginGUI extends Panel{
 			public void focusGained(FocusEvent e) {
 				if (gui.getPassword().getText().equals("Password")){
 					gui.getPassword().setText("");
+					gui.getPassword().setEchoChar('*');
 					gui.getPassword().setForeground(new Color(255, 255, 255));
 				}
 			}
