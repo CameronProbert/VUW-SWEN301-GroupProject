@@ -185,7 +185,6 @@ public class LoginGUI extends Panel{
 	}
 
 	static class CustomComboBox extends JLabel implements ListCellRenderer {
-
 		@Override
 		public Component getListCellRendererComponent(
 				JList list, 
