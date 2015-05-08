@@ -48,8 +48,8 @@ public class GUI {
 
 		// add the background image to frame
 		layeredPane = new JLayeredPane();
-//		backgroundPanel = new BackgroundPanel(this);
-//		layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
+		backgroundPanel = new BackgroundPanel(this);
+		layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
 
 		frame.setLayeredPane(layeredPane);
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
