@@ -107,12 +107,12 @@ public class LoginGUI extends Panel{
 		
 		
 		add(comboBoxPriority);
-		add(new JLabel("Hello"), BorderLayout.CENTER);
+		add(new JLabel(), BorderLayout.CENTER);
 		
 		
-		setButtonStyle(logout, 137, Color.RED);
+		setButtonStyle(logout, 125, new Color(255,165,0));
 		add(space3);
-		setButtonStyle(login, 137, Color.GREEN);
+		setButtonStyle(login, 125, new Color(30,144,255));
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class LoginGUI extends Panel{
 
 	            JLabel label = new JLabel(){
 	                public Dimension getPreferredSize(){
-	                    return new Dimension(200, 100);
+	                    return new Dimension(258, 50);
 	                }
 	            };
 	            label.setText(String.valueOf(value));
