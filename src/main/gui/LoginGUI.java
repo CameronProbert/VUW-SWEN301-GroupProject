@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
@@ -29,11 +30,11 @@ import javax.swing.event.DocumentListener;
 public class LoginGUI extends Panel{
 
 	// buttons on the panel
-	private JButton logout;
+	private JButton quit;
 	private JButton login;
 
 	private  JComboBox comboBoxPriority;
-	
+
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);	
@@ -67,28 +68,28 @@ public class LoginGUI extends Panel{
 		gui.getPassword().setBackground(new Color(50, 50, 50));
 		gui.getPassword().setBorder(null);
 
-		
-		
-		
-		
+
+
+
+
 		String[] priorityList = {"Clerk", "Manager"};
 		comboBoxPriority = new JComboBox(priorityList);
 		//comboBoxPriority.setPreferredSize(new Dimension(315, 50));
 		comboBoxPriority.setRenderer(new CustomComboBox());
-		
-		
-		
+
+
+
 		comboBoxPriority.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println((String) ((JComboBox)e.getSource()).getSelectedItem());
 			}
 		});
-		
-		
-		
-		
-		logout = new JButton("Quit");
+
+
+
+
+		quit = new JButton("Quit");
 		login = new JButton("Login");
 
 		JLabel space1 = new JLabel("");
@@ -104,13 +105,13 @@ public class LoginGUI extends Panel{
 		add(space1);
 		add(gui.getPassword());
 		add(space2);
-		
-		
+
+
 		add(comboBoxPriority);
 		add(new JLabel(), BorderLayout.CENTER);
-		
-		
-		setButtonStyle(logout, 125, new Color(255,165,0));
+
+
+		setButtonStyle(quit, 125, new Color(255,165,0));
 		add(space3);
 		setButtonStyle(login, 125, new Color(30,144,255));
 	}
@@ -133,12 +134,13 @@ public class LoginGUI extends Panel{
 						System.out.println("username: " + gui.getUsername().getText());
 						System.out.println("password: " + gui.getPassword().getText());
 						gui.removePanel(LoginGUI.this);
-						gui.addPanel(new FunctionGUI(gui));
-
+						gui.removePanel(gui.getBackgroundPanel());
+						gui.addPanel(new FunctionGUI(gui));		
+						gui.addBGPanel(new BackgroundBlank(gui));
 					}}}
 		});
-		
-		logout.addActionListener(new ActionListener() {
+
+		quit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				System.exit(0);	// if button exit is clicked, the frame will be closed
 			}
@@ -179,26 +181,26 @@ public class LoginGUI extends Panel{
 			}
 		});
 	}
-	
-	
-	   static class CustomComboBox extends JLabel implements ListCellRenderer {
 
-	        @Override
-	        public Component getListCellRendererComponent(
-	                JList list, 
-	                Object value, 
-	                int index, 
-	                boolean isSelected, 
-	                boolean cellHasFocus) {
 
-	            JLabel label = new JLabel(){
-	                public Dimension getPreferredSize(){
-	                    return new Dimension(258, 50);
-	                }
-	            };
-	            label.setText(String.valueOf(value));
+	static class CustomComboBox extends JLabel implements ListCellRenderer {
 
-	            return label;
-	        }
-	    }  
+		@Override
+		public Component getListCellRendererComponent(
+				JList list, 
+				Object value, 
+				int index, 
+				boolean isSelected, 
+				boolean cellHasFocus) {
+
+			JLabel label = new JLabel(){
+				public Dimension getPreferredSize(){
+					return new Dimension(258, 50);
+				}
+			};
+			label.setText(String.valueOf(value));
+
+			return label;
+		}
+	}  
 }

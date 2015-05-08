@@ -49,7 +49,7 @@ public class GUI {
 		// add the background image to frame
 		layeredPane = new JLayeredPane();
 		backgroundPanel = new BackgroundPanel(this);
-		layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
+		addBGPanel(backgroundPanel);
 
 		frame.setLayeredPane(layeredPane);
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -72,6 +72,10 @@ public class GUI {
 		frame.repaint();
 	}
 	
+	protected void addBGPanel(Panel panel){
+		layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+	}
+	
 	protected Panel getBackgroundPanel(){
 		return backgroundPanel;
 	}
@@ -91,6 +95,8 @@ public class GUI {
 	public void setPassword(String text) {
 		password = text;
 	}
+	
+
 	
 	
 	
