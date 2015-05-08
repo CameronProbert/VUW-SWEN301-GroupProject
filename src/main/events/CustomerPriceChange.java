@@ -10,6 +10,20 @@ public class CustomerPriceChange extends BusinessEvent {
 	private int newPricePerVolume;
 
 
+	/**
+	 * Constructor for a Customer Price Change event
+	 * @param og: old price per gram
+	 * @param ng: new price per gram
+	 * @param ov: old price per volume
+	 * @param nv: new price per volume
+	 */
+	public CustomerPriceChange( int og, int ng, int ov, int nv ) {
+		oldPricePerGram = og;
+		newPricePerGram = ng;
+		oldPricePerVolume = ov;
+		newPricePerVolume = nv;
+	}
+
 	@Override
 	public String toXML() {
 		// TODO Auto-generated method stub
