@@ -107,8 +107,6 @@ public class TransportCostUpdatePane extends Panel{
 		add(reset);
 		add(update);
 
-//		add(textField);
-		System.out.println("22222222222222");
 	}
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {

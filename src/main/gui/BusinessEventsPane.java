@@ -34,91 +34,24 @@ import javax.swing.border.TitledBorder;
  */
 public class BusinessEventsPane extends Panel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// buttons on the panel
-	private int count = 0;
-	private String location = "";
-	private String origin = "";
-	private String destination = "";
-	private String priority = "";
-	private String transportType = "";
-	private static JComboBox comboBoxOrigin;
-	private static JComboBox comboBoxDestination;
-	private static JComboBox comboBoxPriority;
-	private static JComboBox comboBoxTransportTpye;
-	private static JTextField textTPNewPricePerGram;
-	private static JTextField textTPNewCostPerCubic;
-	private static JTextField textTransportFirm;
-	
-	private JButton reset;
-	private JButton update;
+
 
 	public BusinessEventsPane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
+		setBounds(300, 0,gui.getWidth()*3/5-25, gui.getHeight()-160);	
+		setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
 	}
 
 	@Override
 	protected void setUpComponents() {
-		this.setLayout(new GridLayout(20,2));
-		this.setAlignmentX(LEFT_ALIGNMENT);
-		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-				"Wellington", "Christchurch","Dunedin"};
-		String[] priorityList = {"Air","Standard"};
-		String[] TransportTpyeList = {"Land", "Sea","Air"};
-		String[] TransportDateList = {"Monday", "Tuesday","Wednessday","Thursday","Friday","Saturday","Sunday"};
-		comboBoxOrigin = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxOrigin);
-		origin = location;
-		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxDestination);
-		destination = location;
-		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
-		textTransportFirm = new JTextField(20);
-		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
-		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
-		comboBoxListenner(comboBoxTransportTpye);
-		transportType = location;
-		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
-		textTPNewPricePerGram = new JTextField(10);
-		JLabel labelNewCostPerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
-		textTPNewCostPerCubic = new JTextField(10);
-		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
-		comboBoxPriority = new JComboBox(priorityList);
-		comboBoxListenner(comboBoxPriority);
-		priority = location;
-		reset = new JButton("Reset");
-		update = new JButton("Update");
-		add(labelComboOrigin);
-		add(comboBoxOrigin);
-		add(labelComboDestination);
-		add(comboBoxDestination);
-		add(labelTransportFirm);
-		add(textTransportFirm);
-		add(labelTransportType);
-		add(comboBoxTransportTpye);
-		add(labelNewPricePerGram);
-		add(textTPNewPricePerGram);
-		add(labelNewCostPerCB);
-		add(textTPNewCostPerCubic);
-		add(labelPriority);
-		add(comboBoxPriority);
-		add(reset);
-		add(update);
+		
+	}
 
-//		add(textField);
-		System.out.println("22222222222222");
-	}
-	private void comboBoxListenner(JComboBox comboBox){
-		comboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				location = (String) ((JComboBox)e.getSource()).getSelectedItem();
-				System.out.println(location);
-			}
-		});
-	}
 	@Override
 	protected void addListenner() {
 	}

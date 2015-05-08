@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -61,7 +62,7 @@ public class MailDeliveryPane extends Panel{
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
 				"Wellington", "Christchurch","Dunedin"};
-		String[] priorityList = {"Air","Standard"};
+		String[] priorityList = {"", "Air","Standard"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin);
 		origin = location;
@@ -97,8 +98,6 @@ public class MailDeliveryPane extends Panel{
 		add(reset);
 		add(add);
 
-//		add(textField);
-		System.out.println("22222222222222");
 	}
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {
@@ -111,5 +110,13 @@ public class MailDeliveryPane extends Panel{
 	}
 	@Override
 	protected void addListenner() {
+		
+		textTime.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {	
+				System.out.println("aaaa");
+				Date currentDate = new Date();
+				textTime.setText(currentDate.toString());			}
+		});
 	}
 }

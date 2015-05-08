@@ -48,8 +48,10 @@ public class FunctionGUI extends Panel{
 	private JPanel inforPanel;
     private static JComboBox comboBox;
 	private JSplitPane jSplitPanel;
-	public FunctionGUI(GUI gui) {
+	private String loginType = "";
+	public FunctionGUI(GUI gui, String loginType) {
 		super(gui);
+		this.loginType = loginType;
 		setBounds(0, 0, gui.getWidth(), gui.getHeight());	
 	}
 
@@ -64,7 +66,7 @@ public class FunctionGUI extends Panel{
 		jSplitPanel = new JSplitPane();
 
 		displayPane = new JPanel(new BorderLayout());
-		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "Display Area" ) );
+		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "" ) );
 		displayPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane = new JPanel(new BorderLayout()); // 
 		buttonPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
@@ -72,6 +74,7 @@ public class FunctionGUI extends Panel{
 		inforPanel = new JPanel(new BorderLayout());
 		//inforPanel.setOpaque(false);
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
+		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
 		//TODO: find a way to set the width of the button 
 		mailDelivery = new JButton("Mail Delivery                        ");
 		customerPriceUpdate = new JButton("Customer Price Update    ");
@@ -172,7 +175,9 @@ public class FunctionGUI extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == businessEvents){
-					inforPanel.add(new BusinessEventsPane(gui));
+					if(loginType.equals("Manager")){
+						inforPanel.add(new BusinessEventsPane(gui));
+					}
 				}
 			}
 		});
@@ -182,6 +187,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {	
 				gui.removePanel(p);
 				gui.addPanel(new LoginGUI(gui));
+				
 			}
 		});
 	}
