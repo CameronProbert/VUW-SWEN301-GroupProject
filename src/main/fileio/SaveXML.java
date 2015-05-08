@@ -83,7 +83,7 @@ public class SaveXML {
 
 	private void saveMailDelivery(MailDelivery event) {
 		// staff elements
-		Element mail = doc.createElement("Event");
+		Element mail = doc.createElement("event");
 		rootElement.appendChild(mail);
 
 		Attr attr = doc.createAttribute("type");
@@ -125,7 +125,7 @@ public class SaveXML {
 	}
 
 	private void saveTransportUpdate(TransportUpdate event) {
-		Element transport = doc.createElement("Event");
+		Element transport = doc.createElement("event");
 		rootElement.appendChild(transport);
 
 		Attr attr = doc.createAttribute("type");
@@ -153,7 +153,7 @@ public class SaveXML {
 	}
 
 	private void saveDeleteRoute(DeleteRoute event) {
-		Element delete = doc.createElement("Event");
+		Element delete = doc.createElement("event");
 		rootElement.appendChild(delete);
 
 		Attr attr = doc.createAttribute("type");
@@ -164,11 +164,11 @@ public class SaveXML {
 	}
 
 	private void saveOpenNewRoute(OpenNewRoute event) {
-		Element save = doc.createElement("Save Route");
+		Element save = doc.createElement("event");
 		rootElement.appendChild(save);
 
 		Attr attr = doc.createAttribute("type");
-		attr.setValue("Save Route");
+		attr.setValue("New Route");
 		save.setAttributeNode(attr);
 
 		saveRoute(event, save);
@@ -176,7 +176,7 @@ public class SaveXML {
 	}
 
 	private void saveCustomerPriceChange(CustomerPriceChange event) {
-		Element change = doc.createElement("Customer Price Change");
+		Element change = doc.createElement("event");
 		rootElement.appendChild(change);
 
 		Attr attr = doc.createAttribute("type");
