@@ -8,6 +8,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import main.logic.Clerk;
+
+import controllers.UIController;
+
 
 
 /**
@@ -23,7 +27,7 @@ public class GUI {
 	private JLayeredPane layeredPane;	// this is used to add panel onto the frame
 	private Panel backgroundPanel;
 	private Panel backgroundBlank;
-
+	private UIController controller;
 	// the dimension of the frame
 	private static int width = 900;
 	private static int height = 770;
@@ -34,12 +38,13 @@ public class GUI {
 
 	public String username;	// the entered name of the player in multiple-player mode
 	public String password;
+	private Clerk clerk;
 
 	public GUI() {
-		setUp();
+		//setUp();
 	}
 
-	private void setUp() {
+	public void setUp() {
 		frame = new JFrame();
 		frame.setTitle("KPSmart System");
 		frame.getRootPane().setBackground(new Color(141, 174, 240));
@@ -64,7 +69,12 @@ public class GUI {
 		LoginGUI loginGUI = new LoginGUI(this);
 		addPanel(loginGUI);
 	}
-
+	public void setUIController(UIController u){
+		this.controller = u;
+	}
+	public UIController getUIController(){
+		return this.controller;
+	}
 	protected void addPanel(Panel panel){
 		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
 		frame.repaint();
@@ -118,5 +128,11 @@ public class GUI {
 
 	public static void main(String[] args){
 		new GUI();
+	}
+
+	public void setCurrentUser(Clerk clerk) {
+		// TODO Auto-generated method stub
+		this.clerk = clerk;
+		
 	}
 }

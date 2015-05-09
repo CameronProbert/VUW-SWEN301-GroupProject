@@ -6,6 +6,10 @@ import java.util.Set;
 import main.events.BusinessEvent;
 import main.events.MailDelivery;
 import main.fileio.LogHandler;
+import javax.swing.JOptionPane;
+
+import controllers.UIController;
+
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
 import main.gui.GUI;
@@ -29,6 +33,7 @@ public class Monitor {
 
 	private Set<Location> locations;
 	private Set<Route> routes;
+	private UIController controller;
 
 	/**
 	 * Creates the GUI and the monitor
@@ -137,6 +142,10 @@ public class Monitor {
 				currentUser = clerk;
 				break;
 			}
+		}
+		if(user==null){
+			JOptionPane.showMessageDialog(null, "Id or Password can not be empty.", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return user;
 	}
@@ -257,6 +266,11 @@ public class Monitor {
 			sb.append("\nNobody logged in.");
 		}
 		return sb.toString();
+	}
+
+	public void setUIController(UIController controller) {
+		// TODO Auto-generated method stub
+		this.controller = controller;
 	}
 
 }
