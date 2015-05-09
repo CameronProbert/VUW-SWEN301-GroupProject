@@ -49,7 +49,8 @@ public class LoginGUI extends Panel{
 		//		nameP.setFont(new Font("Arial", Font.PLAIN, 20));
 		//		nameP.setForeground(new Color(0, 135, 200).brighter());
 
-		gui.getUsername().setText("Username");
+		//gui.getUsername().setText("Username");
+		gui.getUsername().setText("probercame");
 		gui.getUsername().setPreferredSize(new Dimension(250, 50));
 		gui.getUsername().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getUsername().setForeground(new Color(130, 130, 130));
@@ -62,7 +63,7 @@ public class LoginGUI extends Panel{
 		//		name.setFont(new Font("Arial", Font.PLAIN, 20));
 		//		name.setForeground(new Color(0, 135, 200).brighter());
 
-		gui.getPassword().setText("Password");
+		gui.getPassword().setText("password1");
 		gui.getPassword().setPreferredSize(new Dimension(250, 50));
 		gui.getPassword().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getPassword().setForeground(new Color(130, 130, 130));

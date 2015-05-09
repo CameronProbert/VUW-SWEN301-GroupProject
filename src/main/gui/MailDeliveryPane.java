@@ -1,5 +1,6 @@
 package main.gui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,6 +71,7 @@ public class MailDeliveryPane extends Panel {
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		textTime.disable();
+		textTime.setDisabledTextColor(Color.black);
 
 		reset = new JButton("Reset");
 		add = new JButton("Add");
