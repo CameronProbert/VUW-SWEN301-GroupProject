@@ -10,11 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,16 +32,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
-public class MailDeliveryPane extends Panel{
+public class MailDeliveryPane extends Panel implements PropertyChangeListener{
 
 	// buttons on the panel
-	private int count = 0;
+    private double amount = 0;
 	private String selected = "";
 	private String origin = "";
 	private String destination = "";
@@ -45,16 +49,17 @@ public class MailDeliveryPane extends Panel{
 	private static JComboBox comboBoxOrigin;
 	private static JComboBox comboBoxDestination;
 	private static JComboBox comboBoxPriority;
-	private static JTextField textWeight;
-	private static JTextField textVolume;
+	private static JFormattedTextField textWeight;
+	private static JFormattedTextField textVolume;
 	private static JTextField textTime;
 	private JButton reset;
 	private JButton add;
 	private JButton setDate;
+    private NumberFormat amountFormat;
 
 	public MailDeliveryPane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
+		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
 
 	@Override
@@ -74,15 +79,19 @@ public class MailDeliveryPane extends Panel{
 		destination = selected;
 		// Textfield
 		JLabel labelWeight= new JLabel("Weight", SwingConstants.CENTER);
-		textWeight = new JTextField(10);
+		textWeight = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textWeight);
 		JLabel labelVolume= new JLabel("Volume", SwingConstants.CENTER);
-		textVolume = new JTextField(10);
+		textVolume = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textVolume);
+
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
 		comboBoxListenner(comboBoxPriority);
 		priority = selected;
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
+		textTime.disable();
 		reset = new JButton("Reset");
 		add = new JButton("Add");
 		setDate = new JButton("Set Date and Time");
@@ -103,12 +112,23 @@ public class MailDeliveryPane extends Panel{
 		add(add);
 
 	}
-	
+
+
+	private void formatToDobuleJTextField(JFormattedTextField textField) {
+		// TODO Auto-generated method stub
+		textField.setValue(new Double(amount));
+		textField.setColumns(10);
+		textField.addPropertyChangeListener("value", this);
+
+	}
 
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println();
+
 				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
 			}
 		});
@@ -116,18 +136,16 @@ public class MailDeliveryPane extends Panel{
 	@Override
 	protected void addListenner() {
 		setDate.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == setDate){
 					Date currentDate = new Date();
-					textTime.setText(currentDate.toString());	
+					textTime.setText(currentDate.toString());
 				}
 			}
 		});
-
 	}
 	public String getMDOrigin() {
 		return origin;
@@ -141,15 +159,26 @@ public class MailDeliveryPane extends Panel{
 		return priority;
 	}
 
-	public static JTextField getMDTextWeight() {
-		return textWeight;
+	public static double getMDTextWeight() {
+		return ((Number)textWeight.getValue()).doubleValue();
 	}
 
-	public static JTextField getMDTextVolume() {
-		return textVolume;
+	public static double getMDTextVolume() {
+		return ((Number)textVolume.getValue()).doubleValue();
 	}
 
 	public static JTextField getMDTextTime() {
 		return textTime;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent e) {
+		// TODO Auto-generated method stub
+		 Object source = e.getSource();
+	        if (source == textWeight) {
+	            amount = ((Number)textWeight.getValue()).doubleValue();
+	        }  else if (source == textVolume) {
+	            amount = ((Number)textVolume.getValue()).doubleValue();
+	        }
 	}
 }
