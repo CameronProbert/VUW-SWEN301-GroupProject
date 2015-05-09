@@ -1,13 +1,13 @@
 package main.events;
 
+import java.util.List;
+
 import main.logic.Route;
 
 public class OpenNewRoute extends BusinessEvent {
 
-	private Route route;
-
-	public OpenNewRoute (Route r) {
-		route = r;
+	public OpenNewRoute (List<Route> routes) {
+		this.routes = routes;
 	}
 
 	@Override

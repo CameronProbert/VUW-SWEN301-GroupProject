@@ -1,5 +1,9 @@
 package main.events;
 
+import java.util.List;
+
+import main.logic.Route;
+
 public class MailDelivery extends BusinessEvent {
 
 	private String origin;
@@ -11,7 +15,7 @@ public class MailDelivery extends BusinessEvent {
 	private int timeTaken;
 	private boolean isReceived;
 
-	public MailDelivery(String or, String des, int we, int vol, int prio, int rev, int time) {
+	public MailDelivery(String or, String des, int we, int vol, int prio, int rev, int time, List<Route> routes) {
 		origin = or;
 		destination = des;
 		weight = we;
@@ -19,6 +23,7 @@ public class MailDelivery extends BusinessEvent {
 		priority = prio;
 		revenue = rev;
 		timeTaken = time;
+		this.routes = routes;
 
 		isReceived = false; //initialise false
 	}

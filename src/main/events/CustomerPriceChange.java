@@ -1,5 +1,9 @@
 package main.events;
 
+import java.util.List;
+
+import main.logic.Route;
+
 public class CustomerPriceChange extends BusinessEvent {
 
 
@@ -17,11 +21,12 @@ public class CustomerPriceChange extends BusinessEvent {
 	 * @param ov: old price per volume
 	 * @param nv: new price per volume
 	 */
-	public CustomerPriceChange( int og, int ng, int ov, int nv ) {
+	public CustomerPriceChange( int og, int ng, int ov, int nv, List<Route> routes) {
 		oldPricePerGram = og;
 		newPricePerGram = ng;
 		oldPricePerVolume = ov;
 		newPricePerVolume = nv;
+		this.routes=routes;
 	}
 
 	@Override

@@ -1,5 +1,9 @@
 package main.events;
 
+import java.util.List;
+
+import main.logic.Route;
+
 public class TransportUpdate extends BusinessEvent {
 
 	private int oldPricePerGram;
@@ -8,11 +12,12 @@ public class TransportUpdate extends BusinessEvent {
 	private int oldPricePerVolume;
 	private int newPricePerVolume;
 
-	public TransportUpdate( int og, int ng, int ov, int nv ) {
+	public TransportUpdate( int og, int ng, int ov, int nv, List<Route> routes ) {
 		oldPricePerGram = og;
 		newPricePerGram = ng;
 		oldPricePerVolume = ov;
 		newPricePerVolume = nv;
+		this.routes = routes;
 	}
 
 
