@@ -1,14 +1,15 @@
 package main.gui;
 
 import java.awt.Image;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- * The BackgroundPanel class is a JPanel which is represented 
- * as the background image on the frame for the log in stage. 
- * 
+ * The BackgroundPanel class is a JPanel which is represented
+ * as the background image on the frame for the log in stage.
+ *
  */
 public class BackgroundPanel extends Panel{
 
@@ -29,4 +30,10 @@ public class BackgroundPanel extends Panel{
 
 	@Override
 	protected void addListenner() {}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+
+	}
 }
