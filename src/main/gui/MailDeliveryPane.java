@@ -1,5 +1,6 @@
 package main.gui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
  *
  */
 public class MailDeliveryPane extends Panel {
@@ -70,6 +67,7 @@ public class MailDeliveryPane extends Panel {
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		textTime.disable();
+		textTime.setDisabledTextColor(Color.black);
 
 		reset = new JButton("Reset");
 		add = new JButton("Add");
@@ -118,17 +116,6 @@ public class MailDeliveryPane extends Panel {
 		});
 
 	}
-//	public String getMDOrigin() {
-//		return origin;
-//	}
-//
-//	public String getMDDestination() {
-//		return destination;
-//	}
-//
-//	public String getMDPriority() {
-//		return priority;
-//	}
 
 	public static double getMDTextWeight() {
 		return ((Number)textWeight.getValue()).doubleValue();
