@@ -47,4 +47,11 @@ public class UIController {
 	public void logOut(){
 		monitor.logOut();
 	}
+	/**
+	 * 
+	 */
+	public boolean addNewUser(String id, String password, String name, boolean isClerk){
+		//return (monitor.makeNewUser(id, password, name, isClerk));
+		return true;
+	}
 }

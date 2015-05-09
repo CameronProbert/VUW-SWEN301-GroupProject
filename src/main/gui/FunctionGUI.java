@@ -33,7 +33,7 @@ import controllers.UIController;
  * for each button.
  * @author zhaojiang chang
  */
- 
+
 public class FunctionGUI extends Panel{
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class FunctionGUI extends Panel{
 	private JPanel displayPanel;
 	private JPanel buttonPanel;
 	private JPanel inforPanel;
-    private static JComboBox comboBox;
+	private static JComboBox comboBox;
 	private JSplitPane jSplitPanel;
 	private String loginType = "";
 	public FunctionGUI(GUI gui, String loginType) {
@@ -62,9 +62,9 @@ public class FunctionGUI extends Panel{
 		setBounds(0, 0, gui.getWidth(), gui.getHeight());
 		this.controller = this.gui.getUIController();
 	}
-/**
- * setup all all buttons, panel and label on the functionGUI panel
- */
+	/**
+	 * setup all all buttons, panel and label on the functionGUI panel
+	 */
 	@Override
 	protected void setUpComponents() {
 		//titlePanel 
@@ -111,10 +111,12 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(transportCostUpdate);
 		buttonPanel.add(transportDiscontinued);
 		buttonPanel.add(businessEvents);
+		//buttonPanel.add(new BusinessFiguresTotal(gui));
 		bottomPanel.add(addUser);
 		bottomPanel.add(removeUser);
 		bottomPanel.add(logOut);
 		bottomPanel.add(exit);
+
 		//addImage("image/bottomImage.jpg", bottomPanel, 60);
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
@@ -139,11 +141,11 @@ public class FunctionGUI extends Panel{
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		panel.add(jl);
 	}
-	
+
 	@Override
 	protected void addListenner() {
 		mailDelivery.addActionListener(new ActionListener(){
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton button = (JButton) e.getSource();
@@ -204,25 +206,63 @@ public class FunctionGUI extends Panel{
 		});
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean isClerk = false;
 				JTextField id = new JTextField();
 				JTextField password = new JTextField();
+				JTextField confirmPassword = new JTextField();
 				JTextField name = new JTextField();
-				 Object[] message = {"File name", id};
-				    String option = JOptionPane.showInputDialog(null, message, "Add New", JOptionPane.OK_CANCEL_OPTION);
-				    //System.out.println(fileName.getText());
-				int g = JOptionPane.YES_NO_OPTION;
-				int response = JOptionPane.showConfirmDialog(null, "Are your sure you want to log out?", "Log out", g);
-				 if(response == JOptionPane.YES_OPTION){
-					
-				}
+				boolean isFailed = true;
+				//while(!password.getText().equals(confirmPassword.getText())&&!password.getText().equals("")){
+				while (isFailed){
+					isFailed = false;
+					Object[][] message = {{"Id", id}, {"Password", password}, {"Confirm Password", confirmPassword},{"Name", name},{"Clerk?(Y/N)", null}};
+					String option = JOptionPane.showInputDialog(null, message, "Add New User", JOptionPane.OK_CANCEL_OPTION);
+					System.out.println(JOptionPane.CLOSED_OPTION+"  "+option);
+//					if (JOptionPane.CLOSED_OPTION == -1){
+//					}
+					if(!password.getText().equals(confirmPassword.getText())||password.getText().equals("")||confirmPassword.getText().equals("")){
+						password.setText("password not match");
+						password.setBackground(Color.LIGHT_GRAY);
+						confirmPassword.setText("password not match");
+						confirmPassword.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					}
+					if(id.getText().equals("")){
+						id.setText("id can not be empty");
+						id.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					}
+					if(name.getText().equals("")){
+						name.setText("name can not be empty");
+						name.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					}
+					if(option!=null){
+						if(!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n") ){
+							isFailed = true;
+						}
+						if (!isFailed){
+							if(option.equalsIgnoreCase("y")){
+								isClerk = true;
+							}else if( option.equalsIgnoreCase("n")){
+								isClerk = false;
+							}
+							if(controller.addNewUser(id.getText(), password.getText(), name.getText(), isClerk)){
+								break;
+							}
+						}
+					}
+				}    
 			}
+
+
 		});
 		final Panel p =  this;
 		logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int g = JOptionPane.YES_NO_OPTION;
 				int response = JOptionPane.showConfirmDialog(null, "Are your sure you want to log out?", "Log out", g);
-				 if(response == JOptionPane.YES_OPTION){
+				if(response == JOptionPane.YES_OPTION){
 					gui.removePanel(p);
 					gui.removePanel(gui.getBackgroundBlank());
 					gui.addBGPanel(gui.getBackgroundPanel());
@@ -235,7 +275,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				int g = JOptionPane.YES_NO_OPTION;
 				int response = JOptionPane.showConfirmDialog(null, "Are your sure you want to exit KPSmart?", "Exit", g);
-				 if(response == JOptionPane.YES_OPTION){
+				if(response == JOptionPane.YES_OPTION){
 					System.exit(0);
 				}
 			}
