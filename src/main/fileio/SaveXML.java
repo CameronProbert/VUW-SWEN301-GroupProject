@@ -6,6 +6,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -17,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import main.events.*;
+import main.logic.Route;
 import main.logic.Route.DaysOfWeek;
 
 public class SaveXML {
@@ -59,8 +61,10 @@ public class SaveXML {
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("C:\\file.xml"));
+			StreamResult result = new StreamResult(new File("saveFile"));
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);
@@ -75,16 +79,16 @@ public class SaveXML {
 			tfe.printStackTrace();
 		}
 
-
-
-
-
 	}
 
 	private void saveMailDelivery(MailDelivery event) {
 		// staff elements
-		Element mail = doc.createElement("Mail Delivery");
+		Element mail = doc.createElement("event");
 		rootElement.appendChild(mail);
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("Mail Delivery");
+		mail.setAttributeNode(attr);
 
 		saveRoute(event, mail);
 
@@ -121,8 +125,12 @@ public class SaveXML {
 	}
 
 	private void saveTransportUpdate(TransportUpdate event) {
-		Element transport = doc.createElement("Transport Update");
+		Element transport = doc.createElement("event");
 		rootElement.appendChild(transport);
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("Transport Update");
+		transport.setAttributeNode(attr);
 
 		saveRoute(event, transport);
 
@@ -145,23 +153,35 @@ public class SaveXML {
 	}
 
 	private void saveDeleteRoute(DeleteRoute event) {
-		Element delete = doc.createElement("Delete Route");
+		Element delete = doc.createElement("event");
 		rootElement.appendChild(delete);
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("Delete Route");
+		delete.setAttributeNode(attr);
 
 		saveRoute(event, delete);
 	}
 
 	private void saveOpenNewRoute(OpenNewRoute event) {
-		Element save = doc.createElement("Save Route");
+		Element save = doc.createElement("event");
 		rootElement.appendChild(save);
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("New Route");
+		save.setAttributeNode(attr);
 
 		saveRoute(event, save);
 
 	}
 
 	private void saveCustomerPriceChange(CustomerPriceChange event) {
-		Element change = doc.createElement("Customer Price Change");
+		Element change = doc.createElement("event");
 		rootElement.appendChild(change);
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("Customer Price Change");
+		change.setAttributeNode(attr);
 
 		saveRoute(event, change);
 
@@ -185,59 +205,62 @@ public class SaveXML {
 
 	private void saveRoute(BusinessEvent event, Element elm){
 
-		// TODO will need to go through and uncomment a lot of this also check for ints that need to be parsed to Strings
+		for(Route r: event.getRoutes()){
+			// TODO will need to go through and uncomment a lot of this also check for ints that need to be parsed to Strings
 
-		Element route = doc.createElement("route");
-		elm.appendChild(route);
+			Element route = doc.createElement("route");
+			elm.appendChild(route);
 
-		Element origin = doc.createElement("origin");
-		//origin.appendChild(doc.createTextNode(event.getRoute().getOrigin()));
-		route.appendChild(origin);
+			Element origin = doc.createElement("origin");
+			origin.appendChild(doc.createTextNode(r.getOrigin().toString()));
+			route.appendChild(origin);
 
-		Element destination = doc.createElement("destination");
-		//destination.appendChild(doc.createTextNode(event.getRoute().getDestination()));
-		route.appendChild(destination);
+			Element destination = doc.createElement("destination");
+			destination.appendChild(doc.createTextNode(r.getDestination().toString()));
+			route.appendChild(destination);
 
-		Element transportType = doc.createElement("Transport Type");
-		//transportType.appendChild(doc.createTextNode(event.getRoute().getTransportType()));
-		route.appendChild(transportType);
+			Element transportType = doc.createElement("Transport Type");
+			transportType.appendChild(doc.createTextNode(r.getTransportType().toString()));
+			route.appendChild(transportType);
 
-		Element averageTime = doc.createElement("Average Time");
-		//averageTime.appendChild(doc.createTextNode(event.getRoute().getAverageTime()));
-		route.appendChild(averageTime);
+			Element averageTime = doc.createElement("Average Time");
+			averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
+			route.appendChild(averageTime);
 
-		Element firmName = doc.createElement("Firm Name");
-		//firmName.appendChild(doc.createTextNode(event.getRoute().getFirmName()));
-		route.appendChild(firmName);
+			Element firmName = doc.createElement("Firm Name");
+			firmName.appendChild(doc.createTextNode(r.getTransportFirm()));
+			route.appendChild(firmName);
 
-		Element gramTransport = doc.createElement("Cost/gram for transport");
-		//gramTransport.appendChild(doc.createTextNode(event.getRoute().getPricePerGramTransport()));
-		route.appendChild(gramTransport);
+			Element gramTransport = doc.createElement("Cost/gram for transport");
+			gramTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramTransport())));
+			route.appendChild(gramTransport);
 
-		Element volumeTransport = doc.createElement("Cost/volume for transport");
-		//volumeTransport.appendChild(doc.createTextNode(event.getRoute().getPricePerVolumeTransport()));
-		route.appendChild(volumeTransport);
+			Element volumeTransport = doc.createElement("Cost/volume for transport");
+			volumeTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeTransport())));
+			route.appendChild(volumeTransport);
 
-		Element gramCustomer = doc.createElement("Cost/gram to customer");
-		//gramCustomer.appendChild(doc.createTextNode(event.getRoute().getPricePerGramCustomer()));
-		route.appendChild(gramCustomer);
+			Element gramCustomer = doc.createElement("Cost/gram to customer");
+			gramCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramCustomer())));
+			route.appendChild(gramCustomer);
 
-		Element volumeCustomer = doc.createElement("Cost/volume to customer");
-		//volumeCustomer.appendChild(doc.createTextNode(event.getRoute().getPricePerVolumeCustomer()));
-		route.appendChild(volumeCustomer);
+			Element volumeCustomer = doc.createElement("Cost/volume to customer");
+			volumeCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeCustomer())));
+			route.appendChild(volumeCustomer);
 
-		// TODO this may not be the best way to display this information
-		Element departureDays = doc.createElement("Departure Days");
-		route.appendChild(departureDays);
-		for(DaysOfWeek day: event.getRoute().getDays()){
-			Element dayElm = doc.createElement("day");
-			dayElm.appendChild(doc.createTextNode(day.toString()));
-			departureDays.appendChild(dayElm);
+			// TODO this may not be the best way to display this information
+			Element departureDays = doc.createElement("Departure Days");
+			route.appendChild(departureDays);
+			for(DaysOfWeek day : r.getDays()){
+				Element dayElm = doc.createElement("day");
+				dayElm.appendChild(doc.createTextNode(day.toString()));
+				departureDays.appendChild(dayElm);
+			}
+
+			Element departureFreq = doc.createElement("Departure Frequency");
+			departureFreq.appendChild(doc.createTextNode(String.valueOf(r.getDepartureFrequency())));
+			route.appendChild(departureFreq);
+
 		}
-
-		Element departureFreq = doc.createElement("Departure Frequency");
-		//departureFreq.appendChild(doc.createTextNode(event.getRoute().getDepartureFrequency()));
-		route.appendChild(departureFreq);
 
 
 	}

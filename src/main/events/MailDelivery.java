@@ -9,6 +9,19 @@ public class MailDelivery extends BusinessEvent {
 	private int priority;
 	private int revenue;
 	private int timeTaken;
+	private boolean isReceived;
+
+	public MailDelivery(String or, String des, int we, int vol, int prio, int rev, int time) {
+		origin = or;
+		destination = des;
+		weight = we;
+		volume = vol;
+		priority = prio;
+		revenue = rev;
+		timeTaken = time;
+
+		isReceived = false; //initialise false
+	}
 
 	@Override
 	public String toXML() {
@@ -17,7 +30,11 @@ public class MailDelivery extends BusinessEvent {
 	}
 
 	public boolean isReceived() {
-		return true;
+		return isReceived;
+	}
+
+	public void setReceived(boolean b) {
+		isReceived = b;
 	}
 
 	public void operation() {

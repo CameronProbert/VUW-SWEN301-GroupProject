@@ -1,5 +1,6 @@
 package main.logic;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
@@ -10,12 +11,18 @@ import java.util.Set;
  */
 public class Route {
 
+	/**
+	 * The type of transport that the route uses
+	 * 
+	 * @author Cameron Probert
+	 *
+	 */
 	public enum TransportType {
-		standard, fast
+		Standard, Air
 	}
 
 	public enum DaysOfWeek {
-		monday, tuesday, wednesday, thursday, friday, saturday, sunday
+		Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 	}
 
 	private Location origin;
@@ -23,50 +30,94 @@ public class Route {
 	private Double averageTimeToDeliver; // Number of hours taken to deliver on
 											// this route
 	private String transportFirm;
+	private TransportType transportType;
 	private double pricePerGramTransport;
 	private double pricePerVolumeTransport;
 	private double pricePerGramCustomer;
 	private double pricePerVolumeCustomer;
 	private Set<DaysOfWeek> days;
-	private int departureFrequency; // TODO WILL NEED TO CHANGE OFF INT
+	private double departureFrequency;
 
+	/**
+	 * Creates a new Route with the given fields
+	 * 
+	 * @param origin
+	 * @param destination
+	 * @param transportFirm
+	 * @param transportType
+	 * @param pricePerGramTransport
+	 * @param pricePerVolumeTransport
+	 * @param pricePerGramCustomer
+	 * @param pricePerVolumeCustomer
+	 * @throws NoDaysToShipException
+	 */
 	public Route(Location origin, Location destination, String transportFirm,
-			double pricePerGramTransport, double pricePerVolumeTransport,
-			double pricePerGramCustomer, double pricePerVolumeCustomer) {
+			TransportType transportType, double pricePerGramTransport,
+			double pricePerVolumeTransport, double pricePerGramCustomer,
+			double pricePerVolumeCustomer, double departureFrequency,
+			DaysOfWeek... days) throws NoDaysToShipException {
+		if (days.length == 0) {
+			throw new NoDaysToShipException();
+		}
 		this.origin = origin;
 		this.destination = destination;
 		this.transportFirm = transportFirm;
+		this.transportType = transportType;
 		this.pricePerGramTransport = pricePerGramTransport;
 		this.pricePerVolumeTransport = pricePerVolumeTransport;
 		this.pricePerGramCustomer = pricePerGramCustomer;
 		this.pricePerVolumeCustomer = pricePerVolumeCustomer;
+		this.departureFrequency = departureFrequency;
+		initialiseDays();
+		enableDays(days);
 	}
-	
+
+	/**
+	 * Initialises the days set. Uses an EnumSet to retain the order of the days
+	 */
+	private void initialiseDays() {
+		this.days = EnumSet.noneOf(DaysOfWeek.class);
+	}
+
 	/**
 	 * Will enable each of the given days of the week
 	 */
-	public void enableDays(Set<DaysOfWeek> daysToAdd){
-		
+	public void enableDays(DaysOfWeek... daysToAdd) {
+		for (DaysOfWeek day : daysToAdd) {
+			days.add(day);
+		}
 	}
-	
+
 	/**
 	 * Will disable each of the given days of the week
 	 */
-	public void disableDays(Set<DaysOfWeek> daysToAdd){
-		
+	public void disableDays(DaysOfWeek... daysToRm) {
+		for (DaysOfWeek day : daysToRm) {
+			days.remove(day);
+		}
 	}
-	
+
 	/**
-	 * Will enable each of the given days of the week
+	 * Returns a set of the days of the week the route runs on
 	 */
-	public Set<DaysOfWeek> getDays(){
+	public Set<DaysOfWeek> getDays() {
 		return days;
 	}
 
+	/**
+	 * Returns the origin location
+	 * 
+	 * @return
+	 */
 	public Location getOrigin() {
 		return origin;
 	}
 
+	/**
+	 * Returns the destination location
+	 * 
+	 * @return
+	 */
 	public Location getDestination() {
 		return destination;
 	}
@@ -91,47 +142,188 @@ public class Route {
 		return pricePerGramCustomer;
 	}
 
+	/**
+	 * Returns the price customers pay for volume
+	 * 
+	 * @return
+	 */
 	public double getPricePerVolumeCustomer() {
 		return pricePerVolumeCustomer;
 	}
 
-	public int getDepartureFrequency() {
+	/**
+	 * Returns how often the route runs on days that it does run
+	 * 
+	 * @return
+	 */
+	public double getDepartureFrequency() {
 		return departureFrequency;
 	}
 
-	public void setOrigin(Location origin) {
-		this.origin = origin;
-	}
-
-	public void setDestination(Location destination) {
-		this.destination = destination;
+	/**
+	 * Return the transport types
+	 * 
+	 * @return
+	 */
+	public TransportType getTransportType() {
+		return transportType;
 	}
 
 	public void setAverageTimeToDeliver(double averageTimeToDeliver) {
 		this.averageTimeToDeliver = averageTimeToDeliver;
 	}
 
-	public void setTransportFirm(String transportFirm) {
-		this.transportFirm = transportFirm;
-	}
-
+	/**
+	 * Sets the price per gram we pay the transport company
+	 * 
+	 * @param pricePerVolumeCustomer
+	 */
 	public void setPricePerGramTransport(double pricePerGramTransport) {
 		this.pricePerGramTransport = pricePerGramTransport;
 	}
 
+	/**
+	 * Sets the price per volume we pay the transport company
+	 * 
+	 * @param pricePerVolumeCustomer
+	 */
 	public void setPricePerVolumeTransport(double pricePerVolumeTransport) {
 		this.pricePerVolumeTransport = pricePerVolumeTransport;
 	}
 
+	/**
+	 * Sets the price per gram the customer pays
+	 * 
+	 * @param pricePerVolumeCustomer
+	 */
 	public void setPricePerGramCustomer(double pricePerGramCustomer) {
 		this.pricePerGramCustomer = pricePerGramCustomer;
 	}
 
+	/**
+	 * Sets the price per volume the customer pays
+	 * 
+	 * @param pricePerVolumeCustomer
+	 */
 	public void setPricePerVolumeCustomer(double pricePerVolumeCustomer) {
 		this.pricePerVolumeCustomer = pricePerVolumeCustomer;
 	}
 
-	public void setDepartureFrequency(int departureFrequency) {
-		this.departureFrequency = departureFrequency;
+	/**
+	 * Sets the departure frequency to the given number. If the number is
+	 * greater 24 or less than 0 it will not change and return a false to show
+	 * this
+	 * 
+	 * @param departureFrequency
+	 * @return
+	 */
+	public boolean setDepartureFrequency(double departureFrequency) {
+		if (departureFrequency <= 24 && departureFrequency > 0) {
+			this.departureFrequency = departureFrequency;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Route \n[origin=");
+		builder.append(origin);
+		builder.append(", destination=");
+		builder.append(destination);
+		builder.append("\naverageTimeToDeliver=");
+		builder.append(averageTimeToDeliver);
+		builder.append("\ntransportFirm=");
+		builder.append(transportFirm);
+		builder.append(", transportType=");
+		builder.append(transportType.name());
+		builder.append("\npricePerGramTransport=");
+		builder.append(pricePerGramTransport);
+		builder.append(", pricePerVolumeTransport=");
+		builder.append(pricePerVolumeTransport);
+		builder.append("\npricePerGramCustomer=");
+		builder.append(pricePerGramCustomer);
+		builder.append(", pricePerVolumeCustomer=");
+		builder.append(pricePerVolumeCustomer);
+		builder.append("\ndays=");
+		for (DaysOfWeek day : days) {
+			builder.append(", " + day.name());
+		}
+		builder.append(", departureFrequency=");
+		builder.append(departureFrequency);
+		builder.append("]");
+		return builder.toString();
+	}
+
+	/**
+	 * Returns whether this route is equal to the given object
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Route)) {
+			return false;
+		}
+		Route other = (Route) obj;
+		if (averageTimeToDeliver == null) {
+			if (other.averageTimeToDeliver != null) {
+				return false;
+			}
+		} else if (!averageTimeToDeliver.equals(other.averageTimeToDeliver)) {
+			return false;
+		}
+		if (days == null) {
+			if (other.days != null) {
+				return false;
+			}
+		} else if (!days.equals(other.days)) {
+			return false;
+		}
+		if (departureFrequency != other.departureFrequency) {
+			return false;
+		}
+		if (destination == null) {
+			if (other.destination != null) {
+				return false;
+			}
+		} else if (!destination.equals(other.destination)) {
+			return false;
+		}
+		if (origin == null) {
+			if (other.origin != null) {
+				return false;
+			}
+		} else if (!origin.equals(other.origin)) {
+			return false;
+		}
+		if (pricePerGramCustomer != other.pricePerGramCustomer) {
+			return false;
+		}
+		if (pricePerGramTransport != other.pricePerGramTransport) {
+			return false;
+		}
+		if (pricePerVolumeCustomer != other.pricePerVolumeCustomer) {
+			return false;
+		}
+		if (pricePerVolumeTransport != other.pricePerVolumeTransport) {
+			return false;
+		}
+		if (transportFirm == null) {
+			if (other.transportFirm != null) {
+				return false;
+			}
+		} else if (!transportFirm.equals(other.transportFirm)) {
+			return false;
+		}
+		if (transportType != other.transportType) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -8,6 +8,14 @@ public class TransportUpdate extends BusinessEvent {
 	private int oldPricePerVolume;
 	private int newPricePerVolume;
 
+	public TransportUpdate( int og, int ng, int ov, int nv ) {
+		oldPricePerGram = og;
+		newPricePerGram = ng;
+		oldPricePerVolume = ov;
+		newPricePerVolume = nv;
+	}
+
+
 	@Override
 	public String toXML() {
 		// TODO Auto-generated method stub
