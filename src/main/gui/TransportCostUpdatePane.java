@@ -28,11 +28,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
- *
  */
 public class TransportCostUpdatePane extends Panel{
 

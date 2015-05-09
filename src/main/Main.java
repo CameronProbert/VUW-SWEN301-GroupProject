@@ -1,5 +1,7 @@
 package main;
 
+import controllers.UIController;
+import main.gui.GUI;
 import main.logic.Monitor;
 
 /**
@@ -22,6 +24,11 @@ public class Main {
 		} else {
 			verbose = false;
 		}
-		new Monitor(verbose);
+		Monitor m = new Monitor(verbose);
+		GUI g = new GUI();
+		UIController controller = new UIController(g, m);
+		g.setUIController(controller);
+		m.setUIController(controller);
+		g.setUp();
 	}
 }

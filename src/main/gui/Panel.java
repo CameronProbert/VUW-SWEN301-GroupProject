@@ -51,6 +51,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		setOpaque(false);
 		setUpComponents();
 		addListenner();
+		this.controller = this.gui.getUIController();
 	}
 
 	/**
@@ -116,7 +117,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		textField.addPropertyChangeListener("value", this);
 	}
 
-	protected void comboBoxListenner(JComboBox comboBox,String type){
+	protected void comboBoxListenner(JComboBox comboBox,final String type){
 		comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

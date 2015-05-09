@@ -13,22 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
+ * Customer Price Update Panel
+ * 
+ *  @author zhaojiang chang
  *
  */
 public class CustomerPriceUpdatePane extends Panel{
-
-	// buttons on the panel
-	//	private int count = 0;
-	//	private String origin = "";
-	//	private String destination = "";
-	//	private String priority = "";
-	//	private static JComboBox comboBoxOrigin;
-	//	private static JComboBox comboBoxDestination;
-	//	private static JComboBox comboBoxPriority;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static JFormattedTextField textCustomerNewPricePerGram;
 	private static JFormattedTextField textNewPricePerCB;
 	private JButton reset;
@@ -104,30 +98,6 @@ public class CustomerPriceUpdatePane extends Panel{
 			amount = ((Number)textNewPricePerCB.getValue()).doubleValue();
 		}
 	}
-
-	//	public String getOrigin() {
-	//		return origin;
-	//	}
-	//
-	//	public void setCPUOrigin(String origin) {
-	//		this.origin = origin;
-	//	}
-	//
-	//	public String getCPUDestination() {
-	//		return destination;
-	//	}
-	//
-	//	public void setCPUDestination(String destination) {
-	//		this.destination = destination;
-	//	}
-	//
-	//	public String getCPUPriority() {
-	//		return priority;
-	//	}
-	//
-	//	public void setCPUPriority(String priority) {
-	//		this.priority = priority;
-	//	}
 
 	public static double getCPUTextCustomerNewPricePerGram() {
 		return ((Number)textCustomerNewPricePerGram.getValue()).doubleValue();

@@ -2,6 +2,10 @@ package main.logic;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import controllers.UIController;
+
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
 
@@ -18,6 +22,8 @@ public class Monitor {
 
 	private List<Clerk> allUsers;
 	private Clerk currentUser;
+
+	private UIController controller;
 
 	/**
 	 * Creates the GUI and the monitor
@@ -62,6 +68,10 @@ public class Monitor {
 				currentUser = clerk;
 				break;
 			}
+		}
+		if(user==null){
+			JOptionPane.showMessageDialog(null, "Id or Password can not be empty.", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return user;
 	}
@@ -108,6 +118,11 @@ public class Monitor {
 			sb.append("\nNobody logged in.");
 		}
 		return sb.toString();
+	}
+
+	public void setUIController(UIController controller) {
+		// TODO Auto-generated method stub
+		this.controller = controller;
 	}
 
 }

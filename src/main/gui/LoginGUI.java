@@ -17,13 +17,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
+import controllers.UIController;
+
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
  *
  */
 public class LoginGUI extends Panel{
@@ -33,11 +32,13 @@ public class LoginGUI extends Panel{
 	private JButton login;
 	private String loginType;
 	private  JComboBox comboBoxPriority;
+	protected UIController controller;
 
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);
 		loginType = "Clerk";
+		this.controller = this.gui.getUIController();
 	}
 
 	@Override
@@ -120,6 +121,8 @@ public class LoginGUI extends Panel{
 			public void actionPerformed(ActionEvent ae) {
 				JButton button = (JButton) ae.getSource();
 				if(button == login){	// if button Start is clicked, joinServerPanel will be removed and multiple-player mode game will be started
+					System.out.println("username: " + gui.getUsername().getText());
+					System.out.println("password: " + gui.getPassword().getText());
 					if(controller.checkLogin(gui.getUsername().getText(), gui.getPassword().getText())){
 						gui.setUsername(gui.getUsername().getText());
 						//						gui.setStrServerNameC(gui.getServerNameC().getText());
@@ -128,15 +131,19 @@ public class LoginGUI extends Panel{
 						//							gui.removePanel(gui.getBackgroundPanel());
 						//							gui.startGame2();
 						//						}
-						System.out.println("username: " + gui.getUsername().getText());
-						System.out.println("password: " + gui.getPassword().getText());
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
 						gui.addBGPanel(gui.getBackgroundBlank());
 						gui.addPanel(new FunctionGUI(gui, loginType));
 
 
-					}}}
+					}
+					else{
+						//JOptionPane.showMessageDialog(null, "Id or Password can not be empty.", "Error",
+								//JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
 		});
 
 		quit.addActionListener(new ActionListener() {
