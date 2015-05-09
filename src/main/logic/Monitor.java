@@ -1,6 +1,7 @@
 package main.logic;
 
 import java.util.List;
+import java.util.Set;
 
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -16,6 +17,9 @@ public class Monitor {
 
 	private List<Clerk> allUsers;
 	private Clerk currentUser;
+	
+	private Set<Location> locations;
+	private Set<Route> routes;
 
 	/**
 	 * Creates the GUI and the monitor
