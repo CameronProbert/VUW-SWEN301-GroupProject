@@ -18,7 +18,7 @@ public class OpenNewRoute extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "OpenNewRoute []";
+		return "OpenNewRoute []" + stringRoutes();
 	}
 
 }

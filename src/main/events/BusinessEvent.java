@@ -40,4 +40,12 @@ public abstract class BusinessEvent {
 		return this.routes;
 	}
 
+	public String stringRoutes(){
+		String routeString = "";
+		for(Route r: routes){
+			routeString += " " + r.toString();
+		}
+		return routeString;
+	}
+
 }

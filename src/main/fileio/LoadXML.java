@@ -25,7 +25,7 @@ import main.logic.Route.TransportType;
 public class LoadXML {
 
 	private List<BusinessEvent> events = new ArrayList<BusinessEvent>();
-	private Set<Route> routes = new HashSet<Route>();
+	private Set<Route> finalRoutes = new HashSet<Route>();
 	private Set<Location> locations = new HashSet<Location>();
 
 
@@ -73,8 +73,8 @@ public class LoadXML {
 
 						// create a mail delivery given the route and the strings found. Some strings will need to be converted to integers etc
 
-						MailDelivery mail = new MailDelivery(origin, destination, Integer.parseInt(weight),
-								Integer.parseInt(volume), Integer.parseInt(priority), Integer.parseInt(revenue), Integer.parseInt(timeTaken), routes);
+						MailDelivery mail = new MailDelivery(origin, destination, Double.parseDouble(weight),
+								Double.parseDouble(volume), Double.parseDouble(priority), Double.parseDouble(revenue), Double.parseDouble(timeTaken), routes);
 						events.add(mail);
 
 					}
@@ -87,17 +87,27 @@ public class LoadXML {
 
 						// create a transport update event
 						// create a route using the old values. Find the route in the list and modify it
-						TransportUpdate transport = new TransportUpdate(Integer.parseInt(oldPPG), Integer.parseInt(newPPG),
-								Integer.parseInt(oldPPV), Integer.parseInt(newPPV), routes);
+						TransportUpdate transport = new TransportUpdate(Double.parseDouble(oldPPG), Double.parseDouble(newPPG),
+								Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
 						events.add(transport);
 
+						routes.get(0).setPricePerGramTransport(Double.parseDouble(oldPPG));
+						routes.get(0).setPricePerVolumeTransport(Double.parseDouble(oldPPV));
 
+						Route r = findRoute(routes.get(0));
+						if(r!=null){
+							r.setPricePerGramTransport(Double.parseDouble(newPPG));
+							r.setPricePerVolumeTransport(Double.parseDouble(newPPV));
+							System.out.println("-------------route editted transport ---------------------");
+						}
 					}
 					else if(type.equals("Delete Route")){
 						// create a delete route event
 						// delete the route from the route
 						DeleteRoute delete = new DeleteRoute(routes);
 						events.add(delete);
+
+						removeRoute(routes.get(0));
 
 					}
 					else if(type.equals("New Route")){
@@ -106,6 +116,9 @@ public class LoadXML {
 						// add the route to the list of routes
 						OpenNewRoute create = new OpenNewRoute(routes);
 						events.add(create);
+
+						finalRoutes.add(routes.get(0));
+						System.out.println("---------------------------------------route added");
 
 					}
 					else if(type.equals("Customer Price Change")){
@@ -117,9 +130,22 @@ public class LoadXML {
 
 						// create a customer price update event
 						// create a route using the old values. Find the route in the list and modify it
-						CustomerPriceChange change = new CustomerPriceChange(Integer.parseInt(oldPPG),
-								Integer.parseInt(newPPG), Integer.parseInt(oldPPV), Integer.parseInt(newPPV), routes);
+						CustomerPriceChange change = new CustomerPriceChange(Double.parseDouble(oldPPG),
+								Double.parseDouble(newPPG), Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
 						events.add(change);
+
+						routes.get(0).setPricePerGramCustomer(Double.parseDouble(oldPPG));
+						routes.get(0).setPricePerVolumeCustomer(Double.parseDouble(oldPPV));
+
+						Route r = findRoute(routes.get(0));
+						if(r!=null){
+							r.setPricePerGramCustomer(Double.parseDouble(newPPG));
+							r.setPricePerVolumeCustomer(Double.parseDouble(newPPV));
+							System.out.println("-------------route editted-------------customer");
+						}
+						else{
+							System.out.println("-------------route not found-------------customer");
+						}
 					}
 
 				}
@@ -129,13 +155,23 @@ public class LoadXML {
 		}
 	}
 
+	private void removeRoute(Route route) {
+		Route r = null;
+		for(Route rIter: finalRoutes){
+			if(rIter.equals(route)) r = rIter;
+		}
+		if(r!=null)finalRoutes.remove(r);
+	}
 
-
-
-
+	private Route findRoute(Route route) {
+		for(Route r : finalRoutes){
+			if(route.equals(r))return r;
+		}
+		return null;
+	}
 
 	private List<Route> readRoutes(Element eElement) {
-		// TODO read in the routes and return them. Will often be one route but just loop through all
+		List<Route> routes = new ArrayList<Route>();
 
 		NodeList nList = eElement.getElementsByTagName("route");
 
@@ -169,6 +205,8 @@ public class LoadXML {
 					Route r = new Route(or, des, firmName, tranType, Double.parseDouble(CPGTran),
 							Double.parseDouble(CPVTran), Double.parseDouble(CPGCust),
 							Double.parseDouble(CPVCust), Double.parseDouble(depFreq), days);
+					routes.add(r);
+
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (NoDaysToShipException e) {
@@ -177,9 +215,7 @@ public class LoadXML {
 			}
 
 		}
-
-
-		return null;
+		return routes;
 	}
 
 	private Location getLocation(String origin) {
@@ -194,13 +230,7 @@ public class LoadXML {
 
 	}
 
-
-
-
-
-
 	private DaysOfWeek[] getDays(Element route) {
-
 		List<DaysOfWeek> days = new ArrayList<DaysOfWeek>();
 		NodeList nList = route.getElementsByTagName("departureDays");
 		for(int i=0; i<nList.getLength(); i++){
@@ -225,13 +255,8 @@ public class LoadXML {
 		return dayDel;
 	}
 
-
-
-
-
-
 	public Set<Route> getRoutes(){
-		return routes;
+		return finalRoutes;
 	}
 
 	public List<BusinessEvent> getEvents() {

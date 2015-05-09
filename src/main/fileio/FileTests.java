@@ -10,6 +10,8 @@ import main.logic.Route;
 import main.logic.Route.DaysOfWeek;
 import main.logic.Route.TransportType;
 
+
+
 public class FileTests {
 
 	public FileTests(){
@@ -20,7 +22,10 @@ public class FileTests {
 		LoadXML load = new LoadXML();
 		events = load.getEvents();
 		for(BusinessEvent ev: events){
-			System.out.println(ev.toString());
+			System.out.println(ev.toString() + "\n\n");
+		}
+		for(Route r: load.getRoutes()){
+			System.out.println(r.toString());
 		}
 	}
 
@@ -30,26 +35,33 @@ public class FileTests {
 		TransportType tt = TransportType.Standard;
 		List<Route> routes = new ArrayList<Route>();
 		try {
-			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 20, 20, 2, DaysOfWeek.Monday);
+			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 10, 10, 2, DaysOfWeek.Monday);
 			routes.add(route);
 		} catch (NoDaysToShipException e) {
 			e.printStackTrace();
 		}
 		List<BusinessEvent> events = new ArrayList<BusinessEvent>();
+
+		OpenNewRoute open = new OpenNewRoute(routes);
+		events.add(open);
+
 		MailDelivery mail = new MailDelivery("Auckland", "Wellington", 20, 20, 1, 20, 40, routes);
 		events.add(mail);
 
 		CustomerPriceChange change = new CustomerPriceChange(10, 20, 10, 20, routes);
 		events.add(change);
 
-		DeleteRoute delete = new DeleteRoute(routes);
-		events.add(delete);
+		try {
+			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 20, 20, 2, DaysOfWeek.Monday);
+			List<Route> routes2 = new ArrayList<Route>();
+			routes2.add(route);
 
-		OpenNewRoute open = new OpenNewRoute(routes);
-		events.add(open);
+			TransportUpdate update = new TransportUpdate(10, 20, 10, 20, routes2);
+			events.add(update);
+		} catch (NoDaysToShipException e) {
+			e.printStackTrace();
+		}
 
-		TransportUpdate update = new TransportUpdate(10, 20, 10, 20, routes);
-		events.add(update);
 
 		return events;
 	}
