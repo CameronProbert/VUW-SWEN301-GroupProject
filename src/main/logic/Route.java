@@ -89,12 +89,23 @@ public class Route {
 	}
 
 	/**
-	 * Will disable each of the given days of the week
+	 * Removes days of the week from the current set of days of the week. If it
+	 * would remove every day that there is then it makes no changes and returns
+	 * false. Otherwise it returns true.
+	 * 
+	 * @param daysToRm
+	 * @return
 	 */
-	public void disableDays(DaysOfWeek... daysToRm) {
+	public boolean disableDays(DaysOfWeek... daysToRm) {
+		Set<DaysOfWeek> backup = EnumSet.copyOf(days);
 		for (DaysOfWeek day : daysToRm) {
 			days.remove(day);
 		}
+		if (days.size() == 0) {
+			days = backup;
+			return false;
+		}
+		return true;
 	}
 
 	/**
