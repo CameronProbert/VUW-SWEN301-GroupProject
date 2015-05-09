@@ -3,6 +3,7 @@ package main.logic;
 import java.util.List;
 import java.util.Set;
 
+import main.events.BusinessEvent;
 import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -20,6 +21,8 @@ public class Monitor {
 	private LogHandler handler;
 	private GUI gui;
 	
+	private List<BusinessEvent> busEvents;
+	
 	private Set<Clerk> allUsers;
 	private Clerk currentUser;
 	
@@ -35,6 +38,7 @@ public class Monitor {
 		loadUsers();
 		// handler = new LogHandler();
 		// busEvents = handler.getBusinessEvents();
+		// locations = handler.getLocations();
 		// routes = handler.getRoutes();
 		initialiseGUI();
 	}
@@ -53,12 +57,14 @@ public class Monitor {
 	 * Loads a list of the users in from a file
 	 */
 	private void loadUsers() {
+		System.out.println("Loading in users...");
 		try {
 			allUsers = UserIO.loadUsers();
 		} catch (NoRegisteredUsersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Done loading users.");
 	}
 
 	/**
@@ -147,6 +153,10 @@ public class Monitor {
 		return routes;
 	}
 
+	/**
+	 * Sets the set of routes to the given set
+	 * @param routes
+	 */
 	public void setRoutes(Set<Route> routes) {
 		this.routes = routes;
 	}
