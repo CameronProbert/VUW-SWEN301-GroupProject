@@ -11,17 +11,6 @@ import main.logic.Monitor;
  */
 public class Main {
 	public static void main(String[] arguments) {
-		boolean verbose;
-		if (arguments.length > 0) {
-			if (arguments[0].equals("-verbose")) {
-				verbose = true;
-			} else {
-				System.out.println();
-				verbose = false;
-			}
-		} else {
-			verbose = false;
-		}
-		new Monitor(verbose);
+		new Monitor();
 	}
 }
