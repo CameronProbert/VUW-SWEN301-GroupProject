@@ -11,22 +11,18 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JList;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+
+import controllers.UIController;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
  *
  */
 public class LoginGUI extends Panel{
@@ -35,13 +31,14 @@ public class LoginGUI extends Panel{
 	private JButton quit;
 	private JButton login;
 	private String loginType;
-
 	private  JComboBox comboBoxPriority;
+	protected UIController controller;
 
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);
 		loginType = "Clerk";
+		this.controller = this.gui.getUIController();
 	}
 
 	@Override
@@ -52,7 +49,8 @@ public class LoginGUI extends Panel{
 		//		nameP.setFont(new Font("Arial", Font.PLAIN, 20));
 		//		nameP.setForeground(new Color(0, 135, 200).brighter());
 
-		gui.getUsername().setText("Username");
+		//gui.getUsername().setText("Username");
+		gui.getUsername().setText("Cameron");
 		gui.getUsername().setPreferredSize(new Dimension(250, 50));
 		gui.getUsername().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getUsername().setForeground(new Color(130, 130, 130));
@@ -65,7 +63,7 @@ public class LoginGUI extends Panel{
 		//		name.setFont(new Font("Arial", Font.PLAIN, 20));
 		//		name.setForeground(new Color(0, 135, 200).brighter());
 
-		gui.getPassword().setText("Password");
+		gui.getPassword().setText("Cameron");
 		gui.getPassword().setPreferredSize(new Dimension(250, 50));
 		gui.getPassword().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getPassword().setForeground(new Color(130, 130, 130));
@@ -124,8 +122,9 @@ public class LoginGUI extends Panel{
 			public void actionPerformed(ActionEvent ae) {
 				JButton button = (JButton) ae.getSource();
 				if(button == login){	// if button Start is clicked, joinServerPanel will be removed and multiple-player mode game will be started
-					if(!gui.getUsername().getText().equals("Username") && !gui.getPassword().getText().equals("Password")
-							&& !gui.getUsername().getText().equals("") && !gui.getPassword().getText().equals("")){
+					System.out.println("username: " + gui.getUsername().getText());
+					System.out.println("password: " + gui.getPassword().getText());
+					if(controller.checkLogin(gui.getUsername().getText(), gui.getPassword().getText())){
 						gui.setUsername(gui.getUsername().getText());
 						//						gui.setStrServerNameC(gui.getServerNameC().getText());
 						//						if(isIPAdd(gui.getStrServerNameC())){
@@ -133,13 +132,17 @@ public class LoginGUI extends Panel{
 						//							gui.removePanel(gui.getBackgroundPanel());
 						//							gui.startGame2();
 						//						}
-						System.out.println("username: " + gui.getUsername().getText());
-						System.out.println("password: " + gui.getPassword().getText());
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
 						gui.addBGPanel(gui.getBackgroundBlank());
 						gui.addPanel(new FunctionGUI(gui, loginType));
-					}}}
+					}
+					else{
+						//JOptionPane.showMessageDialog(null, "Id or Password can not be empty.", "Error",
+								//JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
 		});
 
 		quit.addActionListener(new ActionListener() {
@@ -176,7 +179,7 @@ public class LoginGUI extends Panel{
 			}
 
 			public void focusLost(FocusEvent e) {}
-        });
+		});
 
 	}
 
@@ -197,5 +200,11 @@ public class LoginGUI extends Panel{
 
 			return label;
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+
 	}
 }

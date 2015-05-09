@@ -1,6 +1,7 @@
 package main.gui;
 
 import java.awt.Image;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,4 +30,10 @@ public class BackgroundBlank extends Panel{
 
 	@Override
 	protected void addListenner() {}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
