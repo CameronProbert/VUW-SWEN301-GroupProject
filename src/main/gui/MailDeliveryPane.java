@@ -29,13 +29,7 @@ public class MailDeliveryPane extends Panel {
 	 */
 	private static final long serialVersionUID = 1L;
 	// buttons on the panel
-	private String selected = "";
-	private String origin = "";
-	private String destination = "";
-	private String priority = "";
-	private static JComboBox comboBoxOrigin;
-	private static JComboBox comboBoxDestination;
-	private static JComboBox comboBoxPriority;
+
 	private static JFormattedTextField textWeight;
 	private static JFormattedTextField textVolume;
 	private static JTextField textTime;
@@ -52,32 +46,31 @@ public class MailDeliveryPane extends Panel {
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
+
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-				"Wellington", "Christchurch","Dunedin"};
-		String[] priorityList = {"Standard", "Air"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxOrigin);
-		origin = selected;
+		comboBoxListenner(comboBoxOrigin, "origin");
+
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxDestination);
-		destination = selected;
-		// Textfield
+		comboBoxListenner(comboBoxDestination, "destination");
+
 		JLabel labelWeight= new JLabel("Weight", SwingConstants.CENTER);
 		textWeight = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textWeight);
+
 		JLabel labelVolume= new JLabel("Volume", SwingConstants.CENTER);
 		textVolume = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textVolume);
 
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
-		comboBoxListenner(comboBoxPriority);
-		priority = selected;
+		comboBoxListenner(comboBoxPriority, "priority");
+
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		textTime.disable();
+
 		reset = new JButton("Reset");
 		add = new JButton("Add");
 		setDate = new JButton("Set Date and Time");
@@ -99,19 +92,6 @@ public class MailDeliveryPane extends Panel {
 
 	}
 
-
-
-	private void comboBoxListenner(JComboBox comboBox){
-		comboBox.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println();
-
-				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
-			}
-		});
-	}
 	@Override
 	protected void addListenner() {
 		setDate.addActionListener(new ActionListener(){
@@ -125,18 +105,30 @@ public class MailDeliveryPane extends Panel {
 				}
 			}
 		});
-	}
-	public String getMDOrigin() {
-		return origin;
-	}
+		add.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == add){
+					System.out.println(toStringMD());
 
-	public String getMDDestination() {
-		return destination;
-	}
+				}
+			}
+		});
 
-	public String getMDPriority() {
-		return priority;
 	}
+//	public String getMDOrigin() {
+//		return origin;
+//	}
+//
+//	public String getMDDestination() {
+//		return destination;
+//	}
+//
+//	public String getMDPriority() {
+//		return priority;
+//	}
 
 	public static double getMDTextWeight() {
 		return ((Number)textWeight.getValue()).doubleValue();
@@ -146,8 +138,8 @@ public class MailDeliveryPane extends Panel {
 		return ((Number)textVolume.getValue()).doubleValue();
 	}
 
-	public static JTextField getMDTextTime() {
-		return textTime;
+	public static String getMDTextTime() {
+		return textTime.getText();
 	}
 
 	@Override
@@ -159,5 +151,9 @@ public class MailDeliveryPane extends Panel {
 	        }  else if (source == textVolume) {
 	            amount = ((Number)textVolume.getValue()).doubleValue();
 	        }
+	}
+	public String toStringMD(){
+		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   Volume: "+ ((Number)textVolume.getValue()).doubleValue()+"    Weight:"+
+				((Number)textWeight.getValue()).doubleValue()+"    Date/Time:"+textTime.getText());
 	}
 }

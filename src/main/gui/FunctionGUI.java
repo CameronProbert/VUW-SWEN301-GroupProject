@@ -129,6 +129,7 @@ public class FunctionGUI extends Panel{
 				JButton button = (JButton) e.getSource();
 				if(button == mailDelivery){
 					displayPane.setVisible(false);
+					init();
 					jSplitPanel.add(new MailDeliveryPane(gui), JSplitPane.RIGHT);
 				}
 			}
@@ -140,6 +141,7 @@ public class FunctionGUI extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == transportCostUpdate){
+					init();
 					displayPane.setVisible(false);
 					jSplitPanel.add(new TransportCostUpdatePane(gui), JSplitPane.RIGHT);
 				}
@@ -152,6 +154,7 @@ public class FunctionGUI extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == customerPriceUpdate){
+					init();
 					displayPane.setVisible(false);
 					jSplitPanel.add(new CustomerPriceUpdatePane(gui), JSplitPane.RIGHT);
 				}
@@ -177,6 +180,7 @@ public class FunctionGUI extends Panel{
 				JButton button = (JButton) e.getSource();
 				if(button == businessEvents){
 					if(loginType.equals("Manager")){
+						init();
 						inforPanel.add(new BusinessEventsPane(gui));
 					}
 				}
@@ -207,6 +211,14 @@ public class FunctionGUI extends Panel{
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
 
+	}
+	private void init(){
+		origin = "";
+		destination = "";
+		priority = "";
+		transportType = "";
+		transportFirm = "";
+		selected = "";
 	}
 
 }

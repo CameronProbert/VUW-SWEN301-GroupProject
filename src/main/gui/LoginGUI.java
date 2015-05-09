@@ -16,12 +16,8 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JList;
-import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  * The JoinServerPanel class is a JPanel which is represented on
@@ -36,7 +32,6 @@ public class LoginGUI extends Panel{
 	private JButton quit;
 	private JButton login;
 	private String loginType;
-
 	private  JComboBox comboBoxPriority;
 
 	public LoginGUI(GUI gui) {
@@ -125,8 +120,7 @@ public class LoginGUI extends Panel{
 			public void actionPerformed(ActionEvent ae) {
 				JButton button = (JButton) ae.getSource();
 				if(button == login){	// if button Start is clicked, joinServerPanel will be removed and multiple-player mode game will be started
-					if(!gui.getUsername().getText().equals("Username") && !gui.getPassword().getText().equals("Password")
-							&& !gui.getUsername().getText().equals("") && !gui.getPassword().getText().equals("")){
+					if(controller.checkLogin(gui.getUsername().getText(), gui.getPassword().getText())){
 						gui.setUsername(gui.getUsername().getText());
 						//						gui.setStrServerNameC(gui.getServerNameC().getText());
 						//						if(isIPAdd(gui.getStrServerNameC())){
@@ -140,6 +134,8 @@ public class LoginGUI extends Panel{
 						gui.removePanel(gui.getBackgroundPanel());
 						gui.addBGPanel(gui.getBackgroundBlank());
 						gui.addPanel(new FunctionGUI(gui, loginType));
+
+
 					}}}
 		});
 
@@ -177,7 +173,7 @@ public class LoginGUI extends Panel{
 			}
 
 			public void focusLost(FocusEvent e) {}
-        });
+		});
 
 	}
 

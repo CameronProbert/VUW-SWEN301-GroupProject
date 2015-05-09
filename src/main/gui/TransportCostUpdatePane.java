@@ -15,6 +15,7 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,18 +38,12 @@ public class TransportCostUpdatePane extends Panel{
 
 	// buttons on the panel
 	private int count = 0;
-	private String selected = "";
-	private String origin = "";
-	private String destination = "";
-	private String priority = "";
-	private String transportType = "";
-	private static JComboBox comboBoxOrigin;
-	private static JComboBox comboBoxDestination;
-	private static JComboBox comboBoxPriority;
-	private static JComboBox comboBoxTransportTpye;
-	private static JTextField textTPNewPricePerGram;
-	private static JTextField textTPNewCostPerCubic;
-	private static JTextField textTransportFirm;
+
+
+
+
+	private static JFormattedTextField textTPNewPricePerGram;
+	private static JFormattedTextField textTPNewCostPerCubic;
 	private static boolean updateButtonClicked = false;
 	private JButton reset;
 	private JButton update;
@@ -63,33 +58,35 @@ public class TransportCostUpdatePane extends Panel{
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
+
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-				"Wellington", "Christchurch","Dunedin"};
-		String[] priorityList = {"Air","Standard"};
-		String[] TransportTpyeList = {"Land", "Sea","Air"};
-		String[] TransportDateList = {"Monday", "Tuesday","Wednessday","Thursday","Friday","Saturday","Sunday"};
 		comboBoxOrigin = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxOrigin);
-		origin = selected;
+		comboBoxListenner(comboBoxOrigin, "origin");
+
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
-		comboBoxListenner(comboBoxDestination);
-		destination = selected;
+		comboBoxListenner(comboBoxDestination, "destination");
+
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
-		textTransportFirm = new JTextField(20);
+		comboBoxTransportFirm = new JComboBox(TransportFirmList);
+		//transportFirm = selected;
+
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
-		comboBoxListenner(comboBoxTransportTpye);
-		transportType = selected;
+		comboBoxListenner(comboBoxTransportTpye, "transportType");
+
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
-		textTPNewPricePerGram = new JTextField(10);
+		textTPNewPricePerGram = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textTPNewPricePerGram);
+
 		JLabel labelNewCostPerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
-		textTPNewCostPerCubic = new JTextField(10);
+		textTPNewCostPerCubic = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textTPNewCostPerCubic);
+
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
-		comboBoxListenner(comboBoxPriority);
-		priority = selected;
+		comboBoxListenner(comboBoxPriority, "priority");
+
 		reset = new JButton("Reset");
 		update = new JButton("Update");
 		add(labelComboOrigin);
@@ -97,7 +94,7 @@ public class TransportCostUpdatePane extends Panel{
 		add(labelComboDestination);
 		add(comboBoxDestination);
 		add(labelTransportFirm);
-		add(textTransportFirm);
+		add(comboBoxTransportFirm);
 		add(labelTransportType);
 		add(comboBoxTransportTpye);
 		add(labelNewPricePerGram);
@@ -110,14 +107,7 @@ public class TransportCostUpdatePane extends Panel{
 		add(update);
 
 	}
-	private void comboBoxListenner(JComboBox comboBox){
-		comboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				selected = (String) ((JComboBox)e.getSource()).getSelectedItem();
-			}
-		});
-	}
+
 	@Override
 	protected void addListenner() {
 		update.addActionListener(new ActionListener(){
@@ -128,37 +118,18 @@ public class TransportCostUpdatePane extends Panel{
 				JButton button = (JButton) e.getSource();
 				if(button == update){
 					updateButtonClicked = true;
+					System.out.println(toStringTPU());
 				}
 			}
 		});
 	}
 
-	public String getTPCOrigin() {
-		return origin;
+	public static double getTPCNewPricePerGram() {
+		return ((Number)textTPNewPricePerGram.getValue()).doubleValue();
 	}
 
-	public String getTPCDestination() {
-		return destination;
-	}
-
-	public String getTPCPriority() {
-		return priority;
-	}
-
-	public String getTPCType() {
-		return transportType;
-	}
-
-	public static String getTPCNewPricePerGram() {
-		return textTPNewPricePerGram.getText();
-	}
-
-	public static String getTPCNewCostPerCubic() {
-		return textTPNewCostPerCubic.getText();
-	}
-
-	public static String getTPCFirm() {
-		return textTransportFirm.getText();
+	public static double getTPCNewCostPerCubic() {
+		return ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
 	}
 	public static boolean updateClicked(){
 		if(updateButtonClicked==true){
@@ -168,9 +139,19 @@ public class TransportCostUpdatePane extends Panel{
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(PropertyChangeEvent e) {
 		// TODO Auto-generated method stub
+		 Object source = e.getSource();
+	        if (source == textTPNewCostPerCubic) {
+	            amount = ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
+	        }
+	        else if (source == textTPNewPricePerGram) {
+	            amount = ((Number)textTPNewPricePerGram.getValue()).doubleValue();
+	        }
 
 	}
-
+	public String toStringTPU(){
+		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   New Price Per Gram: "+ ((Number)textTPNewPricePerGram.getValue()).doubleValue()
+				+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType);
+	}
 }
