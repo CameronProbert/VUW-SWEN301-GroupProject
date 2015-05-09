@@ -219,36 +219,36 @@ public class SaveXML {
 			destination.appendChild(doc.createTextNode(r.getDestination().toString()));
 			route.appendChild(destination);
 
-			Element transportType = doc.createElement("Transport Type");
+			Element transportType = doc.createElement("transport type");
 			transportType.appendChild(doc.createTextNode(r.getTransportType().toString()));
 			route.appendChild(transportType);
 
-			Element averageTime = doc.createElement("Average Time");
+			Element averageTime = doc.createElement("average time");
 			averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
 			route.appendChild(averageTime);
 
-			Element firmName = doc.createElement("Firm Name");
+			Element firmName = doc.createElement("firm name");
 			firmName.appendChild(doc.createTextNode(r.getTransportFirm()));
 			route.appendChild(firmName);
 
-			Element gramTransport = doc.createElement("Cost/gram for transport");
+			Element gramTransport = doc.createElement("cost/gram for transport");
 			gramTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramTransport())));
 			route.appendChild(gramTransport);
 
-			Element volumeTransport = doc.createElement("Cost/volume for transport");
+			Element volumeTransport = doc.createElement("cost/volume for transport");
 			volumeTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeTransport())));
 			route.appendChild(volumeTransport);
 
-			Element gramCustomer = doc.createElement("Cost/gram to customer");
+			Element gramCustomer = doc.createElement("cost/gram to customer");
 			gramCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramCustomer())));
 			route.appendChild(gramCustomer);
 
-			Element volumeCustomer = doc.createElement("Cost/volume to customer");
+			Element volumeCustomer = doc.createElement("cost/volume to customer");
 			volumeCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeCustomer())));
 			route.appendChild(volumeCustomer);
 
 			// TODO this may not be the best way to display this information
-			Element departureDays = doc.createElement("Departure Days");
+			Element departureDays = doc.createElement("departure days");
 			route.appendChild(departureDays);
 			for(DaysOfWeek day : r.getDays()){
 				Element dayElm = doc.createElement("day");
@@ -256,7 +256,7 @@ public class SaveXML {
 				departureDays.appendChild(dayElm);
 			}
 
-			Element departureFreq = doc.createElement("Departure Frequency");
+			Element departureFreq = doc.createElement("departure frequency");
 			departureFreq.appendChild(doc.createTextNode(String.valueOf(r.getDepartureFrequency())));
 			route.appendChild(departureFreq);
 

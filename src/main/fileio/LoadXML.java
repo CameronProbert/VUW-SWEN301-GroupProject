@@ -15,6 +15,7 @@ import java.io.File;
 
 import main.events.BusinessEvent;
 import main.logic.Route;
+import main.logic.Route.DaysOfWeek;
 
 public class LoadXML {
 
@@ -121,11 +122,64 @@ public class LoadXML {
 
 		NodeList nList = eElement.getElementsByTagName("route");
 
-		//for(int i=0; i<)
+		for(int i=0; i<nList.getLength(); i++){
+
+			Node nNode = nList.item(i);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element route = (Element) nNode;
+
+				String origin = eElement.getElementsByTagName("origin").item(0).getTextContent();
+				String transportType = eElement.getElementsByTagName("transport type").item(0).getTextContent();
+				String averageTime = eElement.getElementsByTagName("average time").item(0).getTextContent();
+				String firmName = eElement.getElementsByTagName("firm name").item(0).getTextContent();
+				String CPGTran = eElement.getElementsByTagName("cost/gram for transport").item(0).getTextContent();
+				String CPVTran = eElement.getElementsByTagName("cost/volume for transport").item(0).getTextContent();
+				String CPGCust = eElement.getElementsByTagName("cost/gram to customer").item(0).getTextContent();
+				String CPVCust = eElement.getElementsByTagName("cost/volume to customer").item(0).getTextContent();
+				String depFreq = eElement.getElementsByTagName("departure frequency").item(0).getTextContent();
+
+				List<DaysOfWeek> days = getDays(route);
+				// make a new route add to list
+			}
+
+		}
 
 
 		return null;
 	}
+
+	private List<DaysOfWeek> getDays(Element route) {
+
+		List<DaysOfWeek> days = new ArrayList<DaysOfWeek>();
+		NodeList nList = route.getElementsByTagName("departure days");
+		for(int i=0; i<nList.getLength(); i++){
+
+			Node day = nList.item(i);
+
+			if (day.getNodeType() == Node.ELEMENT_NODE) {
+				Element dayElm = (Element) day;
+
+				DaysOfWeek dWeek = null;
+				String dayOfWeek = dayElm.getElementsByTagName("day").item(0).getTextContent();
+
+				for(DaysOfWeek d: DaysOfWeek.values()){
+					if(dayOfWeek.equals(d.toString())){
+						dWeek = d;
+					}
+				}
+				days.add(dWeek);
+
+			}
+
+		}
+
+		return days;
+	}
+
+
+
+
+
 
 	private List<Route> getRoutes(){
 		return routes;
