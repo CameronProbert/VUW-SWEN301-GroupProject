@@ -21,4 +21,10 @@ public class DeleteRoute extends BusinessEvent {
 		return null;
 	}
 
+
+	@Override
+	public String toString() {
+		return "DeleteRoute []";
+	}
+
 }

@@ -16,6 +16,12 @@ public class FileTests {
 		List<BusinessEvent> events = eventsOne();
 		SaveXML save = new SaveXML();
 		save.save(events);
+
+		LoadXML load = new LoadXML();
+		events = load.getEvents();
+		for(BusinessEvent ev: events){
+			System.out.println(ev.toString());
+		}
 	}
 
 	public static List<BusinessEvent> eventsOne(){

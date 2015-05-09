@@ -1,7 +1,9 @@
 package main.fileio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import main.events.BusinessEvent;
 import main.logic.Route;
@@ -17,7 +19,7 @@ import main.logic.Route;
 public class LogHandler {
 
 	private List<BusinessEvent> events = new ArrayList<BusinessEvent>();
-	private List<Route> routes = new ArrayList<Route>();
+	private Set<Route> routes = new HashSet<Route>();
 	private BusinessEvent current;
 	private SaveXML save;
 
@@ -110,7 +112,7 @@ public class LogHandler {
 		return events;
 	}
 
-	public List<Route> getRoutes(){
+	public Set<Route> getRoutes(){
 		return routes;
 	}
 

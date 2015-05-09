@@ -53,4 +53,13 @@ public class TransportUpdate extends BusinessEvent {
 		return newPricePerVolume;
 	}
 
+
+	@Override
+	public String toString() {
+		return "TransportUpdate [oldPricePerGram=" + oldPricePerGram
+				+ ", newPricePerGram=" + newPricePerGram
+				+ ", oldPricePerVolume=" + oldPricePerVolume
+				+ ", newPricePerVolume=" + newPricePerVolume + "]";
+	}
+
 }

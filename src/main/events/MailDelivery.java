@@ -91,4 +91,13 @@ public class MailDelivery extends BusinessEvent {
 		timeTaken = time;
 	}
 
+	@Override
+	public String toString() {
+		return "MailDelivery [origin=" + origin + ", destination="
+				+ destination + ", weight=" + weight + ", volume=" + volume
+				+ ", priority=" + priority + ", revenue=" + revenue
+				+ ", timeTaken=" + timeTaken + ", isReceived=" + isReceived
+				+ "]";
+	}
+
 }

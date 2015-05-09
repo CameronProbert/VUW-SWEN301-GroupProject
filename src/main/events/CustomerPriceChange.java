@@ -61,4 +61,12 @@ public class CustomerPriceChange extends BusinessEvent {
 		return newPricePerVolume;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomerPriceChange [oldPricePerGram=" + oldPricePerGram
+				+ ", newPricePerGram=" + newPricePerGram
+				+ ", oldPricePerVolume=" + oldPricePerVolume
+				+ ", newPricePerVolume=" + newPricePerVolume + "]";
+	}
+
 }
