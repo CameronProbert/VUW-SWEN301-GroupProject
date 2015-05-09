@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import main.events.BusinessEvent;
+import main.events.MailDelivery;
 import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -20,12 +21,12 @@ public class Monitor {
 
 	private LogHandler handler;
 	private GUI gui;
-	
-	private List<BusinessEvent> busEvents;
-	
+
+	private List<BusinessEvent> events;
+
 	private Set<Clerk> allUsers;
 	private Clerk currentUser;
-	
+
 	private Set<Location> locations;
 	private Set<Route> routes;
 
@@ -42,14 +43,68 @@ public class Monitor {
 		// routes = handler.getRoutes();
 		initialiseGUI();
 	}
+
+	/**
+	 * Recalculates the business figures and updates the gui with them
+	 */
+	private void calculateBusinessFigures() {
+		double revenue = calculateRevenue();
+		// TODO gui.updateRevenue(revenue);
+		double expenditure = calculateExpenditure();
+		// TODO gui.updateExpenditure(expenditure);
+	}
 	
+	/**
+	 * Returns the total revenue
+	 * @return
+	 */
+	private double calculateRevenue(){
+		double revenue = 0;
+		for (BusinessEvent event : events){
+			if (event instanceof MailDelivery){
+				MailDelivery mail = (MailDelivery) event;
+				revenue += mail.getRevenue();
+			}
+		}
+		return revenue;
+	}
+	
+	/**
+	 * Returns the total expenditure
+	 * @return
+	 */
+	private double calculateExpenditure(){
+		double expenditure = 0;
+		for (BusinessEvent event : events){
+			if (event instanceof MailDelivery){
+				MailDelivery mail = (MailDelivery) event;
+				double mailExp = 0;
+				for (Route route : mail.getRoutes()){
+					mailExp += mail.getWeight()*route.getPricePerGramTransport();
+					mailExp += mail.getVolume()*route.getPricePerVolumeTransport();
+				}
+				expenditure += mailExp;
+			}
+		}
+		return expenditure;
+	}
+
+	/**
+	 * Initialises the GUI
+	 */
 	private void initialiseGUI() {
 		gui = new GUI();
 	}
 
-	public boolean save(){
-		// TODO Call save with on handler
-		// return handler.save();
+	/**
+	 * Passes a BusinessEvent to the LogHandler to save
+	 * 
+	 * @param event
+	 * @return
+	 */
+	public boolean saveEvent(BusinessEvent event) {
+		// TODO return handler.save(event);
+		calculateBusinessFigures();
 		return false;
 	}
 
@@ -106,11 +161,12 @@ public class Monitor {
 	private boolean makeNewUser(String id, String password, String name) {
 		boolean validUser = false;
 		return validUser;
-		//TODO possibly log the user in
+		// TODO possibly log the user in
 	}
 
 	/**
 	 * Returns the saved set of locations
+	 * 
 	 * @return
 	 */
 	public Set<Location> getLocations() {
@@ -119,6 +175,7 @@ public class Monitor {
 
 	/**
 	 * Sets the list of locations
+	 * 
 	 * @param locations
 	 */
 	public void setLocations(Set<Location> locations) {
@@ -127,26 +184,29 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
+	 * 
 	 * @param locations
 	 */
 	public void addLocations(Location... locations) {
-		for (Location l : locations){
+		for (Location l : locations) {
 			this.locations.add(l);
 		}
 	}
 
 	/**
 	 * Adds a locations to the list of locations
+	 * 
 	 * @param locations
 	 */
 	public void rmLocations(Location... locations) {
-		for (Location l : locations){
+		for (Location l : locations) {
 			this.locations.remove(l);
 		}
 	}
 
 	/**
 	 * Returns the set of routes stored in this class
+	 * 
 	 * @return
 	 */
 	public Set<Route> getRoutes() {
@@ -155,6 +215,7 @@ public class Monitor {
 
 	/**
 	 * Sets the set of routes to the given set
+	 * 
 	 * @param routes
 	 */
 	public void setRoutes(Set<Route> routes) {
@@ -163,20 +224,22 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
+	 * 
 	 * @param locations
 	 */
 	public void addRoutes(Route... routes) {
-		for (Route r : routes){
+		for (Route r : routes) {
 			this.routes.add(r);
 		}
 	}
 
 	/**
 	 * Adds a locations to the list of locations
+	 * 
 	 * @param locations
 	 */
 	public void rmRoutes(Route... routes) {
-		for (Route r : routes){
+		for (Route r : routes) {
 			this.routes.remove(r);
 		}
 	}
