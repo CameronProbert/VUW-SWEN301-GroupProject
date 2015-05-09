@@ -3,6 +3,8 @@ package main.logic;
 import java.util.List;
 import java.util.Set;
 
+import controllers.UIController;
+
 import main.events.BusinessEvent;
 import main.events.MailDelivery;
 import main.fileio.LogHandler;
@@ -29,6 +31,7 @@ public class Monitor {
 
 	private Set<Location> locations;
 	private Set<Route> routes;
+	private UIController controller;
 
 	/**
 	 * Creates the GUI and the monitor
@@ -257,6 +260,12 @@ public class Monitor {
 			sb.append("\nNobody logged in.");
 		}
 		return sb.toString();
+	}
+
+	public void setUIController(UIController controller) {
+		// TODO Auto-generated method stub
+		this.controller = controller;
+		
 	}
 
 }
