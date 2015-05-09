@@ -16,7 +16,7 @@ public abstract class BusinessEvent {
 
 	protected Clerk clerk;
 	protected String date;
-	private List<Route> routes;  // this will be added when a route class is added
+	protected List<Route> routes;  // this will be added when a route class is added
 
 	/**
 	 * returns the date the event was created
@@ -39,4 +39,13 @@ public abstract class BusinessEvent {
 	public List<Route> getRoutes(){
 		return this.routes;
 	}
+
+	public String stringRoutes(){
+		String routeString = "";
+		for(Route r: routes){
+			routeString += " " + r.toString();
+		}
+		return routeString;
+	}
+
 }

@@ -41,7 +41,7 @@ public class Monitor {
 			System.out.println("Loading in users...");
 		}
 		try {
-			allUsers = UserIO.loadUsers();
+			allUsers = (List<Clerk>) UserIO.loadUsers();
 		} catch (NoRegisteredUsersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,13 +93,14 @@ public class Monitor {
 	 * @param name
 	 * @return
 	 */
-	private boolean makeNewUser(String id, String password, String name) {
+	public boolean makeNewUser(String id, String password, String name, boolean isClerk) {
 		boolean validUser = false;
 		if (verbose) {
 			System.out.println("Making new user");
 			System.out.println("ID: " + id);
 			System.out.println("Name: " + name);
 			System.out.println("Password: " + password);
+			System.out.println("Is Clerk: " + isClerk);
 		}
 		return validUser;
 		//TODO possibly log the user in

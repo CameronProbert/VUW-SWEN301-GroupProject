@@ -21,14 +21,47 @@ public class RouteTests {
 	public RouteTests() {
 		constructRoute1();
 		constructRoute2();
-		addDays1();
+		addDays();
+		removeDays();
+	}
+
+	/**
+	 * Tests removing Days
+	 */
+	@Test
+	public void removeDays() {
+		Route route = makeRoute2();
+		DaysOfWeek[] actualDays = { DaysOfWeek.Monday, DaysOfWeek.Saturday,
+				DaysOfWeek.Wednesday };
+
+		// Remove Tuesday and checks to make sure that the route is unchanged as
+		// Tuesday was not in the Set already
+		assertTrue(route.disableDays(DaysOfWeek.Tuesday));
+		DaysOfWeek[] savedDays = route.getDays().toArray(
+				new DaysOfWeek[route.getDays().size()]);
+		assertTrue(checkArraysEqual(savedDays, actualDays));
+
+		// Disables Monday and Wednesday and check to see if they are no longer
+		// in the set
+		assertTrue(route.disableDays(DaysOfWeek.Monday, DaysOfWeek.Wednesday));
+		actualDays = new DaysOfWeek[] { DaysOfWeek.Saturday };
+		savedDays = route.getDays().toArray(
+				new DaysOfWeek[route.getDays().size()]);
+		assertTrue(checkArraysEqual(savedDays, actualDays));
+
+		// Try to disable the last day (Saturday) which should return false
+		// because you can't remove all the days a route runs for
+		assertFalse(route.disableDays(DaysOfWeek.Saturday));
+		savedDays = route.getDays().toArray(
+				new DaysOfWeek[route.getDays().size()]);
+		assertTrue(checkArraysEqual(savedDays, actualDays));
 	}
 
 	/**
 	 * Tests adding Days
 	 */
 	@Test
-	public void addDays1() {
+	public void addDays() {
 		Route route = makeRoute1();
 		route.enableDays(DaysOfWeek.Friday);
 		DaysOfWeek[] savedDays = route.getDays().toArray(
@@ -134,7 +167,7 @@ public class RouteTests {
 	 * 
 	 * @return
 	 */
-	private static Route makeRoute1() {
+	public static Route makeRoute1() {
 		Location origin = new Location("Auckland");
 		Location destination = new Location("Wellington");
 		String transportFirm = "NZPost";
@@ -161,7 +194,7 @@ public class RouteTests {
 	 * 
 	 * @return
 	 */
-	private static Route makeRoute2() {
+	public static Route makeRoute2() {
 		Location origin = new Location("Dubai");
 		Location destination = new Location("Christchurch");
 		String transportFirm = "NZCouriers";

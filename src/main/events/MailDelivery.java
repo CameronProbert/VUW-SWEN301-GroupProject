@@ -1,17 +1,21 @@
 package main.events;
 
+import java.util.List;
+
+import main.logic.Route;
+
 public class MailDelivery extends BusinessEvent {
 
 	private String origin;
 	private String destination;
-	private int weight;
-	private int volume;
-	private int priority;
-	private int revenue;
-	private int timeTaken;
+	private double weight;
+	private double volume;
+	private double priority;
+	private double revenue;
+	private double timeTaken;
 	private boolean isReceived;
 
-	public MailDelivery(String or, String des, int we, int vol, int prio, int rev, int time) {
+	public MailDelivery(String or, String des, double we, double vol, double prio, double rev, double time, List<Route> routes) {
 		origin = or;
 		destination = des;
 		weight = we;
@@ -19,6 +23,7 @@ public class MailDelivery extends BusinessEvent {
 		priority = prio;
 		revenue = rev;
 		timeTaken = time;
+		this.routes = routes;
 
 		isReceived = false; //initialise false
 	}
@@ -50,22 +55,22 @@ public class MailDelivery extends BusinessEvent {
 		return destination;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
-	public int getVolume() {
+	public double getVolume() {
 		return volume;
 	}
 
-	public int getPriority() {
+	public double getPriority() {
 		return priority;
 	}
 
-	public int getRevenue() {
+	public double getRevenue() {
 		return revenue;
 	}
 
-	public int getTimeTaken() {
+	public double getTimeTaken() {
 		return timeTaken;
 	}
 
@@ -84,6 +89,15 @@ public class MailDelivery extends BusinessEvent {
 
 	public void setTimeTaken(int time) {
 		timeTaken = time;
+	}
+
+	@Override
+	public String toString() {
+		return "MailDelivery [origin=" + origin + ", destination="
+				+ destination + ", weight=" + weight + ", volume=" + volume
+				+ ", priority=" + priority + ", revenue=" + revenue
+				+ ", timeTaken=" + timeTaken + ", isReceived=" + isReceived
+				+ "]" + stringRoutes();
 	}
 
 }

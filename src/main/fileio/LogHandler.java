@@ -1,9 +1,12 @@
 package main.fileio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import main.events.BusinessEvent;
+import main.logic.Route;
 
 /**
  * This class reads in all the business events and writes all the events to file
@@ -16,10 +19,15 @@ import main.events.BusinessEvent;
 public class LogHandler {
 
 	private List<BusinessEvent> events = new ArrayList<BusinessEvent>();
+	private Set<Route> routes = new HashSet<Route>();
 	private BusinessEvent current;
+	private SaveXML save;
 
 	public LogHandler(){
-		loadEvents();
+		LoadXML load = new LoadXML();
+		events = load.getEvents();
+		routes = load.getRoutes();
+		save = new SaveXML();
 	}
 
 	/** takes a new event from the main class and writes it to file
@@ -30,7 +38,7 @@ public class LogHandler {
 	 */
 	public boolean newEvent(BusinessEvent event){
 		events.add(event);
-		writeToFile();
+		if(writeToFile()) return true;
 		return true; // change this return false if unsuccessful
 	}
 
@@ -47,9 +55,10 @@ public class LogHandler {
 	 * This will need to be called every time an event is completed.
 	 * TODO change to only append the newer events to the file or an event at a time as they are created?
 	 */
-	public void writeToFile(){
+	public boolean writeToFile(){
 		// delete entire contents of the file
-		new SaveXML(events);
+
+		return save.save(events);
 	}
 
 	/**
@@ -99,11 +108,12 @@ public class LogHandler {
 		return current;
 	}
 
-	/**
-	 *  done initially when program is opened
-	 *
-	 */
-	private void loadEvents(){
-		events = new LoadXML().getEvent();
+	public List<BusinessEvent> getEvents(){
+		return events;
 	}
+
+	public Set<Route> getRoutes(){
+		return routes;
+	}
+
 }
