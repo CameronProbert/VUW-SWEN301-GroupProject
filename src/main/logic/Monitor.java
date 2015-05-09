@@ -1,6 +1,7 @@
 package main.logic;
 
 import java.util.List;
+import java.util.Set;
 
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -14,36 +15,28 @@ import main.fileio.UserIO;
  */
 public class Monitor {
 
-	private final boolean verbose;
-
 	private List<Clerk> allUsers;
 	private Clerk currentUser;
+	
+	private Set<Location> locations;
+	private Set<Route> routes;
 
 	/**
 	 * Creates the GUI and the monitor
 	 * 
 	 * @param verbose
 	 */
-	public Monitor(boolean verbose) {
-		this.verbose = verbose;
+	public Monitor() {
 		loadUsers();
 		// TODO create GUI
 	}
 
 	private void loadUsers() {
-		if (verbose) {
-			System.out.println("Loading in users...");
-		}
 		try {
 			allUsers = UserIO.loadUsers();
 		} catch (NoRegisteredUsersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if (verbose) {
-			for (Clerk user : allUsers){
-				System.out.println(user.toString());
-			}
 		}
 	}
 
@@ -85,12 +78,6 @@ public class Monitor {
 	 */
 	private boolean makeNewUser(String id, String password, String name) {
 		boolean validUser = false;
-		if (verbose) {
-			System.out.println("Making new user");
-			System.out.println("ID: " + id);
-			System.out.println("Name: " + name);
-			System.out.println("Password: " + password);
-		}
 		return validUser;
 		//TODO possibly log the user in
 	}
