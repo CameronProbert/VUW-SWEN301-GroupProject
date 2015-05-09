@@ -167,7 +167,7 @@ public class RouteTests {
 	 * 
 	 * @return
 	 */
-	private static Route makeRoute1() {
+	public static Route makeRoute1() {
 		Location origin = new Location("Auckland");
 		Location destination = new Location("Wellington");
 		String transportFirm = "NZPost";
@@ -194,7 +194,7 @@ public class RouteTests {
 	 * 
 	 * @return
 	 */
-	private static Route makeRoute2() {
+	public static Route makeRoute2() {
 		Location origin = new Location("Dubai");
 		Location destination = new Location("Christchurch");
 		String transportFirm = "NZCouriers";

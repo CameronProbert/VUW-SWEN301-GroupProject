@@ -32,6 +32,17 @@ public class Location {
 		this.outgoing = outgoing;
 	}
 
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+		if (!(other instanceof Location)) {
+			return false;
+		}
+		Location otherLoc = (Location) other;
+		return this.getName().equals(otherLoc.getName());
+	}
+
 	/**
 	 * Returns a representation of this location as a String
 	 */
