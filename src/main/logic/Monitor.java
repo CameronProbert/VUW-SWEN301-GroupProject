@@ -41,7 +41,7 @@ public class Monitor {
 			System.out.println("Loading in users...");
 		}
 		try {
-			allUsers = UserIO.loadUsers();
+			allUsers = (List<Clerk>) UserIO.loadUsers();
 		} catch (NoRegisteredUsersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

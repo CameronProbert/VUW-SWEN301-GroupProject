@@ -1,13 +1,17 @@
 package main.events;
 
+import java.util.List;
+
+import main.logic.Route;
+
 public class CustomerPriceChange extends BusinessEvent {
 
 
-	private int oldPricePerGram;
-	private int newPricePerGram;
+	private double oldPricePerGram;
+	private double newPricePerGram;
 
-	private int oldPricePerVolume;
-	private int newPricePerVolume;
+	private double oldPricePerVolume;
+	private double newPricePerVolume;
 
 
 	/**
@@ -17,11 +21,12 @@ public class CustomerPriceChange extends BusinessEvent {
 	 * @param ov: old price per volume
 	 * @param nv: new price per volume
 	 */
-	public CustomerPriceChange( int og, int ng, int ov, int nv ) {
+	public CustomerPriceChange( double og, double ng, double ov, double nv, List<Route> routes) {
 		oldPricePerGram = og;
 		newPricePerGram = ng;
 		oldPricePerVolume = ov;
 		newPricePerVolume = nv;
+		this.routes=routes;
 	}
 
 	@Override
@@ -40,20 +45,28 @@ public class CustomerPriceChange extends BusinessEvent {
 		newPricePerVolume = i;
 	}
 
-	public int getOldPricePerGram() {
+	public double getOldPricePerGram() {
 		return oldPricePerGram;
 	}
 
-	public int getNewPricePerGram() {
+	public double getNewPricePerGram() {
 		return newPricePerGram;
 	}
 
-	public int getOldPricePerVolume() {
+	public double getOldPricePerVolume() {
 		return oldPricePerVolume;
 	}
 
-	public int getNewPricePerVolume() {
+	public double getNewPricePerVolume() {
 		return newPricePerVolume;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerPriceChange [oldPricePerGram=" + oldPricePerGram
+				+ ", newPricePerGram=" + newPricePerGram
+				+ ", oldPricePerVolume=" + oldPricePerVolume
+				+ ", newPricePerVolume=" + newPricePerVolume + "]" + stringRoutes();
 	}
 
 }

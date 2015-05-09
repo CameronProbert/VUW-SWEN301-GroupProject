@@ -25,9 +25,10 @@ public class SaveXML {
 
 	private Document doc;
 	private Element rootElement;
+	private List<BusinessEvent> events;
 
-
-	public SaveXML(List<BusinessEvent> events) {
+	public boolean save(List<BusinessEvent> events){
+		this.events = events;
 		try {
 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -36,7 +37,7 @@ public class SaveXML {
 			// root elements
 			doc = docBuilder.newDocument();
 
-			rootElement = doc.createElement("business events");
+			rootElement = doc.createElement("businessEvents");
 			doc.appendChild(rootElement);
 
 
@@ -64,7 +65,7 @@ public class SaveXML {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("saveFile"));
+			StreamResult result = new StreamResult(new File("xml/saveFile"));
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);
@@ -75,10 +76,12 @@ public class SaveXML {
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
+			return false;
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
+			return false;
 		}
-
+		return true;
 	}
 
 	private void saveMailDelivery(MailDelivery event) {
@@ -116,7 +119,7 @@ public class SaveXML {
 		revenue.appendChild(doc.createTextNode(String.valueOf(event.getRevenue())));
 		mail.appendChild(revenue);
 
-		Element timeTaken = doc.createElement("time taken");
+		Element timeTaken = doc.createElement("timeTaken");
 		timeTaken.appendChild(doc.createTextNode(String.valueOf(event.getTimeTaken())));
 		mail.appendChild(timeTaken);
 
@@ -134,19 +137,19 @@ public class SaveXML {
 
 		saveRoute(event, transport);
 
-		Element oldPPGram = doc.createElement("old price/gram");
+		Element oldPPGram = doc.createElement("oldPricePGram");
 		oldPPGram.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerGram())));
 		transport.appendChild(oldPPGram);
 
-		Element newPPGram = doc.createElement("new price/gram");
+		Element newPPGram = doc.createElement("newPricePGram");
 		newPPGram.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerGram())));
 		transport.appendChild(newPPGram);
 
-		Element oldPPVolume = doc.createElement("old price/volume");
+		Element oldPPVolume = doc.createElement("oldPricePVolume");
 		oldPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerVolume())));
 		transport.appendChild(oldPPVolume);
 
-		Element newPPVolume = doc.createElement("new price/volume");
+		Element newPPVolume = doc.createElement("newPricePVolume");
 		newPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerVolume())));
 		transport.appendChild(newPPVolume);
 
@@ -185,19 +188,19 @@ public class SaveXML {
 
 		saveRoute(event, change);
 
-		Element oldPPGram = doc.createElement("old price/gram");
+		Element oldPPGram = doc.createElement("oldPricePGram");
 		oldPPGram.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerGram())));
 		change.appendChild(oldPPGram);
 
-		Element newPPGram = doc.createElement("new price/gram");
+		Element newPPGram = doc.createElement("newPricePGram");
 		newPPGram.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerGram())));
 		change.appendChild(newPPGram);
 
-		Element oldPPVolume = doc.createElement("old price/volume");
+		Element oldPPVolume = doc.createElement("oldPricePVolume");
 		oldPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getOldPricePerVolume())));
 		change.appendChild(oldPPVolume);
 
-		Element newPPVolume = doc.createElement("new price/volume");
+		Element newPPVolume = doc.createElement("newPricePVolume");
 		newPPVolume.appendChild(doc.createTextNode(String.valueOf(event.getNewPricePerVolume())));
 		change.appendChild(newPPVolume);
 
@@ -212,43 +215,44 @@ public class SaveXML {
 			elm.appendChild(route);
 
 			Element origin = doc.createElement("origin");
-			origin.appendChild(doc.createTextNode(r.getOrigin().toString()));
+			origin.appendChild(doc.createTextNode(r.getOrigin().getName()));
 			route.appendChild(origin);
 
 			Element destination = doc.createElement("destination");
-			destination.appendChild(doc.createTextNode(r.getDestination().toString()));
+			destination.appendChild(doc.createTextNode(r.getDestination().getName()));
 			route.appendChild(destination);
 
-			Element transportType = doc.createElement("Transport Type");
+			Element transportType = doc.createElement("transportType");
 			transportType.appendChild(doc.createTextNode(r.getTransportType().toString()));
 			route.appendChild(transportType);
 
-			Element averageTime = doc.createElement("Average Time");
-			averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
-			route.appendChild(averageTime);
+			// TODO this has changed need to revise
+			//Element averageTime = doc.createElement("averageTime");
+			//averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
+			//route.appendChild(averageTime);
 
-			Element firmName = doc.createElement("Firm Name");
+			Element firmName = doc.createElement("firmName");
 			firmName.appendChild(doc.createTextNode(r.getTransportFirm()));
 			route.appendChild(firmName);
 
-			Element gramTransport = doc.createElement("Cost/gram for transport");
+			Element gramTransport = doc.createElement("costPGramForTransport");
 			gramTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramTransport())));
 			route.appendChild(gramTransport);
 
-			Element volumeTransport = doc.createElement("Cost/volume for transport");
+			Element volumeTransport = doc.createElement("costPVolumeForTransport");
 			volumeTransport.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeTransport())));
 			route.appendChild(volumeTransport);
 
-			Element gramCustomer = doc.createElement("Cost/gram to customer");
+			Element gramCustomer = doc.createElement("costPGramToCustomer");
 			gramCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerGramCustomer())));
 			route.appendChild(gramCustomer);
 
-			Element volumeCustomer = doc.createElement("Cost/volume to customer");
+			Element volumeCustomer = doc.createElement("costPVolumeToCustomer");
 			volumeCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeCustomer())));
 			route.appendChild(volumeCustomer);
 
 			// TODO this may not be the best way to display this information
-			Element departureDays = doc.createElement("Departure Days");
+			Element departureDays = doc.createElement("departureDays");
 			route.appendChild(departureDays);
 			for(DaysOfWeek day : r.getDays()){
 				Element dayElm = doc.createElement("day");
@@ -256,7 +260,7 @@ public class SaveXML {
 				departureDays.appendChild(dayElm);
 			}
 
-			Element departureFreq = doc.createElement("Departure Frequency");
+			Element departureFreq = doc.createElement("departureFrequency");
 			departureFreq.appendChild(doc.createTextNode(String.valueOf(r.getDepartureFrequency())));
 			route.appendChild(departureFreq);
 

@@ -21,14 +21,21 @@ public class Route {
 		Standard, Air
 	}
 
+	/**
+	 * The days of the week
+	 * 
+	 * @author Cameron Probert
+	 *
+	 */
 	public enum DaysOfWeek {
 		Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 	}
 
 	private Location origin;
 	private Location destination;
-	private Double averageTimeToDeliver; // Number of hours taken to deliver on
-											// this route
+	private double totalTimeToDeliver; // Total number of hours delivered on
+										// this route
+	private int numTimesDelivered;
 	private String transportFirm;
 	private TransportType transportType;
 	private double pricePerGramTransport;
@@ -59,6 +66,8 @@ public class Route {
 		if (days.length == 0) {
 			throw new NoDaysToShipException();
 		}
+		this.numTimesDelivered = 0;
+		this.totalTimeToDeliver = 0;
 		this.origin = origin;
 		this.destination = destination;
 		this.transportFirm = transportFirm;
@@ -89,12 +98,23 @@ public class Route {
 	}
 
 	/**
-	 * Will disable each of the given days of the week
+	 * Removes days of the week from the current set of days of the week. If it
+	 * would remove every day that there is then it makes no changes and returns
+	 * false. Otherwise it returns true.
+	 * 
+	 * @param daysToRm
+	 * @return
 	 */
-	public void disableDays(DaysOfWeek... daysToRm) {
+	public boolean disableDays(DaysOfWeek... daysToRm) {
+		Set<DaysOfWeek> backup = EnumSet.copyOf(days);
 		for (DaysOfWeek day : daysToRm) {
 			days.remove(day);
 		}
+		if (days.size() == 0) {
+			days = backup;
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -122,22 +142,50 @@ public class Route {
 		return destination;
 	}
 
+	/**
+	 * Returns the average time taken to deliver using the route
+	 * 
+	 * @return
+	 */
 	public double getAverageTimeToDeliver() {
-		return averageTimeToDeliver;
+		if (totalTimeToDeliver == 0){
+			return Double.MAX_VALUE;
+		}
+		return totalTimeToDeliver/numTimesDelivered;
 	}
 
+	/**
+	 * Returns the name of the Transport firm
+	 * 
+	 * @return
+	 */
 	public String getTransportFirm() {
 		return transportFirm;
 	}
 
+	/**
+	 * Returns the price per gram to us
+	 * 
+	 * @return
+	 */
 	public double getPricePerGramTransport() {
 		return pricePerGramTransport;
 	}
 
+	/**
+	 * Returns the price per volume for the customer
+	 * 
+	 * @return
+	 */
 	public double getPricePerVolumeTransport() {
 		return pricePerVolumeTransport;
 	}
 
+	/**
+	 * Returns the price per gram for the customer
+	 * 
+	 * @return
+	 */
 	public double getPricePerGramCustomer() {
 		return pricePerGramCustomer;
 	}
@@ -169,8 +217,14 @@ public class Route {
 		return transportType;
 	}
 
-	public void setAverageTimeToDeliver(double averageTimeToDeliver) {
-		this.averageTimeToDeliver = averageTimeToDeliver;
+	/**
+	 * Sets the average time to deliver for the route
+	 * 
+	 * @return
+	 */
+	public void addDeliveryTime(double timeToDeliver) {
+		this.totalTimeToDeliver += timeToDeliver;
+		numTimesDelivered++;
 	}
 
 	/**
@@ -225,6 +279,9 @@ public class Route {
 		return false;
 	}
 
+	/**
+	 * Returns a string representation of this route
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -233,7 +290,7 @@ public class Route {
 		builder.append(", destination=");
 		builder.append(destination);
 		builder.append("\naverageTimeToDeliver=");
-		builder.append(averageTimeToDeliver);
+		builder.append(totalTimeToDeliver);
 		builder.append("\ntransportFirm=");
 		builder.append(transportFirm);
 		builder.append(", transportType=");
@@ -271,13 +328,9 @@ public class Route {
 			return false;
 		}
 		Route other = (Route) obj;
-		if (averageTimeToDeliver == null) {
-			if (other.averageTimeToDeliver != null) {
-				return false;
-			}
-		} else if (!averageTimeToDeliver.equals(other.averageTimeToDeliver)) {
+		if (other.totalTimeToDeliver != this.totalTimeToDeliver) {
 			return false;
-		}
+		} 
 		if (days == null) {
 			if (other.days != null) {
 				return false;

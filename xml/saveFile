@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<businessEvents>
+  <event type="New Route">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>10.0</costPVolumeForTransport>
+      <costPGramToCustomer>10.0</costPGramToCustomer>
+      <costPVolumeToCustomer>10.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+  </event>
+  <event type="Mail Delivery">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>10.0</costPVolumeForTransport>
+      <costPGramToCustomer>10.0</costPGramToCustomer>
+      <costPVolumeToCustomer>10.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <origin>Auckland</origin>
+    <destination>Wellington</destination>
+    <weight>20.0</weight>
+    <volume>20.0</volume>
+    <priority>1.0</priority>
+    <revenue>20.0</revenue>
+    <timeTaken>40.0</timeTaken>
+  </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>10.0</costPVolumeForTransport>
+      <costPGramToCustomer>10.0</costPGramToCustomer>
+      <costPVolumeToCustomer>10.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <oldPricePGram>10.0</oldPricePGram>
+    <newPricePGram>20.0</newPricePGram>
+    <oldPricePVolume>10.0</oldPricePVolume>
+    <newPricePVolume>20.0</newPricePVolume>
+  </event>
+  <event type="Transport Update">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>10.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>20.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <oldPricePGram>10.0</oldPricePGram>
+    <newPricePGram>20.0</newPricePGram>
+    <oldPricePVolume>10.0</oldPricePVolume>
+    <newPricePVolume>20.0</newPricePVolume>
+  </event>
+</businessEvents>
