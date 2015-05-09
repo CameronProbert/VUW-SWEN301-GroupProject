@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import main.logic.Clerk;
 import main.logic.Manager;
@@ -27,8 +29,8 @@ public class UserIO {
 	 * @return
 	 * @throws NoRegisteredUsersException
 	 */
-	public static List<Clerk> loadUsers() throws NoRegisteredUsersException {
-		List<Clerk> clerks = new ArrayList<Clerk>();
+	public static Set<Clerk> loadUsers() throws NoRegisteredUsersException {
+		Set<Clerk> clerks = new HashSet<Clerk>();
 		try {
 			Scanner scan = new Scanner(new File(FILENAME));
 			scan.nextLine();
