@@ -1,6 +1,7 @@
 package main.gui;
 
 import java.awt.BorderLayout;
+import javax.swing.JFormattedTextField;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,11 +28,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
 public class CustomerPriceUpdatePane extends Panel{
 
@@ -43,14 +45,14 @@ public class CustomerPriceUpdatePane extends Panel{
 	private static JComboBox comboBoxOrigin;
 	private static JComboBox comboBoxDestination;
 	private static JComboBox comboBoxPriority;
-	private static JTextField textCustomerNewPricePerGram;
-	private static JTextField textNewPricePerCB;
+	private static JFormattedTextField textCustomerNewPricePerGram;
+	private static JFormattedTextField textNewPricePerCB;
 	private JButton reset;
 	private JButton update;
 
 	public CustomerPriceUpdatePane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
+		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
 
 	@Override
@@ -73,9 +75,11 @@ public class CustomerPriceUpdatePane extends Panel{
 		comboBoxListenner(comboBoxPriority);
 		priority = location;
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
-		textCustomerNewPricePerGram = new JTextField(10);
+		textCustomerNewPricePerGram = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textCustomerNewPricePerGram);
 		JLabel labelNewPricePerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
-		textNewPricePerCB = new JTextField(10);
+		textNewPricePerCB = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textNewPricePerCB);
 		reset = new JButton("Reset");
 		update = new JButton("Update");
 		add(labelComboOrigin);
@@ -91,8 +95,6 @@ public class CustomerPriceUpdatePane extends Panel{
 		add(reset);
 		add(update);
 
-//		add(textField);
-		System.out.println("22222222222222");
 	}
 	private void comboBoxListenner(JComboBox comboBox){
 		comboBox.addActionListener(new ActionListener() {
@@ -105,5 +107,15 @@ public class CustomerPriceUpdatePane extends Panel{
 	}
 	@Override
 	protected void addListenner() {
+	}
+	@Override
+	public void propertyChange(PropertyChangeEvent e ) {
+		// TODO Auto-generated method stub
+		 Object source = e.getSource();
+	        if (source == textCustomerNewPricePerGram) {
+	            amount = ((Number)textCustomerNewPricePerGram.getValue()).doubleValue();
+	        }  else if (source == textNewPricePerCB) {
+	            amount = ((Number)textNewPricePerCB.getValue()).doubleValue();
+	        }
 	}
 }

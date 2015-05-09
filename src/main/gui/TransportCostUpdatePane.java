@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,11 +27,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
 public class TransportCostUpdatePane extends Panel{
 
@@ -55,7 +56,7 @@ public class TransportCostUpdatePane extends Panel{
 	public TransportCostUpdatePane(GUI gui) {
 		super(gui);
 		updateButtonClicked = false;
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
+		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
 
 	@Override
@@ -165,5 +166,11 @@ public class TransportCostUpdatePane extends Panel{
 		}
 		return false;
 	}
-	
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

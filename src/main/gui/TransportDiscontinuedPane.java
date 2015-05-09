@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,11 +27,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
 public class TransportDiscontinuedPane extends Panel{
 
@@ -45,13 +46,13 @@ public class TransportDiscontinuedPane extends Panel{
 	private static JComboBox comboBoxDestination;
 	private static JComboBox comboBoxTransportTpye;
 	private static JTextField textTransportFirm;
-	
+
 	private JButton reset;
 	private JButton update;
 
 	public TransportDiscontinuedPane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());	
+		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class TransportDiscontinuedPane extends Panel{
 		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
 		comboBoxListenner(comboBoxTransportTpye);
 		transportType = selected;
-		
+
 		reset = new JButton("Reset");
 		update = new JButton("Update");
 		add(labelComboOrigin);
@@ -101,5 +102,11 @@ public class TransportDiscontinuedPane extends Panel{
 	}
 	@Override
 	protected void addListenner() {
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+
 	}
 }

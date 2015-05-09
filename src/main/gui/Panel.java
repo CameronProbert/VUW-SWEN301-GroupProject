@@ -5,19 +5,25 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
  * The Panel class represents JPanels on the GUI at the game entry stage.
  * Panels has the GUI that it is on.
- * 
+ *
  */
-public abstract class Panel extends JPanel{
+public abstract class Panel extends JPanel implements PropertyChangeListener {
 
 	protected GUI gui;	// the GUI that panel is on
+	protected double amount = 0;
+	protected NumberFormat amountFormat;
+
 
 	public Panel (GUI gui){
 		this.gui = gui;
@@ -28,7 +34,7 @@ public abstract class Panel extends JPanel{
 	}
 
 	/**
-	 * The following method initializes the components on it and calls method to set the 
+	 * The following method initializes the components on it and calls method to set the
 	 * style of the buttons
 	 */
 	protected abstract void setUpComponents();
@@ -39,7 +45,7 @@ public abstract class Panel extends JPanel{
 	protected abstract void addListenner();
 
 	/**
-	 * The following method sets the button style by the given 
+	 * The following method sets the button style by the given
 	 * characteristics and adds the button onto the panel
 	 * @param button	the given button to set style on
 	 * @param buttonWidth	the given width of the button
@@ -52,7 +58,7 @@ public abstract class Panel extends JPanel{
 //		button.setForeground(defaultColor);
 		button.setBackground(defaultColor);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
-		
+
 		button.setBackground(defaultColor);
 		button.setForeground(Color.WHITE);
 		// set the button to transparent
@@ -62,7 +68,7 @@ public abstract class Panel extends JPanel{
 		button.setBorderPainted(true);
 		button.setFocusPainted(true);
 
-		// add mouseListener onto the button 
+		// add mouseListener onto the button
 		button.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {}
@@ -82,5 +88,11 @@ public abstract class Panel extends JPanel{
 
 		// add the button to the panel
 		add(button);
+	}
+	protected void formatToDobuleJTextField(JFormattedTextField textField) {
+		// TODO Auto-generated method stub
+		textField.setValue(new Double(amount));
+		textField.setColumns(10);
+		textField.addPropertyChangeListener("value", this);
 	}
 }

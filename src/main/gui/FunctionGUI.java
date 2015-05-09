@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -27,11 +28,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on 
- * the frame once the player choose to start a game in a server. 
- * JoinServerPanel class is responsible for letting player enter 
+ * The JoinServerPanel class is a JPanel which is represented on
+ * the frame once the player choose to start a game in a server.
+ * JoinServerPanel class is responsible for letting player enter
  * the server information and then start the game.
- * 
+ *
  */
 public class FunctionGUI extends Panel{
 
@@ -52,7 +53,7 @@ public class FunctionGUI extends Panel{
 	public FunctionGUI(GUI gui, String loginType) {
 		super(gui);
 		this.loginType = loginType;
-		setBounds(0, 0, gui.getWidth(), gui.getHeight());	
+		setBounds(0, 0, gui.getWidth(), gui.getHeight());
 	}
 
 	@Override
@@ -68,14 +69,14 @@ public class FunctionGUI extends Panel{
 		displayPane = new JPanel(new BorderLayout());
 		displayPane.setBorder ( new TitledBorder ( new EtchedBorder (), "" ) );
 		displayPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
-		buttonPane = new JPanel(new BorderLayout()); // 
+		buttonPane = new JPanel(new BorderLayout()); //
 		buttonPane.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
 		inforPanel = new JPanel(new BorderLayout());
 		//inforPanel.setOpaque(false);
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
 		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
-		//TODO: find a way to set the width of the button 
+		//TODO: find a way to set the width of the button
 		mailDelivery = new JButton("Mail Delivery                        ");
 		customerPriceUpdate = new JButton("Customer Price Update    ");
 		transportCostUpdate = new JButton("Transport Cost Update      ");
@@ -92,7 +93,7 @@ public class FunctionGUI extends Panel{
 		logOut.setBackground(Color.white);
 
 		//logOut.setSize(200, 30);
-		
+
 		buttonPane.add(mailDelivery);
 		buttonPane.add(customerPriceUpdate);
 		buttonPane.add(transportCostUpdate);
@@ -112,7 +113,7 @@ public class FunctionGUI extends Panel{
 
 	private void addImage(String iamgeAdd, JPanel panel, int height) {
 		// TODO Auto-generated method stub
-		ImageIcon topImage = new ImageIcon(iamgeAdd);		
+		ImageIcon topImage = new ImageIcon(iamgeAdd);
 		Image scaledImage = topImage.getImage().getScaledInstance(900,height,Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		panel.add(jl);
@@ -181,15 +182,15 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		final Panel p =  this; 
+		final Panel p =  this;
 		logOut.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {	
+
+			public void actionPerformed(ActionEvent e) {
 				gui.removePanel(p);
 				gui.removePanel(gui.getBackgroundBlank());
 				gui.addBGPanel(gui.getBackgroundPanel());
 				gui.addPanel(new LoginGUI(gui));
-				
+
 			}
 		});
 	}
@@ -198,8 +199,14 @@ public class FunctionGUI extends Panel{
 		display.setEditable ( false ); // set textArea non-editable
 		JScrollPane scroll = new JScrollPane ( display );
 		scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-		scroll.setBounds(200, 200, 200, 200);	
+		scroll.setBounds(200, 200, 200, 200);
 		displayPane.add ( scroll );
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
