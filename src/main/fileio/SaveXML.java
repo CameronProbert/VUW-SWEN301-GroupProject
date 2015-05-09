@@ -25,9 +25,10 @@ public class SaveXML {
 
 	private Document doc;
 	private Element rootElement;
+	private List<BusinessEvent> events;
 
-
-	public SaveXML(List<BusinessEvent> events) {
+	public boolean save(List<BusinessEvent> events){
+		this.events = events;
 		try {
 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -75,10 +76,12 @@ public class SaveXML {
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
+			return false;
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
+			return false;
 		}
-
+		return true;
 	}
 
 	private void saveMailDelivery(MailDelivery event) {

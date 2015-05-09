@@ -13,6 +13,12 @@ import main.logic.Route.TransportType;
 public class FileTests {
 
 	public FileTests(){
+		List<BusinessEvent> events = eventsOne();
+		SaveXML save = new SaveXML();
+		save.save(events);
+	}
+
+	public static List<BusinessEvent> eventsOne(){
 		Location origin = new Location("Auckland");
 		Location destination = new Location("Wellington");
 		TransportType tt = TransportType.Standard;
@@ -39,9 +45,7 @@ public class FileTests {
 		TransportUpdate update = new TransportUpdate(10, 20, 10, 20, routes);
 		events.add(update);
 
-
-
-		SaveXML save = new SaveXML(events);
+		return events;
 	}
 
 	public static void main(String[] args){

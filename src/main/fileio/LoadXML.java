@@ -181,11 +181,11 @@ public class LoadXML {
 
 
 
-	private List<Route> getRoutes(){
+	public List<Route> getRoutes(){
 		return routes;
 	}
 
-	public List<BusinessEvent> getEvent() {
+	public List<BusinessEvent> getEvents() {
 		return events;
 	}
 
