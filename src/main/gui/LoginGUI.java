@@ -19,51 +19,46 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import main.logic.Clerk;
 
 import controllers.UIController;
 
 /**
+ * The LoginGUI class is a JPanel which is added onto the JFrame 
+ * once the KPSmart system is started. LoginGUI class is responsible 
+ * for letting the user enter username and password to log into the system.
  *
+ * @author Zhiheng Sun
+ * 
  */
 public class LoginGUI extends Panel{
 
 	// buttons on the panel
 	private JButton quit;
 	private JButton login;
-	private String loginType;
-	private  JComboBox comboBoxPriority;
+
 	protected UIController controller;
 
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);
-		loginType = "Clerk";
 		this.controller = this.gui.getUIController();
 	}
 
 	@Override
 	protected void setUpComponents() {
-		// labels, textFields and button used on joinServerPanel
-		//		JLabel nameP = new JLabel("Username : ");
-		//		nameP.setPreferredSize(new Dimension(150, 60));
-		//		nameP.setFont(new Font("Arial", Font.PLAIN, 20));
-		//		nameP.setForeground(new Color(0, 135, 200).brighter());
+		// textFields used on LoginGUI
+		gui.getUserId().setText("Username");
+		gui.getUserId().setPreferredSize(new Dimension(250, 50));
+		gui.getUserId().setFont(new Font("Arial", Font.PLAIN, 20));
+		gui.getUserId().setForeground(new Color(130, 130, 130));
+		gui.getUserId().setBackground(new Color(50, 50, 50));
+		gui.getUserId().setBorder(null);
 
-		//gui.getUsername().setText("Username");
-		gui.getUsername().setText("Cameron");
-		gui.getUsername().setPreferredSize(new Dimension(250, 50));
-		gui.getUsername().setFont(new Font("Arial", Font.PLAIN, 20));
-		gui.getUsername().setForeground(new Color(130, 130, 130));
-		gui.getUsername().setBackground(new Color(50, 50, 50));
-		//		gui.getUsername().setHorizontalAlignment(JTextField.CENTER);
-		gui.getUsername().setBorder(null);
-
-		//		JLabel name = new JLabel("Password : ");
-		//		name.setPreferredSize(new Dimension(150, 60));
-		//		name.setFont(new Font("Arial", Font.PLAIN, 20));
-		//		name.setForeground(new Color(0, 135, 200).brighter());
-
-		gui.getPassword().setText("Cameron");
+		gui.getPassword().setText("Password");
 		gui.getPassword().setPreferredSize(new Dimension(250, 50));
 		gui.getPassword().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getPassword().setForeground(new Color(130, 130, 130));
@@ -71,104 +66,133 @@ public class LoginGUI extends Panel{
 		gui.getPassword().setBorder(null);
 		gui.getPassword().setEchoChar((char)0);
 
-		String[] priorityList = {"Clerk", "Manager"};
-		comboBoxPriority = new JComboBox(priorityList);
-		//comboBoxPriority.setPreferredSize(new Dimension(315, 50));
-		comboBoxPriority.setFont(new Font("Arial", Font.PLAIN, 20));
-		comboBoxPriority.setRenderer(new CustomComboBox());
-
-
-
-		comboBoxPriority.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loginType = (String) ((JComboBox)e.getSource()).getSelectedItem();
-			}
-		});
-
-
-
-
+		// buttons used on LoginGUI
 		quit = new JButton("Quit");
 		login = new JButton("Login");
 
+		// spaces used on LoginGUI
 		JLabel space1 = new JLabel("");
 		space1.setPreferredSize(new Dimension(350, 15));
-
 		JLabel space2 = new JLabel("");
-		space2.setPreferredSize(new Dimension(350, 15));
-
+		space2.setPreferredSize(new Dimension(350, 10));
 		JLabel space3 = new JLabel("");
-		space3.setPreferredSize(new Dimension(20, 60));
+		space3.setPreferredSize(new Dimension(15, 60));
 
-		add(gui.getUsername());
+		// add textfields, buttons and spaces onto the LoginGUI
+		add(gui.getUserId());
 		add(space1);
 		add(gui.getPassword());
 		add(space2);
-
-
-		add(comboBoxPriority);
-		add(new JLabel(), BorderLayout.CENTER);
-
-
-		setButtonStyle(quit, 125, new Color(255,165,0));
+		setButtonStyle(quit, 140, new Color(255,165,0));
 		add(space3);
-		setButtonStyle(login, 125, new Color(30,144,255));
+		setButtonStyle(login, 140, new Color(30,144,255));
 	}
 
 	@Override
 	protected void addListenner() {
+		// if button login is clicked and username and password are verified, 
+		// LoginGUI will be removed and FunctionGUI will be added
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				JButton button = (JButton) ae.getSource();
-				if(button == login){	// if button Start is clicked, joinServerPanel will be removed and multiple-player mode game will be started
-					System.out.println("username: " + gui.getUsername().getText());
-					System.out.println("password: " + gui.getPassword().getText());
-					if(controller.checkLogin(gui.getUsername().getText(), gui.getPassword().getText())){
-						gui.setUsername(gui.getUsername().getText());
-						//						gui.setStrServerNameC(gui.getServerNameC().getText());
-						//						if(isIPAdd(gui.getStrServerNameC())){
-						//							gui.removePanel(JoinServerPanel.this);
-						//							gui.removePanel(gui.getBackgroundPanel());
-						//							gui.startGame2();
-						//						}
+				if(button == login){	
+					Clerk clerk = controller.checkLogin(gui.getUserId().getText(), gui.getPassword().getText());
+					// verify username and password
+					if ((gui.getUserId().getText().equals("") || gui.getUserId().getText().equals("Username"))
+							&& (gui.getPassword().getText().equals("") || gui.getPassword().getText().equals("Password"))){
+						JOptionPane.showMessageDialog(null, "Username and Password can not be empty.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else if (gui.getUserId().getText().equals("") || gui.getUserId().getText().equals("Username")){
+						JOptionPane.showMessageDialog(null, "Username can not be empty.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else if (gui.getPassword().getText().equals("") || gui.getPassword().getText().equals("Password")){
+						JOptionPane.showMessageDialog(null, "Password can not be empty.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else if(clerk != null){
+						gui.setUsername(gui.getUserId().getText());
+						gui.setCurrentUser(clerk);
 						gui.removePanel(LoginGUI.this);
 						gui.removePanel(gui.getBackgroundPanel());
 						gui.addBGPanel(gui.getBackgroundBlank());
-						gui.addPanel(new FunctionGUI(gui, loginType));
-					}
-					else{
-						//JOptionPane.showMessageDialog(null, "Id or Password can not be empty.", "Error",
-								//JOptionPane.ERROR_MESSAGE);
+						gui.addPanel(new FunctionGUI(gui));
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid Username and Password.", "Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
 		});
 
+		// if button quit is clicked, the frame will be closed
 		quit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);	// if button exit is clicked, the frame will be closed
+				System.exit(0);	
 			}
 		});
 
-		gui.getUsername().addMouseListener(new MouseAdapter() {
+		// slightly change the background color of the login button once the mouse over login button
+		login.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				login.setBackground(new Color(30,80,255));
+			}
+
+			public void mouseExited(MouseEvent evt) {
+				login.setBackground(new Color(30,144,255));
+			}
+
+			public void mouseReleased(MouseEvent evt){
+				login.setBackground(new Color(30,144,255));
+			}
+
+			public void mousePressed(MouseEvent evt){}
+		});
+
+		// slightly change the background color of the quit button once the mouse over quit button
+		quit.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				quit.setBackground(new Color(255,111,0));
+			}
+
+			public void mouseExited(MouseEvent evt) {
+				quit.setBackground(new Color(255,165,0));
+			}
+
+			public void mouseReleased(MouseEvent evt){
+				quit.setBackground(new Color(255,165,0));
+			}
+
+			public void mousePressed(MouseEvent evt){}
+		});
+
+		// if username textfield is clicked, the default value "Username" will be removed 
+		gui.getUserId().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (gui.getUsername().getText().equals("Username")){
-					gui.getUsername().setText("");
-					gui.getUsername().setForeground(new Color(255, 255, 255));
+				if (gui.getUserId().getText().equals("Username")){
+					gui.getUserId().setText("");
+					gui.getUserId().setForeground(new Color(255, 255, 255));
 				}
 			}
 		});
+		
+		// if username textfield is changed, the color of the value will be changed to white
+		gui.getUserId().getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+				changeColor();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				changeColor();
+			}
+			public void insertUpdate(DocumentEvent e) {
+				changeColor();
+			}
 
-		gui.getPassword().addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (gui.getPassword().getText().equals("Password")){
-					gui.getPassword().setText("");
-					gui.getPassword().setForeground(new Color(255, 255, 255));
-				}
+			public void changeColor() {
+				gui.getUserId().setForeground(new Color(255, 255, 255));
 			}
 		});
 
+		// if password textfield is focused, the default value "Password" will be removed 
+		// when the user enters password, the characters will be shown as "*"
 		gui.getPassword().addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				if (gui.getPassword().getText().equals("Password")){
@@ -177,34 +201,10 @@ public class LoginGUI extends Panel{
 					gui.getPassword().setForeground(new Color(255, 255, 255));
 				}
 			}
-
 			public void focusLost(FocusEvent e) {}
 		});
-
-	}
-
-	static class CustomComboBox extends JLabel implements ListCellRenderer {
-		public Component getListCellRendererComponent(
-				JList list,
-				Object value,
-				int index,
-				boolean isSelected,
-				boolean cellHasFocus) {
-
-			JLabel label = new JLabel(){
-				public Dimension getPreferredSize(){
-					return new Dimension(258, 50);
-				}
-			};
-			label.setText(String.valueOf(value));
-
-			return label;
-		}
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-
-	}
+	public void propertyChange(PropertyChangeEvent evt) {}
 }

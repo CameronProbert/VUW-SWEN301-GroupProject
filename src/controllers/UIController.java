@@ -25,20 +25,20 @@ public class UIController {
 	 * @param password
 	 * @return true if log in correctly 
 	 */
-	public boolean checkLogin(String id, String password){
+	public Clerk checkLogin(String id, String password){
 
 		try {
 			clerk = monitor.logIn(id, password);
 			if(clerk!=null){
 				gui.setCurrentUser(clerk);
-				return true;
+				return clerk;
 			}
 
 		} catch (InvalidLoginException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 	/**
 	 * after click log out button in function panel

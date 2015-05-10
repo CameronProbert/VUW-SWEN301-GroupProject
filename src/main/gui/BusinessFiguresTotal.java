@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
  * BusinessFiguresTotal class is responsible for directly 
  * letting users know the key general business figures.
  *
- * * @author Zhiheng Sun
+ * @author Zhiheng Sun
  * 
  */
 public class BusinessFiguresTotal extends Panel {
@@ -37,7 +37,7 @@ public class BusinessFiguresTotal extends Panel {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		// labels and textfields for the business figures
+		// create labels and textfields for the business figures
 		JLabel title = new JLabel("Business Figures  ", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.PLAIN, 18));
 
@@ -53,7 +53,7 @@ public class BusinessFiguresTotal extends Panel {
 		events = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(events);
 
-		// disabled textfields shown business figures
+		// format disabled textfields shown business figures
 		revenue.disable();
 		revenue.setText("0.0");   
 		revenue.setDisabledTextColor(Color.BLACK);

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
@@ -57,7 +59,7 @@ public class FunctionGUI extends Panel{
 	private static JComboBox comboBox;
 	private JSplitPane jSplitPanel;
 	private String loginType = "";
-	public FunctionGUI(GUI gui, String loginType) {
+	public FunctionGUI(GUI gui) {
 		super(gui);
 		this.loginType = loginType;
 		setBounds(0, 0, gui.getWidth(), gui.getHeight());
@@ -72,6 +74,7 @@ public class FunctionGUI extends Panel{
 		JPanel titlePanel = new JPanel(new BorderLayout());
 		addImage("image/topImage.jpg", titlePanel, 60);
 		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
+
 		//bottomPanel
 		JPanel bottomPanel = new JPanel(new FlowLayout(1,6,15));
 		//bottomPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
@@ -116,6 +119,11 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(businessEvents);
 		buttonPanel.add(businessFigures);
 		buttonPanel.add(new BusinessFiguresTotal(gui));
+		
+		// add label and buttons onto bottomPanel
+		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
+		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
+		bottomPanel.add(usernameP);
 		bottomPanel.add(addUser);
 		bottomPanel.add(removeUser);
 		bottomPanel.add(logOut);
@@ -310,10 +318,8 @@ public class FunctionGUI extends Panel{
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-
-	}
+	public void propertyChange(PropertyChangeEvent evt) {}
+	
 	/**
 	 * initialize all fields, when click the button 
 	 */
