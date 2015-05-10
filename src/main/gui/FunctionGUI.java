@@ -46,6 +46,7 @@ public class FunctionGUI extends Panel{
 	private JButton transportCostUpdate;
 	private JButton transportDiscontinued;
 	private JButton businessEvents;
+	private JButton businessFigures;
 	private JButton logOut;
 	private JButton exit;
 	private JButton addUser;
@@ -95,6 +96,7 @@ public class FunctionGUI extends Panel{
 		transportCostUpdate = new JButton("Transport Cost Update      ");
 		transportDiscontinued = new JButton("Transport Discontinued    ");
 		businessEvents = new JButton("Business Events                 ");
+		businessFigures = new JButton("Business Figures                 ");
 		logOut = new JButton("Log Out");
 		exit = new JButton("Exit");
 		addUser = new JButton("Add User");
@@ -104,6 +106,7 @@ public class FunctionGUI extends Panel{
 		transportCostUpdate.setBackground(Color.white);
 		transportDiscontinued.setBackground(Color.white);
 		businessEvents.setBackground(Color.white);
+		businessFigures.setBackground(Color.white);
 		//logOut.setBackground(Color.white);
 		//add buttons to panel
 		buttonPanel.add(mailDelivery);
@@ -111,7 +114,8 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(transportCostUpdate);
 		buttonPanel.add(transportDiscontinued);
 		buttonPanel.add(businessEvents);
-		//buttonPanel.add(new BusinessFiguresTotal(gui));
+		buttonPanel.add(businessFigures);
+		buttonPanel.add(new BusinessFiguresTotal(gui));
 		bottomPanel.add(addUser);
 		bottomPanel.add(removeUser);
 		bottomPanel.add(logOut);
@@ -201,6 +205,18 @@ public class FunctionGUI extends Panel{
 						init();
 						inforPanel.add(new BusinessEventsPane(gui));
 					}
+				}
+			}
+		});
+		businessFigures.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton button = (JButton) e.getSource();
+				if(button == businessFigures){
+					init();
+					displayPanel.setVisible(false);
+					jSplitPanel.add(new BusinessFiguresPane(gui), JSplitPane.RIGHT);
 				}
 			}
 		});
