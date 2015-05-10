@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
  * choose a route and displaying the corresponding business 
  * figures.
  *
- * * @author Zhiheng Sun
+ * @author Zhiheng Sun
  * 
  */
 public class BusinessFiguresPane extends Panel {
@@ -44,7 +44,7 @@ public class BusinessFiguresPane extends Panel {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		// labels and textfields for the business figures
+		// create labels and textfields for the business figures
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
 		comboBoxListenner(comboBoxOrigin, "origin");
@@ -73,7 +73,7 @@ public class BusinessFiguresPane extends Panel {
 		averageTime = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(averageTime);
 
-		// disabled textfields shown business figures
+		// format disabled textfields shown business figures
 		revenue.disable();
 		revenue.setText("0.0");  
 		revenue.setDisabledTextColor(Color.BLACK);
@@ -98,6 +98,7 @@ public class BusinessFiguresPane extends Panel {
 		averageTime.setPreferredSize(new Dimension(250, 50));
 		averageTime.setFont(new Font("Arial", Font.PLAIN, 15));
 
+		// add the labels and textfields onto the panel
 		add(labelComboOrigin);
 		add(comboBoxOrigin);
 		add(labelComboDestination);
@@ -114,6 +115,7 @@ public class BusinessFiguresPane extends Panel {
 		add(averageTime);
 	}
 
+	@Override
 	protected void comboBoxListenner(JComboBox comboBox, final String type){
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

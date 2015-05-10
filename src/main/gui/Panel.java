@@ -19,9 +19,11 @@ import javax.swing.SwingConstants;
 import controllers.UIController;
 
 /**
- * The Panel class represents JPanels on the GUI at the game entry stage.
- * Panels has the GUI that it is on.
+ * The Panel class is an abstract class represented many Pane 
+ * classes shown on the GUI. The Panel class has several methods 
+ * that could be extended by other Pane classes. 
  *
+ * @author Zhiheng Sun and Zhaojiang Chang
  */
 public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected UIController controller;
@@ -45,6 +47,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxPriority;
 	protected static JComboBox comboBoxTransportTpye;
 	protected static JComboBox comboBoxTransportFirm;
+
 	public Panel (GUI gui){
 		this.gui = gui;
 		// set the panel to transparent and call methods to set up buttons and listener
@@ -74,7 +77,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	 */
 	protected void setButtonStyle (final JButton button, int buttonWidth, final Color defaultColor){
 		// set the button size and font
-		button.setPreferredSize(new Dimension(buttonWidth, 50));
+		button.setPreferredSize(new Dimension(buttonWidth, 45));
 		button.setFont(new Font("Arial", Font.PLAIN, 30));
 		//		button.setForeground(defaultColor);
 		button.setBackground(defaultColor);

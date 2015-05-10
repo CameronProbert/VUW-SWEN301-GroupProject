@@ -12,13 +12,12 @@ import main.logic.Clerk;
 
 import controllers.UIController;
 
-
-
 /**
- * The GUI is responsible for setting up the KPSmart system entry. This class generates
- * different options to let player choose different game mode. The class also
- * records players's information and pass to other classes.
+ * The GUI is responsible for setting up the KPSmart system user interface. 
+ * GUI creates JFrame and added background panel, LoginGUI onto the frame 
+ * for starting the system.
  *
+ * @author Zhiheng Sun
  */
 
 public class GUI {
@@ -28,27 +27,23 @@ public class GUI {
 	private Panel backgroundPanel;
 	private Panel backgroundBlank;
 	private UIController controller;
+	
 	// the dimension of the frame
 	private static int width = 900;
 	private static int height = 770;
 
 	// textFields on all panels
-	private JTextField usernameTextF;
+	private JTextField userIdTextF;
 	private JPasswordField passwordTextF;
 
-	public String username;	// the entered name of the player in multiple-player mode
+	// the username and password user entered
+	public String userId;	
 	public String password;
 	private Clerk clerk;
-
-	public GUI() {
-		//setUp();
-	}
 
 	public void setUp() {
 		frame = new JFrame();
 		frame.setTitle("KPSmart System");
-		frame.getRootPane().setBackground(new Color(141, 174, 240));
-//		frame.getRootPane().setBackground(new Color(115, 129, 240));
 		frame.setSize(width, height);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
@@ -63,18 +58,21 @@ public class GUI {
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		frame.setVisible( true );
 
-		usernameTextF = new JTextField(18);
+		userIdTextF = new JTextField(18);
 		passwordTextF = new JPasswordField(18);
 
 		LoginGUI loginGUI = new LoginGUI(this);
 		addPanel(loginGUI);
 	}
+	
 	public void setUIController(UIController u){
 		this.controller = u;
 	}
+	
 	public UIController getUIController(){
 		return this.controller;
 	}
+	
 	protected void addPanel(Panel panel){
 		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
 		frame.repaint();
@@ -97,8 +95,8 @@ public class GUI {
 		return backgroundBlank;
 	}
 
-	public JTextField getUsername() {
-		return usernameTextF;
+	public JTextField getUserId() {
+		return userIdTextF;
 	}
 
 	public JPasswordField getPassword() {
@@ -106,17 +104,12 @@ public class GUI {
 	}
 
 	public void setUsername(String text) {
-		username = text;
+		userId = text;
 	}
 
 	public void setPassword(String text) {
 		password = text;
 	}
-
-
-
-
-
 
 	public static int getWidth() {
 		return width;
@@ -125,14 +118,12 @@ public class GUI {
 	public static int getHeight() {
 		return height;
 	}
-
-	public static void main(String[] args){
-		new GUI();
-	}
-
+	
 	public void setCurrentUser(Clerk clerk) {
-		// TODO Auto-generated method stub
 		this.clerk = clerk;
-		
+	}
+	
+	public String getCurretUsername() {
+		return clerk.getName();
 	}
 }
