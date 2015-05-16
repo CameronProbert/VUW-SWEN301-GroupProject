@@ -144,12 +144,10 @@ public class Monitor {
 	}
 
 	/**
-	 * Logs out the current user and takes the program back to the log in state
+	 * Logs out the current user
 	 */
 	public void logOut() {
-		// TODO run a confirm dialog
 		currentUser = null;
-		// TODO return to log in screen
 	}
 
 	/**
@@ -160,10 +158,10 @@ public class Monitor {
 	 * @param name
 	 * @return
 	 */
-	public boolean makeNewUser(String id, String password, String name) {
+	public boolean makeNewUser(String id, String password, String name, boolean isManager) {
 		boolean validUser = false;
+		// TODO Create the User and save to file
 		return validUser;
-		// TODO possibly log the user in
 	}
 
 	/**
