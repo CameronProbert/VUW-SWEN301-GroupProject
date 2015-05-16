@@ -161,7 +161,7 @@ public class Monitor {
 	 * @param name
 	 * @return
 	 */
-	private boolean makeNewUser(String id, String password, String name) {
+	public boolean makeNewUser(String id, String password, String name) {
 		boolean validUser = false;
 		return validUser;
 		// TODO possibly log the user in

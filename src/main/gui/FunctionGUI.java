@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -119,7 +120,7 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(businessEvents);
 		buttonPanel.add(businessFigures);
 		buttonPanel.add(new BusinessFiguresTotal(gui));
-		
+
 		// add label and buttons onto bottomPanel
 		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
 		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -228,59 +229,108 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
+		
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean isClerk = false;
+				// create textfields used on the dialog
 				JTextField id = new JTextField();
-				JTextField password = new JTextField();
-				JTextField confirmPassword = new JTextField();
+				JPasswordField password = new JPasswordField();
+				JPasswordField confirmPassword = new JPasswordField();
 				JTextField name = new JTextField();
-				boolean isFailed = true;
-				//while(!password.getText().equals(confirmPassword.getText())&&!password.getText().equals("")){
-				while (isFailed){
-					isFailed = false;
-					Object[][] message = {{"Id", id}, {"Password", password}, {"Confirm Password", confirmPassword},{"Name", name},{"Clerk?(Y/N)", null}};
-					String option = JOptionPane.showInputDialog(null, message, "Add New User", JOptionPane.OK_CANCEL_OPTION);
-					System.out.println(JOptionPane.CLOSED_OPTION+"  "+option);
-//					if (JOptionPane.CLOSED_OPTION == -1){
-//					}
-					if(!password.getText().equals(confirmPassword.getText())||password.getText().equals("")||confirmPassword.getText().equals("")){
+				JTextField isClerk = new JTextField();
+				
+				Object[] message = {
+						"ID", id,
+						"Password", password,
+						"Confirm Password", confirmPassword,
+						"Name", name,
+						"Clerk?(Y/N)", isClerk
+				};
+				inputDialog(id, password, confirmPassword, name, isClerk, message);
+			}
+
+			// show the input dialog
+			public void inputDialog(JTextField id, JTextField password, JTextField confirmPassword,  JTextField name, JTextField isClerk, Object[] message){
+
+				int option = JOptionPane.showConfirmDialog(null, message, "Add New User", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {
+					boolean isFailed = false;
+
+					// check whether password is empty or not
+					if(password.getText().equals("") || password.getText().equals("cannot be empty")){
+						password.setText("cannot be empty");
+						password.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					} else {
+						password.setBackground(Color.WHITE);
+					}
+
+					// check whether confirmPassword is empty or not
+					if(confirmPassword.getText().equals("") || confirmPassword.getText().equals("cannot be empty")){
+						confirmPassword.setText("cannot be empty");
+						confirmPassword.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					}  else {
+						confirmPassword.setBackground(Color.WHITE);
+					}
+					
+					// check whether password and confirmPassword are consistant
+					if(!password.getText().equals(confirmPassword.getText()) || password.getText().equals("password not match") || confirmPassword.getText().equals("password not match")){
 						password.setText("password not match");
 						password.setBackground(Color.LIGHT_GRAY);
 						confirmPassword.setText("password not match");
 						confirmPassword.setBackground(Color.LIGHT_GRAY);
 						isFailed = true;
+					} else {
+						password.setBackground(Color.WHITE);
+						confirmPassword.setBackground(Color.WHITE);
 					}
-					if(id.getText().equals("")){
-						id.setText("id can not be empty");
+
+					// check whether id is empty or not
+					if(id.getText().equals("") || id.getText().equals("cannot be empty")){
+						id.setText("cannot be empty");
 						id.setBackground(Color.LIGHT_GRAY);
 						isFailed = true;
+					} else {
+						id.setBackground(Color.WHITE);
 					}
-					if(name.getText().equals("")){
-						name.setText("name can not be empty");
+
+					// check whether name is empty or not
+					if(name.getText().equals("") ||  name.getText().equals("cannot be empty")){
+						name.setText("cannot be empty");
 						name.setBackground(Color.LIGHT_GRAY);
 						isFailed = true;
+					} else {
+						name.setBackground(Color.WHITE);
 					}
-					if(option!=null){
-						if(!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n") ){
-							isFailed = true;
-						}
-						if (!isFailed){
-							if(option.equalsIgnoreCase("y")){
-								isClerk = true;
-							}else if( option.equalsIgnoreCase("n")){
-								isClerk = false;
-							}
-							if(controller.addNewUser(id.getText(), password.getText(), name.getText(), isClerk)){
-								break;
-							}
+
+					// check whether isClerk is empty or not and whether isClerk is something rather than y nad n
+					if (isClerk.getText().equals("") || isClerk.getText().equals("cannot be empty")){
+						isClerk.setText("cannot be empty");
+						isClerk.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					} else if(!isClerk.getText().equalsIgnoreCase("y") && !isClerk.getText().equalsIgnoreCase("n") || isClerk.getText().equals("can only be y or n")){
+						isClerk.setText("can only be y or n");
+						isClerk.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					} else {
+						isClerk.setBackground(Color.WHITE);
+					}
+
+					if (isFailed){	// input is invalid
+						inputDialog(id, password, confirmPassword, name, isClerk, message);
+					} else {	// input is valid
+						// username is invalid
+						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (isClerk.getText().equalsIgnoreCase("y"))? true: false)) {	
+							id.setText("ID has already been taken");
+							id.setBackground(Color.LIGHT_GRAY);
+							inputDialog(id, password, confirmPassword, name, isClerk, message);
 						}
 					}
-				}    
+				} 
 			}
-
-
 		});
+
 		final Panel p =  this;
 		logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -319,7 +369,7 @@ public class FunctionGUI extends Panel{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {}
-	
+
 	/**
 	 * initialize all fields, when click the button 
 	 */
