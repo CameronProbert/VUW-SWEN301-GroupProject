@@ -60,6 +60,8 @@ public class FunctionGUI extends Panel{
 	private static JComboBox comboBox;
 	private JSplitPane jSplitPanel;
 	private String loginType = "";
+	private static String permission = "Clerk";
+
 	public FunctionGUI(GUI gui) {
 		super(gui);
 		this.loginType = loginType;
@@ -229,28 +231,29 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		
+
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// create textfields used on the dialog
+				// create textfields and comboBox used on the dialog
 				JTextField id = new JTextField();
-				JPasswordField password = new JPasswordField();
-				JPasswordField confirmPassword = new JPasswordField();
+				JTextField password = new JTextField();
+				JTextField confirmPassword = new JTextField();
 				JTextField name = new JTextField();
-				JTextField isClerk = new JTextField();
-				
+				String[] permissionChoices = {"Clerk","Manager"};
+				JComboBox comboBoxPermission = new JComboBox(permissionChoices);
+
 				Object[] message = {
 						"ID", id,
 						"Password", password,
 						"Confirm Password", confirmPassword,
 						"Name", name,
-						"Clerk?(Y/N)", isClerk
+						"Permission", comboBoxPermission
 				};
-				inputDialog(id, password, confirmPassword, name, isClerk, message);
+				inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
 			}
 
 			// show the input dialog
-			public void inputDialog(JTextField id, JTextField password, JTextField confirmPassword,  JTextField name, JTextField isClerk, Object[] message){
+			public void inputDialog(JTextField id, JTextField password, JTextField confirmPassword,  JTextField name, JComboBox comboBoxPermission, Object[] message){
 
 				int option = JOptionPane.showConfirmDialog(null, message, "Add New User", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
@@ -270,11 +273,11 @@ public class FunctionGUI extends Panel{
 						confirmPassword.setText("cannot be empty");
 						confirmPassword.setBackground(Color.LIGHT_GRAY);
 						isFailed = true;
-					}  else {
+					} else {
 						confirmPassword.setBackground(Color.WHITE);
 					}
-					
-					// check whether password and confirmPassword are consistant
+
+					// check whether password and confirmPassword are consistent
 					if(!password.getText().equals(confirmPassword.getText()) || password.getText().equals("password not match") || confirmPassword.getText().equals("password not match")){
 						password.setText("password not match");
 						password.setBackground(Color.LIGHT_GRAY);
@@ -282,8 +285,10 @@ public class FunctionGUI extends Panel{
 						confirmPassword.setBackground(Color.LIGHT_GRAY);
 						isFailed = true;
 					} else {
-						password.setBackground(Color.WHITE);
-						confirmPassword.setBackground(Color.WHITE);
+						if (!password.getText().equals("cannot be empty")){
+							password.setBackground(Color.WHITE);
+							confirmPassword.setBackground(Color.WHITE);
+						}
 					}
 
 					// check whether id is empty or not
@@ -304,27 +309,22 @@ public class FunctionGUI extends Panel{
 						name.setBackground(Color.WHITE);
 					}
 
-					// check whether isClerk is empty or not and whether isClerk is something rather than y nad n
-					if (isClerk.getText().equals("") || isClerk.getText().equals("cannot be empty")){
-						isClerk.setText("cannot be empty");
-						isClerk.setBackground(Color.LIGHT_GRAY);
-						isFailed = true;
-					} else if(!isClerk.getText().equalsIgnoreCase("y") && !isClerk.getText().equalsIgnoreCase("n") || isClerk.getText().equals("can only be y or n")){
-						isClerk.setText("can only be y or n");
-						isClerk.setBackground(Color.LIGHT_GRAY);
-						isFailed = true;
-					} else {
-						isClerk.setBackground(Color.WHITE);
-					}
+					// allow user to choose permission for the new user and save the selected permission
+					comboBoxPermission.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							permission = (String) ((JComboBox)e.getSource()).getSelectedItem();
+						}
+					});
 
 					if (isFailed){	// input is invalid
-						inputDialog(id, password, confirmPassword, name, isClerk, message);
+						inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
 					} else {	// input is valid
 						// username is invalid
-						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (isClerk.getText().equalsIgnoreCase("y"))? true: false)) {	
+						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (permission.equalsIgnoreCase("Manager"))? true: false)) {	
 							id.setText("ID has already been taken");
 							id.setBackground(Color.LIGHT_GRAY);
-							inputDialog(id, password, confirmPassword, name, isClerk, message);
+							inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
 						}
 					}
 				} 

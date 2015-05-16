@@ -50,8 +50,8 @@ public class UIController {
 	/**
 	 * 
 	 */
-	public boolean addNewUser(String id, String password, String name, boolean isClerk){
-		//return (monitor.makeNewUser(id, password, name));
+	public boolean addNewUser(String id, String password, String name, boolean isManager){
+		//return (monitor.makeNewUser(id, password, name, isManager));
 		return true;
 	}
 }
