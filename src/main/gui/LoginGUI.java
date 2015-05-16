@@ -22,9 +22,8 @@ import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import main.controllers.UIController;
 import main.logic.Clerk;
-
-import controllers.UIController;
 
 /**
  * The LoginGUI class is a JPanel which is added onto the JFrame 

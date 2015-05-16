@@ -3,8 +3,7 @@ package main.logic;
 import java.util.List;
 import java.util.Set;
 
-import controllers.UIController;
-
+import main.controllers.UIController;
 import main.events.BusinessEvent;
 import main.events.MailDelivery;
 import main.fileio.LogHandler;

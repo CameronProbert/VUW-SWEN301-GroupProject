@@ -28,7 +28,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import controllers.UIController;
+import main.controllers.UIController;
 
 /**
  * FunctionGUI have all the function buttons

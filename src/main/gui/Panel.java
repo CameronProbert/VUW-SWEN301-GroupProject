@@ -16,7 +16,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controllers.UIController;
+import main.controllers.UIController;
 
 /**
  * The Panel class is an abstract class represented many Pane 

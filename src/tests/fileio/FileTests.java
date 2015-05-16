@@ -1,9 +1,11 @@
-package main.fileio;
+package tests.fileio;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import main.events.*;
+import main.fileio.LoadXML;
+import main.fileio.SaveXML;
 import main.logic.Location;
 import main.logic.NoDaysToShipException;
 import main.logic.Route;

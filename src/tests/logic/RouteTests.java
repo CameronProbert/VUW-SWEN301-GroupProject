@@ -1,4 +1,4 @@
-package main.logic.junit;
+package tests.logic;
 
 import static org.junit.Assert.*;
 
