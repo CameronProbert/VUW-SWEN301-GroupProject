@@ -8,9 +8,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import main.controllers.UIController;
 import main.logic.Clerk;
-
-import controllers.UIController;
 
 /**
  * The GUI is responsible for setting up the KPSmart system user interface. 

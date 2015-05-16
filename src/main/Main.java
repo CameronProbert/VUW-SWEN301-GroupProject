@@ -1,6 +1,6 @@
 package main;
 
-import controllers.UIController;
+import main.controllers.UIController;
 import main.gui.GUI;
 import main.logic.Monitor;
 
