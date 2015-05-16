@@ -1,7 +1,13 @@
 package tests.fileio;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.junit.Test;
 
 import main.events.*;
 import main.fileio.LoadXML;
@@ -16,6 +22,8 @@ import main.logic.Route.TransportType;
 
 public class FileTests {
 
+	Set<Route> routes;
+
 	public FileTests(){
 		List<BusinessEvent> events = eventsOne();
 		SaveXML save = new SaveXML();
@@ -23,11 +31,37 @@ public class FileTests {
 
 		LoadXML load = new LoadXML();
 		events = load.getEvents();
-		for(BusinessEvent ev: events){
-			System.out.println(ev.toString() + "\n\n");
-		}
-		for(Route r: load.getRoutes()){
-			System.out.println(r.toString());
+		routes = load.getRoutes();
+		testRoutes();
+		testEvents(events);
+	}
+
+	private void testEvents(List<BusinessEvent> events) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Test
+	public void testRoutes() {
+		assertTrue(routes.size()==1);
+		Location origin = new Location("Auckland");
+		Location destination = new Location("Wellington");
+		for(Route r: routes){
+			assertTrue(r.getOrigin().equals(origin));
+			assertTrue(r.getDestination().equals(destination));
+			assertTrue(r.getTransportFirm().equals("Transport firm A"));
+			assertTrue(r.getPricePerGramCustomer() == 20);
+			assertTrue(r.getPricePerVolumeCustomer() == 20);
+			assertTrue(r.getPricePerGramTransport() == 20);
+			assertTrue(r.getPricePerVolumeTransport() == 20);
+			assertTrue(r.getPricePerGramCustomer() == 20);
+			assertTrue(r.getDepartureFrequency() == 2);
+			TransportType tt = TransportType.Standard;
+			assertTrue(r.getTransportType().equals(tt));
+			Set<DaysOfWeek> days = new HashSet<DaysOfWeek>();
+			days.add(DaysOfWeek.Monday);
+			assertTrue(r.getDays().equals(days));
+
 		}
 	}
 
