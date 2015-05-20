@@ -190,7 +190,7 @@ public class LoadXML {
 			if(rIter.equals(route)) r = rIter;
 		}
 		if(r!=null){
-			r.getOrigin().OutInbound(r);
+			r.getOrigin().rmInbound(r);
 			r.getDestination().rmInbound(r);
 			finalRoutes.remove(r);
 		}
