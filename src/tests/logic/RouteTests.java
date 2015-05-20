@@ -2,8 +2,6 @@ package tests.logic;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-
 import main.logic.*;
 import main.logic.Route.DaysOfWeek;
 import main.logic.Route.*;
