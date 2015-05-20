@@ -319,7 +319,6 @@ public class Route {
 		}
 		builder.append(", departureFrequency=");
 		builder.append(departureFrequency);
-		builder.append("]");
 		return builder.toString();
 	}
 
