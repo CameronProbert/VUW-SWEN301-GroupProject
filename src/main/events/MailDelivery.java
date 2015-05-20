@@ -91,11 +91,11 @@ public class MailDelivery extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "MailDelivery [origin=" + origin + ", destination="
-				+ destination + ", weight=" + weight + ", volume=" + volume
-				+ ", priority=" + priority + ", revenue=" + revenue
-				+ ", timeTaken=" + timeTaken + ", isReceived=" + isReceived
-				+ "]" + stringRoutes();
+		return "MailDelivery :\n------------------------------------\norigin=" + origin + ", \ndestination="
+				+ destination + ", \nweight=" + weight + ", \nvolume=" + volume
+				+ ", \npriority=" + priority + ", \nrevenue=" + revenue
+				+ ", \ntimeTaken=" + timeTaken + ", \nisReceived=" + isReceived
+				+ "\n";
 	}
 
 	@Override
@@ -139,5 +139,6 @@ public class MailDelivery extends BusinessEvent {
 
 		return mail;
 	}
+
 
 }

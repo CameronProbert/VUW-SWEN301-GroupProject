@@ -100,10 +100,11 @@ public class CustomerPriceChange extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "CustomerPriceChange [oldPricePerGram=" + oldPricePerGram
-				+ ", newPricePerGram=" + newPricePerGram
-				+ ", oldPricePerVolume=" + oldPricePerVolume
-				+ ", newPricePerVolume=" + newPricePerVolume + "]" + stringRoutes();
+		return "CustomerPriceChange : \n------------------------------------\noldPricePerGram=" + oldPricePerGram
+				+ ", \nnewPricePerGram=" + newPricePerGram
+				+ ", \noldPricePerVolume=" + oldPricePerVolume
+				+ ", \nnewPricePerVolume=" + newPricePerVolume + "\n";
 	}
+
 
 }

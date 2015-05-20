@@ -41,17 +41,17 @@ public class LoadXML {
 			//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 			doc.getDocumentElement().normalize();
 
-			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
 			NodeList nList = doc.getElementsByTagName("event");
 
-			System.out.println("----------------------------");
+			//System.out.println("----------------------------");
 
 			for (int i = 0; i < nList.getLength(); i++) {
 
 				Node nNode = nList.item(i);
 
-				System.out.println("\nCurrent Element :" + nNode.getNodeName());
+				//System.out.println("\nCurrent Element :" + nNode.getNodeName());
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -98,7 +98,7 @@ public class LoadXML {
 						if(r!=null){
 							r.setPricePerGramTransport(Double.parseDouble(newPPG));
 							r.setPricePerVolumeTransport(Double.parseDouble(newPPV));
-							System.out.println("-------------route editted transport ---------------------");
+							//System.out.println("-------------route editted transport ---------------------");
 						}
 					}
 					else if(type.equals("Delete Route")){
@@ -118,7 +118,7 @@ public class LoadXML {
 						events.add(create);
 
 						finalRoutes.add(routes.get(0));
-						System.out.println("---------------------------------------route added");
+						//System.out.println("---------------------------------------route added");
 
 					}
 					else if(type.equals("Customer Price Change")){
@@ -141,10 +141,10 @@ public class LoadXML {
 						if(r!=null){
 							r.setPricePerGramCustomer(Double.parseDouble(newPPG));
 							r.setPricePerVolumeCustomer(Double.parseDouble(newPPV));
-							System.out.println("-------------route editted-------------customer");
+							//System.out.println("-------------route editted-------------customer");
 						}
 						else{
-							System.out.println("-------------route not found-------------customer");
+							//System.out.println("-------------route not found-------------customer");
 						}
 					}
 

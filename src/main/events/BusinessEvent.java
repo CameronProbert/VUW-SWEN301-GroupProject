@@ -1,6 +1,7 @@
 package main.events;
 
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import org.w3c.dom.Element;
 
 import main.logic.Clerk;
@@ -116,12 +116,27 @@ public abstract class BusinessEvent {
 		return this.routes;
 	}
 
+	/**
+	 * returns a long desciption of all the routes
+	 * @return
+	 */
 	public String stringRoutes(){
 		String routeString = "";
 		for(Route r: routes){
-			routeString += " " + r.toString();
+			routeString +=  r.toString() + "\n";
 		}
 		return routeString;
+	}
+
+
+	public String description(){
+		if(this instanceof MailDelivery){
+			return toString();
+		}
+		if(routes.size()==1){
+			return toString() +"Route affected : \n------------------------------------\n"+ stringRoutes();
+		}
+		return toString() +"Routes affected : \n------------------------------------\n"+ stringRoutes();
 	}
 
 }

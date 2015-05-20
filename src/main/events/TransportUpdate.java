@@ -53,10 +53,10 @@ public class TransportUpdate extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "TransportUpdate [oldPricePerGram=" + oldPricePerGram
-				+ ", newPricePerGram=" + newPricePerGram
-				+ ", oldPricePerVolume=" + oldPricePerVolume
-				+ ", newPricePerVolume=" + newPricePerVolume + "]" + stringRoutes();
+		return "TransportUpdate : \n------------------------------------\noldPricePerGram=" + oldPricePerGram
+				+ ", \nnewPricePerGram=" + newPricePerGram
+				+ ", \noldPricePerVolume=" + oldPricePerVolume
+				+ ", \nnewPricePerVolume=" + newPricePerVolume + "\n";
 	}
 
 	@Override

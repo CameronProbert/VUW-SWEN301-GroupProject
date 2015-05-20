@@ -1,6 +1,7 @@
 package main.events;
 
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,7 +31,7 @@ public class DeleteRoute extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "DeleteRoute []" + stringRoutes();
+		return "DeleteRoute : \n------------------------------------\n";
 	}
 
 
@@ -46,5 +47,7 @@ public class DeleteRoute extends BusinessEvent {
 
 		return delete;
 	}
+
+
 
 }
