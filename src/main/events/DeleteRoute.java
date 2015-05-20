@@ -24,7 +24,9 @@ public class DeleteRoute extends BusinessEvent {
 	 * Constructor accepts specific routes to delete
 	 * @param r: route
 	 */
-	public DeleteRoute(List<Route> r) {
+	public DeleteRoute(String clerk, String date, List<Route> r) {
+		this.clerk = clerk;
+		this.date = date;
 		routes = r;
 	}
 
@@ -43,7 +45,8 @@ public class DeleteRoute extends BusinessEvent {
 		attr.setValue("Delete Route");
 		delete.setAttributeNode(attr);
 
-		routesToXML(doc, this, delete);
+		routesToXML(doc, delete);
+		essentialInfo(doc, delete);
 
 		return delete;
 	}

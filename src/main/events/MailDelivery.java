@@ -19,7 +19,9 @@ public class MailDelivery extends BusinessEvent {
 	private double timeTaken;
 	private boolean isReceived;
 
-	public MailDelivery(String or, String des, double we, double vol, double prio, double rev, double time, List<Route> routes) {
+	public MailDelivery(String clerk, String date, String or, String des, double we, double vol, double prio, double rev, double time, List<Route> routes) {
+		this.clerk = clerk;
+		this.date = date;
 		origin = or;
 		destination = des;
 		weight = we;
@@ -107,7 +109,8 @@ public class MailDelivery extends BusinessEvent {
 		attr.setValue("Mail Delivery");
 		mail.setAttributeNode(attr);
 
-		routesToXML(doc, this, mail);
+		routesToXML(doc, mail);
+		essentialInfo(doc, mail);
 
 		Element origin = doc.createElement("origin");
 		origin.appendChild(doc.createTextNode(getOrigin()));

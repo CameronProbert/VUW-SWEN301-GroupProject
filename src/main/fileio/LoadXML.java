@@ -59,6 +59,9 @@ public class LoadXML {
 
 					List<Route> routes = readRoutes(eElement);
 
+					String clerk = eElement.getElementsByTagName("clerk").item(0).getTextContent();
+					String date = eElement.getElementsByTagName("date").item(0).getTextContent();
+
 					String type = eElement.getAttribute("type");
 
 					if(type.equals("Mail Delivery")){
@@ -73,7 +76,10 @@ public class LoadXML {
 
 						// create a mail delivery given the route and the strings found. Some strings will need to be converted to integers etc
 
-						MailDelivery mail = new MailDelivery(origin, destination, Double.parseDouble(weight),
+						for(Route r: routes){
+							r.addDeliveryTime(Double.parseDouble(timeTaken));
+						}
+						MailDelivery mail = new MailDelivery(clerk, date, origin, destination, Double.parseDouble(weight),
 								Double.parseDouble(volume), Double.parseDouble(priority), Double.parseDouble(revenue), Double.parseDouble(timeTaken), routes);
 						events.add(mail);
 
@@ -85,11 +91,8 @@ public class LoadXML {
 						String oldPPV = eElement.getElementsByTagName("oldPricePVolume").item(0).getTextContent();
 						String newPPV = eElement.getElementsByTagName("newPricePVolume").item(0).getTextContent();
 
-						// create a transport update event
-						// create a route using the old values. Find the route in the list and modify it
-						TransportUpdate transport = new TransportUpdate(Double.parseDouble(oldPPG), Double.parseDouble(newPPG),
-								Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
-						events.add(transport);
+
+
 
 						routes.get(0).setPricePerGramTransport(Double.parseDouble(oldPPG));
 						routes.get(0).setPricePerVolumeTransport(Double.parseDouble(oldPPV));
@@ -100,11 +103,16 @@ public class LoadXML {
 							r.setPricePerVolumeTransport(Double.parseDouble(newPPV));
 							//System.out.println("-------------route editted transport ---------------------");
 						}
+						// create a transport update event
+						// create a route using the old values. Find the route in the list and modify it
+						TransportUpdate transport = new TransportUpdate(clerk, date, Double.parseDouble(oldPPG), Double.parseDouble(newPPG),
+								Double.parseDouble(oldPPV), Double.parseDouble(newPPV), r);
+						events.add(transport);
 					}
 					else if(type.equals("Delete Route")){
 						// create a delete route event
 						// delete the route from the route
-						DeleteRoute delete = new DeleteRoute(routes);
+						DeleteRoute delete = new DeleteRoute(clerk, date, routes);
 						events.add(delete);
 
 						removeRoute(routes.get(0));
@@ -114,7 +122,7 @@ public class LoadXML {
 
 						//create a new route event
 						// add the route to the list of routes
-						OpenNewRoute create = new OpenNewRoute(routes);
+						OpenNewRoute create = new OpenNewRoute(clerk, date, routes);
 						events.add(create);
 
 						finalRoutes.add(routes.get(0));
@@ -128,11 +136,7 @@ public class LoadXML {
 						String oldPPV = eElement.getElementsByTagName("oldPricePVolume").item(0).getTextContent();
 						String newPPV = eElement.getElementsByTagName("newPricePVolume").item(0).getTextContent();
 
-						// create a customer price update event
-						// create a route using the old values. Find the route in the list and modify it
-						CustomerPriceChange change = new CustomerPriceChange(Double.parseDouble(oldPPG),
-								Double.parseDouble(newPPG), Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
-						events.add(change);
+
 
 						routes.get(0).setPricePerGramCustomer(Double.parseDouble(oldPPG));
 						routes.get(0).setPricePerVolumeCustomer(Double.parseDouble(oldPPV));
@@ -146,6 +150,12 @@ public class LoadXML {
 						else{
 							//System.out.println("-------------route not found-------------customer");
 						}
+						System.out.println("length of final routes is " + finalRoutes.size());
+						// create a customer price update event
+						// create a route using the old values. Find the route in the list and modify it
+						CustomerPriceChange change = new CustomerPriceChange(clerk, date, Double.parseDouble(oldPPG),
+								Double.parseDouble(newPPG), Double.parseDouble(oldPPV), Double.parseDouble(newPPV), r);
+						events.add(change);
 					}
 
 				}
@@ -165,6 +175,7 @@ public class LoadXML {
 
 	private Route findRoute(Route route) {
 		for(Route r : finalRoutes){
+			//System.out.println("length of final routes is " + finalRoutes.size());
 			if(route.equals(r))return r;
 		}
 		return null;
@@ -188,7 +199,6 @@ public class LoadXML {
 				for(TransportType t: TransportType.values()){
 					if(transportType.equals(t.toString())) tranType=t;
 				}
-				// TODO this needs to be changed
 				//String averageTime = eElement.getElementsByTagName("average time").item(0).getTextContent();
 				String firmName = eElement.getElementsByTagName("firmName").item(0).getTextContent();
 				String CPGTran = eElement.getElementsByTagName("costPGramForTransport").item(0).getTextContent();

@@ -10,7 +10,9 @@ import main.logic.Route;
 
 public class OpenNewRoute extends BusinessEvent {
 
-	public OpenNewRoute (List<Route> routes) {
+	public OpenNewRoute (String clerk, String date, List<Route> routes) {
+		this.clerk = clerk;
+		this.date = date;
 		this.routes = routes;
 	}
 
@@ -31,7 +33,8 @@ public class OpenNewRoute extends BusinessEvent {
 		attr.setValue("New Route");
 		save.setAttributeNode(attr);
 
-		routesToXML(doc, this, save);
+		routesToXML(doc, save);
+		essentialInfo(doc, save);
 
 		return save;
 	}

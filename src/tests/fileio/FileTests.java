@@ -73,6 +73,8 @@ public class FileTests {
 		Location origin = new Location("Auckland");
 		Location destination = new Location("Wellington");
 		TransportType tt = TransportType.Standard;
+		String clerk = "Sammy";
+		String date = "10/12/2014 10:53";
 		List<Route> routes = new ArrayList<Route>();
 		try {
 			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 10, 10, 2, DaysOfWeek.Monday);
@@ -82,13 +84,13 @@ public class FileTests {
 		}
 		List<BusinessEvent> events = new ArrayList<BusinessEvent>();
 
-		OpenNewRoute open = new OpenNewRoute(routes);
+		OpenNewRoute open = new OpenNewRoute(clerk, date, routes);
 		events.add(open);
 
-		MailDelivery mail = new MailDelivery("Auckland", "Wellington", 20, 20, 1, 20, 40, routes);
+		MailDelivery mail = new MailDelivery(clerk, date, "Auckland", "Wellington", 20, 20, 1, 20, 400, routes);
 		events.add(mail);
 
-		CustomerPriceChange change = new CustomerPriceChange(10, 20, 10, 20, routes);
+		CustomerPriceChange change = new CustomerPriceChange(clerk, date, 10, 20, 10, 20, routes);
 		events.add(change);
 
 		try {
@@ -96,7 +98,7 @@ public class FileTests {
 			List<Route> routes2 = new ArrayList<Route>();
 			routes2.add(route);
 
-			TransportUpdate update = new TransportUpdate(10, 20, 10, 20, routes2);
+			TransportUpdate update = new TransportUpdate(clerk, date, 10, 20, 10, 20, routes2);
 			events.add(update);
 		} catch (NoDaysToShipException e) {
 			e.printStackTrace();
