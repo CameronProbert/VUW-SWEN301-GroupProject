@@ -57,21 +57,27 @@ public class Route {
 	 * @param pricePerGramCustomer
 	 * @param pricePerVolumeCustomer
 	 * @throws NoDaysToShipException
-	 * @throws InvalidLocationException 
+	 *             if no days are given
+	 * @throws InvalidLocationException
+	 *             if either the origin or destination are null
 	 */
 	public Route(Location origin, Location destination, String transportFirm,
 			TransportType transportType, double pricePerGramTransport,
 			double pricePerVolumeTransport, double pricePerGramCustomer,
 			double pricePerVolumeCustomer, double departureFrequency,
-			DaysOfWeek... days) throws NoDaysToShipException, InvalidLocationException {
+			DaysOfWeek... days) throws NoDaysToShipException,
+			InvalidLocationException {
 		if (days.length == 0) {
-			throw new NoDaysToShipException("The route has to run on at least one day.");
+			throw new NoDaysToShipException(
+					"The route has to run on at least one day.");
 		}
-		if (origin == null){
-			throw new InvalidLocationException("The route has to have an origin");
+		if (origin == null) {
+			throw new InvalidLocationException(
+					"The route has to have a non-null origin");
 		}
-		if (destination == null){
-			throw new InvalidLocationException("The route has to have a destination");
+		if (destination == null) {
+			throw new InvalidLocationException(
+					"The route has to have a non-null destination");
 		}
 		this.numTimesDelivered = 0;
 		this.totalTimeToDeliver = 0;
@@ -155,10 +161,10 @@ public class Route {
 	 * @return
 	 */
 	public double getAverageTimeToDeliver() {
-		if (totalTimeToDeliver == 0){
+		if (totalTimeToDeliver == 0) {
 			return Double.MAX_VALUE;
 		}
-		return totalTimeToDeliver/numTimesDelivered;
+		return totalTimeToDeliver / numTimesDelivered;
 	}
 
 	/**
@@ -334,7 +340,7 @@ public class Route {
 		Route other = (Route) obj;
 		if (other.totalTimeToDeliver != this.totalTimeToDeliver) {
 			return false;
-		} 
+		}
 		if (days == null) {
 			if (other.days != null) {
 				return false;
