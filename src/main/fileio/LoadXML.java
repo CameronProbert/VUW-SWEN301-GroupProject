@@ -76,8 +76,14 @@ public class LoadXML {
 
 						// create a mail delivery given the route and the strings found. Some strings will need to be converted to integers etc
 
-						for(Route r: routes){
-							r.addDeliveryTime(Double.parseDouble(timeTaken));
+						for(Route route: routes){
+							Route r = findRoute(route);
+							if(r==null)finalRoutes.add(route);
+							else{
+								r.addDeliveryTime(Double.parseDouble(timeTaken));
+								routes.clear();
+								routes.add(r);
+							}
 						}
 						MailDelivery mail = new MailDelivery(clerk, date, origin, destination, Double.parseDouble(weight),
 								Double.parseDouble(volume), Double.parseDouble(priority), Double.parseDouble(revenue), Double.parseDouble(timeTaken), routes);
@@ -102,11 +108,13 @@ public class LoadXML {
 							r.setPricePerGramTransport(Double.parseDouble(newPPG));
 							r.setPricePerVolumeTransport(Double.parseDouble(newPPV));
 							//System.out.println("-------------route editted transport ---------------------");
+							routes.clear();
+							routes.add(r);
 						}
 						// create a transport update event
 						// create a route using the old values. Find the route in the list and modify it
 						TransportUpdate transport = new TransportUpdate(clerk, date, Double.parseDouble(oldPPG), Double.parseDouble(newPPG),
-								Double.parseDouble(oldPPV), Double.parseDouble(newPPV), r);
+								Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
 						events.add(transport);
 					}
 					else if(type.equals("Delete Route")){
@@ -145,16 +153,19 @@ public class LoadXML {
 						if(r!=null){
 							r.setPricePerGramCustomer(Double.parseDouble(newPPG));
 							r.setPricePerVolumeCustomer(Double.parseDouble(newPPV));
-							//System.out.println("-------------route editted-------------customer");
+							System.out.println("-------------route editted-------------customer");
+							routes = new ArrayList<Route>();
+							routes.add(r);
+							System.out.println(r.toString());
 						}
 						else{
 							//System.out.println("-------------route not found-------------customer");
 						}
-						System.out.println("length of final routes is " + finalRoutes.size());
+						//System.out.println("length of final routes is " + finalRoutes.size());
 						// create a customer price update event
 						// create a route using the old values. Find the route in the list and modify it
 						CustomerPriceChange change = new CustomerPriceChange(clerk, date, Double.parseDouble(oldPPG),
-								Double.parseDouble(newPPG), Double.parseDouble(oldPPV), Double.parseDouble(newPPV), r);
+								Double.parseDouble(newPPG), Double.parseDouble(oldPPV), Double.parseDouble(newPPV), routes);
 						events.add(change);
 					}
 
