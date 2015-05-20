@@ -361,18 +361,6 @@ public class Route {
 		} else if (!origin.equals(other.origin)) {
 			return false;
 		}
-		if (pricePerGramCustomer != other.pricePerGramCustomer) {
-			return false;
-		}
-		if (pricePerGramTransport != other.pricePerGramTransport) {
-			return false;
-		}
-		if (pricePerVolumeCustomer != other.pricePerVolumeCustomer) {
-			return false;
-		}
-		if (pricePerVolumeTransport != other.pricePerVolumeTransport) {
-			return false;
-		}
 		if (transportFirm == null) {
 			if (other.transportFirm != null) {
 				return false;

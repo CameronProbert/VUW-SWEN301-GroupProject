@@ -58,13 +58,13 @@ public class UserIO {
 
 	/**
 	 * Saves a list of users to resources/users
-	 * @param users
+	 * @param allUsers
 	 */
-	public static void saveUsers(List<Clerk> users) {
+	public static void saveUsers(Set<Clerk> allUsers) {
 		try {
 			PrintStream printer = new PrintStream(new File(FILENAME));
 			printer.println("Type\tID\tPassword\tName");
-			for (Clerk user : users){
+			for (Clerk user : allUsers){
 				if (user instanceof Manager){
 					printer.print("Manager\t");
 				} else {
