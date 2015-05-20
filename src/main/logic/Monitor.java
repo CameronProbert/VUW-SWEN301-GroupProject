@@ -55,35 +55,39 @@ public class Monitor {
 		double expenditure = calculateExpenditure();
 		// TODO gui.updateExpenditure(expenditure);
 	}
-	
+
 	/**
 	 * Returns the total revenue
+	 * 
 	 * @return
 	 */
-	private double calculateRevenue(){
+	private double calculateRevenue() {
 		double revenue = 0;
-		for (BusinessEvent event : events){
-			if (event instanceof MailDelivery){
+		for (BusinessEvent event : events) {
+			if (event instanceof MailDelivery) {
 				MailDelivery mail = (MailDelivery) event;
 				revenue += mail.getRevenue();
 			}
 		}
 		return revenue;
 	}
-	
+
 	/**
 	 * Returns the total expenditure
+	 * 
 	 * @return
 	 */
-	private double calculateExpenditure(){
+	private double calculateExpenditure() {
 		double expenditure = 0;
-		for (BusinessEvent event : events){
-			if (event instanceof MailDelivery){
+		for (BusinessEvent event : events) {
+			if (event instanceof MailDelivery) {
 				MailDelivery mail = (MailDelivery) event;
 				double mailExp = 0;
-				for (Route route : mail.getRoutes()){
-					mailExp += mail.getWeight()*route.getPricePerGramTransport();
-					mailExp += mail.getVolume()*route.getPricePerVolumeTransport();
+				for (Route route : mail.getRoutes()) {
+					mailExp += mail.getWeight()
+							* route.getPricePerGramTransport();
+					mailExp += mail.getVolume()
+							* route.getPricePerVolumeTransport();
 				}
 				expenditure += mailExp;
 			}
@@ -105,9 +109,9 @@ public class Monitor {
 	 * @return
 	 */
 	public boolean saveEvent(BusinessEvent event) {
-		// TODO return handler.save(event);
+		boolean successful = handler.newEvent(event);
 		calculateBusinessFigures();
-		return false;
+		return successful;
 	}
 
 	/**
@@ -118,7 +122,6 @@ public class Monitor {
 		try {
 			allUsers = UserIO.loadUsers();
 		} catch (NoRegisteredUsersException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Done loading users.");
@@ -158,10 +161,17 @@ public class Monitor {
 	 * @param name
 	 * @return
 	 */
-	public boolean makeNewUser(String id, String password, String name, boolean isManager) {
-		boolean validUser = false;
-		// TODO Create the User and save to file
-		return validUser;
+	public boolean makeNewUser(String id, String password, String name,
+			boolean isManager) {
+		Clerk user = null;
+		if (isManager) {
+			user = new Manager(name, id, password);
+		} else {
+			user = new Clerk(name, id, password);
+		}
+		allUsers.add(user);
+		UserIO.saveUsers(allUsers);
+		return (user != null);
 	}
 
 	/**
@@ -259,10 +269,12 @@ public class Monitor {
 		return sb.toString();
 	}
 
+	/**
+	 * Sets the UIController to the given controller
+	 * @param controller
+	 */
 	public void setUIController(UIController controller) {
-		// TODO Auto-generated method stub
 		this.controller = controller;
-		
 	}
 
 }
