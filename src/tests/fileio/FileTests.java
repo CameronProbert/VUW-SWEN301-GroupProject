@@ -67,17 +67,18 @@ public class FileTests {
 		}
 
 		routes = load.getRoutes();
+
 		testRoutes();
-		testEvents(events);
+		testLocation(load.getLocations());
 	}
 
 	@Test
-	private void testRouteDelete() {
+	public void testRouteDelete() {
 
 	}
 
-	private void testEvents(List<BusinessEvent> events) {
-		// TODO Auto-generated method stub
+	@Test
+	public void testLocation(Set<Location> locs){
 
 	}
 
@@ -126,15 +127,12 @@ public class FileTests {
 
 		routes.get(0).setPricePerGramCustomer(changedppgCust);
 		routes.get(0).setPricePerVolumeCustomer(changedppvCust);
-		System.out.println(routes.get(0).toString());
 
 		TransportUpdate update = new TransportUpdate(clerk, date, ppgTran, changedppgTran, ppvTran, changedppvTran, routes);
 		events.add(update);
 
 		routes.get(0).setPricePerGramTransport(changedppgTran);
 		routes.get(0).setPricePerVolumeTransport(changedppvTran);
-
-		//System.out.println(update.description());
 
 
 
