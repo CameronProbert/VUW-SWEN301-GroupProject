@@ -338,9 +338,6 @@ public class Route {
 			return false;
 		}
 		Route other = (Route) obj;
-		if (other.totalTimeToDeliver != this.totalTimeToDeliver) {
-			return false;
-		}
 		if (days == null) {
 			if (other.days != null) {
 				return false;
