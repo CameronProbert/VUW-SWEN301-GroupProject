@@ -105,13 +105,20 @@ public class LoadXML {
 						routes.get(0).setPricePerVolumeTransport(Double.parseDouble(oldPPV));
 
 						Route r = findRoute(routes.get(0));
+						System.out.println("-------------route read in ---------------------");
+						System.out.println(routes.get(0).toString());
+						System.out.println("-------------route currently stored ---------------------");
+						for(Route ro: finalRoutes){
+							System.out.println(ro.toString());
+						}
 						if(r!=null){
 							r.setPricePerGramTransport(Double.parseDouble(newPPG));
 							r.setPricePerVolumeTransport(Double.parseDouble(newPPV));
-							//System.out.println("-------------route editted transport ---------------------");
+							System.out.println("-------------route editted transport ---------------------");
 							routes.clear();
 							routes.add(r);
 						}
+
 						// create a transport update event
 						// create a route using the old values. Find the route in the list and modify it
 						TransportUpdate transport = new TransportUpdate(clerk, date, Double.parseDouble(oldPPG), Double.parseDouble(newPPG),

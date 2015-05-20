@@ -23,9 +23,39 @@ import main.logic.Route.TransportType;
 
 public class FileTests {
 
-	Set<Route> routes;
+	private final static Location origin = new Location("Auckland");
+	private final static Location destination = new Location("Wellington");
+	private final static String firmName = "Transport firm A";
+	private final static TransportType tt = TransportType.Standard;
+	private final static String clerk = "Sammy";
+	private final static String date = "10/12/2014 10:53";
+
+	private final static double ppgTran = 10;
+	private final static double ppvTran = 15;
+	private final static double ppgCust = 10;
+	private final static double ppvCust = 15;
+
+	private final static double changedppgTran = 20;
+	private final static double changedppvTran = 25;
+	private final static double changedppgCust = 20;
+	private final static double changedppvCust = 25;
+	private final static double timeTaken = 300;
+	private final static double depFreq = 2;
+	private final static double weight = 200;
+	private final static double volume = 25;
+	private final static double priority = 1;
+	private final static double revenue = 27;
+	private final static DaysOfWeek day = DaysOfWeek.Monday;
+
+	private Set<Route> routes;
 
 	public FileTests(){
+
+		setUpOne();
+		testRouteDelete();
+	}
+
+	private void setUpOne(){
 		List<BusinessEvent> events = eventsOne();
 		SaveXML save = new SaveXML();
 		save.save(events);
@@ -33,12 +63,17 @@ public class FileTests {
 		LoadXML load = new LoadXML();
 		events = load.getEvents();
 		for(BusinessEvent e: events){
-			System.out.println("\n"+e.description());
+			//System.out.println("\n"+e.description());
 		}
 
 		routes = load.getRoutes();
 		testRoutes();
 		testEvents(events);
+	}
+
+	@Test
+	private void testRouteDelete() {
+
 	}
 
 	private void testEvents(List<BusinessEvent> events) {
@@ -49,36 +84,28 @@ public class FileTests {
 	@Test
 	public void testRoutes() {
 		assertTrue(routes.size()==1);
-		Location origin = new Location("Auckland");
-		Location destination = new Location("Wellington");
 		for(Route r: routes){
 			assertTrue(r.getOrigin().equals(origin));
 			assertTrue(r.getDestination().equals(destination));
-			assertTrue(r.getTransportFirm().equals("Transport firm A"));
-			assertTrue(r.getPricePerGramCustomer() == 20);
-			assertTrue(r.getPricePerVolumeCustomer() == 20);
-			assertTrue(r.getPricePerGramTransport() == 20);
-			assertTrue(r.getPricePerVolumeTransport() == 20);
-			assertTrue(r.getPricePerGramCustomer() == 20);
+			assertTrue(r.getTransportFirm().equals(firmName));
+			assertTrue(r.getPricePerGramCustomer() == changedppgCust);
+			assertTrue(r.getPricePerVolumeCustomer() == changedppvCust);
+			assertTrue(r.getPricePerGramTransport() == changedppgTran);
+			assertTrue(r.getPricePerVolumeTransport() == changedppvTran);
 			assertTrue(r.getDepartureFrequency() == 2);
 			TransportType tt = TransportType.Standard;
 			assertTrue(r.getTransportType().equals(tt));
 			Set<DaysOfWeek> days = new HashSet<DaysOfWeek>();
-			days.add(DaysOfWeek.Monday);
+			days.add(day);
 			assertTrue(r.getDays().equals(days));
-
+			//System.out.println(r.toString());
 		}
 	}
 
 	public static List<BusinessEvent> eventsOne(){
-		Location origin = new Location("Auckland");
-		Location destination = new Location("Wellington");
-		TransportType tt = TransportType.Standard;
-		String clerk = "Sammy";
-		String date = "10/12/2014 10:53";
 		List<Route> routes = new ArrayList<Route>();
 		try {
-			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 10, 10, 2, DaysOfWeek.Monday);
+			Route route = new Route(origin, destination, firmName, tt, ppgTran, ppvTran, ppgCust, ppvCust, depFreq, day);
 			routes.add(route);
 		} catch (NoDaysToShipException e) {
 			e.printStackTrace();
@@ -91,25 +118,24 @@ public class FileTests {
 		OpenNewRoute open = new OpenNewRoute(clerk, date, routes);
 		events.add(open);
 
-		MailDelivery mail = new MailDelivery(clerk, date, "Auckland", "Wellington", 20, 20, 1, 20, 400, routes);
+		MailDelivery mail = new MailDelivery(clerk, date, origin.getName(), destination.getName(), weight, volume, priority, revenue, timeTaken, routes);
 		events.add(mail);
 
-		CustomerPriceChange change = new CustomerPriceChange(clerk, date, 10, 20, 10, 20, routes);
+		CustomerPriceChange change = new CustomerPriceChange(clerk, date, ppgCust, changedppgCust, ppvCust, changedppvCust, routes);
 		events.add(change);
 
-		try {
-			Route route = new Route(origin, destination, "Transport firm A", tt, 10, 10, 20, 20, 2, DaysOfWeek.Monday);
-			List<Route> routes2 = new ArrayList<Route>();
-			routes2.add(route);
+		routes.get(0).setPricePerGramCustomer(changedppgCust);
+		routes.get(0).setPricePerVolumeCustomer(changedppvCust);
+		System.out.println(routes.get(0).toString());
 
-			TransportUpdate update = new TransportUpdate(clerk, date, 10, 20, 10, 20, routes2);
-			events.add(update);
-		} catch (NoDaysToShipException e) {
-			e.printStackTrace();
-		} catch (InvalidLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		TransportUpdate update = new TransportUpdate(clerk, date, ppgTran, changedppgTran, ppvTran, changedppvTran, routes);
+		events.add(update);
+
+		routes.get(0).setPricePerGramTransport(changedppgTran);
+		routes.get(0).setPricePerVolumeTransport(changedppvTran);
+
+		//System.out.println(update.description());
+
 
 
 		return events;
