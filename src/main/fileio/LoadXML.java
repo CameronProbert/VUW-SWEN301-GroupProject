@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 
 import main.events.*;
+import main.logic.InvalidLocationException;
 import main.logic.Location;
 import main.logic.NoDaysToShipException;
 import main.logic.Route;
@@ -223,14 +224,19 @@ public class LoadXML {
 				Location or = getLocation(origin);
 				Location des = getLocation(destination);
 				try {
-					Route r = new Route(or, des, firmName, tranType, Double.parseDouble(CPGTran),
+					Route r;
+					r = new Route(or, des, firmName, tranType, Double.parseDouble(CPGTran),
 							Double.parseDouble(CPVTran), Double.parseDouble(CPGCust),
 							Double.parseDouble(CPVCust), Double.parseDouble(depFreq), days);
+
 					routes.add(r);
 
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (NoDaysToShipException e) {
+					e.printStackTrace();
+				} catch (InvalidLocationException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

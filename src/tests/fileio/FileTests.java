@@ -12,6 +12,7 @@ import org.junit.Test;
 import main.events.*;
 import main.fileio.LoadXML;
 import main.fileio.SaveXML;
+import main.logic.InvalidLocationException;
 import main.logic.Location;
 import main.logic.NoDaysToShipException;
 import main.logic.Route;
@@ -81,6 +82,9 @@ public class FileTests {
 			routes.add(route);
 		} catch (NoDaysToShipException e) {
 			e.printStackTrace();
+		} catch (InvalidLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		List<BusinessEvent> events = new ArrayList<BusinessEvent>();
 
@@ -101,6 +105,9 @@ public class FileTests {
 			TransportUpdate update = new TransportUpdate(clerk, date, 10, 20, 10, 20, routes2);
 			events.add(update);
 		} catch (NoDaysToShipException e) {
+			e.printStackTrace();
+		} catch (InvalidLocationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
