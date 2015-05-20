@@ -298,7 +298,7 @@ public class Route {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(origin.getName() + " to " + destination);
+		builder.append(origin.getName() + " to " + destination.getName());
 		builder.append("\naverageTimeToDeliver=");
 		builder.append(totalTimeToDeliver);
 		builder.append("\ntransportFirm=");
