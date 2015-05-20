@@ -1,5 +1,6 @@
 package main.logic;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,6 +23,8 @@ public class Location {
 	 */
 	public Location(String name) {
 		this.name = name;
+		this.inbound = new HashSet<Route>();
+		this.outbound = new HashSet<Route>();
 	}
 
 	/**
@@ -107,7 +110,7 @@ public class Location {
 	 * 
 	 * @param outbound
 	 */
-	public void OutInbound(Route... outbound) {
+	public void rmOutbound(Route... outbound) {
 		for (Route r : outbound){
 			this.outbound.remove(r);
 		}
