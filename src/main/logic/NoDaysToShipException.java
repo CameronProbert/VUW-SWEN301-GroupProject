@@ -9,7 +9,7 @@ public class NoDaysToShipException extends Exception {
 		super();
 	}
 
-	public NoDaysToShipException(String s){
-		super(s);
+	public NoDaysToShipException(String message){
+		super(message);
 	}
 }

@@ -183,7 +183,7 @@ public class RouteTests {
 					pricePerGramTransport, pricePerVolumeTransport,
 					pricePerGramCustomer, pricePerVolumeCustomer,
 					departureFrequency, days);
-		} catch (NoDaysToShipException e) {
+		} catch (NoDaysToShipException | InvalidLocationException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -211,7 +211,7 @@ public class RouteTests {
 					pricePerGramTransport, pricePerVolumeTransport,
 					pricePerGramCustomer, pricePerVolumeCustomer,
 					departureFrequency, days);
-		} catch (NoDaysToShipException e) {
+		} catch (NoDaysToShipException | InvalidLocationException e) {
 			e.printStackTrace();
 		}
 		return null;
