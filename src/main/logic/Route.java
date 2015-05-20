@@ -57,14 +57,21 @@ public class Route {
 	 * @param pricePerGramCustomer
 	 * @param pricePerVolumeCustomer
 	 * @throws NoDaysToShipException
+	 * @throws InvalidLocationException 
 	 */
 	public Route(Location origin, Location destination, String transportFirm,
 			TransportType transportType, double pricePerGramTransport,
 			double pricePerVolumeTransport, double pricePerGramCustomer,
 			double pricePerVolumeCustomer, double departureFrequency,
-			DaysOfWeek... days) throws NoDaysToShipException {
+			DaysOfWeek... days) throws NoDaysToShipException, InvalidLocationException {
 		if (days.length == 0) {
-			throw new NoDaysToShipException();
+			throw new NoDaysToShipException("The route has to run on at least one day.");
+		}
+		if (origin == null){
+			throw new InvalidLocationException("The route has to have an origin");
+		}
+		if (destination == null){
+			throw new InvalidLocationException("The route has to have a destination");
 		}
 		this.numTimesDelivered = 0;
 		this.totalTimeToDeliver = 0;
