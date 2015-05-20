@@ -16,7 +16,9 @@ public class TransportUpdate extends BusinessEvent {
 	private double oldPricePerVolume;
 	private double newPricePerVolume;
 
-	public TransportUpdate( double og, double ng, double ov, double nv, List<Route> routes ) {
+	public TransportUpdate( String clerk, String date, double og, double ng, double ov, double nv, List<Route> routes ) {
+		this.clerk = clerk;
+		this.date = date;
 		oldPricePerGram = og;
 		newPricePerGram = ng;
 		oldPricePerVolume = ov;
@@ -53,10 +55,10 @@ public class TransportUpdate extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "TransportUpdate [oldPricePerGram=" + oldPricePerGram
-				+ ", newPricePerGram=" + newPricePerGram
-				+ ", oldPricePerVolume=" + oldPricePerVolume
-				+ ", newPricePerVolume=" + newPricePerVolume + "]" + stringRoutes();
+		return "TransportUpdate : \n------------------------------------\noldPricePerGram=" + oldPricePerGram
+				+ ", \nnewPricePerGram=" + newPricePerGram
+				+ ", \noldPricePerVolume=" + oldPricePerVolume
+				+ ", \nnewPricePerVolume=" + newPricePerVolume + "\n";
 	}
 
 	@Override
@@ -67,7 +69,8 @@ public class TransportUpdate extends BusinessEvent {
 		attr.setValue("Transport Update");
 		transport.setAttributeNode(attr);
 
-		routesToXML(doc, this, transport);
+		routesToXML(doc, transport);
+		essentialInfo(doc, transport);
 
 		Element oldPPGram = doc.createElement("oldPricePGram");
 		oldPPGram.appendChild(doc.createTextNode(String.valueOf(getOldPricePerGram())));

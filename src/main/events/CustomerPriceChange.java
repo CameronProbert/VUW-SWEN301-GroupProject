@@ -35,7 +35,9 @@ public class CustomerPriceChange extends BusinessEvent {
 	 * @param ov: old price per volume
 	 * @param nv: new price per volume
 	 */
-	public CustomerPriceChange( double og, double ng, double ov, double nv, List<Route> routes) {
+	public CustomerPriceChange( String clerk, String date, double og, double ng, double ov, double nv, List<Route> routes) {
+		this.clerk = clerk;
+		this.date = date;
 		oldPricePerGram = og;
 		newPricePerGram = ng;
 		oldPricePerVolume = ov;
@@ -51,7 +53,9 @@ public class CustomerPriceChange extends BusinessEvent {
 		attr.setValue("Customer Price Change");
 		change.setAttributeNode(attr);
 
-		routesToXML(doc, this, change);
+		routesToXML(doc, change);
+
+		essentialInfo(doc, change);
 
 		Element oldPPGram = doc.createElement("oldPricePGram");
 		oldPPGram.appendChild(doc.createTextNode(String.valueOf(getOldPricePerGram())));
@@ -100,10 +104,11 @@ public class CustomerPriceChange extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "CustomerPriceChange [oldPricePerGram=" + oldPricePerGram
-				+ ", newPricePerGram=" + newPricePerGram
-				+ ", oldPricePerVolume=" + oldPricePerVolume
-				+ ", newPricePerVolume=" + newPricePerVolume + "]" + stringRoutes();
+		return "CustomerPriceChange : \n------------------------------------\noldPricePerGram=" + oldPricePerGram
+				+ ", \nnewPricePerGram=" + newPricePerGram
+				+ ", \noldPricePerVolume=" + oldPricePerVolume
+				+ ", \nnewPricePerVolume=" + newPricePerVolume + "\n";
 	}
+
 
 }

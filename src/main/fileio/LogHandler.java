@@ -42,6 +42,10 @@ public class LogHandler {
 		return true; // change this return false if unsuccessful
 	}
 
+	public boolean upDateLog(){
+		return save.save(events);
+	}
+
 	/**
 	 * returns the current event
 	 * @return
@@ -55,7 +59,7 @@ public class LogHandler {
 	 * This will need to be called every time an event is completed.
 	 * TODO change to only append the newer events to the file or an event at a time as they are created?
 	 */
-	public boolean writeToFile(){
+	private boolean writeToFile(){
 		// delete entire contents of the file
 
 		return save.save(events);

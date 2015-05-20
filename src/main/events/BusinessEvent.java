@@ -1,6 +1,7 @@
 package main.events;
 
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import org.w3c.dom.Element;
 
 import main.logic.Clerk;
@@ -30,7 +30,7 @@ import main.logic.Route.DaysOfWeek;
 
 public abstract class BusinessEvent {
 
-	protected Clerk clerk;
+	protected String clerk;
 	protected String date;
 	protected List<Route> routes;  // this will be added when a route class is added
 
@@ -48,9 +48,19 @@ public abstract class BusinessEvent {
 	 */
 	public abstract Element toXML(Document doc);
 
-	protected void routesToXML(Document doc, BusinessEvent event, Element elm){
-		for(Route r: event.getRoutes()){
-			// TODO will need to go through and uncomment a lot of this also check for ints that need to be parsed to Strings
+	public void essentialInfo(Document doc, Element elm){
+		Element c = doc.createElement("clerk");
+		c.appendChild(doc.createTextNode(clerk));
+		elm.appendChild(c);
+
+		Element d = doc.createElement("date");
+		d.appendChild(doc.createTextNode(date));
+		elm.appendChild(d);
+
+	}
+
+	protected void routesToXML(Document doc, Element elm){
+		for(Route r: getRoutes()){
 
 			Element route = doc.createElement("route");
 			elm.appendChild(route);
@@ -67,10 +77,9 @@ public abstract class BusinessEvent {
 			transportType.appendChild(doc.createTextNode(r.getTransportType().toString()));
 			route.appendChild(transportType);
 
-			// TODO this has changed need to revise
-			//Element averageTime = doc.createElement("averageTime");
-			//averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
-			//route.appendChild(averageTime);
+			/*Element averageTime = doc.createElement("averageTime");
+			averageTime.appendChild(doc.createTextNode(String.valueOf(r.getAverageTimeToDeliver())));
+			route.appendChild(averageTime);*/
 
 			Element firmName = doc.createElement("firmName");
 			firmName.appendChild(doc.createTextNode(r.getTransportFirm()));
@@ -92,7 +101,6 @@ public abstract class BusinessEvent {
 			volumeCustomer.appendChild(doc.createTextNode(String.valueOf(r.getPricePerVolumeCustomer())));
 			route.appendChild(volumeCustomer);
 
-			// TODO this may not be the best way to display this information
 			Element departureDays = doc.createElement("departureDays");
 			route.appendChild(departureDays);
 			for(DaysOfWeek day : r.getDays()){
@@ -116,12 +124,27 @@ public abstract class BusinessEvent {
 		return this.routes;
 	}
 
+	/**
+	 * returns a long desciption of all the routes
+	 * @return
+	 */
 	public String stringRoutes(){
 		String routeString = "";
 		for(Route r: routes){
-			routeString += " " + r.toString();
+			routeString +=  r.toString() + "\n";
 		}
 		return routeString;
+	}
+
+
+	public String description(){
+		/*if(this instanceof MailDelivery){
+			return toString();
+		}*/
+		if(routes.size()==1){
+			return toString() +"Route affected : \n------------------------------------\n"+ stringRoutes();
+		}
+		return toString() +"Routes affected : \n------------------------------------\n"+ stringRoutes();
 	}
 
 }

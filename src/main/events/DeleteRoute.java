@@ -1,6 +1,7 @@
 package main.events;
 
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,14 +24,16 @@ public class DeleteRoute extends BusinessEvent {
 	 * Constructor accepts specific routes to delete
 	 * @param r: route
 	 */
-	public DeleteRoute(List<Route> r) {
+	public DeleteRoute(String clerk, String date, List<Route> r) {
+		this.clerk = clerk;
+		this.date = date;
 		routes = r;
 	}
 
 
 	@Override
 	public String toString() {
-		return "DeleteRoute []" + stringRoutes();
+		return "DeleteRoute : \n------------------------------------\n";
 	}
 
 
@@ -42,9 +45,12 @@ public class DeleteRoute extends BusinessEvent {
 		attr.setValue("Delete Route");
 		delete.setAttributeNode(attr);
 
-		routesToXML(doc, this, delete);
+		routesToXML(doc, delete);
+		essentialInfo(doc, delete);
 
 		return delete;
 	}
+
+
 
 }
