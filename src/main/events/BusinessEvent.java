@@ -142,9 +142,9 @@ public abstract class BusinessEvent {
 			return toString();
 		}*/
 		if(routes.size()==1){
-			return toString() +"Route affected : \n------------------------------------\n"+ stringRoutes();
+			return toString() +"\nRoute affected : \n------------------------------------\n"+ stringRoutes();
 		}
-		return toString() +"Routes affected : \n------------------------------------\n"+ stringRoutes();
+		return toString() +"\nRoutes affected : \n------------------------------------\n"+ stringRoutes();
 	}
 
 }

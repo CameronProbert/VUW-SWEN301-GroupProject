@@ -154,10 +154,10 @@ public class LoadXML {
 						if(r!=null){
 							r.setPricePerGramCustomer(Double.parseDouble(newPPG));
 							r.setPricePerVolumeCustomer(Double.parseDouble(newPPV));
-							System.out.println("-------------route editted-------------customer");
+							//System.out.println("-------------route editted-------------customer");
 							routes = new ArrayList<Route>();
 							routes.add(r);
-							System.out.println(r.toString());
+							//System.out.println(r.toString());
 						}
 						else{
 							//System.out.println("-------------route not found-------------customer");

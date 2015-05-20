@@ -20,7 +20,7 @@ public class OpenNewRoute extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "OpenNewRoute : \n------------------------------------\n";
+		return "OpenNewRoute \n------------------------------------\n";
 	}
 
 
