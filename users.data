@@ -1,4 +1,5 @@
-Type	ID			Password	Name
-Manager	Cameron		Cameron		Cameron Probert
+Type	ID	Password	Name
+Clerk	Jackie	Jackie	Dummy User
 Clerk	Francine	Francine	Francine Burling-Claridge
-Clerk	Jackie		Jackie		Dummy User
+Manager	Cameron	Cameron	Cameron Probert
+Clerk	a	a	a
