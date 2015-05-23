@@ -51,7 +51,16 @@ public class UIController {
 	 * 
 	 */
 	public boolean addNewUser(String id, String password, String name, boolean isManager){
-		//return (monitor.makeNewUser(id, password, name, isManager));
-		return true;
+		return (monitor.makeNewUser(id, password, name, isManager));
+	}
+	
+	public void updateRevenue(double revenue){
+		//setRevenue(revenue);
+	}
+	public void updateExpenditure(double expenditure){
+		//setExpend(expenditure);
+	}
+	public void setNumberOfEvents(int events){
+//		setEvents(events);
 	}
 }

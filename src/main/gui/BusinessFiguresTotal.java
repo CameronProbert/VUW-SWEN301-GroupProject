@@ -30,6 +30,7 @@ public class BusinessFiguresTotal extends Panel {
 	public BusinessFiguresTotal(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
+		
 	}
 
 	@Override
@@ -59,6 +60,7 @@ public class BusinessFiguresTotal extends Panel {
 		revenue.setDisabledTextColor(Color.BLACK);
 		revenue.setPreferredSize(new Dimension(250, 50));
 		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
+		revenue.setOpaque(false);
 
 		expenditure.disable();
 		expenditure.setText("0.0"); 
@@ -106,7 +108,9 @@ public class BusinessFiguresTotal extends Panel {
 	}
 	
 	// controller calls to set the updated events
-	protected void setEvents(double e){
+	protected void setEvents(int e){
 		events.setText("" + e);
 	}
+	
+	
 }
