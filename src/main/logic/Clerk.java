@@ -3,7 +3,7 @@ package main.logic;
 /**
  * A clerk should be logged on to the program at all times, it is the programs
  * recorded identity of the person currently using it.
- * 
+ *
  * @author Cameron Probert
  *
  */
@@ -20,7 +20,7 @@ public class Clerk {
 
 	/**
 	 * Creates a new Clerk with the given strings
-	 * 
+	 *
 	 * @param name
 	 * @param id
 	 * @param password
@@ -33,7 +33,7 @@ public class Clerk {
 
 	/**
 	 * Returns the name of the Clerk
-	 * 
+	 *
 	 * @return
 	 */
 	public String getName() {
@@ -42,7 +42,7 @@ public class Clerk {
 
 	/**
 	 * Returns the id of the Clerk
-	 * 
+	 *
 	 * @return
 	 */
 	public String getId() {
@@ -51,7 +51,7 @@ public class Clerk {
 
 	/**
 	 * Returns the password of the Clerk
-	 * 
+	 *
 	 * @return
 	 */
 	public String getPassword() {
@@ -61,7 +61,7 @@ public class Clerk {
 	/**
 	 * Returns true of the given id and password match this user's id and
 	 * password
-	 * 
+	 *
 	 * @param id
 	 * @param password
 	 * @return
@@ -79,23 +79,6 @@ public class Clerk {
 		sb.append("Type: Clerk");
 		sb.append("\nName: " + name);
 		sb.append("\nID: " + id);
-		return sb.toString();
-	}
-
-	/**
-	 * Returns the users credentials including the password. This should only
-	 * ever be used for debugging
-	 * 
-	 * @return
-	 */
-	public String debugToString() {
-		StringBuilder sb = new StringBuilder();
-		System.err
-				.println("debugToString() method has been called. This should never happen in the final version of this program");
-		sb.append("Type: Clerk");
-		sb.append("\nName: " + name);
-		sb.append("\nID: " + id);
-		sb.append("\nPassword: " + password);
 		return sb.toString();
 	}
 }
