@@ -69,7 +69,7 @@ public class FileTests {
 		routes = load.getRoutes();
 
 		testRoutes();
-		testLocation(load.getLocations());
+		//testLocation(load.getLocations());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class FileTests {
 	}
 
 	@Test
-	public void testLocation(Set<Location> locs){
+	public void testLocation(){
 
 	}
 

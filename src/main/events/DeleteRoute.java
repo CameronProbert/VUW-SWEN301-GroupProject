@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -49,6 +50,16 @@ public class DeleteRoute extends BusinessEvent {
 		essentialInfo(doc, delete);
 
 		return delete;
+	}
+
+
+	@Override
+	public List<String> listDesc() {
+		List<String> des = new ArrayList<String>();
+
+		des.add("Delete Route : ");
+		des.add("------------------------------------");
+		return des;
 	}
 
 

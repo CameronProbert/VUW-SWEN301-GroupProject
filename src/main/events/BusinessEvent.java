@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -127,24 +128,33 @@ public abstract class BusinessEvent {
 	/**
 	 * returns a long desciption of all the routes
 	 * @return
+	 * TODO uncomment
 	 */
-	public String stringRoutes(){
-		String routeString = "";
+	public List<String> stringRoutes(){
+		List<String> rs = new ArrayList<String>();
 		for(Route r: routes){
-			routeString +=  r.toString() + "\n";
+			//rs.addAll(r.toList());
 		}
-		return routeString;
+		return rs;
 	}
 
 
-	public String description(){
-		/*if(this instanceof MailDelivery){
-			return toString();
-		}*/
+	public List<String> description(){
+		if(this instanceof MailDelivery){
+			return listDesc();
+		}
+		List<String> des = new ArrayList<String>();
+		des.addAll(listDesc());
 		if(routes.size()==1){
-			return toString() +"\nRoute affected : \n------------------------------------\n"+ stringRoutes();
+			des.add("Route affected : ");
+		}else{
+			des.add("Routes affected : ");
 		}
-		return toString() +"\nRoutes affected : \n------------------------------------\n"+ stringRoutes();
+		des.add("------------------------------------");
+		des.addAll(stringRoutes());
+		return des;
 	}
+
+	public abstract List<String> listDesc();
 
 }
