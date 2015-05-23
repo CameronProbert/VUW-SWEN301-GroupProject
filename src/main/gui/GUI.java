@@ -125,4 +125,8 @@ public class GUI {
 	public String getCurretUsername() {
 		return clerk.getName();
 	}
+	
+	public void setBusinessFiguresPane(){
+		
+	}
 }

@@ -63,7 +63,9 @@ public class FileTests {
 		LoadXML load = new LoadXML();
 		events = load.getEvents();
 		for(BusinessEvent e: events){
-			//System.out.println("\n"+e.description());
+			for(String s: e.description()){
+				System.out.println(s);
+			}
 		}
 
 		routes = load.getRoutes();
