@@ -38,7 +38,7 @@ public class Monitor {
 	public Monitor() {
 		loadUsers();
 		handler = new LogHandler();
-		// TODO locations = handler.getLocations();
+		locations = handler.getLocations();
 		routes = handler.getRoutes();
 		initialiseGUI();
 		calculateBusinessFigures();
@@ -49,8 +49,8 @@ public class Monitor {
 	 */
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
-		// TODO gui.updateRevenue(revenue);
 		double expenditure = calculateExpenditure();
+		// TODO gui.updateRevenue(revenue);
 		// TODO gui.updateExpenditure(expenditure);
 	}
 
@@ -113,8 +113,17 @@ public class Monitor {
 	}
 
 	/**
+	 * Returns the current business event as a list of Strings
+	 *
+	 * @return
+	 */
+	public List<String> getCurrentEvent() {
+		return handler.getCurrentEvent().description();
+	}
+
+	/**
 	 * Returns the business event that occurs after the current one as a list of
-	 * trings
+	 * Strings
 	 *
 	 * @return
 	 */
