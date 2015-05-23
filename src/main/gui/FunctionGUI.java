@@ -325,6 +325,8 @@ public class FunctionGUI extends Panel{
 							id.setText("ID has already been taken");
 							id.setBackground(Color.LIGHT_GRAY);
 							inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
+						} else {
+							JOptionPane.showMessageDialog(null, "User added!");
 						}
 					}
 				} 

@@ -22,15 +22,15 @@ import javax.swing.SwingConstants;
  */
 public class BusinessFiguresTotal extends Panel {
 
-	// disabled textfields on the panel
-	private static JFormattedTextField revenue;
-	private static JFormattedTextField expenditure;
-	private static JFormattedTextField events;
+	// value labels on the panel
+	private static JLabel revenue;
+	private static JLabel expenditure;
+	private static JLabel events;
 
 	public BusinessFiguresTotal(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		
+		gui.setBusinessFiguresTotal(this);
 	}
 
 	@Override
@@ -38,39 +38,35 @@ public class BusinessFiguresTotal extends Panel {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		// create labels and textfields for the business figures
+		// create labels for the business figures
 		JLabel title = new JLabel("Business Figures  ", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.PLAIN, 18));
 
 		JLabel labelRevenue= new JLabel(" Total Revenue", SwingConstants.LEFT);
-		revenue = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(revenue);
+		revenue = new JLabel();
 
 		JLabel labelExpend= new JLabel(" Total Expenditure", SwingConstants.LEFT);
-		expenditure = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(expenditure);
+		expenditure = new JLabel();
 
 		JLabel labelEvents= new JLabel(" Total Number of Events", SwingConstants.LEFT);
-		events = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(events);
+		events = new JLabel();
 
-		// format disabled textfields shown business figures
-		revenue.disable();
-		revenue.setText("0.0");   
-		revenue.setDisabledTextColor(Color.BLACK);
+		// format value labels shown business figures
+		//revenue.disable();
+		revenue.setText(" 0.0");   
+		//revenue.setDisabledTextColor(Color.BLACK);
 		revenue.setPreferredSize(new Dimension(250, 50));
 		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
-		revenue.setOpaque(false);
 
-		expenditure.disable();
-		expenditure.setText("0.0"); 
-		expenditure.setDisabledTextColor(Color.BLACK);
+		//expenditure.disable();
+		expenditure.setText(" 0.0"); 
+		//expenditure.setDisabledTextColor(Color.BLACK);
 		expenditure.setPreferredSize(new Dimension(250, 50));
 		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		events.disable();
-		events.setText("0");  
-		events.setDisabledTextColor(Color.BLACK);
+		//events.disable();
+		events.setText(" 0");  
+		//events.setDisabledTextColor(Color.BLACK);
 		events.setPreferredSize(new Dimension(250, 50));
 		events.setFont(new Font("Arial", Font.PLAIN, 15));
 
@@ -98,19 +94,17 @@ public class BusinessFiguresTotal extends Panel {
 	protected void addListenner() {}
 	
 	// controller calls to set the updated revenue
-	protected void setRevenue(double r){
+	public void setRevenue(double r){
 		revenue.setText("" + r);
 	}
 	
 	// controller calls to set the updated expenditure
-	protected void setExpend(double e){
+	public void setExpend(double e){
 		expenditure.setText("" + e);
 	}
 	
 	// controller calls to set the updated events
-	protected void setEvents(int e){
+	public void setEvents(int e){
 		events.setText("" + e);
 	}
-	
-	
 }

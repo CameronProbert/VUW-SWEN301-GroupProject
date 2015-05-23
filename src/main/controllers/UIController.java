@@ -55,12 +55,12 @@ public class UIController {
 	}
 	
 	public void updateRevenue(double revenue){
-		//setRevenue(revenue);
+		gui.getBusinessFiguresTotal().setRevenue(revenue);
 	}
 	public void updateExpenditure(double expenditure){
-		//setExpend(expenditure);
+		gui.getBusinessFiguresTotal().setExpend(expenditure);
 	}
 	public void setNumberOfEvents(int events){
-//		setEvents(events);
+		gui.getBusinessFiguresTotal().setEvents(events);
 	}
 }
