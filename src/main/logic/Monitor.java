@@ -33,8 +33,6 @@ public class Monitor {
 
 	/**
 	 * Creates the GUI and the monitor
-	 *
-	 * @param verbose
 	 */
 	public Monitor() {
 		loadUsers();
@@ -51,8 +49,13 @@ public class Monitor {
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
-		// TODO gui.updateRevenue(revenue);
-		// TODO gui.updateExpenditure(expenditure);
+		controller.updateRevenue(revenue);
+		controller.updateExpenditure(expenditure);
+		try {
+			controller.setNumberOfEvents(handler.getEvents().size());
+		} catch (NullPointerException e) {
+			controller.setNumberOfEvents(0);
+		}
 	}
 
 	/**
@@ -62,10 +65,12 @@ public class Monitor {
 	 */
 	private double calculateRevenue() {
 		double revenue = 0;
-		for (BusinessEvent event : handler.getEvents()) {
-			if (event instanceof MailDelivery) {
-				MailDelivery mail = (MailDelivery) event;
-				revenue += mail.getRevenue();
+		if (handler.getEvents() != null) {
+			for (BusinessEvent event : handler.getEvents()) {
+				if (event instanceof MailDelivery) {
+					MailDelivery mail = (MailDelivery) event;
+					revenue += mail.getRevenue();
+				}
 			}
 		}
 		return revenue;
@@ -78,17 +83,19 @@ public class Monitor {
 	 */
 	private double calculateExpenditure() {
 		double expenditure = 0;
-		for (BusinessEvent event : handler.getEvents()) {
-			if (event instanceof MailDelivery) {
-				MailDelivery mail = (MailDelivery) event;
-				double mailExp = 0;
-				for (Route route : mail.getRoutes()) {
-					mailExp += mail.getWeight()
-							* route.getPricePerGramTransport();
-					mailExp += mail.getVolume()
-							* route.getPricePerVolumeTransport();
+		if (handler.getEvents() != null) {
+			for (BusinessEvent event : handler.getEvents()) {
+				if (event instanceof MailDelivery) {
+					MailDelivery mail = (MailDelivery) event;
+					double mailExp = 0;
+					for (Route route : mail.getRoutes()) {
+						mailExp += mail.getWeight()
+								* route.getPricePerGramTransport();
+						mailExp += mail.getVolume()
+								* route.getPricePerVolumeTransport();
+					}
+					expenditure += mailExp;
 				}
-				expenditure += mailExp;
 			}
 		}
 		return expenditure;
@@ -120,7 +127,7 @@ public class Monitor {
 	 */
 	public List<String> getCurrentEvent() {
 		List<String> data = handler.getCurrentEvent().description();
-		if (data == null){
+		if (data == null) {
 			data = new ArrayList<String>();
 			data.add("No data to display");
 		}
@@ -135,7 +142,7 @@ public class Monitor {
 	 */
 	public List<String> nextEvent() {
 		List<String> data = handler.getNextEvent().description();
-		if (data == null){
+		if (data == null) {
 			data = new ArrayList<String>();
 			data.add("No data to display");
 		}
@@ -150,7 +157,7 @@ public class Monitor {
 	 */
 	public List<String> previousEvent() {
 		List<String> data = handler.getPreviousEvent().description();
-		if (data == null){
+		if (data == null) {
 			data = new ArrayList<String>();
 			data.add("No data to display");
 		}
