@@ -341,6 +341,7 @@ public class Route {
 		for (DaysOfWeek day : this.days) {
 			days += day.name() + " ";
 		}
+		list.add(days);
 		list.add("Departure Frequency = " + departureFrequency);
 		return list;
 	}
