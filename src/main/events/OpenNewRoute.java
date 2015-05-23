@@ -2,23 +2,45 @@ package main.events;
 
 import java.util.List;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import main.logic.Route;
 
 public class OpenNewRoute extends BusinessEvent {
 
-	public OpenNewRoute (List<Route> routes) {
+	public OpenNewRoute (String clerk, String date, List<Route> routes) {
+		this.clerk = clerk;
+		this.date = date;
 		this.routes = routes;
 	}
 
-	@Override
-	public String toXML() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public String toString() {
-		return "OpenNewRoute []" + stringRoutes();
+		return "OpenNewRoute \n------------------------------------\n";
 	}
+
+
+
+	@Override
+	public Element toXML(Document doc) {
+		Element save = doc.createElement("event");
+
+		Attr attr = doc.createAttribute("type");
+		attr.setValue("New Route");
+		save.setAttributeNode(attr);
+
+		routesToXML(doc, save);
+		essentialInfo(doc, save);
+
+		return save;
+	}
+
+
+
+
 
 }
