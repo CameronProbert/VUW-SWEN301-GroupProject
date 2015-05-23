@@ -54,7 +54,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		setOpaque(false);
 		setUpComponents();
 		addListenner();
-		this.controller = this.gui.getUIController();
+		//this.controller = this.gui.getUIController();
 	}
 
 	/**

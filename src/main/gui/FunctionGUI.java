@@ -29,6 +29,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import main.controllers.UIController;
+import javax.swing.JTabbedPane;
 
 /**
  * FunctionGUI have all the function buttons
@@ -61,6 +62,9 @@ public class FunctionGUI extends Panel{
 	private JSplitPane jSplitPanel;
 	private String loginType = "";
 	private static String permission = "Clerk";
+	private JTabbedPane tabbedPane;
+	private JTabbedPane businessEventPane;
+	private JTabbedPane businessFigurePane;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -94,7 +98,7 @@ public class FunctionGUI extends Panel{
 		//business events panel
 		inforPanel = new JPanel(new BorderLayout());
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
-		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
+		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
 		//TODO: find a way to set the width of the button
 		//buttons
 		mailDelivery = new JButton("Mail Delivery                        ");
@@ -140,6 +144,16 @@ public class FunctionGUI extends Panel{
 		add(titlePanel);
 		add(jSplitPanel);
 		add(inforPanel);
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-160));
+		inforPanel.add(tabbedPane, BorderLayout.NORTH);
+		
+		businessFigurePane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Business Figures", null, businessFigurePane, null);
+		
+		businessEventPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Business Events", null, businessEventPane, null);
 		add(bottomPanel);
 
 	}
