@@ -1,11 +1,13 @@
 package main.logic;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * The Route class represents a real route between two destinations
- * 
+ *
  * @author Cameron Probert
  *
  */
@@ -13,7 +15,7 @@ public class Route {
 
 	/**
 	 * The type of transport that the route uses
-	 * 
+	 *
 	 * @author Cameron Probert
 	 *
 	 */
@@ -23,7 +25,7 @@ public class Route {
 
 	/**
 	 * The days of the week
-	 * 
+	 *
 	 * @author Cameron Probert
 	 *
 	 */
@@ -47,7 +49,7 @@ public class Route {
 
 	/**
 	 * Creates a new Route with the given fields
-	 * 
+	 *
 	 * @param origin
 	 * @param destination
 	 * @param transportFirm
@@ -114,7 +116,7 @@ public class Route {
 	 * Removes days of the week from the current set of days of the week. If it
 	 * would remove every day that there is then it makes no changes and returns
 	 * false. Otherwise it returns true.
-	 * 
+	 *
 	 * @param daysToRm
 	 * @return
 	 */
@@ -139,7 +141,7 @@ public class Route {
 
 	/**
 	 * Returns the origin location
-	 * 
+	 *
 	 * @return
 	 */
 	public Location getOrigin() {
@@ -148,7 +150,7 @@ public class Route {
 
 	/**
 	 * Returns the destination location
-	 * 
+	 *
 	 * @return
 	 */
 	public Location getDestination() {
@@ -157,7 +159,7 @@ public class Route {
 
 	/**
 	 * Returns the average time taken to deliver using the route
-	 * 
+	 *
 	 * @return
 	 */
 	public double getAverageTimeToDeliver() {
@@ -169,7 +171,7 @@ public class Route {
 
 	/**
 	 * Returns the name of the Transport firm
-	 * 
+	 *
 	 * @return
 	 */
 	public String getTransportFirm() {
@@ -178,7 +180,7 @@ public class Route {
 
 	/**
 	 * Returns the price per gram to us
-	 * 
+	 *
 	 * @return
 	 */
 	public double getPricePerGramTransport() {
@@ -187,7 +189,7 @@ public class Route {
 
 	/**
 	 * Returns the price per volume for the customer
-	 * 
+	 *
 	 * @return
 	 */
 	public double getPricePerVolumeTransport() {
@@ -196,7 +198,7 @@ public class Route {
 
 	/**
 	 * Returns the price per gram for the customer
-	 * 
+	 *
 	 * @return
 	 */
 	public double getPricePerGramCustomer() {
@@ -205,7 +207,7 @@ public class Route {
 
 	/**
 	 * Returns the price customers pay for volume
-	 * 
+	 *
 	 * @return
 	 */
 	public double getPricePerVolumeCustomer() {
@@ -214,7 +216,7 @@ public class Route {
 
 	/**
 	 * Returns how often the route runs on days that it does run
-	 * 
+	 *
 	 * @return
 	 */
 	public double getDepartureFrequency() {
@@ -223,7 +225,7 @@ public class Route {
 
 	/**
 	 * Return the transport types
-	 * 
+	 *
 	 * @return
 	 */
 	public TransportType getTransportType() {
@@ -232,7 +234,7 @@ public class Route {
 
 	/**
 	 * Sets the average time to deliver for the route
-	 * 
+	 *
 	 * @return
 	 */
 	public void addDeliveryTime(double timeToDeliver) {
@@ -242,7 +244,7 @@ public class Route {
 
 	/**
 	 * Sets the price per gram we pay the transport company
-	 * 
+	 *
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerGramTransport(double pricePerGramTransport) {
@@ -251,7 +253,7 @@ public class Route {
 
 	/**
 	 * Sets the price per volume we pay the transport company
-	 * 
+	 *
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerVolumeTransport(double pricePerVolumeTransport) {
@@ -260,7 +262,7 @@ public class Route {
 
 	/**
 	 * Sets the price per gram the customer pays
-	 * 
+	 *
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerGramCustomer(double pricePerGramCustomer) {
@@ -269,7 +271,7 @@ public class Route {
 
 	/**
 	 * Sets the price per volume the customer pays
-	 * 
+	 *
 	 * @param pricePerVolumeCustomer
 	 */
 	public void setPricePerVolumeCustomer(double pricePerVolumeCustomer) {
@@ -280,7 +282,7 @@ public class Route {
 	 * Sets the departure frequency to the given number. If the number is
 	 * greater 24 or less than 0 it will not change and return a false to show
 	 * this
-	 * 
+	 *
 	 * @param departureFrequency
 	 * @return
 	 */
@@ -320,6 +322,27 @@ public class Route {
 		builder.append(", departureFrequency=");
 		builder.append(departureFrequency);
 		return builder.toString();
+	}
+
+	/**
+	 * Returns a string representation of this route
+	 */
+	public List<String> toList() {
+		List<String> list = new ArrayList<String>();
+		list.add("From " + origin.getName() + " to " + destination.getName());
+		list.add("Average Delivery Time = " + totalTimeToDeliver);
+		list.add("Transport Firm = " + transportFirm);
+		list.add("Transport Type = " + transportType.name());
+		list.add("Price Per Gram Transport = " + pricePerGramTransport);
+		list.add("Price Per Volume Transport = " + pricePerVolumeTransport);
+		list.add("Price Per Gram Customer = " + pricePerGramCustomer);
+		list.add("Price Per Volume Customer = " + pricePerVolumeCustomer);
+		String days = "Days = ";
+		for (DaysOfWeek day : this.days) {
+			days += day.name() + " ";
+		}
+		list.add("Departure Frequency = " + departureFrequency);
+		return list;
 	}
 
 	/**
