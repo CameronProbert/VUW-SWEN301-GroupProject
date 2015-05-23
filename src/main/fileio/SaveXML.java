@@ -30,7 +30,6 @@ public class SaveXML {
 
 	public boolean save(List<BusinessEvent> events){
 		try {
-			System.out.println("length of events : " + events.size() + " fileName : " + fileName);
 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

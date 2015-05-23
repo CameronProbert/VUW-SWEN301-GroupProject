@@ -37,7 +37,7 @@ public class LogHandler {
 	}
 
 	/**
-	 * used for tsting loading and saving from empty files
+	 * used for testing loading and saving from empty files
 	 * @param empty
 	 */
 	public LogHandler(boolean empty){
