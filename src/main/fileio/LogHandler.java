@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import main.events.BusinessEvent;
+import main.logic.Location;
 import main.logic.Route;
 
 /**
@@ -20,6 +21,7 @@ public class LogHandler {
 
 	private List<BusinessEvent> events = new ArrayList<BusinessEvent>();
 	private Set<Route> routes = new HashSet<Route>();
+	private Set<Location> locs;
 	private BusinessEvent current;
 	private SaveXML save;
 
@@ -27,6 +29,7 @@ public class LogHandler {
 		LoadXML load = new LoadXML();
 		events = load.getEvents();
 		routes = load.getRoutes();
+		locs = load.getLocations();
 		save = new SaveXML();
 	}
 
@@ -118,6 +121,10 @@ public class LogHandler {
 
 	public Set<Route> getRoutes(){
 		return routes;
+	}
+
+	public Set<Location> getLocations(){
+		return locs;
 	}
 
 }
