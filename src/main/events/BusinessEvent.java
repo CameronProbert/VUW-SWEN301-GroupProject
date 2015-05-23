@@ -133,7 +133,7 @@ public abstract class BusinessEvent {
 	public List<String> stringRoutes(){
 		List<String> rs = new ArrayList<String>();
 		for(Route r: routes){
-			//rs.addAll(r.toList());
+			rs.addAll(r.toList());
 		}
 		return rs;
 	}
@@ -145,6 +145,7 @@ public abstract class BusinessEvent {
 		}
 		List<String> des = new ArrayList<String>();
 		des.addAll(listDesc());
+		des.add(" ");
 		if(routes.size()==1){
 			des.add("Route affected : ");
 		}else{
