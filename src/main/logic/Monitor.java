@@ -1,5 +1,6 @@
 package main.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -118,7 +119,12 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> getCurrentEvent() {
-		return handler.getCurrentEvent().description();
+		List<String> data = handler.getCurrentEvent().description();
+		if (data == null){
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
 	}
 
 	/**
@@ -128,7 +134,12 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> nextEvent() {
-		return handler.getNextEvent().description();
+		List<String> data = handler.getNextEvent().description();
+		if (data == null){
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
 	}
 
 	/**
@@ -138,7 +149,12 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> previousEvent() {
-		return handler.getPreviousEvent().description();
+		List<String> data = handler.getPreviousEvent().description();
+		if (data == null){
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
 	}
 
 	/**
