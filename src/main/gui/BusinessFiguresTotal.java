@@ -13,12 +13,12 @@ import javax.swing.SwingConstants;
 
 /**
  * The BusinessFiguresTotal class is a JPanel which is added
- * on the button panel to show users the business figures.   
- * BusinessFiguresTotal class is responsible for directly 
+ * on the button panel to show users the business figures.
+ * BusinessFiguresTotal class is responsible for directly
  * letting users know the key general business figures.
  *
  * @author Zhiheng Sun
- * 
+ *
  */
 public class BusinessFiguresTotal extends Panel {
 
@@ -53,31 +53,22 @@ public class BusinessFiguresTotal extends Panel {
 
 		// format value labels shown business figures
 		//revenue.disable();
-		revenue.setText(" 0.0");   
+		revenue.setText(" 0.0");
 		//revenue.setDisabledTextColor(Color.BLACK);
 		revenue.setPreferredSize(new Dimension(250, 50));
 		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		//expenditure.disable();
-		expenditure.setText(" 0.0"); 
+		expenditure.setText(" 0.0");
 		//expenditure.setDisabledTextColor(Color.BLACK);
 		expenditure.setPreferredSize(new Dimension(250, 50));
 		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		//events.disable();
-		events.setText(" 0");  
+		events.setText(" 0");
 		//events.setDisabledTextColor(Color.BLACK);
 		events.setPreferredSize(new Dimension(250, 50));
 		events.setFont(new Font("Arial", Font.PLAIN, 15));
-
-		// add the labels and textfields onto the panel
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
 		add(title);
 		add(labelRevenue);
 		add(revenue);
@@ -92,17 +83,17 @@ public class BusinessFiguresTotal extends Panel {
 
 	@Override
 	protected void addListenner() {}
-	
+
 	// controller calls to set the updated revenue
 	public void setRevenue(double r){
 		revenue.setText("" + r);
 	}
-	
+
 	// controller calls to set the updated expenditure
 	public void setExpend(double e){
 		expenditure.setText("" + e);
 	}
-	
+
 	// controller calls to set the updated events
 	public void setEvents(int e){
 		events.setText("" + e);

@@ -41,6 +41,9 @@ public class GUI {
 	public String password;
 	private Clerk clerk;
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void setUp() {
 		frame = new JFrame();
 		frame.setTitle("KPSmart System");

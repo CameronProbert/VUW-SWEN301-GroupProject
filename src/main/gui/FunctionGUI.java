@@ -30,6 +30,7 @@ import javax.swing.border.TitledBorder;
 
 import main.controllers.UIController;
 import javax.swing.JTabbedPane;
+import javax.swing.JMenu;
 
 /**
  * FunctionGUI have all the function buttons
@@ -40,7 +41,7 @@ import javax.swing.JTabbedPane;
 
 public class FunctionGUI extends Panel{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	protected UIController controller;
@@ -64,7 +65,7 @@ public class FunctionGUI extends Panel{
 	private static String permission = "Clerk";
 	private JTabbedPane tabbedPane;
 	private JTabbedPane businessEventPane;
-	private JTabbedPane businessFigurePane;
+	private JTabbedPane businessFigureTab;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -77,7 +78,7 @@ public class FunctionGUI extends Panel{
 	 */
 	@Override
 	protected void setUpComponents() {
-		//titlePanel 
+		//titlePanel
 		JPanel titlePanel = new JPanel(new BorderLayout());
 		addImage("image/topImage.jpg", titlePanel, 60);
 		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
@@ -125,7 +126,6 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(transportDiscontinued);
 		buttonPanel.add(businessEvents);
 		buttonPanel.add(businessFigures);
-		buttonPanel.add(new BusinessFiguresTotal(gui));
 
 		// add label and buttons onto bottomPanel
 		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
@@ -144,23 +144,27 @@ public class FunctionGUI extends Panel{
 		add(titlePanel);
 		add(jSplitPanel);
 		add(inforPanel);
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-160));
 		inforPanel.add(tabbedPane, BorderLayout.NORTH);
-		
-		businessFigurePane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Business Figures", null, businessFigurePane, null);
-		
+
+		businessFigureTab = new JTabbedPane(JTabbedPane.TOP);
+		businessFigureTab.setBackground(Color.LIGHT_GRAY);
+		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
+
 		businessEventPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Business Events", null, businessEventPane, null);
 		add(bottomPanel);
+		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
+		businessFiguresTotal.setBackground(Color.LIGHT_GRAY);
+		businessFigureTab.add(businessFiguresTotal);
 
 	}
 	/**
 	 * add image on to the panel
 	 * @param iamgeAdd image address
-	 * @param panel 
+	 * @param panel
 	 * @param height height of the panel
 	 */
 	private void addImage(String imageAdd, JPanel panel, int height) {
@@ -335,7 +339,7 @@ public class FunctionGUI extends Panel{
 						inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
 					} else {	// input is valid
 						// username is invalid
-						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (permission.equalsIgnoreCase("Manager"))? true: false)) {	
+						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (permission.equalsIgnoreCase("Manager"))? true: false)) {
 							id.setText("ID has already been taken");
 							id.setBackground(Color.LIGHT_GRAY);
 							inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
@@ -343,7 +347,7 @@ public class FunctionGUI extends Panel{
 							JOptionPane.showMessageDialog(null, "User added!");
 						}
 					}
-				} 
+				}
 			}
 		});
 
@@ -387,7 +391,7 @@ public class FunctionGUI extends Panel{
 	public void propertyChange(PropertyChangeEvent evt) {}
 
 	/**
-	 * initialize all fields, when click the button 
+	 * initialize all fields, when click the button
 	 */
 	private void init(){
 		origin = "";
