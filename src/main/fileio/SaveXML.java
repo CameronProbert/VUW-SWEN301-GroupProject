@@ -22,9 +22,15 @@ public class SaveXML {
 
 	private Document doc;
 	private Element rootElement;
+	private String fileName;
+
+	public SaveXML(String fN){
+		this.fileName = fN;
+	}
 
 	public boolean save(List<BusinessEvent> events){
 		try {
+			System.out.println("length of events : " + events.size() + " fileName : " + fileName);
 
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -46,7 +52,7 @@ public class SaveXML {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("xml/saveFile"));
+			StreamResult result = new StreamResult(new File(fileName));
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);

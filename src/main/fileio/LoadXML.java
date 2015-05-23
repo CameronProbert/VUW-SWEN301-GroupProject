@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileReader;
 
 import main.events.*;
 import main.logic.InvalidLocationException;
@@ -30,52 +31,57 @@ public class LoadXML {
 	private Set<Location> locations = new HashSet<Location>();
 
 
-	public LoadXML(){
+	public LoadXML(String fileName){
 		try {
 
-			File fXmlFile = new File("xml/saveFile");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-
-			doc.getDocumentElement().normalize();
+			File fXmlFile = new File(fileName);
+			FileReader fr = new FileReader(fXmlFile);
+			if (fr.read()!=-1){ // if file is not empty
 
 
-			NodeList nList = doc.getElementsByTagName("event");
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(fXmlFile);
+
+				doc.getDocumentElement().normalize();
 
 
-			for (int i = 0; i < nList.getLength(); i++) {
+				NodeList nList = doc.getElementsByTagName("event");
 
-				Node nNode = nList.item(i);
-				System.out.println("i is : " + i);
 
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				for (int i = 0; i < nList.getLength(); i++) {
 
-					Element eElement = (Element) nNode;
+					Node nNode = nList.item(i);
+					System.out.println("i is : " + i);
 
-					List<Route> routes = readRoutes(eElement);
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-					String clerk = eElement.getElementsByTagName("clerk").item(0).getTextContent();
-					String date = eElement.getElementsByTagName("date").item(0).getTextContent();
+						Element eElement = (Element) nNode;
 
-					String type = eElement.getAttribute("type");
+						List<Route> routes = readRoutes(eElement);
 
-					if(type.equals("Mail Delivery")){
-						mailDelivery(clerk, date, routes, eElement);
+						String clerk = eElement.getElementsByTagName("clerk").item(0).getTextContent();
+						String date = eElement.getElementsByTagName("date").item(0).getTextContent();
+
+						String type = eElement.getAttribute("type");
+
+						if(type.equals("Mail Delivery")){
+							mailDelivery(clerk, date, routes, eElement);
+						}
+						else if(type.equals("Transport Update")){
+							updateTransport(clerk, date, routes, eElement);
+						}
+						else if(type.equals("Delete Route")){
+							deleteRoute(clerk, date, routes, eElement);
+						}
+						else if(type.equals("New Route")){
+							newRoute(clerk, date, routes, eElement);
+						}
+						else if(type.equals("Customer Price Change")){
+							updateCustomer(clerk, date, routes, eElement);
+						}
+
 					}
-					else if(type.equals("Transport Update")){
-						updateTransport(clerk, date, routes, eElement);
-					}
-					else if(type.equals("Delete Route")){
-						deleteRoute(clerk, date, routes, eElement);
-					}
-					else if(type.equals("New Route")){
-						newRoute(clerk, date, routes, eElement);
-					}
-					else if(type.equals("Customer Price Change")){
-						updateCustomer(clerk, date, routes, eElement);
-					}
-
 				}
 			}
 		} catch (Exception e) {

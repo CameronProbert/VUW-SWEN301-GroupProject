@@ -26,11 +26,29 @@ public class LogHandler {
 	private SaveXML save;
 
 	public LogHandler(){
-		LoadXML load = new LoadXML();
+		LoadXML load = new LoadXML("xml/saveFile");
 		events = load.getEvents();
 		routes = load.getRoutes();
 		locs = load.getLocations();
-		save = new SaveXML();
+		if(events.size()!=0){
+			current = events.get(events.size()-1);
+		}
+		save = new SaveXML("xml/saveFile");
+	}
+
+	/**
+	 * used for tsting loading and saving from empty files
+	 * @param empty
+	 */
+	public LogHandler(boolean empty){
+		LoadXML load = new LoadXML("xml/emptyFile");
+		events = load.getEvents();
+		routes = load.getRoutes();
+		locs = load.getLocations();
+		if(events.size()!=0){
+			current = events.get(events.size()-1);
+		}
+		save = new SaveXML("xml/emptyFile");
 	}
 
 	/** takes a new event from the main class and writes it to file
@@ -93,7 +111,7 @@ public class LogHandler {
 			return null;
 		}
 		int index = events.indexOf(current);
-		index++;
+		index--;
 		current = events.get(index);
 		return current;
 	}
@@ -110,7 +128,7 @@ public class LogHandler {
 			return null;
 		}
 		int index = events.indexOf(current);
-		index--;
+		index++;
 		current = events.get(index);
 		return current;
 	}

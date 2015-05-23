@@ -57,10 +57,10 @@ public class FileTests {
 
 	private void setUpOne(){
 		List<BusinessEvent> events = eventsOne();
-		SaveXML save = new SaveXML();
+		SaveXML save = new SaveXML("xml/saveFile");
 		save.save(events);
 
-		LoadXML load = new LoadXML();
+		LoadXML load = new LoadXML("xml/saveFile");
 		events = load.getEvents();
 		for(BusinessEvent e: events){
 			for(String s: e.description()){
