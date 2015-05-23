@@ -118,19 +118,16 @@ public class MailDeliveryPane extends Panel {
 				}
 			}
 		});
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				init();
+			}
+		});
 
 	}
-//	public String getMDOrigin() {
-//		return origin;
-//	}
-//
-//	public String getMDDestination() {
-//		return destination;
-//	}
-//
-//	public String getMDPriority() {
-//		return priority;
-//	}
 
 	public static double getMDTextWeight() {
 		return ((Number)textWeight.getValue()).doubleValue();

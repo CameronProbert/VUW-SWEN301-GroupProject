@@ -192,5 +192,12 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	public static void setTransportFirm(String transportFirm) {
 		Panel.transportFirm = transportFirm;
 	}
-
+	public void init(){
+		origin = "";
+		destination = "";
+		priority = "";
+		transportType = "";
+		transportFirm = "";
+		selected = "";
+	}
 }

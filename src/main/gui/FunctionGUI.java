@@ -64,8 +64,8 @@ public class FunctionGUI extends Panel{
 	private String loginType = "";
 	private static String permission = "Clerk";
 	private JTabbedPane tabbedPane;
-	private JTabbedPane businessEventPane;
-	private JTabbedPane businessFigureTab;
+	private JPanel businessEventPane;
+	private JPanel businessFigureTab;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -102,12 +102,12 @@ public class FunctionGUI extends Panel{
 		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
 		//TODO: find a way to set the width of the button
 		//buttons
-		mailDelivery = new JButton("Mail Delivery                        ");
-		customerPriceUpdate = new JButton("Customer Price Update    ");
-		transportCostUpdate = new JButton("Transport Cost Update      ");
-		transportDiscontinued = new JButton("Transport Discontinued    ");
-		businessEvents = new JButton("Business Events                 ");
-		businessFigures = new JButton("Business Figures                 ");
+		mailDelivery = new JButton("Mail Delivery");
+		customerPriceUpdate = new JButton("Customer Price Update");
+		transportCostUpdate = new JButton("Transport Cost Update");
+		transportDiscontinued = new JButton("Transport Discontinued");
+		businessEvents = new JButton("Business Events");
+		businessFigures = new JButton("Business Figures");
 		logOut = new JButton("Log Out");
 		exit = new JButton("Exit");
 		addUser = new JButton("Add User");
@@ -149,11 +149,11 @@ public class FunctionGUI extends Panel{
 		tabbedPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-160));
 		inforPanel.add(tabbedPane, BorderLayout.NORTH);
 
-		businessFigureTab = new JTabbedPane(JTabbedPane.TOP);
+		businessFigureTab = new JPanel(new BorderLayout());
 		businessFigureTab.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
 
-		businessEventPane = new JTabbedPane(JTabbedPane.TOP);
+		businessEventPane = new JPanel(new BorderLayout());
 		tabbedPane.addTab("Business Events", null, businessEventPane, null);
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
@@ -393,13 +393,6 @@ public class FunctionGUI extends Panel{
 	/**
 	 * initialize all fields, when click the button
 	 */
-	private void init(){
-		origin = "";
-		destination = "";
-		priority = "";
-		transportType = "";
-		transportFirm = "";
-		selected = "";
-	}
+
 
 }
