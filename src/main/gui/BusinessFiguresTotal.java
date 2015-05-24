@@ -30,6 +30,8 @@ public class BusinessFiguresTotal extends Panel {
 	public BusinessFiguresTotal(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
+		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-60,gui.getHeight()-250));
+
 		gui.setBusinessFiguresTotal(this);
 	}
 
@@ -38,38 +40,37 @@ public class BusinessFiguresTotal extends Panel {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		// create labels for the business figures
-		JLabel title = new JLabel("Business Figures  ", SwingConstants.CENTER);
-		title.setFont(new Font("Arial", Font.PLAIN, 18));
-
 		JLabel labelRevenue= new JLabel(" Total Revenue", SwingConstants.LEFT);
+		labelRevenue.setFont(new Font("Dialog", Font.PLAIN, 14));
 		revenue = new JLabel();
 
 		JLabel labelExpend= new JLabel(" Total Expenditure", SwingConstants.LEFT);
+		labelExpend.setFont(new Font("Dialog", Font.PLAIN, 14));
+		labelExpend.setBackground(Color.LIGHT_GRAY);
 		expenditure = new JLabel();
 
 		JLabel labelEvents= new JLabel(" Total Number of Events", SwingConstants.LEFT);
+		labelEvents.setFont(new Font("Dialog", Font.PLAIN, 14));
 		events = new JLabel();
 
 		// format value labels shown business figures
 		//revenue.disable();
 		revenue.setText(" 0.0");
 		//revenue.setDisabledTextColor(Color.BLACK);
-		revenue.setPreferredSize(new Dimension(250, 50));
-		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
+		revenue.setPreferredSize(new Dimension(100, 50));
+		revenue.setFont(new Font("Dialog", Font.PLAIN, 14));
 
 		//expenditure.disable();
 		expenditure.setText(" 0.0");
 		//expenditure.setDisabledTextColor(Color.BLACK);
-		expenditure.setPreferredSize(new Dimension(250, 50));
-		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
+		expenditure.setPreferredSize(new Dimension(100, 50));
+		expenditure.setFont(new Font("Dialog", Font.PLAIN, 14));
 
 		//events.disable();
 		events.setText(" 0");
 		//events.setDisabledTextColor(Color.BLACK);
-		events.setPreferredSize(new Dimension(250, 50));
-		events.setFont(new Font("Arial", Font.PLAIN, 15));
-		add(title);
+		events.setPreferredSize(new Dimension(100, 50));
+		events.setFont(new Font("Dialog", Font.PLAIN, 14));
 		add(labelRevenue);
 		add(revenue);
 		add(labelExpend);
