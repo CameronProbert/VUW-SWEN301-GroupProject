@@ -26,6 +26,7 @@ public class GUI {
 	private Panel backgroundPanel;
 	private Panel backgroundBlank;
 	private UIController controller;
+	private BusinessFiguresTotal bfp;
 	
 	// the dimension of the frame
 	private static int width = 900;
@@ -40,6 +41,9 @@ public class GUI {
 	public String password;
 	private Clerk clerk;
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void setUp() {
 		frame = new JFrame();
 		frame.setTitle("KPSmart System");
@@ -126,7 +130,11 @@ public class GUI {
 		return clerk.getName();
 	}
 	
-	public void setBusinessFiguresPane(){
-		
+	public void setBusinessFiguresTotal(BusinessFiguresTotal businessFiguresTotal){
+		this.bfp = businessFiguresTotal;
+	}
+	
+	public BusinessFiguresTotal getBusinessFiguresTotal(){
+		return bfp;
 	}
 }

@@ -71,6 +71,14 @@ public class TransportDiscontinuedPane extends Panel{
 				}
 			}
 		});
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				init();
+			}
+		});
 	}
 
 	@Override

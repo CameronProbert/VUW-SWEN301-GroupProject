@@ -101,6 +101,14 @@ public class TransportCostUpdatePane extends Panel{
 				}
 			}
 		});
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				init();
+			}
+		});
 	}
 
 	public static double getTPCNewPricePerGram() {

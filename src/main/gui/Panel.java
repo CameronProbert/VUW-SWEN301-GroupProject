@@ -9,11 +9,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.controllers.UIController;
@@ -31,11 +35,11 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected double amount = 0;
 	protected NumberFormat amountFormat;
 	protected String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-			"Wellington", "Christchurch","Dunedin"};
+			"Wellington", "Christchurch","Dunedin" , "Sydney", "New York"};
 	protected String[] priorityList = {"Air","Standard"};
 	protected String[] TransportTpyeList = {"Land", "Sea","Air"};
 	protected String[] TransportDateList = {"Monday", "Tuesday","Wednessday","Thursday","Friday","Saturday","Sunday"};
-	protected String[] TransportFirmList = {"Air NZ", "NZ Post"};
+	protected String[] TransportFirmList = {"Air NZ", "NZ Post", "Singapore Air", "FedEx"};
 	protected static String origin = "";
 	protected static String destination = "";
 	protected static String priority = "";
@@ -47,6 +51,10 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxPriority;
 	protected static JComboBox comboBoxTransportTpye;
 	protected static JComboBox comboBoxTransportFirm;
+	protected static JFormattedTextField textWeight;
+	protected static JFormattedTextField textVolume;
+	protected static JTextField textTime;
+
 
 	public Panel (GUI gui){
 		this.gui = gui;
@@ -54,7 +62,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		setOpaque(false);
 		setUpComponents();
 		addListenner();
-		this.controller = this.gui.getUIController();
+		//this.controller = this.gui.getUIController();
 	}
 
 	/**
@@ -192,5 +200,36 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	public static void setTransportFirm(String transportFirm) {
 		Panel.transportFirm = transportFirm;
 	}
+	public void init(){
+		origin = "";
+		destination = "";
+		priority = "";
+		transportType = "";
+		transportFirm = "";
+		selected = "";
+	}
+	public void addBusinessEvent(String type){
+		if(type.equals("mailDelivery")){
+			if(origin.equals("")||destination.equals("")||((Number)textWeight.getValue()).doubleValue()==0.0||
+					((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")||
+					textTime.getText().equals("")){
+					return;
+			}
+			else{
+				double weight = ((Number)textWeight.getValue()).doubleValue();
+				double volume = ((Number)textVolume.getValue()).doubleValue();
+				List<String> mailDeliveryInfo = new ArrayList<String>();
+				mailDeliveryInfo.add(type);
+				mailDeliveryInfo.add(origin);
+				mailDeliveryInfo.add(destination);
+				mailDeliveryInfo.add(Double.toString(weight));
+				mailDeliveryInfo.add(Double.toString(volume));
+				mailDeliveryInfo.add(priority);
+				mailDeliveryInfo.add(textTime.getText());
+				System.out.println(mailDeliveryInfo);
+				//controller.setEvent(mailDeliveryInfo);
 
+			}
+		}
+	}
 }

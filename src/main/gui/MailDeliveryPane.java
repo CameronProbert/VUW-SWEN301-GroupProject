@@ -31,9 +31,6 @@ public class MailDeliveryPane extends Panel {
 	private static final long serialVersionUID = 1L;
 	// buttons on the panel
 
-	private static JFormattedTextField textWeight;
-	private static JFormattedTextField textVolume;
-	private static JTextField textTime;
 	private JButton reset;
 	private JButton add;
 	private JButton setDate;
@@ -113,24 +110,14 @@ public class MailDeliveryPane extends Panel {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == add){
-					System.out.println(toStringMD());
+					addBusinessEvent("mailDelivery");
+					
 
 				}
 			}
 		});
 
 	}
-//	public String getMDOrigin() {
-//		return origin;
-//	}
-//
-//	public String getMDDestination() {
-//		return destination;
-//	}
-//
-//	public String getMDPriority() {
-//		return priority;
-//	}
 
 	public static double getMDTextWeight() {
 		return ((Number)textWeight.getValue()).doubleValue();
