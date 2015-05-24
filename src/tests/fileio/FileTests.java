@@ -57,19 +57,21 @@ public class FileTests {
 
 	private void setUpOne(){
 		List<BusinessEvent> events = eventsOne();
-		SaveXML save = new SaveXML();
+		SaveXML save = new SaveXML("xml/saveFile");
 		save.save(events);
 
-		LoadXML load = new LoadXML();
+		LoadXML load = new LoadXML("xml/saveFile");
 		events = load.getEvents();
 		for(BusinessEvent e: events){
-			//System.out.println("\n"+e.description());
+			for(String s: e.description()){
+				System.out.println(s);
+			}
 		}
 
 		routes = load.getRoutes();
 
 		testRoutes();
-		testLocation(load.getLocations());
+		//testLocation(load.getLocations());
 	}
 
 	@Test
@@ -78,7 +80,7 @@ public class FileTests {
 	}
 
 	@Test
-	public void testLocation(Set<Location> locs){
+	public void testLocation(){
 
 	}
 

@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -108,6 +109,19 @@ public class CustomerPriceChange extends BusinessEvent {
 				+ ", \nnewPricePerGram=" + newPricePerGram
 				+ ", \noldPricePerVolume=" + oldPricePerVolume
 				+ ", \nnewPricePerVolume=" + newPricePerVolume + "\n";
+	}
+
+	@Override
+	public List<String> listDesc() {
+		List<String> des = new ArrayList<String>();
+
+		des.add("Customer Price Change : ");
+		des.add("------------------------------------");
+		des.add("old price per gram = " + oldPricePerGram);
+		des.add("new price per gram = " + newPricePerGram);
+		des.add("old price per volume = " + oldPricePerVolume);
+		des.add("new price per volume = " + newPricePerVolume);
+		return des;
 	}
 
 

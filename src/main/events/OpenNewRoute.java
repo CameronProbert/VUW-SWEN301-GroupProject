@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Attr;
@@ -37,6 +38,17 @@ public class OpenNewRoute extends BusinessEvent {
 		essentialInfo(doc, save);
 
 		return save;
+	}
+
+
+
+	@Override
+	public List<String> listDesc() {
+		List<String> des = new ArrayList<String>();
+
+		des.add("Open New Route  : ");
+		des.add("------------------------------------");
+		return des;
 	}
 
 

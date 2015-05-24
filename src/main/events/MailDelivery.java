@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Attr;
@@ -91,14 +92,7 @@ public class MailDelivery extends BusinessEvent {
 		timeTaken = time;
 	}
 
-	@Override
-	public String toString() {
-		return "MailDelivery :\n------------------------------------\norigin=" + origin + ", \ndestination="
-				+ destination + ", \nweight=" + weight + ", \nvolume=" + volume
-				+ ", \npriority=" + priority + ", \nrevenue=" + revenue
-				+ ", \ntimeTaken=" + timeTaken + ", \nisReceived=" + isReceived
-				+ "\n";
-	}
+
 
 	@Override
 	public Element toXML(Document doc) {
@@ -141,6 +135,32 @@ public class MailDelivery extends BusinessEvent {
 		mail.appendChild(timeTaken);
 
 		return mail;
+	}
+
+	@Override
+	public String toString() {
+		return "MailDelivery :\n------------------------------------\norigin=" + origin + ", \ndestination="
+				+ destination + ", \nweight=" + weight + ", \nvolume=" + volume
+				+ ", \npriority=" + priority + ", \nrevenue=" + revenue
+				+ ", \ntimeTaken=" + timeTaken + ", \nisReceived=" + isReceived
+				+ "\n";
+	}
+
+	@Override
+	public List<String> listDesc() {
+		List<String> des = new ArrayList<String>();
+
+		des.add("Mail Delivery : ");
+		des.add("------------------------------------");
+		des.add("origin = " + origin);
+		des.add("destination = " + destination);
+		des.add("weight = " + weight);
+		des.add("volume = " + volume);
+		des.add("priority = " + priority);
+		des.add("revenue = " + revenue);
+		des.add("time taken = " + timeTaken);
+		des.add("is received = " + isReceived);
+		return des;
 	}
 
 

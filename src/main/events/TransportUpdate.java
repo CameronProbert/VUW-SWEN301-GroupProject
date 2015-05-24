@@ -1,5 +1,6 @@
 package main.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Attr;
@@ -89,6 +90,19 @@ public class TransportUpdate extends BusinessEvent {
 		transport.appendChild(newPPVolume);
 
 		return transport;
+	}
+
+	@Override
+	public List<String> listDesc() {
+		List<String> des = new ArrayList<String>();
+
+		des.add("Transport Update : ");
+		des.add("------------------------------------");
+		des.add("old price per gram = " + oldPricePerGram);
+		des.add("new price per gram = " + newPricePerGram);
+		des.add("old price per volume = " + oldPricePerVolume);
+		des.add("new price per volume = " + newPricePerVolume);
+		return des;
 	}
 
 }

@@ -1,5 +1,6 @@
 package main.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import main.gui.GUI;
 /**
  * The monitor is the main logic class of the program. It handles user input
  * passed in from the GUI and will .
- * 
+ *
  * @author Cameron Probert
  *
  */
@@ -22,8 +23,6 @@ public class Monitor {
 
 	private LogHandler handler;
 	private GUI gui;
-
-	private List<BusinessEvent> events;
 
 	private Set<Clerk> allUsers;
 	private Clerk currentUser;
@@ -34,16 +33,14 @@ public class Monitor {
 
 	/**
 	 * Creates the GUI and the monitor
-	 * 
-	 * @param verbose
 	 */
 	public Monitor() {
 		loadUsers();
-		// handler = new LogHandler();
-		// busEvents = handler.getBusinessEvents();
-		// locations = handler.getLocations();
-		// routes = handler.getRoutes();
+		handler = new LogHandler();
+		locations = handler.getLocations();
+		routes = handler.getRoutes();
 		initialiseGUI();
+		calculateBusinessFigures();
 	}
 
 	/**
@@ -51,22 +48,29 @@ public class Monitor {
 	 */
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
-		// TODO gui.updateRevenue(revenue);
 		double expenditure = calculateExpenditure();
-		// TODO gui.updateExpenditure(expenditure);
+		controller.updateRevenue(revenue);
+		controller.updateExpenditure(expenditure);
+		try {
+			controller.setNumberOfEvents(handler.getEvents().size());
+		} catch (NullPointerException e) {
+			controller.setNumberOfEvents(0);
+		}
 	}
 
 	/**
 	 * Returns the total revenue
-	 * 
+	 *
 	 * @return
 	 */
 	private double calculateRevenue() {
 		double revenue = 0;
-		for (BusinessEvent event : events) {
-			if (event instanceof MailDelivery) {
-				MailDelivery mail = (MailDelivery) event;
-				revenue += mail.getRevenue();
+		if (handler.getEvents() != null) {
+			for (BusinessEvent event : handler.getEvents()) {
+				if (event instanceof MailDelivery) {
+					MailDelivery mail = (MailDelivery) event;
+					revenue += mail.getRevenue();
+				}
 			}
 		}
 		return revenue;
@@ -74,22 +78,24 @@ public class Monitor {
 
 	/**
 	 * Returns the total expenditure
-	 * 
+	 *
 	 * @return
 	 */
 	private double calculateExpenditure() {
 		double expenditure = 0;
-		for (BusinessEvent event : events) {
-			if (event instanceof MailDelivery) {
-				MailDelivery mail = (MailDelivery) event;
-				double mailExp = 0;
-				for (Route route : mail.getRoutes()) {
-					mailExp += mail.getWeight()
-							* route.getPricePerGramTransport();
-					mailExp += mail.getVolume()
-							* route.getPricePerVolumeTransport();
+		if (handler.getEvents() != null) {
+			for (BusinessEvent event : handler.getEvents()) {
+				if (event instanceof MailDelivery) {
+					MailDelivery mail = (MailDelivery) event;
+					double mailExp = 0;
+					for (Route route : mail.getRoutes()) {
+						mailExp += mail.getWeight()
+								* route.getPricePerGramTransport();
+						mailExp += mail.getVolume()
+								* route.getPricePerVolumeTransport();
+					}
+					expenditure += mailExp;
 				}
-				expenditure += mailExp;
 			}
 		}
 		return expenditure;
@@ -100,11 +106,15 @@ public class Monitor {
 	 */
 	private void initialiseGUI() {
 		gui = new GUI();
+		UIController controller = new UIController(gui, this);
+		gui.setUIController(controller);
+		this.setUIController(controller);
+		gui.setUp();
 	}
 
 	/**
 	 * Passes a BusinessEvent to the LogHandler to save
-	 * 
+	 *
 	 * @param event
 	 * @return
 	 */
@@ -112,6 +122,50 @@ public class Monitor {
 		boolean successful = handler.newEvent(event);
 		calculateBusinessFigures();
 		return successful;
+	}
+
+	/**
+	 * Returns the current business event as a list of Strings
+	 *
+	 * @return
+	 */
+	public List<String> getCurrentEvent() {
+		List<String> data = handler.getCurrentEvent().description();
+		if (data == null) {
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
+	}
+
+	/**
+	 * Returns the business event that occurs after the current one as a list of
+	 * Strings
+	 *
+	 * @return
+	 */
+	public List<String> nextEvent() {
+		List<String> data = handler.getNextEvent().description();
+		if (data == null) {
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
+	}
+
+	/**
+	 * Returns the business event that occurs before the current one as a list
+	 * of Strings
+	 *
+	 * @return
+	 */
+	public List<String> previousEvent() {
+		List<String> data = handler.getPreviousEvent().description();
+		if (data == null) {
+			data = new ArrayList<String>();
+			data.add("No data to display");
+		}
+		return data;
 	}
 
 	/**
@@ -129,7 +183,7 @@ public class Monitor {
 
 	/**
 	 * Logs in a user if they have the correct credentials
-	 * 
+	 *
 	 * @param id
 	 * @param password
 	 * @return
@@ -155,7 +209,7 @@ public class Monitor {
 
 	/**
 	 * Makes a new user
-	 * 
+	 *
 	 * @param id
 	 * @param password
 	 * @param name
@@ -176,7 +230,7 @@ public class Monitor {
 
 	/**
 	 * Returns the saved set of locations
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<Location> getLocations() {
@@ -185,7 +239,7 @@ public class Monitor {
 
 	/**
 	 * Sets the list of locations
-	 * 
+	 *
 	 * @param locations
 	 */
 	public void setLocations(Set<Location> locations) {
@@ -194,7 +248,7 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
-	 * 
+	 *
 	 * @param locations
 	 */
 	public void addLocations(Location... locations) {
@@ -205,7 +259,7 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
-	 * 
+	 *
 	 * @param locations
 	 */
 	public void rmLocations(Location... locations) {
@@ -216,7 +270,7 @@ public class Monitor {
 
 	/**
 	 * Returns the set of routes stored in this class
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<Route> getRoutes() {
@@ -225,7 +279,7 @@ public class Monitor {
 
 	/**
 	 * Sets the set of routes to the given set
-	 * 
+	 *
 	 * @param routes
 	 */
 	public void setRoutes(Set<Route> routes) {
@@ -234,7 +288,7 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
-	 * 
+	 *
 	 * @param locations
 	 */
 	public void addRoutes(Route... routes) {
@@ -245,7 +299,7 @@ public class Monitor {
 
 	/**
 	 * Adds a locations to the list of locations
-	 * 
+	 *
 	 * @param locations
 	 */
 	public void rmRoutes(Route... routes) {
@@ -271,6 +325,7 @@ public class Monitor {
 
 	/**
 	 * Sets the UIController to the given controller
+	 *
 	 * @param controller
 	 */
 	public void setUIController(UIController controller) {

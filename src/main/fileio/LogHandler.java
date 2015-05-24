@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import main.events.BusinessEvent;
+import main.logic.Location;
 import main.logic.Route;
 
 /**
@@ -20,14 +21,34 @@ public class LogHandler {
 
 	private List<BusinessEvent> events = new ArrayList<BusinessEvent>();
 	private Set<Route> routes = new HashSet<Route>();
+	private Set<Location> locs;
 	private BusinessEvent current;
 	private SaveXML save;
 
 	public LogHandler(){
-		LoadXML load = new LoadXML();
+		LoadXML load = new LoadXML("xml/saveFile");
 		events = load.getEvents();
 		routes = load.getRoutes();
-		save = new SaveXML();
+		locs = load.getLocations();
+		if(events.size()!=0){
+			current = events.get(events.size()-1);
+		}
+		save = new SaveXML("xml/saveFile");
+	}
+
+	/**
+	 * used for tsting loading and saving from empty files
+	 * @param empty
+	 */
+	public LogHandler(boolean empty){
+		LoadXML load = new LoadXML("xml/emptyFile");
+		events = load.getEvents();
+		routes = load.getRoutes();
+		locs = load.getLocations();
+		if(events.size()!=0){
+			current = events.get(events.size()-1);
+		}
+		save = new SaveXML("xml/emptyFile");
 	}
 
 	/** takes a new event from the main class and writes it to file
@@ -90,7 +111,7 @@ public class LogHandler {
 			return null;
 		}
 		int index = events.indexOf(current);
-		index++;
+		index--;
 		current = events.get(index);
 		return current;
 	}
@@ -107,7 +128,7 @@ public class LogHandler {
 			return null;
 		}
 		int index = events.indexOf(current);
-		index--;
+		index++;
 		current = events.get(index);
 		return current;
 	}
@@ -118,6 +139,10 @@ public class LogHandler {
 
 	public Set<Route> getRoutes(){
 		return routes;
+	}
+
+	public Set<Location> getLocations(){
+		return locs;
 	}
 
 }
