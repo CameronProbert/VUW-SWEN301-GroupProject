@@ -84,6 +84,11 @@ public class FunctionGUI extends Panel{
 	private List<String> event;
 	private JPanel routeTab;
 	private JTable table;
+	private Button button_1;
+	private Button button_2;
+	private Button button_3;
+	private Button button_4;
+	private Button button_5;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -170,26 +175,47 @@ public class FunctionGUI extends Panel{
 		//addImage("image/bottomImage.jpg", bottomPanel, 60);
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
-		
+
 		mailDelivery = new Button("Mail Delivery");
 		mailDelivery.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailDelivery, BorderLayout.WEST);
-		
+
 		customerPriceUpdate = new Button("Customer Price Update");
 		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
-		
+
 		transportCostUpdate = new Button("Transport Cost Update");
 		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportCostUpdate, BorderLayout.SOUTH);
-		
+
 		transportDiscontinued = new Button("Transport Discontinued");
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
-		
+
 		businessFigures = new Button("Business Figures");
 		businessFigures.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFigures, BorderLayout.NORTH);
+
+		button_1 = new Button("Mail recieved");
+		button_1.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(button_1, BorderLayout.SOUTH);
+
+		button_2 = new Button("");
+		buttonPanel.add(button_2, BorderLayout.SOUTH);
+		button_2.disable();
+
+		button_3 = new Button("");
+		buttonPanel.add(button_3, BorderLayout.SOUTH);
+		button_3.disable();
+
+		button_4 = new Button("");
+		buttonPanel.add(button_4, BorderLayout.SOUTH);
+		button_4.disable();
+
+		button_5 = new Button("");
+		buttonPanel.add(button_5, BorderLayout.SOUTH);
+		button_5.disable();
+
 		jSplitPanel.add(displayPanel, JSplitPane.RIGHT);
 		//add all panels to functionGUI panel
 		add(titlePanel);
@@ -209,24 +235,24 @@ public class FunctionGUI extends Panel{
 		eventPane = new JPanel();
 		eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
 		businessEventTab.add(eventPane, BorderLayout.NORTH);
-		
-			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
-			eventPane.add(businessEventPane);
-		
+
+			//BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			//eventPane.add(businessEventPane);
+
 		previousEvent = new Button("Previous Event");
 		previousEvent.setBackground(Color.LIGHT_GRAY);
 		previousEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getPreviousEvent());
+			//	BusinessEventPane.setEvent(controller.getPreviousEvent());
 			}
 		});
 		eventPane.add(previousEvent);
-		
+
 		nextEvent = new Button("Next Event");
 		nextEvent.setBackground(Color.LIGHT_GRAY);
 		nextEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getNextEvent());
+				//BusinessEventPane.setEvent(controller.getNextEvent());
 
 			}
 		});
@@ -235,7 +261,7 @@ public class FunctionGUI extends Panel{
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
-		RoutePanel routePanel = new RoutePanel(gui);
+		//RoutePanel routePanel = new RoutePanel(gui);
 	//	routeTab.setPreferredSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
 
 
