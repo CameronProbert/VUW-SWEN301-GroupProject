@@ -2,6 +2,7 @@ package main.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -67,32 +68,35 @@ public class UIController {
 	public void updateRevenue(double revenue){
 		gui.getBusinessFiguresTotal().setRevenue(revenue);
 	}
+	
 	public void updateExpenditure(double expenditure){
 		gui.getBusinessFiguresTotal().setExpend(expenditure);
 	}
+	
 	public void setNumberOfEvents(int events){
 		gui.getBusinessFiguresTotal().setEvents(events);
 	}
-	public void addEvent(List<String> eventInfo) {
-		//monitor.addEvent(type, mailDeliveryInfo);
-		System.out.println(eventInfo);
-		System.out.println("call monitor to add new events.......");
+	
+	public void addEvent(Map<String, String> eventInfo) {
+		//monitor.addEvent(eventInfo);
+		System.out.println("call monitor to add a new event.......");
 	}
-	public List<String> getEvent(){
-		System.out.println("get event from  monitor.......");
-		//eventInfo.add(0, type);
-		//return eventInfo;
-		
+	
+	public Map<String, String> getCurrentEvent(){
+		System.out.println("get current event from monitor.......");
+		//return monitor.getCurrentEvent();
 		return null;
 	}
-	public List<String> getNextEvent(){
+	
+	public Map<String, String> getNextEvent(){
 		System.out.println("get next event from  monitor.......");
+		//return monitor.nextEvent();
 		return null;
 	}
-	public List<String> getPreviousEvent(){
+	
+	public Map<String, String> getPreviousEvent(){
 		System.out.println("get previous event from  monitor.......");
-		//eventInfo.add(0, type);
-		//return eventInfo;
+		//return monitor.previousEvent();
 		return null;
 	}
 

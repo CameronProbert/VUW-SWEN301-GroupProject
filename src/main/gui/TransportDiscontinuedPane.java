@@ -41,8 +41,8 @@ public class TransportDiscontinuedPane extends Panel{
 		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
-		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
-		comboBoxListenner(comboBoxTransportTpye, "transportType");
+		comboBoxTransportType = new JComboBox(TransportTpyeList);
+		comboBoxListenner(comboBoxTransportType, "transportType");
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
@@ -53,7 +53,7 @@ public class TransportDiscontinuedPane extends Panel{
 		add(labelTransportFirm);
 		add(comboBoxTransportFirm);
 		add(labelTransportType);
-		add(comboBoxTransportTpye);
+		add(comboBoxTransportType);
 		add(reset);
 		add(update);
 	}
@@ -66,8 +66,7 @@ public class TransportDiscontinuedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					System.out.println(toStringTPD());
-
+					addBusinessEvent("transportDiscontinued");
 				}
 			}
 		});
@@ -76,7 +75,9 @@ public class TransportDiscontinuedPane extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
-				init();
+				if(button == reset){
+					init();
+				}
 			}
 		});
 	}

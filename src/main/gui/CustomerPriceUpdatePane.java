@@ -23,8 +23,6 @@ public class CustomerPriceUpdatePane extends Panel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static JFormattedTextField textCustomerNewPricePerGram;
-	private static JFormattedTextField textNewPricePerCB;
 	private JButton reset;
 	private JButton update;
 
@@ -55,8 +53,8 @@ public class CustomerPriceUpdatePane extends Panel{
 		formatToDobuleJTextField(textCustomerNewPricePerGram);
 
 		JLabel labelNewPricePerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
-		textNewPricePerCB = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(textNewPricePerCB);
+		textCustomerNewPricePerCubic = new JFormattedTextField(amountFormat);
+		formatToDobuleJTextField(textCustomerNewPricePerCubic);
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
@@ -69,7 +67,7 @@ public class CustomerPriceUpdatePane extends Panel{
 		add(labelNewPricePerGram);
 		add(textCustomerNewPricePerGram);
 		add(labelNewPricePerCB);
-		add(textNewPricePerCB);
+		add(textCustomerNewPricePerCubic);
 		add(reset);
 		add(update);
 
@@ -82,8 +80,7 @@ public class CustomerPriceUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					System.out.println(toStringCPU());
-
+					addBusinessEvent("customerPriceUpdate");
 				}
 			}
 		});
@@ -92,7 +89,9 @@ public class CustomerPriceUpdatePane extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
-				init();
+				if(button == reset){
+					init();
+				}
 			}
 		});
 	}
@@ -102,8 +101,8 @@ public class CustomerPriceUpdatePane extends Panel{
 		Object source = e.getSource();
 		if (source == textCustomerNewPricePerGram) {
 			amount = ((Number)textCustomerNewPricePerGram.getValue()).doubleValue();
-		}  else if (source == textNewPricePerCB) {
-			amount = ((Number)textNewPricePerCB.getValue()).doubleValue();
+		}  else if (source == textCustomerNewPricePerCubic) {
+			amount = ((Number)textCustomerNewPricePerCubic.getValue()).doubleValue();
 		}
 	}
 
@@ -112,11 +111,11 @@ public class CustomerPriceUpdatePane extends Panel{
 	}
 
 	public static double getCPUTextNewPricePerCB() {
-		return ((Number)textNewPricePerCB.getValue()).doubleValue();
+		return ((Number)textCustomerNewPricePerCubic.getValue()).doubleValue();
 	}
 	public String toStringCPU(){
 		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+ "   New price per gram: "+
-				((Number)textCustomerNewPricePerGram.getValue()).doubleValue()+"   New price per cubic centimeter:"+((Number)textNewPricePerCB.getValue()).doubleValue());
+				((Number)textCustomerNewPricePerGram.getValue()).doubleValue()+"   New price per cubic centimeter:"+((Number)textCustomerNewPricePerCubic.getValue()).doubleValue());
 	}
 
 }

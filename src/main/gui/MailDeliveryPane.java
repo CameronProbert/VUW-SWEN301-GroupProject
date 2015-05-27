@@ -111,12 +111,19 @@ public class MailDeliveryPane extends Panel {
 				JButton button = (JButton) e.getSource();
 				if(button == add){
 					addBusinessEvent("mailDelivery");
-					
-
 				}
 			}
 		});
-
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == reset){
+					init();
+				}
+			}
+		});
 	}
 
 	public static double getMDTextWeight() {

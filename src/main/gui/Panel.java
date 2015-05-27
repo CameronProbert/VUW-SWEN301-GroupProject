@@ -10,7 +10,9 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import javax.swing.JButton;
@@ -38,23 +40,32 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			"Wellington", "Christchurch","Dunedin" , "Sydney", "New York"};
 	protected String[] priorityList = {"Air","Standard"};
 	protected String[] TransportTpyeList = {"Land", "Sea","Air"};
-	protected String[] TransportDateList = {"Monday", "Tuesday","Wednessday","Thursday","Friday","Saturday","Sunday"};
+	protected String[] TransportDateList = {"Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
 	protected String[] TransportFirmList = {"Air NZ", "NZ Post", "Singapore Air", "FedEx"};
 	protected static String origin = "";
 	protected static String destination = "";
 	protected static String priority = "";
-	protected static String transportType = "";
 	protected static String transportFirm = "";
+	protected static String transportType = "";
+	protected static String transportDay = "";
 	protected static String selected = "";
 	protected static JComboBox comboBoxOrigin;
 	protected static JComboBox comboBoxDestination;
 	protected static JComboBox comboBoxPriority;
-	protected static JComboBox comboBoxTransportTpye;
 	protected static JComboBox comboBoxTransportFirm;
+	protected static JComboBox comboBoxTransportType;
+	protected static JComboBox comboBoxTransportDay;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
 	protected static JTextField textTime;
-
+	protected static JFormattedTextField textCustomerNewPricePerGram;
+	protected static JFormattedTextField textCustomerNewPricePerCubic;
+	protected static JFormattedTextField textTPNewCostPerGram;
+	protected static JFormattedTextField textTPNewCostPerCubic;
+	protected static JFormattedTextField textTPmaxWeight;
+	protected static JFormattedTextField textTPmaxVolume;
+	protected static JFormattedTextField textTPFrequency;
+	protected static JFormattedTextField textTPDuration;
 
 	public Panel (GUI gui){
 		this.gui = gui;
@@ -156,7 +167,9 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				else if(type.equals("transportFirm")){
 					transportFirm = selected;
 				}
-
+				else if(type.equals("transportDay")){
+					transportDay = selected;
+				}
 			}
 		});
 	}
@@ -200,36 +213,104 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	public static void setTransportFirm(String transportFirm) {
 		Panel.transportFirm = transportFirm;
 	}
+	
 	public void init(){
+		selected = "";
 		origin = "";
 		destination = "";
 		priority = "";
-		transportType = "";
 		transportFirm = "";
-		selected = "";
+		transportType = "";
+		transportDay = "";
 	}
+	
 	public void addBusinessEvent(String type){
+		Map<String, String> currentEvent = new HashMap<String, String>();
+		
 		if(type.equals("mailDelivery")){
 			if(origin.equals("")||destination.equals("")||((Number)textWeight.getValue()).doubleValue()==0.0||
 					((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")||
 					textTime.getText().equals("")){
-					return;
+				return;
 			}
-			else{
-				double weight = ((Number)textWeight.getValue()).doubleValue();
-				double volume = ((Number)textVolume.getValue()).doubleValue();
-				List<String> mailDeliveryInfo = new ArrayList<String>();
-				mailDeliveryInfo.add(type);
-				mailDeliveryInfo.add(origin);
-				mailDeliveryInfo.add(destination);
-				mailDeliveryInfo.add(Double.toString(weight));
-				mailDeliveryInfo.add(Double.toString(volume));
-				mailDeliveryInfo.add(priority);
-				mailDeliveryInfo.add(textTime.getText());
-				System.out.println(mailDeliveryInfo);
-				//controller.setEvent(mailDeliveryInfo);
-
+		} 
+		else if (type.equals("customerPriceUpdate")){
+			if(origin.equals("")||destination.equals("")||((Number)textCustomerNewPricePerGram.getValue()).doubleValue()==0.0||
+					((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()==0.0||priority.equals("")){
+				return;
+			}
+		} 
+		else if (type.equals("transportCostUpdate")){
+			if(origin.equals("")||destination.equals("")||transportFirm.equals("")||transportType.equals("")||
+					transportDay.equals("")||((Number)textTPNewCostPerGram.getValue()).doubleValue()==0.0||
+					((Number)textTPNewCostPerCubic.getValue()).doubleValue()==0.0||
+					((Number)textTPmaxWeight.getValue()).doubleValue()==0.0||
+					((Number)textTPmaxVolume.getValue()).doubleValue()==0.0||
+					((Number)textTPFrequency.getValue()).doubleValue()==0.0||
+					((Number)textTPDuration.getValue()).doubleValue()==0.0){
+				return;
+			}
+		} 
+		else if (type.equals("transportDiscontinued")){
+			if(origin.equals("")||destination.equals("")||transportFirm.equals("")||transportType.equals("")){
+				return;
 			}
 		}
+		
+		currentEvent.put("type", type);
+		if (!origin.equals("")){
+			currentEvent.put("origin", origin);
+		} 
+		else if (!destination.equals("")){
+			currentEvent.put("destination", destination);
+		} 
+		else if (((Number)textWeight.getValue()).doubleValue()!=0.0){
+			currentEvent.put("weight", "" + textWeight.getValue());
+		} 
+		else if (((Number)textVolume.getValue()).doubleValue()!=0.0){
+			currentEvent.put("volume", "" + textVolume.getValue());
+		} 
+		else if (!priority.equals("")){
+			currentEvent.put("priority", priority);
+		} 
+		else if (!textTime.getText().equals("")){
+			currentEvent.put("time", textTime.getText());
+		} 
+		else if (((Number)textCustomerNewPricePerGram.getValue()).doubleValue()!=0.0){
+			currentEvent.put("customerNewPricePerGram", "" + textCustomerNewPricePerGram.getValue());
+		} 
+		else if (((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()!=0.0){
+			currentEvent.put("customerNewPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
+		} 
+		else if (!transportFirm.equals("")){
+			currentEvent.put("transportFirm", transportFirm);
+		} 
+		else if (!transportType.equals("")){
+			currentEvent.put("transportType", transportType);
+		} 
+		else if (!transportDay.equals("")){
+			currentEvent.put("transportDay", transportDay);
+		} 
+		else if (((Number)textTPNewCostPerGram.getValue()).doubleValue()!=0.0){
+			currentEvent.put("tpNewCostPerGram", "" + textTPNewCostPerGram.getValue());
+		} 
+		else if (((Number)textTPNewCostPerCubic.getValue()).doubleValue()!=0.0){
+			currentEvent.put("tpNewCostPerCubic", "" + textTPNewCostPerCubic.getValue());
+		} 
+		else if (((Number)textTPmaxWeight.getValue()).doubleValue()!=0.0){
+			currentEvent.put("maxWeight", "" + textTPmaxWeight.getValue());
+		} 
+		else if (((Number)textTPmaxVolume.getValue()).doubleValue()!=0.0){
+			currentEvent.put("maxVolume", "" + textTPmaxVolume.getValue());
+		} 
+		else if (((Number)textTPFrequency.getValue()).doubleValue()!=0.0){
+			currentEvent.put("frequency", "" + textTPFrequency.getValue());
+		} 
+		else if (((Number)textTPDuration.getValue()).doubleValue()!=0.0){
+			currentEvent.put("duration", "" + textTPDuration.getValue());
+		} 
+		
+		System.out.println(currentEvent);
+		controller.addEvent(currentEvent);
 	}
 }
