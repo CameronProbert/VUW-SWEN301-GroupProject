@@ -170,7 +170,7 @@ public class FunctionGUI extends Panel{
 		}else{
 			staff = "Clerk";
 		}
-		
+
 		JLabel usernameP = new JLabel(staff +":  "+ gui.getCurretUsername());
 		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
 		bottomPanel.add(usernameP);
@@ -247,8 +247,9 @@ public class FunctionGUI extends Panel{
 			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
 			businessEventTab.add(eventPane, BorderLayout.NORTH);
 
-			//BusinessEventPane businessEventPane = new BusinessEventPane(gui);
-			//eventPane.add(businessEventPane);
+			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			this.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-25));
+			eventPane.add(businessEventPane);
 
 			previousEvent = new Button("Previous Event");
 			previousEvent.setBackground(Color.LIGHT_GRAY);

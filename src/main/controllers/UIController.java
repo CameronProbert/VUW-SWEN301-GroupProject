@@ -1,6 +1,7 @@
 package main.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,10 @@ public class UIController {
 	public Map<String, String> getCurrentEvent(){
 		System.out.println("get current event from monitor.......");
 		//return monitor.getCurrentEvent();
-		return null;
+		Map<String, String> m = new HashMap<String, String>();
+		m.put("type", "mailDelivery");
+		m.put("origin", "auckland");
+		return m;
 	}
 	
 	public Map<String, String> getNextEvent(){

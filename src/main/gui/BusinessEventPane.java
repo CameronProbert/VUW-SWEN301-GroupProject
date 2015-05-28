@@ -35,20 +35,26 @@ public class BusinessEventPane extends Panel {
 	public BusinessEventPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-40,gui.getHeight()-25));
+//		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-40,gui.getHeight()-25));
+	}
 
+	@Override
+	protected void setUpComponents() {
+		System.out.println("__" + controller);
 		currentEvent = new HashMap<String, String>();
 		currentEvent = controller.getCurrentEvent();
+		
+		System.out.println("######" + currentEvent);
 		
 		mailDeliveryLabels = new String[6][2];
 		customerPriceUpdateLabels = new String[5][2];
 		transportCostUpdateLabels = new String[11][2];
 		transportDiscontinuedLabels = new String[4][2];	
 		initialEventsLabels();
-	}
-
-	@Override
-	protected void setUpComponents() {
+		
+		this.setLayout(new GridLayout(20,2));
+		this.setAlignmentX(LEFT_ALIGNMENT);
+		
 		if (currentEvent.get("type").equals("mailDelivery")){
 			addLabels(mailDeliveryLabels);
 		} else if (currentEvent.get("type").equals("customerPriceUpdate")){
@@ -61,31 +67,18 @@ public class BusinessEventPane extends Panel {
 	}
 	
 	private void addLabels(String[][] labels) {
-		for (int i = 0; i < labels.length; i++){
-			JLabel labelComboOrigin = new JLabel(currentEvent.get(labels[i][0]), SwingConstants.CENTER);
+		for (int i = 0; i < labels.length; i++) {
+			JLabel field = new JLabel(labels[i][1], SwingConstants.LEFT);
+			field.setFont(new Font("Dialog", Font.PLAIN, 14));
+			JLabel value = new JLabel(currentEvent.get(labels[i][0]), SwingConstants.LEFT);
+			value.setFont(new Font("Dialog", Font.PLAIN, 14));
+			add(field);
+			add(value);
 		}
-		
-		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-	}
-
-	@Override
-	protected void addListenner() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public static Map<String, String> getEvent() {
-		return currentEvent;
 	}
 
 	public static void setEvent(Map<String, String> event) {
 		System.out.println("add new events on business event pane");
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void initialEventsLabels() {
@@ -145,4 +138,10 @@ public class BusinessEventPane extends Panel {
 		transportDiscontinuedLabels[3][0] = "transportType";
 		transportDiscontinuedLabels[3][1] = "Transport Type";
 	} 
+	
+	@Override
+	protected void addListenner() {}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {}
 }
