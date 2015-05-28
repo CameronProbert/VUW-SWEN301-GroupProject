@@ -58,7 +58,6 @@ public class FunctionGUI extends Panel{
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	protected UIController controller;
 	// buttons on the panel
 	private Button mailDelivery;
 	private Button customerPriceUpdate;
@@ -240,49 +239,27 @@ public class FunctionGUI extends Panel{
 		businessFigureTab = new JPanel(new BorderLayout());
 		businessFigureTab.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
-		System.out.println(isManager);
-//		if(isManager){
-//			businessEventTab = new JPanel(new BorderLayout());
-//			tabbedPane.addTab("Business Events", null, businessEventTab, null);
-//			eventPane = new JPanel();
-//			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
-//			businessEventTab.add(eventPane, BorderLayout.NORTH);
-//
-//			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
-//			this.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-25));
-//			eventPane.add(businessEventPane);
-//
-//			previousEvent = new Button("Previous Event");
-//			previousEvent.setBackground(Color.LIGHT_GRAY);
-//			previousEvent.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					BusinessEventPane.setEvent(controller.getPreviousEvent());
-//				}
-//			});
-//			eventPane.add(previousEvent);
-//
-//			nextEvent = new Button("Next Event");
-//			nextEvent.setBackground(Color.LIGHT_GRAY);
-//			nextEvent.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					BusinessEventPane.setEvent(controller.getNextEvent());
-//				}
-//			});
-//			eventPane.add(nextEvent);
-//		}
+
 		if(isManager){
 			businessEventTab = new JPanel(new BorderLayout());
 			tabbedPane.addTab("Business Events", null, businessEventTab, null);
 			eventPane = new JPanel();
 			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
-			//eventPane.setBorder(BorderFactory.createLineBorder(Color.black));
 			businessEventTab.add(eventPane, BorderLayout.NORTH);
 
+			currentEvent = controller.getCurrentEvent();
+			final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+			
 			previousEvent = new Button("Previous Event");
 			previousEvent.setBackground(Color.LIGHT_GRAY);
 			previousEvent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BusinessEventPane.setEvent(controller.getPreviousEvent());
+//					BusinessEventPane.setEvent(controller.getPreviousEvent());
+					eventPane.remove(businessEventPane);
+					currentEvent = controller.getPreviousEvent();
+					final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 				}
 			});
 			eventPane.add(previousEvent);
@@ -296,9 +273,8 @@ public class FunctionGUI extends Panel{
 			});
 			eventPane.add(nextEvent);
 			
-			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
-			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
-			//businessEventPane.setBorder(BorderFactory.createLineBorder(Color.red));
+//			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+//			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 			eventPane.add(businessEventPane);
 		}
 		add(bottomPanel);
