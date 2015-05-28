@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,7 +58,6 @@ public class FunctionGUI extends Panel{
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	protected UIController controller;
 	// buttons on the panel
 	private Button mailDelivery;
 	private Button customerPriceUpdate;
@@ -84,6 +84,11 @@ public class FunctionGUI extends Panel{
 	private List<String> event;
 	private JPanel routeTab;
 	private JTable table;
+	private Button button_1;
+	private Button button_2;
+	private Button button_3;
+	private Button button_4;
+	private Button button_5;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -121,75 +126,106 @@ public class FunctionGUI extends Panel{
 		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
 		//TODO: find a way to set the width of the button
 		//buttons
-//		mailDelivery = new JButton("Mail Delivery");
-//		mailDelivery.setHorizontalAlignment(SwingConstants.LEFT);
-//		mailDelivery.setFont(new Font("Arial", Font.PLAIN, 14));
-//		customerPriceUpdate = new JButton("Customer Price Update");
-//		customerPriceUpdate.setHorizontalAlignment(SwingConstants.LEFT);
-//		customerPriceUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
-//		transportCostUpdate = new JButton("Transport Cost Update");
-//		transportCostUpdate.setHorizontalAlignment(SwingConstants.LEFT);
-//		transportCostUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
-//		transportDiscontinued = new JButton("Transport Discontinued");
-//		transportDiscontinued.setHorizontalAlignment(SwingConstants.LEFT);
-//		transportDiscontinued.setFont(new Font("Arial", Font.PLAIN, 14));
-//		businessEvents = new JButton("Business Events");
-//		businessEvents.setHorizontalAlignment(SwingConstants.LEFT);
-//		businessEvents.setFont(new Font("Arial", Font.PLAIN, 14));
-//		businessFigures = new JButton("Business Figures");
-//		businessFigures.setHorizontalAlignment(SwingConstants.LEFT);
-//		businessFigures.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		mailDelivery = new JButton("Mail Delivery");
+		//		mailDelivery.setHorizontalAlignment(SwingConstants.LEFT);
+		//		mailDelivery.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		customerPriceUpdate = new JButton("Customer Price Update");
+		//		customerPriceUpdate.setHorizontalAlignment(SwingConstants.LEFT);
+		//		customerPriceUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		transportCostUpdate = new JButton("Transport Cost Update");
+		//		transportCostUpdate.setHorizontalAlignment(SwingConstants.LEFT);
+		//		transportCostUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		transportDiscontinued = new JButton("Transport Discontinued");
+		//		transportDiscontinued.setHorizontalAlignment(SwingConstants.LEFT);
+		//		transportDiscontinued.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		businessEvents = new JButton("Business Events");
+		//		businessEvents.setHorizontalAlignment(SwingConstants.LEFT);
+		//		businessEvents.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		businessFigures = new JButton("Business Figures");
+		//		businessFigures.setHorizontalAlignment(SwingConstants.LEFT);
+		//		businessFigures.setFont(new Font("Arial", Font.PLAIN, 14));
 		logOut = new JButton("Log Out");
 		exit = new JButton("Exit");
 		addUser = new JButton("Add User");
 		removeUser = new JButton("Remove User");
-//		mailDelivery.setBackground(UIManager.getColor("Button.light"));
-//		customerPriceUpdate.setBackground(UIManager.getColor("Button.light"));
-//		transportCostUpdate.setBackground(UIManager.getColor("Button.light"));
-//		transportDiscontinued.setBackground(UIManager.getColor("Button.light"));
-//		businessEvents.setBackground(UIManager.getColor("Button.light"));
-//		businessFigures.setBackground(UIManager.getColor("Button.light"));
+		//		mailDelivery.setBackground(UIManager.getColor("Button.light"));
+		//		customerPriceUpdate.setBackground(UIManager.getColor("Button.light"));
+		//		transportCostUpdate.setBackground(UIManager.getColor("Button.light"));
+		//		transportDiscontinued.setBackground(UIManager.getColor("Button.light"));
+		//		businessEvents.setBackground(UIManager.getColor("Button.light"));
+		//		businessFigures.setBackground(UIManager.getColor("Button.light"));
 		//logOut.setBackground(Color.white);
 		//add buttons to panel
-//		buttonPanel.add(mailDelivery, BorderLayout.CENTER);
-//		buttonPanel.add(customerPriceUpdate, BorderLayout.CENTER);
-//		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
-//		buttonPanel.add(transportDiscontinued, BorderLayout.CENTER);
-//		buttonPanel.add(businessEvents, BorderLayout.CENTER);
-//		buttonPanel.add(businessFigures, BorderLayout.CENTER);
+		//		buttonPanel.add(mailDelivery, BorderLayout.CENTER);
+		//		buttonPanel.add(customerPriceUpdate, BorderLayout.CENTER);
+		//		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
+		//		buttonPanel.add(transportDiscontinued, BorderLayout.CENTER);
+		//		buttonPanel.add(businessEvents, BorderLayout.CENTER);
+		//		buttonPanel.add(businessFigures, BorderLayout.CENTER);
 
 		// add label and buttons onto bottomPanel
-		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
+		String staff ="";
+		if(isManager){
+			staff = "Manager";
+		}else{
+			staff = "Clerk";
+		}
+
+		JLabel usernameP = new JLabel(staff +":  "+ gui.getCurretUsername());
 		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
 		bottomPanel.add(usernameP);
-		bottomPanel.add(addUser);
-		bottomPanel.add(removeUser);
+		if(isManager){
+			bottomPanel.add(addUser);
+			bottomPanel.add(removeUser);
+		}
+
 		bottomPanel.add(logOut);
 		bottomPanel.add(exit);
 
 		//addImage("image/bottomImage.jpg", bottomPanel, 60);
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
-		
+
 		mailDelivery = new Button("Mail Delivery");
 		mailDelivery.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailDelivery, BorderLayout.WEST);
-		
+
 		customerPriceUpdate = new Button("Customer Price Update");
 		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
-		
+
 		transportCostUpdate = new Button("Transport Cost Update");
 		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportCostUpdate, BorderLayout.SOUTH);
-		
+
 		transportDiscontinued = new Button("Transport Discontinued");
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
-		
+
 		businessFigures = new Button("Business Figures");
 		businessFigures.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFigures, BorderLayout.NORTH);
+
+		button_1 = new Button("Mail recieved");
+		button_1.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(button_1, BorderLayout.SOUTH);
+
+		button_2 = new Button("");
+		buttonPanel.add(button_2, BorderLayout.SOUTH);
+		button_2.disable();
+
+		button_3 = new Button("");
+		buttonPanel.add(button_3, BorderLayout.SOUTH);
+		button_3.disable();
+
+		button_4 = new Button("");
+		buttonPanel.add(button_4, BorderLayout.SOUTH);
+		button_4.disable();
+
+		button_5 = new Button("");
+		buttonPanel.add(button_5, BorderLayout.SOUTH);
+		button_5.disable();
+
 		jSplitPanel.add(displayPanel, JSplitPane.RIGHT);
 		//add all panels to functionGUI panel
 		add(titlePanel);
@@ -204,39 +240,48 @@ public class FunctionGUI extends Panel{
 		businessFigureTab.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
 
-		businessEventTab = new JPanel(new BorderLayout());
-		tabbedPane.addTab("Business Events", null, businessEventTab, null);
-		eventPane = new JPanel();
-		eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
-		businessEventTab.add(eventPane, BorderLayout.NORTH);
-		
-			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+		if(isManager){
+			businessEventTab = new JPanel(new BorderLayout());
+			tabbedPane.addTab("Business Events", null, businessEventTab, null);
+			eventPane = new JPanel();
+			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
+			businessEventTab.add(eventPane, BorderLayout.NORTH);
+
+			currentEvent = controller.getCurrentEvent();
+			final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+			
+			previousEvent = new Button("Previous Event");
+			previousEvent.setBackground(Color.LIGHT_GRAY);
+			previousEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+//					BusinessEventPane.setEvent(controller.getPreviousEvent());
+					eventPane.remove(businessEventPane);
+					currentEvent = controller.getPreviousEvent();
+					final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+				}
+			});
+			eventPane.add(previousEvent);
+
+			nextEvent = new Button("Next Event");
+			nextEvent.setBackground(Color.LIGHT_GRAY);
+			nextEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BusinessEventPane.setEvent(controller.getNextEvent());
+				}
+			});
+			eventPane.add(nextEvent);
+			
+//			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+//			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 			eventPane.add(businessEventPane);
-		
-		previousEvent = new Button("Previous Event");
-		previousEvent.setBackground(Color.LIGHT_GRAY);
-		previousEvent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getPreviousEvent());
-			}
-		});
-		eventPane.add(previousEvent);
-		
-		nextEvent = new Button("Next Event");
-		nextEvent.setBackground(Color.LIGHT_GRAY);
-		nextEvent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getNextEvent());
-
-			}
-		});
-		eventPane.add(nextEvent);
-
+		}
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
-		RoutePanel routePanel = new RoutePanel(gui);
-	//	routeTab.setPreferredSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
+		//RoutePanel routePanel = new RoutePanel(gui);
+		//	routeTab.setPreferredSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
 
 
 		tabbedPane.addTab("Route", null, routeTab, null);
@@ -303,6 +348,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == transportDiscontinued){
+					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new TransportDiscontinuedPane(gui), JSplitPane.RIGHT);
 				}
@@ -432,6 +478,7 @@ public class FunctionGUI extends Panel{
 					gui.addBGPanel(gui.getBackgroundPanel());
 					gui.addPanel(new LoginGUI(gui));
 					controller.logOut();
+					isManager =false;
 				}
 			}
 		});
