@@ -87,51 +87,6 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	 */
 	protected abstract void addListenner();
 
-	/**
-	 * The following method sets the button style by the given
-	 * characteristics and adds the button onto the panel
-	 * @param button	the given button to set style on
-	 * @param buttonWidth	the given width of the button
-	 * @param defaultColor	the default color of the given button
-	 */
-	protected void setButtonStyle (final JButton button, int buttonWidth, final Color defaultColor){
-		// set the button size and font
-		button.setPreferredSize(new Dimension(buttonWidth, 45));
-		button.setFont(new Font("Arial", Font.PLAIN, 30));
-		//		button.setForeground(defaultColor);
-		button.setBackground(defaultColor);
-		button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-		button.setBackground(defaultColor);
-		button.setForeground(Color.WHITE);
-		// set the button to transparent
-		button.setBorder(null);
-		button.setOpaque(true);
-		button.setContentAreaFilled(true);
-		button.setBorderPainted(true);
-		button.setFocusPainted(true);
-
-		// add mouseListener onto the button
-		button.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				//				button.setForeground(defaultColor);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				//				button.setForeground(new Color(100, 200, 100).brighter());
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {}
-		});
-
-		// add the button to the panel
-		add(button);
-	}
 	protected void formatToDobuleJTextField(JFormattedTextField textField) {
 		// TODO Auto-generated method stub
 		textField.setValue(new Double(amount));

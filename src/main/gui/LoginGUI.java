@@ -11,6 +11,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -87,6 +89,35 @@ public class LoginGUI extends Panel{
 		setButtonStyle(login, 140, new Color(30,144,255));
 	}
 
+
+	/**
+	 * The following method sets the button style by the given
+	 * characteristics and adds the button onto the panel
+	 * @param button	the given button to set style on
+	 * @param buttonWidth	the given width of the button
+	 * @param defaultColor	the default color of the given button
+	 */
+	protected void setButtonStyle (final JButton button, int buttonWidth, final Color defaultColor){
+		// set the button size and font
+		button.setPreferredSize(new Dimension(buttonWidth, 45));
+		button.setFont(new Font("Arial", Font.PLAIN, 30));
+		button.setBackground(defaultColor);
+		button.setHorizontalTextPosition(SwingConstants.CENTER);
+
+		button.setBackground(defaultColor);
+		button.setForeground(Color.WHITE);
+		
+		// set the button to transparent
+		button.setBorder(null);
+		button.setOpaque(true);
+		button.setContentAreaFilled(true);
+		button.setBorderPainted(true);
+		button.setFocusPainted(true);
+
+		// add the button to the panel
+		add(button);
+	}
+	
 	@Override
 	protected void addListenner() {
 		// if button login is clicked and username and password are verified, 
