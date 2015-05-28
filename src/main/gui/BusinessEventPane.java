@@ -34,18 +34,13 @@ public class BusinessEventPane extends Panel {
 
 	public BusinessEventPane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, 323, 482);
-//		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-40,gui.getHeight()-25));
 	}
 
 	@Override
 	protected void setUpComponents() {
-		System.out.println("__" + controller);
 		currentEvent = new HashMap<String, String>();
 		currentEvent = controller.getCurrentEvent();
-		
-		System.out.println("######" + currentEvent);
-		
+			
 		mailDeliveryLabels = new String[6][2];
 		customerPriceUpdateLabels = new String[5][2];
 		transportCostUpdateLabels = new String[11][2];
