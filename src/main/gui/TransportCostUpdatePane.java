@@ -137,6 +137,11 @@ public class TransportCostUpdatePane extends Panel{
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
 					init();
+					comboBoxOrigin.setSelectedItem(null);
+					comboBoxDestination.setSelectedItem(null);
+					comboBoxTransportFirm.setSelectedItem(null);
+					comboBoxTransportType.setSelectedItem(null);
+					comboBoxTransportDay.setSelectedItem(null);
 				}
 			}
 		});

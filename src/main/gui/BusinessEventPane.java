@@ -34,7 +34,7 @@ public class BusinessEventPane extends Panel {
 
 	public BusinessEventPane(GUI gui) {
 		super(gui);
-		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
+		setBounds(300, 0, 323, 482);
 //		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-40,gui.getHeight()-25));
 	}
 

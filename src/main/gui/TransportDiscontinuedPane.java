@@ -71,6 +71,7 @@ public class TransportDiscontinuedPane extends Panel{
 				JButton button = (JButton) e.getSource();
 				if(button == update){
 					addBusinessEvent("transportDiscontinued");
+					
 				}
 			}
 		});
@@ -80,6 +81,10 @@ public class TransportDiscontinuedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
+					comboBoxTransportType.setSelectedItem(null);
+					comboBoxOrigin.setSelectedItem(null);
+					comboBoxTransportFirm.setSelectedItem(null);
+					comboBoxDestination.setSelectedItem(null);
 					init();
 				}
 			}

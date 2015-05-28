@@ -93,6 +93,9 @@ public class CustomerPriceUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
+					comboBoxDestination.setSelectedItem(null);
+					comboBoxTransportFirm.setSelectedItem(null);
+					comboBoxPriority.setSelectedItem(null);
 					init();
 				}
 			}
