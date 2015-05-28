@@ -101,7 +101,10 @@ public class UIController {
 	public Map<String, String> getPreviousEvent(){
 		System.out.println("get previous event from  monitor.......");
 		//return monitor.previousEvent();
-		return null;
+		Map<String, String> m = new HashMap<String, String>();
+		m.put("type", "mailDelivery");
+		m.put("origin", "wellington");
+		return m;
 	}
 
 
