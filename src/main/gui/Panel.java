@@ -35,6 +35,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected UIController controller;
 	protected GUI gui;	// the GUI that panel is on
 	protected double amount = 0;
+	protected int amountInt = 0;
+
 	protected NumberFormat amountFormat;
 	protected String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
 			"Wellington", "Christchurch","Dunedin" , "Sydney", "New York"};
@@ -93,6 +95,13 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		textField.setColumns(10);
 		textField.addPropertyChangeListener("value", this);
 	}
+	protected void formatToIntegerJTextField(JFormattedTextField textField) {
+		// TODO Auto-generated method stub
+		textField.setValue(new Integer(amountInt));
+		textField.setColumns(10);
+		textField.addPropertyChangeListener("value", this);
+	}
+	
 
 	protected void comboBoxListenner(JComboBox comboBox,final String type){
 		comboBox.addActionListener(new ActionListener() {
@@ -108,22 +117,23 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				}
 				else if(type.equals("destination")){
 					destination = selected;
-					//System.out.println(destination);
 
 				}
 				else if(type.equals("priority")){
 					priority = selected;
-					//System.out.println(priority);
 
 				}
 				else if(type.equals("transportType")){
 					transportType = selected;
+
 				}
 				else if(type.equals("transportFirm")){
 					transportFirm = selected;
+
 				}
 				else if(type.equals("transportDay")){
 					transportDay = selected;
+
 				}
 			}
 		});

@@ -42,6 +42,8 @@ public class TransportCostUpdatePane extends Panel{
 
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		comboBoxTransportFirm = new JComboBox(TransportFirmList);
+		comboBoxListenner(comboBoxTransportFirm, "transportFrim");
+
 		//transportFirm = selected;
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
@@ -55,26 +57,26 @@ public class TransportCostUpdatePane extends Panel{
 		JLabel labelNewCostPerCB= new JLabel("New price per cubic centimeter", SwingConstants.CENTER);
 		textTPNewCostPerCubic = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textTPNewCostPerCubic);
-		
+
 		JLabel labelmaxWeight= new JLabel("Max weight", SwingConstants.CENTER);
 		textTPmaxWeight = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(textTPNewCostPerCubic);
-		
+		formatToDobuleJTextField(textTPmaxWeight);
+
 		JLabel labelmaxVolume= new JLabel("Max volume", SwingConstants.CENTER);
 		textTPmaxVolume = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(textTPNewCostPerCubic);
-		
+		formatToDobuleJTextField(textTPmaxVolume);
+
 		JLabel labelDay= new JLabel("Transpot Day", SwingConstants.CENTER);
 		comboBoxTransportDay = new JComboBox(TransportDateList);
 		comboBoxListenner(comboBoxTransportDay, "transportDay");
-		
+
 		JLabel labelFrequency= new JLabel("Frequency transport departs", SwingConstants.CENTER);
 		textTPFrequency = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(textTPNewCostPerCubic);
-		
+		formatToIntegerJTextField(textTPFrequency);
+
 		JLabel labelDuration= new JLabel("Duration of the trip", SwingConstants.CENTER);
 		textTPDuration = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(textTPNewCostPerCubic);
+		formatToIntegerJTextField(textTPDuration);
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
@@ -100,7 +102,7 @@ public class TransportCostUpdatePane extends Panel{
 		add(textTPFrequency);
 		add(labelDuration);
 		add(textTPDuration);
-		
+
 		add(reset);
 		add(update);
 	}
@@ -116,6 +118,10 @@ public class TransportCostUpdatePane extends Panel{
 				if(button == update){
 					updateButtonClicked = true;
 					addBusinessEvent("transportCostUpdate");
+					System.out.println("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
+							+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType
+							+" max Weight:  "+ ((Number)textTPmaxWeight.getValue()).doubleValue()+" max Volume:  "+ ((Number)textTPmaxVolume.getValue()).doubleValue()+" Frequency:  "+ ((Number)textTPFrequency.getValue()).doubleValue()+"  Duration:  "+ ((Number)textTPDuration.getValue()).doubleValue()
+				);
 				}
 			}
 		});
@@ -148,17 +154,29 @@ public class TransportCostUpdatePane extends Panel{
 	@Override
 	public void propertyChange(PropertyChangeEvent e) {
 		// TODO Auto-generated method stub
-		 Object source = e.getSource();
-	        if (source == textTPNewCostPerCubic) {
-	            amount = ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
-	        }
-	        else if (source == textTPNewCostPerGram) {
-	            amount = ((Number)textTPNewCostPerGram.getValue()).doubleValue();
-	        }
-
+		Object source = e.getSource();
+		if (source == textTPNewCostPerCubic) {
+			amount = ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
+		}
+		else if (source == textTPNewCostPerGram) {
+			amount = ((Number)textTPNewCostPerGram.getValue()).doubleValue();
+		}
+		else if (source == textTPmaxWeight) {
+			amount = ((Number)textTPmaxWeight.getValue()).doubleValue();
+		}
+		else if (source == textTPmaxVolume) {
+			amount = ((Number)textTPmaxVolume.getValue()).doubleValue();
+		}
+		else if (source == textTPFrequency) {
+			amount = ((Number)textTPFrequency.getValue()).intValue();
+		}
+		else if (source == textTPDuration) {
+			amount = ((Number)textTPDuration.getValue()).intValue();
+		}
 	}
 	public String toStringTPU(){
 		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
-				+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType);
+				+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType
+				+" max Weight:  "+ textTPmaxWeight+" max Volume:  "+ textTPmaxVolume+" Frequency:  "+ textTPFrequency+"  Duration:  "+ textTPDuration);
 	}
 }
