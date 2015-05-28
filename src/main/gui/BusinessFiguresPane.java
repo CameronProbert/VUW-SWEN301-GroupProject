@@ -48,14 +48,17 @@ public class BusinessFiguresPane extends Panel {
 		// create labels for the business figures
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
 
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
+		comboBoxPriority.setSelectedItem(null);
 		comboBoxListenner(comboBoxPriority, "priority");
 
 		JLabel labelRevenue= new JLabel(" Revenue", SwingConstants.LEFT);

@@ -187,6 +187,18 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		transportFirm = "";
 		transportType = "";
 		transportDay = "";
+		//textTime.setText("");
+		if(textVolume!=null) textVolume.setValue(0.0);
+		if(textWeight!=null) textWeight.setValue(0.0);
+		if(textTPmaxWeight!=null) textTPmaxWeight.setValue(0.0);
+		if(textTPmaxVolume!=null) textTPmaxVolume.setValue(0.0);
+		if(textTPFrequency!=null) textTPFrequency.setValue(0);
+		if(textTPDuration!=null) textTPDuration.setValue(0);
+		if(textCustomerNewPricePerCubic!=null) textCustomerNewPricePerCubic.setValue(0.0);
+		if(textCustomerNewPricePerGram!=null) textCustomerNewPricePerGram.setValue(0.0);
+		if(textTPNewCostPerGram!=null) textTPNewCostPerGram.setValue(0.0);
+		if(textTPNewCostPerCubic!=null) textTPNewCostPerCubic.setValue(0.0);
+
 	}
 	
 	public void addBusinessEvent(String type){

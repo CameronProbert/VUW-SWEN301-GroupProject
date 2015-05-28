@@ -41,13 +41,9 @@ public class LoginGUI extends Panel{
 	// buttons on the panel
 	private JButton quit;
 	private JButton login;
-
-	protected UIController controller;
-
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);
-		this.controller = this.gui.getUIController();
 	}
 
 	@Override

@@ -34,20 +34,24 @@ public class TransportCostUpdatePane extends Panel{
 
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
 
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		comboBoxTransportFirm = new JComboBox(TransportFirmList);
-		comboBoxListenner(comboBoxTransportFirm, "transportFrim");
+		comboBoxTransportFirm.setSelectedItem(null);
+		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
 
 		//transportFirm = selected;
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportType = new JComboBox(TransportTpyeList);
+		comboBoxTransportType.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportType, "transportType");
 
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
@@ -68,6 +72,7 @@ public class TransportCostUpdatePane extends Panel{
 
 		JLabel labelDay= new JLabel("Transpot Day", SwingConstants.CENTER);
 		comboBoxTransportDay = new JComboBox(TransportDateList);
+		comboBoxTransportDay.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportDay, "transportDay");
 
 		JLabel labelFrequency= new JLabel("Frequency transport departs", SwingConstants.CENTER);
@@ -118,7 +123,7 @@ public class TransportCostUpdatePane extends Panel{
 				if(button == update){
 					updateButtonClicked = true;
 					addBusinessEvent("transportCostUpdate");
-					System.out.println("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
+					System.out.println("Origin: "+ origin +"  Destination: "+ destination+"  Transport Day: "+transportDay+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
 							+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType
 							+" max Weight:  "+ ((Number)textTPmaxWeight.getValue()).doubleValue()+" max Volume:  "+ ((Number)textTPmaxVolume.getValue()).doubleValue()+" Frequency:  "+ ((Number)textTPFrequency.getValue()).doubleValue()+"  Duration:  "+ ((Number)textTPDuration.getValue()).doubleValue()
 				);

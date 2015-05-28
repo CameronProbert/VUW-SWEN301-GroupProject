@@ -30,18 +30,22 @@ public class TransportDiscontinuedPane extends Panel{
 
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
 
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		comboBoxTransportFirm = new JComboBox(TransportFirmList);
+		comboBoxTransportFirm.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportType = new JComboBox(TransportTpyeList);
+		comboBoxTransportType.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportType, "transportType");
 
 		reset = new JButton("Reset");
