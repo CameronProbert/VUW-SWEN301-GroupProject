@@ -26,6 +26,7 @@ import javax.swing.event.DocumentListener;
 
 import main.controllers.UIController;
 import main.logic.Clerk;
+import main.logic.Manager;
 
 /**
  * The LoginGUI class is a JPanel which is added onto the JFrame 
@@ -139,6 +140,9 @@ public class LoginGUI extends Panel{
 						JOptionPane.showMessageDialog(null, "Password can not be empty.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					} else if(clerk != null){
+						if(clerk instanceof Manager){
+							isManager = true;
+						}
 						gui.setUsername(gui.getUserId().getText());
 						gui.setCurrentUser(clerk);
 						gui.removePanel(LoginGUI.this);

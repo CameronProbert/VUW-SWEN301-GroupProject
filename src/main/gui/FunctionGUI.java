@@ -164,11 +164,21 @@ public class FunctionGUI extends Panel{
 		//		buttonPanel.add(businessFigures, BorderLayout.CENTER);
 
 		// add label and buttons onto bottomPanel
-		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
+		String staff ="";
+		if(isManager){
+			staff = "Manager";
+		}else{
+			staff = "Clerk";
+		}
+		
+		JLabel usernameP = new JLabel(staff +":  "+ gui.getCurretUsername());
 		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
 		bottomPanel.add(usernameP);
-		bottomPanel.add(addUser);
-		bottomPanel.add(removeUser);
+		if(isManager){
+			bottomPanel.add(addUser);
+			bottomPanel.add(removeUser);
+		}
+
 		bottomPanel.add(logOut);
 		bottomPanel.add(exit);
 
@@ -229,34 +239,35 @@ public class FunctionGUI extends Panel{
 		businessFigureTab = new JPanel(new BorderLayout());
 		businessFigureTab.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
+		System.out.println(isManager);
+		if(isManager){
+			businessEventTab = new JPanel(new BorderLayout());
+			tabbedPane.addTab("Business Events", null, businessEventTab, null);
+			eventPane = new JPanel();
+			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
+			businessEventTab.add(eventPane, BorderLayout.NORTH);
 
-		businessEventTab = new JPanel(new BorderLayout());
-		tabbedPane.addTab("Business Events", null, businessEventTab, null);
-		eventPane = new JPanel();
-		eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
-		businessEventTab.add(eventPane, BorderLayout.NORTH);
+			//BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			//eventPane.add(businessEventPane);
 
-		BusinessEventPane businessEventPane = new BusinessEventPane(gui);
-		eventPane.add(businessEventPane);
+			previousEvent = new Button("Previous Event");
+			previousEvent.setBackground(Color.LIGHT_GRAY);
+			previousEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BusinessEventPane.setEvent(controller.getPreviousEvent());
+				}
+			});
+			eventPane.add(previousEvent);
 
-		previousEvent = new Button("Previous Event");
-		previousEvent.setBackground(Color.LIGHT_GRAY);
-		previousEvent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getPreviousEvent());
-			}
-		});
-		eventPane.add(previousEvent);
-
-		nextEvent = new Button("Next Event");
-		nextEvent.setBackground(Color.LIGHT_GRAY);
-		nextEvent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BusinessEventPane.setEvent(controller.getNextEvent());
-			}
-		});
-		eventPane.add(nextEvent);
-
+			nextEvent = new Button("Next Event");
+			nextEvent.setBackground(Color.LIGHT_GRAY);
+			nextEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BusinessEventPane.setEvent(controller.getNextEvent());
+				}
+			});
+			eventPane.add(nextEvent);
+		}
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
@@ -458,6 +469,7 @@ public class FunctionGUI extends Panel{
 					gui.addBGPanel(gui.getBackgroundPanel());
 					gui.addPanel(new LoginGUI(gui));
 					controller.logOut();
+					isManager =false;
 				}
 			}
 		});

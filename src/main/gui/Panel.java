@@ -66,7 +66,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JFormattedTextField textTPmaxVolume;
 	protected static JFormattedTextField textTPFrequency;
 	protected static JFormattedTextField textTPDuration;
-
+	protected static boolean isManager;
 	public Panel (GUI gui){
 		this.gui = gui;
 		// set the panel to transparent and call methods to set up buttons and listener
