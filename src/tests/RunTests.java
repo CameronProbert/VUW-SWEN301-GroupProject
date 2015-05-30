@@ -1,5 +1,7 @@
 package tests;
 
+import org.junit.Test;
+
 import tests.fileio.FileTests;
 import tests.fileio.LogHandlerTests;
 import tests.logic.RouteTests;
@@ -11,7 +13,12 @@ import tests.logic.RouteTests;
  */
 public class RunTests {
 
-	public static void main(String[] args) {
+	public void main(String[] args) {
+		runAllTests();
+	}
+
+	@Test
+	public void runAllTests(){
 		new FileTests();
 		new RouteTests();
 		new LogHandlerTests();
