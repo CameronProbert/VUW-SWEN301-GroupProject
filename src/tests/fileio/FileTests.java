@@ -20,7 +20,11 @@ import main.logic.Route.DaysOfWeek;
 import main.logic.Route.TransportType;
 
 
-
+/** tests reading and writing from and to xml
+ *
+ * @author burlinfran
+ *
+ */
 public class FileTests {
 
 	private final static Location origin = new Location("Auckland");
@@ -55,6 +59,9 @@ public class FileTests {
 		testRouteDelete();
 	}
 
+	/**
+	 * sets up the handler and load and save classes
+	 */
 	private void setUpOne(){
 		List<BusinessEvent> events = eventsOne();
 		SaveXML save = new SaveXML("xml/saveFile");
@@ -84,6 +91,9 @@ public class FileTests {
 
 	}
 
+	/**
+	 * tests the values of the final route is what is expected
+	 */
 	@Test
 	public void testRoutes() {
 		assertTrue(routes.size()==1);
@@ -105,6 +115,12 @@ public class FileTests {
 		}
 	}
 
+	/**
+	 * this is a public method which can be called anywhere which return a list of business events which can be used for testing
+	 *
+	 * creates every type of event except a delete event
+	 * @return
+	 */
 	public static List<BusinessEvent> eventsOne(){
 		List<Route> routes = new ArrayList<Route>();
 		try {

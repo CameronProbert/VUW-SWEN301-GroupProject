@@ -16,6 +16,11 @@ import main.logic.InvalidLocationException;
 import main.logic.NoDaysToShipException;
 import main.logic.Route;
 
+/**
+ * tests the log handler including testing what happens if files are found empty
+ * @author burlinfran
+ *
+ */
 public class LogHandlerTests {
 
 private BusinessEvent event;
@@ -28,6 +33,9 @@ private LogHandler handler;
 		checkEmptyFile();
 	}
 
+	/**
+	 * tests empty reading from an empty file does not pull exceptions
+	 */
 	@Test
 	public void checkEmptyFile() {
 
@@ -51,6 +59,9 @@ private LogHandler handler;
 
 	}
 
+	/**
+	 * checks that trying to move to far backward down the list will return a null
+	 */
 	@Test
 	public void checkToBackBreaks() {
 		handler = new LogHandler();
@@ -66,6 +77,9 @@ private LogHandler handler;
 		assertTrue(event==null);
 	}
 
+	/**
+	 * checks that trying to move to far forward down the list will return a null
+	 */
 	@Test
 	public void checkToForwardBreaks() {
 		handler = new LogHandler();
