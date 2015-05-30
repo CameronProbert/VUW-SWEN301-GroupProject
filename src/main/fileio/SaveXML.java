@@ -18,6 +18,11 @@ import org.w3c.dom.Element;
 
 import main.events.*;
 
+/**
+ * Saves the xml file given a list of business events. The grunt of the saving is done inside the business event classes themselves.
+ * @author burlinfran
+ *
+ */
 public class SaveXML {
 
 	private Document doc;
