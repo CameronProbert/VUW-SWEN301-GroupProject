@@ -250,14 +250,14 @@ public class FunctionGUI extends Panel{
 			currentEvent = controller.getCurrentEvent();
 			final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
 			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
-			
+
 			previousEvent = new Button("Previous Event");
 			previousEvent.setBackground(Color.LIGHT_GRAY);
 			previousEvent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 //					BusinessEventPane.setEvent(controller.getPreviousEvent());
 					eventPane.remove(businessEventPane);
-					currentEvent = controller.getPreviousEvent();
+//					currentEvent = controller.getPreviousEvent();
 					final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 				}
@@ -272,7 +272,7 @@ public class FunctionGUI extends Panel{
 				}
 			});
 			eventPane.add(nextEvent);
-			
+
 //			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
 //			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 			eventPane.add(businessEventPane);
