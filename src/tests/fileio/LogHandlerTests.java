@@ -2,8 +2,6 @@ package tests.fileio;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,17 +28,6 @@ private LogHandler handler;
 
 	@Test
 	public void checkEmptyFile() {
-
-		// clears the file so this test does what is expected
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter("xml/emptyFile");
-			writer.print("");
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
 		handler = new LogHandler(true); // load empty file
 
 		List<BusinessEvent> events = FileTests.eventsOne();

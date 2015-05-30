@@ -13,24 +13,26 @@ import javax.swing.SwingConstants;
 
 /**
  * The BusinessFiguresTotal class is a JPanel which is added
- * on the button panel to show users the business figures.   
- * BusinessFiguresTotal class is responsible for directly 
+ * on the button panel to show users the business figures.
+ * BusinessFiguresTotal class is responsible for directly
  * letting users know the key general business figures.
  *
  * @author Zhiheng Sun
- * 
+ *
  */
 public class BusinessFiguresTotal extends Panel {
 
-	// disabled textfields on the panel
-	private static JFormattedTextField revenue;
-	private static JFormattedTextField expenditure;
-	private static JFormattedTextField events;
+	// value labels on the panel
+	private static JLabel revenue;
+	private static JLabel expenditure;
+	private static JLabel events;
 
 	public BusinessFiguresTotal(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		
+		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-60,gui.getHeight()-250));
+
+		gui.setBusinessFiguresTotal(this);
 	}
 
 	@Override
@@ -38,51 +40,37 @@ public class BusinessFiguresTotal extends Panel {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		// create labels and textfields for the business figures
-		JLabel title = new JLabel("Business Figures  ", SwingConstants.CENTER);
-		title.setFont(new Font("Arial", Font.PLAIN, 18));
-
 		JLabel labelRevenue= new JLabel(" Total Revenue", SwingConstants.LEFT);
-		revenue = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(revenue);
+		labelRevenue.setFont(new Font("Dialog", Font.PLAIN, 14));
+		revenue = new JLabel();
 
 		JLabel labelExpend= new JLabel(" Total Expenditure", SwingConstants.LEFT);
-		expenditure = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(expenditure);
+		labelExpend.setFont(new Font("Dialog", Font.PLAIN, 14));
+		labelExpend.setBackground(Color.LIGHT_GRAY);
+		expenditure = new JLabel();
 
 		JLabel labelEvents= new JLabel(" Total Number of Events", SwingConstants.LEFT);
-		events = new JFormattedTextField(amountFormat);
-		formatToDobuleJTextField(events);
+		labelEvents.setFont(new Font("Dialog", Font.PLAIN, 14));
+		events = new JLabel();
 
-		// format disabled textfields shown business figures
-		revenue.disable();
-		revenue.setText("0.0");   
-		revenue.setDisabledTextColor(Color.BLACK);
-		revenue.setPreferredSize(new Dimension(250, 50));
-		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
-		revenue.setOpaque(false);
+		// format value labels shown business figures
+		//revenue.disable();
+		revenue.setText(" 0.0");
+		//revenue.setDisabledTextColor(Color.BLACK);
+		revenue.setPreferredSize(new Dimension(100, 50));
+		revenue.setFont(new Font("Dialog", Font.PLAIN, 14));
 
-		expenditure.disable();
-		expenditure.setText("0.0"); 
-		expenditure.setDisabledTextColor(Color.BLACK);
-		expenditure.setPreferredSize(new Dimension(250, 50));
-		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
+		//expenditure.disable();
+		expenditure.setText(" 0.0");
+		//expenditure.setDisabledTextColor(Color.BLACK);
+		expenditure.setPreferredSize(new Dimension(100, 50));
+		expenditure.setFont(new Font("Dialog", Font.PLAIN, 14));
 
-		events.disable();
-		events.setText("0");  
-		events.setDisabledTextColor(Color.BLACK);
-		events.setPreferredSize(new Dimension(250, 50));
-		events.setFont(new Font("Arial", Font.PLAIN, 15));
-
-		// add the labels and textfields onto the panel
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(title);
+		//events.disable();
+		events.setText(" 0");
+		//events.setDisabledTextColor(Color.BLACK);
+		events.setPreferredSize(new Dimension(100, 50));
+		events.setFont(new Font("Dialog", Font.PLAIN, 14));
 		add(labelRevenue);
 		add(revenue);
 		add(labelExpend);
@@ -96,21 +84,19 @@ public class BusinessFiguresTotal extends Panel {
 
 	@Override
 	protected void addListenner() {}
-	
+
 	// controller calls to set the updated revenue
-	protected void setRevenue(double r){
+	public void setRevenue(double r){
 		revenue.setText("" + r);
 	}
-	
+
 	// controller calls to set the updated expenditure
-	protected void setExpend(double e){
+	public void setExpend(double e){
 		expenditure.setText("" + e);
 	}
-	
+
 	// controller calls to set the updated events
-	protected void setEvents(int e){
+	public void setEvents(int e){
 		events.setText("" + e);
 	}
-	
-	
 }

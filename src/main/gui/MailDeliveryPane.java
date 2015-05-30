@@ -31,9 +31,6 @@ public class MailDeliveryPane extends Panel {
 	private static final long serialVersionUID = 1L;
 	// buttons on the panel
 
-	private static JFormattedTextField textWeight;
-	private static JFormattedTextField textVolume;
-	private static JTextField textTime;
 	private JButton reset;
 	private JButton add;
 	private JButton setDate;
@@ -50,10 +47,13 @@ public class MailDeliveryPane extends Panel {
 
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination.setSelectedItem(null);
+
 		comboBoxListenner(comboBoxDestination, "destination");
 
 		JLabel labelWeight= new JLabel("Weight", SwingConstants.CENTER);
@@ -66,8 +66,9 @@ public class MailDeliveryPane extends Panel {
 
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
+		comboBoxPriority.setSelectedItem(null);
 		comboBoxListenner(comboBoxPriority, "priority");
-
+		
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		textTime.disable();
@@ -113,24 +114,23 @@ public class MailDeliveryPane extends Panel {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == add){
-					System.out.println(toStringMD());
-
+					addBusinessEvent("mailDelivery");
 				}
 			}
 		});
-
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == reset){
+					comboBoxOrigin.setSelectedItem(null);
+					comboBoxDestination.setSelectedItem(null);
+					init();
+				}
+			}
+		});
 	}
-//	public String getMDOrigin() {
-//		return origin;
-//	}
-//
-//	public String getMDDestination() {
-//		return destination;
-//	}
-//
-//	public String getMDPriority() {
-//		return priority;
-//	}
 
 	public static double getMDTextWeight() {
 		return ((Number)textWeight.getValue()).doubleValue();

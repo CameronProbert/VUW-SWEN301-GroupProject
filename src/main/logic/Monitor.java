@@ -106,6 +106,10 @@ public class Monitor {
 	 */
 	private void initialiseGUI() {
 		gui = new GUI();
+		UIController controller = new UIController(gui, this);
+		gui.setUIController(controller);
+		this.setUIController(controller);
+		gui.setUp();
 	}
 
 	/**

@@ -30,19 +30,23 @@ public class TransportDiscontinuedPane extends Panel{
 
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
 		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
 
 		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
 		comboBoxTransportFirm = new JComboBox(TransportFirmList);
+		comboBoxTransportFirm.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
-		comboBoxTransportTpye = new JComboBox(TransportTpyeList);
-		comboBoxListenner(comboBoxTransportTpye, "transportType");
+		comboBoxTransportType = new JComboBox(TransportTpyeList);
+		comboBoxTransportType.setSelectedItem(null);
+		comboBoxListenner(comboBoxTransportType, "transportType");
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
@@ -53,7 +57,7 @@ public class TransportDiscontinuedPane extends Panel{
 		add(labelTransportFirm);
 		add(comboBoxTransportFirm);
 		add(labelTransportType);
-		add(comboBoxTransportTpye);
+		add(comboBoxTransportType);
 		add(reset);
 		add(update);
 	}
@@ -66,8 +70,22 @@ public class TransportDiscontinuedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					System.out.println(toStringTPD());
-
+					addBusinessEvent("transportDiscontinued");
+					
+				}
+			}
+		});
+		reset.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JButton button = (JButton) e.getSource();
+				if(button == reset){
+					comboBoxTransportType.setSelectedItem(null);
+					comboBoxOrigin.setSelectedItem(null);
+					comboBoxTransportFirm.setSelectedItem(null);
+					comboBoxDestination.setSelectedItem(null);
+					init();
 				}
 			}
 		});

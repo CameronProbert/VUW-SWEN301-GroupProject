@@ -10,7 +10,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +32,20 @@ import javax.swing.border.TitledBorder;
 
 import main.controllers.UIController;
 
+import javax.swing.JTabbedPane;
+import javax.swing.JMenu;
+import javax.swing.UIManager;
+import java.awt.Button;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
+import javax.swing.table.AbstractTableModel;
+
+import java.awt.Scrollbar;
+import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 /**
  * FunctionGUI have all the function buttons
  * this class is going to add all buttons and add Action Listener
@@ -39,17 +55,15 @@ import main.controllers.UIController;
 
 public class FunctionGUI extends Panel{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	protected UIController controller;
 	// buttons on the panel
-	private JButton mailDelivery;
-	private JButton customerPriceUpdate;
-	private JButton transportCostUpdate;
-	private JButton transportDiscontinued;
-	private JButton businessEvents;
-	private JButton businessFigures;
+	private Button mailDelivery;
+	private Button customerPriceUpdate;
+	private Button transportCostUpdate;
+	private Button transportDiscontinued;
+	private Button businessFigures;
 	private JButton logOut;
 	private JButton exit;
 	private JButton addUser;
@@ -61,6 +75,20 @@ public class FunctionGUI extends Panel{
 	private JSplitPane jSplitPanel;
 	private String loginType = "";
 	private static String permission = "Clerk";
+	private JTabbedPane tabbedPane;
+	private JPanel businessEventTab;
+	private JPanel businessFigureTab;
+	private JPanel eventPane;
+	private Button previousEvent;
+	private Button nextEvent;
+	private List<String> event;
+	private JPanel routeTab;
+	private JTable table;
+	private Button button_1;
+	private Button button_2;
+	private Button button_3;
+	private Button button_4;
+	private Button button_5;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -73,7 +101,7 @@ public class FunctionGUI extends Panel{
 	 */
 	@Override
 	protected void setUpComponents() {
-		//titlePanel 
+		//titlePanel
 		JPanel titlePanel = new JPanel(new BorderLayout());
 		addImage("image/topImage.jpg", titlePanel, 60);
 		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
@@ -85,8 +113,9 @@ public class FunctionGUI extends Panel{
 
 		//buttonPanel and displayPanel
 		jSplitPanel = new JSplitPane();
+		jSplitPanel.setPreferredSize(new Dimension(gui.getWidth()*2/5+15, gui.getHeight()-160));
 		displayPanel = new JPanel(new BorderLayout());
-		displayPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "" ) );
+		displayPanel.setBorder ( new LineBorder(new Color(0, 0, 0)) );
 		displayPanel.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
 		buttonPanel = new JPanel(new BorderLayout()); //
 		buttonPanel.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
@@ -94,59 +123,177 @@ public class FunctionGUI extends Panel{
 		//business events panel
 		inforPanel = new JPanel(new BorderLayout());
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
-		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder (), "Business Events" ) );
+		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
 		//TODO: find a way to set the width of the button
 		//buttons
-		mailDelivery = new JButton("Mail Delivery                        ");
-		customerPriceUpdate = new JButton("Customer Price Update    ");
-		transportCostUpdate = new JButton("Transport Cost Update      ");
-		transportDiscontinued = new JButton("Transport Discontinued    ");
-		businessEvents = new JButton("Business Events                 ");
-		businessFigures = new JButton("Business Figures                 ");
+		//		mailDelivery = new JButton("Mail Delivery");
+		//		mailDelivery.setHorizontalAlignment(SwingConstants.LEFT);
+		//		mailDelivery.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		customerPriceUpdate = new JButton("Customer Price Update");
+		//		customerPriceUpdate.setHorizontalAlignment(SwingConstants.LEFT);
+		//		customerPriceUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		transportCostUpdate = new JButton("Transport Cost Update");
+		//		transportCostUpdate.setHorizontalAlignment(SwingConstants.LEFT);
+		//		transportCostUpdate.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		transportDiscontinued = new JButton("Transport Discontinued");
+		//		transportDiscontinued.setHorizontalAlignment(SwingConstants.LEFT);
+		//		transportDiscontinued.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		businessEvents = new JButton("Business Events");
+		//		businessEvents.setHorizontalAlignment(SwingConstants.LEFT);
+		//		businessEvents.setFont(new Font("Arial", Font.PLAIN, 14));
+		//		businessFigures = new JButton("Business Figures");
+		//		businessFigures.setHorizontalAlignment(SwingConstants.LEFT);
+		//		businessFigures.setFont(new Font("Arial", Font.PLAIN, 14));
 		logOut = new JButton("Log Out");
 		exit = new JButton("Exit");
 		addUser = new JButton("Add User");
 		removeUser = new JButton("Remove User");
-		mailDelivery.setBackground(Color.white);
-		customerPriceUpdate.setBackground(Color.white);
-		transportCostUpdate.setBackground(Color.white);
-		transportDiscontinued.setBackground(Color.white);
-		businessEvents.setBackground(Color.white);
-		businessFigures.setBackground(Color.white);
+		//		mailDelivery.setBackground(UIManager.getColor("Button.light"));
+		//		customerPriceUpdate.setBackground(UIManager.getColor("Button.light"));
+		//		transportCostUpdate.setBackground(UIManager.getColor("Button.light"));
+		//		transportDiscontinued.setBackground(UIManager.getColor("Button.light"));
+		//		businessEvents.setBackground(UIManager.getColor("Button.light"));
+		//		businessFigures.setBackground(UIManager.getColor("Button.light"));
 		//logOut.setBackground(Color.white);
 		//add buttons to panel
-		buttonPanel.add(mailDelivery);
-		buttonPanel.add(customerPriceUpdate);
-		buttonPanel.add(transportCostUpdate);
-		buttonPanel.add(transportDiscontinued);
-		buttonPanel.add(businessEvents);
-		buttonPanel.add(businessFigures);
-		buttonPanel.add(new BusinessFiguresTotal(gui));
+		//		buttonPanel.add(mailDelivery, BorderLayout.CENTER);
+		//		buttonPanel.add(customerPriceUpdate, BorderLayout.CENTER);
+		//		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
+		//		buttonPanel.add(transportDiscontinued, BorderLayout.CENTER);
+		//		buttonPanel.add(businessEvents, BorderLayout.CENTER);
+		//		buttonPanel.add(businessFigures, BorderLayout.CENTER);
 
 		// add label and buttons onto bottomPanel
-		JLabel usernameP = new JLabel("User: " + gui.getCurretUsername());
+		String staff ="";
+		if(isManager){
+			staff = "Manager";
+		}else{
+			staff = "Clerk";
+		}
+
+		JLabel usernameP = new JLabel(staff +":  "+ gui.getCurretUsername());
 		usernameP.setFont(new Font("Arial", Font.PLAIN, 18));
 		bottomPanel.add(usernameP);
-		bottomPanel.add(addUser);
-		bottomPanel.add(removeUser);
+		if(isManager){
+			bottomPanel.add(addUser);
+			bottomPanel.add(removeUser);
+		}
+
 		bottomPanel.add(logOut);
 		bottomPanel.add(exit);
 
 		//addImage("image/bottomImage.jpg", bottomPanel, 60);
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
+
+		mailDelivery = new Button("Mail Delivery");
+		mailDelivery.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(mailDelivery, BorderLayout.WEST);
+
+		customerPriceUpdate = new Button("Customer Price Update");
+		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
+
+		transportCostUpdate = new Button("Transport Cost Update");
+		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(transportCostUpdate, BorderLayout.SOUTH);
+
+		transportDiscontinued = new Button("Transport Discontinued");
+		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
+
+		businessFigures = new Button("Business Figures");
+		businessFigures.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(businessFigures, BorderLayout.NORTH);
+
+		button_1 = new Button("Mail recieved");
+		button_1.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(button_1, BorderLayout.SOUTH);
+
+		button_2 = new Button("");
+		buttonPanel.add(button_2, BorderLayout.SOUTH);
+		button_2.disable();
+
+		button_3 = new Button("");
+		buttonPanel.add(button_3, BorderLayout.SOUTH);
+		button_3.disable();
+
+		button_4 = new Button("");
+		buttonPanel.add(button_4, BorderLayout.SOUTH);
+		button_4.disable();
+
+		button_5 = new Button("");
+		buttonPanel.add(button_5, BorderLayout.SOUTH);
+		button_5.disable();
+
 		jSplitPanel.add(displayPanel, JSplitPane.RIGHT);
 		//add all panels to functionGUI panel
 		add(titlePanel);
 		add(jSplitPanel);
 		add(inforPanel);
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-160));
+		inforPanel.add(tabbedPane, BorderLayout.NORTH);
+
+		businessFigureTab = new JPanel(new BorderLayout());
+		businessFigureTab.setBackground(Color.LIGHT_GRAY);
+		tabbedPane.addTab("Business Figures", null, businessFigureTab, null);
+
+		if(isManager){
+			businessEventTab = new JPanel(new BorderLayout());
+			tabbedPane.addTab("Business Events", null, businessEventTab, null);
+			eventPane = new JPanel();
+			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
+			businessEventTab.add(eventPane, BorderLayout.NORTH);
+
+			currentEvent = controller.getCurrentEvent();
+			final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+			
+			previousEvent = new Button("Previous Event");
+			previousEvent.setBackground(Color.LIGHT_GRAY);
+			previousEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+//					BusinessEventPane.setEvent(controller.getPreviousEvent());
+					eventPane.remove(businessEventPane);
+					currentEvent = controller.getPreviousEvent();
+					final BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+				}
+			});
+			eventPane.add(previousEvent);
+
+			nextEvent = new Button("Next Event");
+			nextEvent.setBackground(Color.LIGHT_GRAY);
+			nextEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BusinessEventPane.setEvent(controller.getNextEvent());
+				}
+			});
+			eventPane.add(nextEvent);
+			
+//			BusinessEventPane businessEventPane = new BusinessEventPane(gui);
+//			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+			eventPane.add(businessEventPane);
+		}
 		add(bottomPanel);
+		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
+		businessFigureTab.add(businessFiguresTotal);
+		//RoutePanel routePanel = new RoutePanel(gui);
+		//	routeTab.setPreferredSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
+
+
+		tabbedPane.addTab("Route", null, routeTab, null);
+		table = new JTable( new MyTableModel());
+		table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
+		//routeTab.add(table);
 
 	}
 	/**
 	 * add image on to the panel
 	 * @param iamgeAdd image address
-	 * @param panel 
+	 * @param panel
 	 * @param height height of the panel
 	 */
 	private void addImage(String imageAdd, JPanel panel, int height) {
@@ -163,7 +310,7 @@ public class FunctionGUI extends Panel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
+				Button button = (Button) e.getSource();
 				if(button == mailDelivery){
 					displayPanel.setVisible(false);
 					init();
@@ -175,7 +322,7 @@ public class FunctionGUI extends Panel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
+				Button button = (Button) e.getSource();
 				if(button == transportCostUpdate){
 					init();
 					displayPanel.setVisible(false);
@@ -187,7 +334,7 @@ public class FunctionGUI extends Panel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
+				Button button = (Button) e.getSource();
 				if(button == customerPriceUpdate){
 					init();
 					displayPanel.setVisible(false);
@@ -199,23 +346,11 @@ public class FunctionGUI extends Panel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
+				Button button = (Button) e.getSource();
 				if(button == transportDiscontinued){
+					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new TransportDiscontinuedPane(gui), JSplitPane.RIGHT);
-				}
-			}
-		});
-		businessEvents.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
-				if(button == businessEvents){
-					if(loginType.equals("Manager")){
-						init();
-						inforPanel.add(new BusinessEventsPane(gui));
-					}
 				}
 			}
 		});
@@ -223,7 +358,7 @@ public class FunctionGUI extends Panel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
+				Button button = (Button) e.getSource();
 				if(button == businessFigures){
 					init();
 					displayPanel.setVisible(false);
@@ -234,7 +369,6 @@ public class FunctionGUI extends Panel{
 
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// create textfields and comboBox used on the dialog
 				JTextField id = new JTextField();
 				JTextField password = new JTextField();
 				JTextField confirmPassword = new JTextField();
@@ -321,13 +455,15 @@ public class FunctionGUI extends Panel{
 						inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
 					} else {	// input is valid
 						// username is invalid
-						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (permission.equalsIgnoreCase("Manager"))? true: false)) {	
+						if (!controller.addNewUser(id.getText(), password.getText(), name.getText(), (permission.equalsIgnoreCase("Manager"))? true: false)) {
 							id.setText("ID has already been taken");
 							id.setBackground(Color.LIGHT_GRAY);
 							inputDialog(id, password, confirmPassword, name, comboBoxPermission, message);
+						} else {
+							JOptionPane.showMessageDialog(null, "User added!");
 						}
 					}
-				} 
+				}
 			}
 		});
 
@@ -342,6 +478,7 @@ public class FunctionGUI extends Panel{
 					gui.addBGPanel(gui.getBackgroundPanel());
 					gui.addPanel(new LoginGUI(gui));
 					controller.logOut();
+					isManager =false;
 				}
 			}
 		});
@@ -369,17 +506,58 @@ public class FunctionGUI extends Panel{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {}
+	class MyTableModel extends AbstractTableModel {
+		final String[] columnNames = { "Origin", "Destination", "Carrier",
+				"Transport method", "Category" };
+		final Object[][] data = {
+				{ "Auckland", "Wellington", "NZ Post", "Land", "Domestic"},
+				{ "Auckland", "Christchurch", "NZ Post", "Land", "Domestic"},
+				{ "Wellington", "Rotorua", "NZ Post", "Land", "Domestic"},
+				{ "Auckland", "Sydney", "FedEx", "Air", "International"},
+				{ "Auckland", "New York", "FedEx", "Air", "International"} };
 
-	/**
-	 * initialize all fields, when click the button 
-	 */
-	private void init(){
-		origin = "";
-		destination = "";
-		priority = "";
-		transportType = "";
-		transportFirm = "";
-		selected = "";
+
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+
+		public int getRowCount() {
+			return data.length;
+		}
+
+		public String getColumnName(int col) {
+			return columnNames[col];
+		}
+
+		public Object getValueAt(int row, int col) {
+			return data[row][col];
+		}
+
+		public Class getColumnClass(int c) {
+			return getValueAt(0, c).getClass();
+		}
+
+		public boolean isCellEditable(int row, int col) {
+
+			if (col < 2) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		private void printDebugData() {
+			int numRows = getRowCount();
+			int numCols = getColumnCount();
+
+			for (int i = 0; i < numRows; i++) {
+				System.out.print(" row " + i + ":");
+				for (int j = 0; j < numCols; j++) {
+					System.out.print(" " + data[i][j]);
+				}
+				System.out.println();
+			}
+			System.out.println("--------------------------");
+		}
 	}
 
 }
