@@ -19,19 +19,19 @@ public class UIController {
 	private Clerk clerk;
 	//test only
 	private List<String>event;
-	
+
 	public UIController(GUI gui, Monitor monitor){
 		this.gui = gui;
 		this.monitor = monitor;
 		this.event = new ArrayList<String>();
 	}
-	
+
 	/**
 	 * check Logs in a user if they have the correct credentials
-	 * and pass current user to gui  
+	 * and pass current user to gui
 	 * @param id
 	 * @param password
-	 * @return true if log in correctly 
+	 * @return true if log in correctly
 	 */
 	public Clerk checkLogin(String id, String password){
 
@@ -56,7 +56,7 @@ public class UIController {
 		monitor.logOut();
 	}
 	/**
-	 * 
+	 *
 	 */
 	public boolean addNewUser(String id, String password, String name, boolean isManager){
 		return (monitor.makeNewUser(id, password, name, isManager));
@@ -65,46 +65,44 @@ public class UIController {
 		//return (monitor.makeNewUser(id, password, name));
 		return true;
 	}
-	
+
 	public void updateRevenue(double revenue){
 		gui.getBusinessFiguresTotal().setRevenue(revenue);
 	}
-	
+
 	public void updateExpenditure(double expenditure){
 		gui.getBusinessFiguresTotal().setExpend(expenditure);
 	}
-	
+
 	public void setNumberOfEvents(int events){
 		gui.getBusinessFiguresTotal().setEvents(events);
 	}
-	
+
 	public void addEvent(Map<String, String> eventInfo) {
-		//monitor.addEvent(eventInfo);
-		System.out.println("call monitor to add a new event.......");
+		monitor.saveEvent(eventInfo);
 	}
-	
-	public Map<String, String> getCurrentEvent(){
+
+	public List<String> getCurrentEvent(){
 		System.out.println("get current event from monitor.......");
-		//return monitor.getCurrentEvent();
-		Map<String, String> m = new HashMap<String, String>();
-		m.put("type", "mailDelivery");
-		m.put("origin", "auckland");
-		return m;
+		return monitor.getCurrentEvent();
+//		Map<String, String> m = new HashMap<String, String>();
+//		m.put("type", "mailDelivery");
+//		m.put("origin", "auckland");
 	}
-	
+
 	public Map<String, String> getNextEvent(){
 		System.out.println("get next event from  monitor.......");
 		//return monitor.nextEvent();
 		return null;
 	}
-	
+
 	public Map<String, String> getPreviousEvent(){
 		System.out.println("get previous event from  monitor.......");
 		//return monitor.previousEvent();
-		Map<String, String> m = new HashMap<String, String>();
-		m.put("type", "mailDelivery");
-		m.put("origin", "wellington");
-		return m;
+//		Map<String, String> m = new HashMap<String, String>();
+//		m.put("type", "mailDelivery");
+//		m.put("origin", "wellington");
+		return null;
 	}
 
 

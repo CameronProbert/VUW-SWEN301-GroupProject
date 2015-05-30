@@ -25,9 +25,9 @@ import javax.swing.SwingConstants;
 import main.controllers.UIController;
 
 /**
- * The Panel class is an abstract class represented many Pane 
- * classes shown on the GUI. The Panel class has several methods 
- * that could be extended by other Pane classes. 
+ * The Panel class is an abstract class represented many Pane
+ * classes shown on the GUI. The Panel class has several methods
+ * that could be extended by other Pane classes.
  *
  * @author Zhiheng Sun and Zhaojiang Chang
  */
@@ -69,8 +69,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JFormattedTextField textTPFrequency;
 	protected static JFormattedTextField textTPDuration;
 	protected static boolean isManager;
-	protected static Map<String, String> currentEvent = new HashMap<String, String>();
-	
+	protected static List<String> currentEvent = new ArrayList<String>();
+
 	public Panel (GUI gui){
 		this.gui = gui;
 		// set the panel to transparent and call methods to set up buttons and listener
@@ -104,7 +104,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		textField.setColumns(10);
 		textField.addPropertyChangeListener("value", this);
 	}
-	
+
 
 	protected void comboBoxListenner(JComboBox comboBox,final String type){
 		comboBox.addActionListener(new ActionListener() {
@@ -181,7 +181,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	public static void setTransportFirm(String transportFirm) {
 		Panel.transportFirm = transportFirm;
 	}
-	
+
 	public void init(){
 		selected = "";
 		origin = "";
@@ -203,23 +203,23 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		if(textTPNewCostPerCubic!=null) textTPNewCostPerCubic.setValue(0.0);
 
 	}
-	
+
 	public void addBusinessEvent(String type){
 		Map<String, String> currentEvent = new HashMap<String, String>();
-		
+
 		if(type.equals("mailDelivery")){
 			if(origin.equals("")||destination.equals("")||((Number)textWeight.getValue()).doubleValue()==0.0||
 					((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")||
 					textTime.getText().equals("")){
 				return;
 			}
-		} 
+		}
 		else if (type.equals("customerPriceUpdate")){
 			if(origin.equals("")||destination.equals("")||((Number)textCustomerNewPricePerGram.getValue()).doubleValue()==0.0||
 					((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()==0.0||priority.equals("")){
 				return;
 			}
-		} 
+		}
 		else if (type.equals("transportCostUpdate")){
 			if(origin.equals("")||destination.equals("")||transportFirm.equals("")||transportType.equals("")||
 					transportDay.equals("")||((Number)textTPNewCostPerGram.getValue()).doubleValue()==0.0||
@@ -230,66 +230,66 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 					((Number)textTPDuration.getValue()).doubleValue()==0.0){
 				return;
 			}
-		} 
+		}
 		else if (type.equals("transportDiscontinued")){
 			if(origin.equals("")||destination.equals("")||transportFirm.equals("")||transportType.equals("")){
 				return;
 			}
 		}
-		
+
 		currentEvent.put("type", type);
 		if (!origin.equals("")){
 			currentEvent.put("origin", origin);
-		} 
+		}
 		else if (!destination.equals("")){
 			currentEvent.put("destination", destination);
-		} 
+		}
 		else if (((Number)textWeight.getValue()).doubleValue()!=0.0){
 			currentEvent.put("weight", "" + textWeight.getValue());
-		} 
+		}
 		else if (((Number)textVolume.getValue()).doubleValue()!=0.0){
 			currentEvent.put("volume", "" + textVolume.getValue());
-		} 
+		}
 		else if (!priority.equals("")){
 			currentEvent.put("priority", priority);
-		} 
+		}
 		else if (!textTime.getText().equals("")){
 			currentEvent.put("time", textTime.getText());
-		} 
+		}
 		else if (((Number)textCustomerNewPricePerGram.getValue()).doubleValue()!=0.0){
 			currentEvent.put("customerNewPricePerGram", "" + textCustomerNewPricePerGram.getValue());
-		} 
+		}
 		else if (((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()!=0.0){
 			currentEvent.put("customerNewPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
-		} 
+		}
 		else if (!transportFirm.equals("")){
 			currentEvent.put("transportFirm", transportFirm);
-		} 
+		}
 		else if (!transportType.equals("")){
 			currentEvent.put("transportType", transportType);
-		} 
+		}
 		else if (!transportDay.equals("")){
 			currentEvent.put("transportDay", transportDay);
-		} 
+		}
 		else if (((Number)textTPNewCostPerGram.getValue()).doubleValue()!=0.0){
 			currentEvent.put("tpNewCostPerGram", "" + textTPNewCostPerGram.getValue());
-		} 
+		}
 		else if (((Number)textTPNewCostPerCubic.getValue()).doubleValue()!=0.0){
 			currentEvent.put("tpNewCostPerCubic", "" + textTPNewCostPerCubic.getValue());
-		} 
+		}
 		else if (((Number)textTPmaxWeight.getValue()).doubleValue()!=0.0){
 			currentEvent.put("maxWeight", "" + textTPmaxWeight.getValue());
-		} 
+		}
 		else if (((Number)textTPmaxVolume.getValue()).doubleValue()!=0.0){
 			currentEvent.put("maxVolume", "" + textTPmaxVolume.getValue());
-		} 
+		}
 		else if (((Number)textTPFrequency.getValue()).doubleValue()!=0.0){
 			currentEvent.put("frequency", "" + textTPFrequency.getValue());
-		} 
+		}
 		else if (((Number)textTPDuration.getValue()).doubleValue()!=0.0){
 			currentEvent.put("duration", "" + textTPDuration.getValue());
-		} 
-		
+		}
+
 		System.out.println(currentEvent);
 		controller.addEvent(currentEvent);
 	}
