@@ -2,11 +2,11 @@ package main.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import main.controllers.UIController;
-import main.events.BusinessEvent;
-import main.events.MailDelivery;
+import main.events.*;
 import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -113,15 +113,95 @@ public class Monitor {
 	}
 
 	/**
-	 * Passes a BusinessEvent to the LogHandler to save
+	 * Passes a BusinessEvent to the LogHandler to save. Receives a map of data,
+	 * the 0th element of which should be the type of business event to be
+	 * created.
 	 *
-	 * @param event
+	 * @param eventData
 	 * @return
 	 */
-	public boolean saveEvent(BusinessEvent event) {
-		boolean successful = handler.newEvent(event);
-		calculateBusinessFigures();
-		return successful;
+	public boolean saveEvent(Map<String, String> eventData) {
+		BusinessEvent event = null;
+		System.err.println(eventData.get("type"));
+		switch (eventData.get("type")) {
+		// TODO Get the exact type strings
+		case "customerPriceUpdate":
+			createCustPriceChange(eventData);
+			break;
+		case "mailDelivery":
+			createMailDelivery(eventData);
+			break;
+		case "transportCostUpdate":
+			createTransUpdate(eventData);
+			break;
+		case "transportDiscontinued":
+			createDeleteRoute(eventData);
+			break;
+		default:
+			return false;
+		}
+		// TODO uncomment this
+		// boolean successful = handler.newEvent(event);
+		// calculateBusinessFigures();
+		// return successful;
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private BusinessEvent createMailDelivery(Map<String, String> data) {
+		MailDelivery event = null;
+
+		return event;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private BusinessEvent createCustPriceChange(Map<String, String> data) {
+		CustomerPriceChange event = null;
+
+		return event;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private BusinessEvent createDeleteRoute(Map<String, String> data) {
+		DeleteRoute event = null;
+
+		return event;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private BusinessEvent createOpenRoute(Map<String, String> data) {
+		OpenNewRoute event = null;
+
+		return event;
+	}
+
+	/**
+	 * This method can both update an existing route's transport costs, or if
+	 * the route does not exist it will create it.
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private BusinessEvent createTransUpdate(Map<String, String> data) {
+		TransportUpdate event = null;
+
+		return event;
 	}
 
 	/**
