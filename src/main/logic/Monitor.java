@@ -189,11 +189,9 @@ public class Monitor {
 		default:
 			return false;
 		}
-		// TODO uncomment this
-		// boolean successful = handler.newEvent(event);
-		// calculateBusinessFigures();
-		// return successful;
-		return false;
+		boolean successful = handler.newEvent(event);
+		calculateBusinessFigures();
+		return successful;
 	}
 
 	/**
