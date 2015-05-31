@@ -3,6 +3,8 @@ package main.logic;
 import java.util.HashSet;
 import java.util.Set;
 
+import main.events.MailDelivery;
+
 /**
  * A Location represents a real world port and contains a list of all the routes
  * that come in and leave from this location.
@@ -194,7 +196,39 @@ public class Location implements Comparable<Location> {
 		}
 	}
 
-	public double getTotalNumDeliveryiesIn(){
-			return 0;
+	public double getDeliveriesIn(){
+		double mailIn = 0;
+		for(MailDelivery del: monitor.getMailEvents()){
+			for(Route r: del.getRoutes()){
+				if(inbound.contains(r)){
+					mailIn++;
+				}
+			}
+		}
+		return mailIn;
+	}
+
+	public double getTotalVolume(){
+		double totalVol = 0;
+		for(MailDelivery del: monitor.getMailEvents()){
+			for(Route r: del.getRoutes()){
+				if(inbound.contains(r)){
+					totalVol+=del.getVolume();
+				}
+			}
+		}
+		return totalVol;
+	}
+
+	public double getTotalWeight(){
+		double totalWeight = 0;
+		for(MailDelivery del: monitor.getMailEvents()){
+			for(Route r: del.getRoutes()){
+				if(inbound.contains(r)){
+					totalWeight+=del.getWeight();
+				}
+			}
+		}
+		return totalWeight;
 	}
 }
