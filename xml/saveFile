@@ -87,4 +87,66 @@
     <oldPricePVolume>15.0</oldPricePVolume>
     <newPricePVolume>25.0</newPricePVolume>
   </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>20.0</oldPricePGram>
+    <newPricePGram>300.0</newPricePGram>
+    <oldPricePVolume>25.0</oldPricePVolume>
+    <newPricePVolume>500.0</newPricePVolume>
+  </event>
+  <event type="Transport Update">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>25.0</oldPricePGram>
+    <newPricePGram>400.0</newPricePGram>
+    <oldPricePVolume>25.0</oldPricePVolume>
+    <newPricePVolume>600.0</newPricePVolume>
+  </event>
+  <event type="Delete Route">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+  </event>
 </businessEvents>

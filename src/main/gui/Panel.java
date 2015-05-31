@@ -254,6 +254,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		Map<String, String> currentEvent = new HashMap<String, String>();
 		currentEvent.put("clerkName", gui.getCurretUsername());
 		currentEvent.put("type", type);
+		currentEvent.put("time", "a");// TODO IMPLEMENT TIME IN NECESSARY EVENTS textTime.getText());
 
 
 		if(type.equals("mailDelivery")){
@@ -268,7 +269,6 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				currentEvent.put("weight", "" + textWeight.getValue());
 				currentEvent.put("volume", "" + textVolume.getValue());
 				currentEvent.put("priority", priority);
-				currentEvent.put("time", textTime.getText());
 				controller.addEvent(null, currentEvent);
 			}
 		}
