@@ -154,6 +154,7 @@ public class Monitor {
 	}
 
 	/**
+	 * Creates a mail delivery event
 	 * 
 	 * @param data
 	 * @return
@@ -169,14 +170,24 @@ public class Monitor {
 
 		// Convert the priority to 0 or 1 for standard and air respectively
 		double priority = 0;
-		List<Route> routes = null;// findRoute(origin, destination);
+		double revenue = 0;
+		List<Route> routes = null;
 		if (data.get("priority").equals("air")) {
-			DijkAir air = new DijkAir(findLocation(origin), findLocation(destination));
-			routes = air.initialiseGraph(locations);
+			DijkAir air = new DijkAir(findLocation(origin),
+					findLocation(destination), weight, volume);
+			air.initialiseGraph(locations);
+			routes = air.getBestRoute();
+			revenue = air.getCostOfRoute();
 			priority = 1;
+		} else {
+			DijkAir standard = new DijkAir(findLocation(origin),
+					findLocation(destination), weight, volume);
+			standard.initialiseGraph(locations);
+			routes = standard.getBestRoute();
+			revenue = standard.getCostOfRoute();
+			priority = 0;
 		}
 		// TODO FIND ROUTE FROM ORIGIN TO DEST
-		double revenue = calculateRouteRevenue(routes, weight, volume);
 		double time = calculateTime(routes);
 		event = new MailDelivery(clerkName, date, origin, destination, weight,
 				volume, priority, revenue, time, routes);
@@ -190,22 +201,11 @@ public class Monitor {
 	 * @return
 	 */
 	private double calculateTime(List<Route> routes) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * Calculates the Revenue gained from the customer sending the route
-	 * 
-	 * @param routes
-	 * @param weight
-	 * @param volume
-	 * @return
-	 */
-	private double calculateRouteRevenue(List<Route> routes, double weight,
-			double volume) {
-		// TODO Auto-generated method stub
-		return 0;
+		double sum = 0;
+		for (Route r : routes){
+			sum += r.getAverageTimeToDeliver();
+		}
+		return sum;
 	}
 
 	/**
