@@ -17,9 +17,20 @@ public class Location implements Comparable<Location> {
 	private Set<Route> outbound;
 	private Location previous;
 	private boolean visited=false;
+	private Monitor monitor = null;
 
 	private double minDistance = Double.POSITIVE_INFINITY; //initialise all nodes to be min distance of infinity
 
+	/**
+	 * Creates a location with the given name
+	 *
+	 * @param name
+	 */
+	public Location(String name) {
+		this.name = name;
+		this.inbound = new HashSet<Route>();
+		this.outbound = new HashSet<Route>();
+	}
 
 	public double getMinDistance() {
 		return minDistance;
@@ -45,16 +56,7 @@ public class Location implements Comparable<Location> {
 		visited = b;
 	}
 
-	/**
-	 * Creates a location with the given name
-	 *
-	 * @param name
-	 */
-	public Location(String name) {
-		this.name = name;
-		this.inbound = new HashSet<Route>();
-		this.outbound = new HashSet<Route>();
-	}
+
 
 	/**
 	 * Returns the name of the Location
@@ -145,6 +147,10 @@ public class Location implements Comparable<Location> {
 		}
 	}
 
+	public void attachMonitor(Monitor mon){
+		this.monitor = mon;
+	}
+
 	/**
 	 * Returns whether this Location and another are equal. This also works with
 	 * comparing to a String, if the string is the same as this locations name
@@ -186,5 +192,9 @@ public class Location implements Comparable<Location> {
 		else {
 			return 1;
 		}
+	}
+
+	public double getTotalNumDeliveryiesIn(){
+			return 0;
 	}
 }
