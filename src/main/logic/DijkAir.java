@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 import main.logic.Route.TransportType;
 
@@ -29,7 +30,7 @@ public class DijkAir {
 
 	private Location origin;
 	private Location destination;
-	private ArrayList<Location> locations;
+	private Set<Location> locations;
 	private List<Location> finalLocations;
 
 	private double weight;
@@ -44,7 +45,7 @@ public class DijkAir {
 	}
 
 
-	public void initialiseGraph(ArrayList<Location> l) {
+	public void initialiseGraph(Set<Location> l) {
 		locations = l;
 		setInfinity();
 
@@ -146,7 +147,7 @@ public class DijkAir {
 		  return r.getPricePerGramTransport()*weight + r.getPricePerVolumeTransport()*volume;
 		}
 
-		private double getCostOfRoute(){
+		public double getCostOfRoute(){
 			double finalCost = 0;
 			for(Route r: getBestRoute()){
 				finalCost+=cost(r);
