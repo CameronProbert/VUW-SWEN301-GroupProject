@@ -171,7 +171,8 @@ public class Monitor {
 		double priority = 0;
 		List<Route> routes = null;// findRoute(origin, destination);
 		if (data.get("priority").equals("air")) {
-			
+			DijkAir air = new DijkAir(findLocation(origin), findLocation(destination));
+			routes = air.initialiseGraph(locations);
 			priority = 1;
 		}
 		// TODO FIND ROUTE FROM ORIGIN TO DEST
