@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import main.logic.Route.TransportType;
+
 
 public class DijkAir {
 
@@ -28,6 +30,7 @@ public class DijkAir {
 	private Location origin;
 	private Location destination;
 	private ArrayList<Location> locations;
+	private List<Location> finalLocations;
 
 	private double weight;
 	private double volume;
@@ -78,7 +81,7 @@ public class DijkAir {
 			System.out.println(LL.getName() +":"+ LL.getMinDistance());
 		}
 
-		printGraph( getShortestPathTo(destination) );
+		finalLocations =  getShortestPathTo(destination) ;
 
 	}
 
@@ -106,6 +109,50 @@ public class DijkAir {
         Collections.reverse(path);
         return path;
     }
+
+	public List<Route> getBestRoute(){
+		  List<Route> route = new ArrayList<Route>();
+		  for(int i=0; i<finalLocations.size()-1; i++){
+		    Route r = bestOneRoute(finalLocations.get(i), finalLocations.get(i+1));
+		    if(r==null){
+		      System.out.println("error error error error error can't find route between locations"); // TODO need to throw an actual error
+		    }
+		    route.add(r);
+		  }
+		  return route;
+		}
+
+
+		public Route bestOneRoute(Location origin, Location destination){
+		  Route best = null;
+		  for(Route rFrom : origin.getOutbound()){
+		      for(Route rTo: destination.getInbound()){
+			if(rFrom.equals(rTo) && rFrom.getTransportType().equals(TransportType.Air)){
+				if(rFrom.equals(rTo)){
+					if(best==null){
+						best=rFrom;
+					}
+					else if(cost(rFrom)<cost(best)){
+						best=rFrom;
+					}
+				}
+			}
+		      }
+		  }
+		  return best;
+		}
+
+		private double cost(Route r){
+		  return r.getPricePerGramTransport()*weight + r.getPricePerVolumeTransport()*volume;
+		}
+
+		private double getCostOfRoute(){
+			double finalCost = 0;
+			for(Route r: getBestRoute()){
+				finalCost+=cost(r);
+			}
+			return finalCost;
+		}
 
 
 

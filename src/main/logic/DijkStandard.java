@@ -33,6 +33,7 @@ public class DijkStandard {
 	private Location origin;
 	private Location destination;
 	private Set<Location> locations;
+	private List<Location> finalLocations;
 
 	private double weight;
 	private double volume;
@@ -45,7 +46,7 @@ public class DijkStandard {
 		volume = v;
 	}
 
-	public void initialiseGraph(Set<Location> l) {
+	public List<Location> initialiseGraph(Set<Location> l) {
 		locations = l;
 		setInfinity();
 
@@ -83,7 +84,7 @@ public class DijkStandard {
 				double pathSoFar = node.getMinDistance() + cost;
 
 				if (pathSoFar < siblingNode.getMinDistance()) { // if the path we are checking is better than
-																// the existing
+					// the existing
 
 					standardQueue.remove(siblingNode);
 
@@ -95,8 +96,8 @@ public class DijkStandard {
 			}
 		}
 
-		printGraph(getShortestPathTo(destination));
-
+		finalLocations = getShortestPathTo(destination);
+		return finalLocations;
 	}
 
 	public void setInfinity() {
@@ -117,12 +118,58 @@ public class DijkStandard {
 		}
 	}
 
+	////////////////////////////////
+
 	public static List<Location> getShortestPathTo(Location end) {
 		List<Location> path = new ArrayList<Location>();
 		for (Location node = end; node != null; node = node.getPrevious())
 			path.add(node);
 		Collections.reverse(path);
 		return path;
+	}
+
+
+
+	public List<Route> getBestRoute(){
+		List<Route> route = new ArrayList<Route>();
+		for(int i=0; i<finalLocations.size()-1; i++){
+			Route r = bestOneRoute(finalLocations.get(i), finalLocations.get(i+1));
+			if(r==null){
+				System.out.println("error error error error error can't find route between locations"); // TODO need to throw an actual error
+			}
+			route.add(r);
+		}
+		return route;
+	}
+
+
+	public Route bestOneRoute(Location origin, Location destination){
+		Route best = null;
+		for(Route rFrom : origin.getOutbound()){
+			for(Route rTo: destination.getInbound()){
+				if(rFrom.equals(rTo)){
+					if(best==null){
+						best=rFrom;
+					}
+					else if(cost(rFrom)<cost(best)){
+						best=rFrom;
+					}
+				}
+			}
+		}
+		return best;
+	}
+
+	private double cost(Route r){
+		return r.getPricePerGramTransport()*weight + r.getPricePerVolumeTransport()*volume;
+	}
+
+	private double getCostOfRoute(){
+		double finalCost = 0;
+		for(Route r: getBestRoute()){
+			finalCost+=cost(r);
+		}
+		return finalCost;
 	}
 
 }
