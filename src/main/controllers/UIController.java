@@ -63,9 +63,8 @@ public class UIController {
 	public boolean addNewUser(String id, String password, String name, boolean isManager){
 		return (monitor.makeNewUser(id, password, name, isManager));
 	}
-	public boolean removeNewUser(String id, String password, String name){
-		//return (monitor.makeNewUser(id, password, name));
-		return true;
+	public boolean removeNewUser(String id){
+		return (monitor.removeUser(id));
 	}
 	public void addEvent(Route r, Map<String, String> eventInfo) {
 		monitor.saveEvent(r, eventInfo);

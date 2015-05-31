@@ -480,6 +480,49 @@ public class FunctionGUI extends Panel{
 			}
 		});
 
+		removeUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField id = new JTextField();
+
+				Object[] message = {
+						"ID", id
+				};
+				inputDialog(id, message);
+			}
+
+			// show the input dialog
+			public void inputDialog(JTextField id, Object[] message){
+
+				int option = JOptionPane.showConfirmDialog(null, message, "Remove User", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {
+					boolean isFailed = false;
+
+					// check whether id is empty or not
+					if(id.getText().equals("") || id.getText().equals("cannot be empty")){
+						id.setText("cannot be empty");
+						id.setBackground(Color.LIGHT_GRAY);
+						isFailed = true;
+					} else {
+						id.setBackground(Color.WHITE);
+					}
+
+					if (isFailed){	// input is invalid
+						inputDialog(id, message);
+					} else {	// input is valid
+						// username is invalid
+						if (!controller.removeNewUser(id.getText())) {
+							JOptionPane.showMessageDialog(null, "Invalid Username.", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							id.setText("");
+							inputDialog(id, message);
+						} else {
+							JOptionPane.showMessageDialog(null, "User removed!");
+						}
+					}
+				}
+			}
+		});
+		
 		final Panel p =  this;
 		logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
