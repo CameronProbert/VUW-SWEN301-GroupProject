@@ -37,7 +37,7 @@ public class SearchTest {
 
 	public SearchTest() throws NoDaysToShipException {
 		initialise();
-		DijkStandard d = new DijkStandard(A, E);
+		DijkStandard d = new DijkStandard(A, E, 30, 5);
 		d.initialiseGraph(locations);
 
 	}
