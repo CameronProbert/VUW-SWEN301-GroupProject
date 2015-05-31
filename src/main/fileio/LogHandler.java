@@ -79,6 +79,11 @@ public class LogHandler {
 		return current;
 	}
 
+	public BusinessEvent getNewestEvent(){
+		this.current = events.get(events.size()-1);
+		return current;
+	}
+
 	/**
 	 * Deletes contents of file then rewrites all the events to file.
 	 * This will need to be called every time an event is completed.
