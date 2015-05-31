@@ -29,9 +29,15 @@ public class DijkAir {
 	private Location destination;
 	private ArrayList<Location> locations;
 
-	public DijkAir( Location origin, Location destination ) {
+	private double weight;
+	private double volume;
+
+	public DijkAir( Location origin, Location destination, double w, double v ) {
 		this.origin = origin;
 		this.destination = destination;
+
+		this.weight = w;
+		this.volume = v;
 	}
 
 
@@ -56,8 +62,8 @@ public class DijkAir {
             	}
 
                 Location siblingNode = edge.getDestination();
-                double weight = edge.getPricePerGramTransport();
-                double pathSoFar = node.getMinDistance() + weight;
+                double cost = ( edge.getPricePerGramTransport() * weight ) + (edge.getPricePerVolumeTransport()*volume);
+                double pathSoFar = node.getMinDistance() + cost;
 
 				if (pathSoFar < siblingNode.getMinDistance() ) { //if the path we are checking is better than the existing
 				    nodeQueue.remove(siblingNode);

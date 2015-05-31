@@ -34,9 +34,15 @@ public class DijkStandard {
 	private Location destination;
 	private Set<Location> locations;
 
-	public DijkStandard(Location origin, Location destination) {
+	private double weight;
+	private double volume;
+
+	public DijkStandard(Location origin, Location destination, double w, double v) {
 		this.origin = origin;
 		this.destination = destination;
+
+		weight = w;
+		volume = v;
 	}
 
 	public void initialiseGraph(Set<Location> l) {
@@ -73,13 +79,10 @@ public class DijkStandard {
 					siblingNode.setPrevious(node);
 					break; }
 
-				double weight = edge.getPricePerGramTransport();
-				double pathSoFar = node.getMinDistance() + weight;
+				double cost = ( edge.getPricePerGramTransport() * weight ) + (edge.getPricePerVolumeTransport()*volume);
+				double pathSoFar = node.getMinDistance() + cost;
 
-				if (pathSoFar < siblingNode.getMinDistance()) { // if the path
-																// we are
-																// checking is
-																// better than
+				if (pathSoFar < siblingNode.getMinDistance()) { // if the path we are checking is better than
 																// the existing
 
 					standardQueue.remove(siblingNode);
