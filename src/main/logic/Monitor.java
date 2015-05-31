@@ -1,9 +1,7 @@
 package main.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.Map.Entry;
 
 import main.controllers.UIController;
 import main.events.*;
@@ -11,6 +9,8 @@ import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
 import main.gui.GUI;
+import main.logic.Route.DaysOfWeek;
+import main.logic.Route.TransportType;
 
 /**
  * The monitor is the main logic class of the program. It handles user input
@@ -44,15 +44,50 @@ public class Monitor {
 	}
 
 	/**
+	 * Finds all the routes that result in a loss to KPS
+	 * 
+	 * @return
+	 */
+	public List<Route> findCriticalRoutes() {
+		List<Route> criticalRoutes = new ArrayList<Route>();
+		List<MailDelivery> deliveries = getMailEvents();
+		Map<Route, Double> deliveryProfit = new HashMap<Route, Double>();
+		for (MailDelivery del : deliveries) {
+			for (Route r : del.getRoutes()) {
+				double costToCust = del.getWeight()
+						* r.getPricePerGramCustomer() + del.getVolume()
+						* r.getPricePerVolumeCustomer();
+				double costToTrans = del.getWeight()
+						* r.getPricePerGramTransport() + del.getVolume()
+						* r.getPricePerVolumeTransport();
+				double profit = costToCust - costToTrans;
+				if (!deliveryProfit.containsKey(r)) {
+					deliveryProfit.put(r, deliveryProfit.get(r) + profit);
+				} else {
+					deliveryProfit.put(r, profit);
+				}
+			}
+		}
+		for (Entry<Route, Double> e : deliveryProfit.entrySet()) {
+			if (e.getValue() <= 0) {
+				criticalRoutes.add(e.getKey());
+			}
+		}
+		return criticalRoutes;
+	}
+
+	/**
 	 * Recalculates the business figures and updates the gui with them
 	 */
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
 		try {
-			controller.setTotalTransportFigures(revenue, expenditure, handler.getEvents().size());
+			controller.setTotalTransportFigures(revenue, expenditure, handler
+					.getEvents().size());
 		} catch (NullPointerException e) {
-			controller.setTotalTransportFigures(revenue, expenditure, 0);		}
+			controller.setTotalTransportFigures(revenue, expenditure, 0);
+		}
 	}
 
 	/**
@@ -115,7 +150,14 @@ public class Monitor {
 	 * @return
 	 */
 	public List<MailDelivery> getMailEvents() {
-		return null;
+		List<MailDelivery> deliveries = new ArrayList<MailDelivery>();
+		List<BusinessEvent> events = handler.getEvents();
+		for (BusinessEvent event : events) {
+			if (event instanceof MailDelivery) {
+				deliveries.add((MailDelivery) event);
+			}
+		}
+		return deliveries;
 	}
 
 	/**
@@ -126,28 +168,23 @@ public class Monitor {
 	 * @param eventData
 	 * @return
 	 */
-	public boolean saveEvent(Map<String, String> eventData) {
+	public boolean saveEvent(Route route, Map<String, String> eventData) {
 		BusinessEvent event = null;
 		switch (eventData.get("type")) {
-		// TODO Get the exact type strings
 		case "customerPriceUpdate":
-			event = createCustPriceChange(eventData);
+			event = createCustPriceChange(route, eventData);
 			break;
 		case "mailDelivery":
 			event = createMailDelivery(eventData);
 			break;
 		case "transportCostUpdate":
-			if (routeExists(eventData.get("origin"),
-					eventData.get("destination"),
-					eventData.get("transportCompany"),
-					eventData.get("priority"))) {
-				event = createTransUpdate(eventData);
-			} else {
-				event = createOpenRoute(eventData);
-			}
+			event = createTransUpdate(route, eventData);
+			break;
+		case "createRoute":
+			event = createOpenRoute(eventData);
 			break;
 		case "transportDiscontinued":
-			event = createDeleteRoute(eventData);
+			event = createDeleteRoute(route, eventData);
 			break;
 		default:
 			return false;
@@ -168,7 +205,7 @@ public class Monitor {
 	public BusinessEvent createMailDelivery(Map<String, String> data) {
 		MailDelivery event = null;
 		String clerkName = data.get("name");
-		String date = data.get("date");
+		String time = data.get("time");
 		String origin = data.get("origin");
 		String destination = data.get("destination");
 		double weight = Double.parseDouble(data.get("weight"));
@@ -193,9 +230,9 @@ public class Monitor {
 			revenue = standard.getCostOfRoute();
 			priority = 0;
 		}
-		double time = calculateTime(routes);
-		event = new MailDelivery(clerkName, date, origin, destination, weight,
-				volume, priority, revenue, time, routes);
+		double expectedTime = calculateTime(routes);
+		event = new MailDelivery(clerkName, time, origin, destination, weight,
+				volume, priority, revenue, expectedTime, routes);
 		return event;
 	}
 
@@ -216,21 +253,23 @@ public class Monitor {
 	/**
 	 * Creates a customer change price event
 	 * 
+	 * @param route
+	 * 
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createCustPriceChange(Map<String, String> data) {
+	public BusinessEvent createCustPriceChange(Route route,
+			Map<String, String> data) {
 		CustomerPriceChange event = null;
 		String clerk = data.get("name");
-		String date = data.get("date");
-		Location origin = findLocation(data.get("origin"));
-		Location destination = findLocation(data.get("destination"));
-		double oldGr = Double.parseDouble(data.get(""));
-		double newGr = Double.parseDouble(data.get(""));
-		double oldVol = Double.parseDouble(data.get(""));
-		double newVol = Double.parseDouble(data.get(""));
-		List<Route> routes = findRoutes(origin, destination,
-				data.get("priority"));
+		String date = data.get("time");
+		double oldGr = route.getPricePerGramCustomer();
+		double newGr = Double.parseDouble(data.get("customerNewPricePerGram"));
+		double oldVol = route.getPricePerVolumeCustomer();
+		double newVol = Double
+				.parseDouble(data.get("customerNewPricePerCubic"));
+		List<Route> routes = new ArrayList<Route>();
+		routes.add(route);
 		event = new CustomerPriceChange(clerk, date, oldGr, newGr, oldVol,
 				newVol, routes);
 		return event;
@@ -256,7 +295,8 @@ public class Monitor {
 	}
 
 	/**
-	 * Finds the location associated with the name of a location
+	 * Finds the location associated with the name of a location, if the
+	 * location does not exist then create it
 	 * 
 	 * @param locationName
 	 * @return
@@ -267,19 +307,22 @@ public class Monitor {
 				return l;
 			}
 		}
-		return null;
+		Location loc = new Location(locationName);
+		return loc;
 	}
 
 	/**
 	 * Creates a delete route event
 	 * 
+	 * @param route
+	 * 
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createDeleteRoute(Map<String, String> data) {
-		DeleteRoute event = null;
-
-		return event;
+	public BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
+		List<Route> routes = new ArrayList<Route>();
+		routes.add(route);
+		return new DeleteRoute(currentUser.name, data.get("time"), routes);
 	}
 
 	/**
@@ -290,7 +333,36 @@ public class Monitor {
 	 */
 	public BusinessEvent createOpenRoute(Map<String, String> data) {
 		OpenNewRoute event = null;
+		Location origin = findLocation(data.get("origin"));
+		Location destination = findLocation(data.get("destination"));
+		String transportFirm = data.get("transportFirm");
+		TransportType transportType = TransportType.valueOf(data
+				.get("transportType")); // TODO Make sure case matches
+		double costWeightTrans = Double.parseDouble(data
+				.get("transportsCostPerGram"));
+		double costVolTrans = Double.parseDouble(data
+				.get("transportsCostPerCubic"));
+		double costWeightCust = Double.parseDouble(data
+				.get("customerCostPerGram"));
+		double costVolCust = Double.parseDouble(data
+				.get("customerPricePerCubic"));
+		double frequency = Double.parseDouble(data.get("frequency"));
+		DaysOfWeek day = DaysOfWeek.valueOf(data.get("transportDay"));
+		Route route = null;
+		try {
+			route = new Route(origin, destination, transportFirm,
+					transportType, costWeightTrans, costVolTrans,
+					costWeightCust, costVolCust, frequency, day);
+		} catch (NoDaysToShipException e) {
 
+		} catch (InvalidLocationException e) {
+
+		}
+		origin.addOutbound(route);
+		origin.addInbound(route);
+		List<Route> routes = new ArrayList<Route>();
+		routes.add(route);
+		event = new OpenNewRoute(currentUser.name, data.get("time"), routes);
 		return event;
 	}
 
@@ -298,12 +370,20 @@ public class Monitor {
 	 * This method can both update an existing route's transport costs, or if
 	 * the route does not exist it will create it.
 	 * 
+	 * @param route
+	 * 
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createTransUpdate(Map<String, String> data) {
+	public BusinessEvent createTransUpdate(Route route, Map<String, String> data) {
 		TransportUpdate event = null;
-
+		List<Route> routes = new ArrayList<Route>();
+		routes.add(route);
+		event = new TransportUpdate(currentUser.getName(), data.get("time"),
+				route.getPricePerVolumeTransport(), Double.parseDouble(data
+						.get("transportNewCostPerGram")),
+				route.getPricePerVolumeTransport(), Double.parseDouble(data
+						.get("transportNewCostPerCubic")), routes);
 		return event;
 	}
 
