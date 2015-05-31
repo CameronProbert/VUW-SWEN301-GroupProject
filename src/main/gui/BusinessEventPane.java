@@ -37,31 +37,15 @@ public class BusinessEventPane extends Panel {
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
-
 		addLabels();
-
 	}
-//	protected void removeLabels(){
-//		Component[] components = this.getComponents();
-//		for (int j = 0; j<components.length; j++){
-//			System.out.println(111);
-//			this.remove(components[j]);
-//
-//		}
-//		this.repaint();
-//	}
+
 	protected void addLabels() {
-
-
 		for (int i = 0; i < currentEvent.size(); i++) {
-			System.out.println(222);
 			JLabel value = new JLabel(currentEvent.get(i), SwingConstants.LEFT);
 			value.setFont(new Font("Dialog", Font.PLAIN, 14));
 			add(value);
-
 		}
-//		this.repaint();
-
 	}
 
 	public static void setEvent(List<String> event) {

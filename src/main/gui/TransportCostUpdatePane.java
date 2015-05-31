@@ -36,22 +36,7 @@ public class TransportCostUpdatePane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-//		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-//		comboBoxOrigin = new JComboBox(distributionCentres);
-//		comboBoxOrigin.setSelectedItem(null);
-//		comboBoxListenner(comboBoxOrigin, "origin");
-//
-//		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-//		comboBoxDestination = new JComboBox(distributionCentres);
-//		comboBoxDestination.setSelectedItem(null);
-//		comboBoxListenner(comboBoxDestination, "destination");
 		comboBoxRouteList();
-
-//
-//		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
-//		comboBoxPriority = new JComboBox(priorityList);
-//		comboBoxPriority.setSelectedItem(null);
-//		comboBoxListenner(comboBoxPriority, "priority");
 
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
 		textTPNewCostPerGram = new JFormattedTextField(amountFormat);
@@ -63,12 +48,6 @@ public class TransportCostUpdatePane extends Panel{
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
-//		add(labelComboOrigin);
-//		add(comboBoxOrigin);
-//		add(labelComboDestination);
-//		add(comboBoxDestination);
-//		add(labelPriority);
-//		add(comboBoxPriority);
 		add(comboBoxRoute);
 		add(labelNewPricePerGram);
 		add(textTPNewCostPerGram);
@@ -96,9 +75,6 @@ public class TransportCostUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-//					comboBoxDestination.setSelectedItem(null);
-//					comboBoxTransportFirm.setSelectedItem(null);
-//					comboBoxPriority.setSelectedItem(null);
 					comboBoxRoute.setSelectedItem(null);
 					init();
 				}

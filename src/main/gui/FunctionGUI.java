@@ -84,7 +84,6 @@ public class FunctionGUI extends Panel{
 	private Button newestEventButton;
 	private Button createRoute;
 	private List<String> event;
-	private JPanel routeTab;
 	private JTable table;
 	private Button button_1;
 	private Button button_2;
@@ -288,7 +287,6 @@ public class FunctionGUI extends Panel{
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
 
-		tabbedPane.addTab("Route", null, routeTab, null);
 		table = new JTable( new MyTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
 

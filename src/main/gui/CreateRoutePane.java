@@ -151,10 +151,6 @@ public class CreateRoutePane extends Panel{
 				if(button == add){
 					//updateButtonClicked = true;
 					addBusinessEvent("createRoute");
-					System.out.println("Origin: "+ origin +"  Destination: "+ destination+"  Transport Day: "+transportDay+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
-							+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType
-							+" max Weight:  "+ ((Number)textTPmaxWeight.getValue()).doubleValue()+" max Volume:  "+ ((Number)textTPmaxVolume.getValue()).doubleValue()+" Frequency:  "+ ((Number)textTPFrequency.getValue()).doubleValue()+"  Duration:  "+ ((Number)textTPDuration.getValue()).doubleValue()
-				);
 				}
 			}
 		});

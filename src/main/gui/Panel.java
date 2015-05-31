@@ -50,12 +50,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	private String selectedRouteString = "";
 
 	protected NumberFormat amountFormat;
-	//	protected String[] distributionCentres = {  "Auckland", "Hamilton", "Rotorua", "Palmerston North",
-	//			"Wellington", "Christchurch","Dunedin" , "Sydney", "New York"};
 	protected String[] priorityList = {"Air","Standard"};
-	//	protected String[] TransportTpyeList = {"Land", "Sea","Air"};
 	protected String[] TransportDateList = {"Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-	//	protected String[] TransportFirmList = {"Air NZ", "NZ Post", "Singapore Air", "FedEx"};
 	protected static String origin = "";
 	protected static String destination = "";
 	protected static String priority = "";
@@ -94,7 +90,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		this.gui = gui;
 		// set the panel to transparent and call methods to set up buttons and listener
 		setOpaque(false);
-		//this.controller = this.gui.getUIController();
+		this.controller = this.gui.getUIController();
 
 		setUpComponents();
 		this.repaint();
@@ -154,7 +150,6 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 
 				selected=(String)((JComboBox)e.getSource()).getSelectedItem();
-				System.out.println(selected);
 
 				if(type.equals("origin")){
 					origin = selected;
