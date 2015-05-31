@@ -522,7 +522,9 @@ public class Monitor {
 	public boolean makeNewUser(String id, String password, String name,
 			boolean isManager) {
 		Clerk user = null;
-		if (isManager) {
+		if (findUser(id) == null) {
+			return false;
+		} else if (isManager) {
 			user = new Manager(name, id, password);
 		} else {
 			user = new Clerk(name, id, password);
@@ -530,6 +532,37 @@ public class Monitor {
 		allUsers.add(user);
 		UserIO.saveUsers(allUsers);
 		return (user != null);
+	}
+
+	/**
+	 * Finds the user with the specified id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	private Clerk findUser(String id) {
+		for (Clerk c : allUsers) {
+			if (c.getId().equals(id)) {
+				return c;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Removes the user with the specified id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean removeUser(String id) {
+		Clerk user = findUser(id);
+		if (user != null) {
+			allUsers.remove(user);
+			UserIO.saveUsers(allUsers);
+			return true;
+		}
+		return false;
 	}
 
 	/**
