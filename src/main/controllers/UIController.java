@@ -68,15 +68,12 @@ public class UIController {
 		return true;
 	}
 	public void addEvent(Route r, Map<String, String> eventInfo) {
-		monitor.saveEvent(eventInfo);
+		monitor.saveEvent(r, eventInfo);
 	}
 
 	public List<String> getMostRecentEvent(){
 		System.out.println("get current event from monitor.......");
 		return monitor.getMostRecentEvent();
-		//		Map<String, String> m = new HashMap<String, String>();
-		//		m.put("type", "mailDelivery");
-		//		m.put("origin", "auckland");
 	}
 
 	public List<String> getNextEvent(){
@@ -88,9 +85,6 @@ public class UIController {
 	public List<String> getPreviousEvent(){
 		System.out.println("get previous event from  monitor.......");
 		return monitor.previousEvent();
-		//		Map<String, String> m = new HashMap<String, String>();
-		//		m.put("type", "mailDelivery");
-		//		m.put("origin", "wellington");
 	}
 	public Set<Route> getRoutes(){
 		return monitor.getRoutes();
