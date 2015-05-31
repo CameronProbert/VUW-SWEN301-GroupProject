@@ -214,7 +214,7 @@ public class FunctionGUI extends Panel{
 			eventPane = new JPanel();
 			eventPane.setPreferredSize(new Dimension(gui.getWidth()*3/5,gui.getHeight()-220));
 			businessEventTab.add(eventPane, BorderLayout.NORTH);
-			currentEvent = controller.getCurrentEvent();
+			currentEvent = controller.getMostRecentEvent();
 
 			businessEventPane = new BusinessEventPane(gui);
 			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
@@ -223,9 +223,9 @@ public class FunctionGUI extends Panel{
 			previousEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getPreviousEvent();
-					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-						return;
-					}
+//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+//						return;
+//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);
@@ -241,9 +241,9 @@ public class FunctionGUI extends Panel{
 			nextEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getNextEvent();
-					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-						return;
-					}
+//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+//						return;
+//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);
@@ -258,10 +258,10 @@ public class FunctionGUI extends Panel{
 			newestEventButton.setBackground(Color.LIGHT_GRAY);
 			newestEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					currentEvent = controller.getCurrentEvent();
-					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-						return;
-					}
+					currentEvent = controller.getMostRecentEvent();
+//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+//						return;
+//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);

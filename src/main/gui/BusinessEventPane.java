@@ -35,10 +35,6 @@ public class BusinessEventPane extends Panel {
 
 	@Override
 	protected void setUpComponents() {
-		currentEvent = new ArrayList<String>();
-		currentEvent = controller.getCurrentEvent();
-
-
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
