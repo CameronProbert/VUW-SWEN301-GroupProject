@@ -101,4 +101,8 @@ public class UIController {
 		gui.getBusinessFiguresTotal().setEvents(numOfEvents);
 	}
 
+	public void getSpecificSingleBF(Route selectedRoute) {
+		monitor.getEventsForRoute(selectedRoute);
+	}
+
 }
