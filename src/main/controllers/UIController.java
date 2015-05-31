@@ -82,9 +82,9 @@ public class UIController {
 		monitor.saveEvent(eventInfo);
 	}
 
-	public List<String> getCurrentEvent(){
+	public List<String> getMostRecentEvent(){
 		System.out.println("get current event from monitor.......");
-		return monitor.getCurrentEvent();
+		return monitor.getMostRecentEvent();
 		//		Map<String, String> m = new HashMap<String, String>();
 		//		m.put("type", "mailDelivery");
 		//		m.put("origin", "auckland");
@@ -92,6 +92,7 @@ public class UIController {
 
 	public List<String> getNextEvent(){
 		System.out.println("get next event from  monitor.......");
+		System.out.println(monitor.nextEvent());
 		return monitor.nextEvent();
 	}
 
