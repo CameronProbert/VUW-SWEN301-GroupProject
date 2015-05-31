@@ -12,8 +12,8 @@ import main.controllers.UIController;
 import main.logic.Clerk;
 
 /**
- * The GUI is responsible for setting up the KPSmart system user interface. 
- * GUI creates JFrame and added background panel, LoginGUI onto the frame 
+ * The GUI is responsible for setting up the KPSmart system user interface.
+ * GUI creates JFrame and added background panel, LoginGUI onto the frame
  * for starting the system.
  *
  * @author Zhiheng Sun
@@ -26,8 +26,10 @@ public class GUI {
 	private Panel backgroundPanel;
 	private Panel backgroundBlank;
 	private UIController controller;
-	private BusinessFiguresTotal bfp;
-	
+	protected BusinessFiguresTotal bft;
+	protected BusinessFiguresPane bfp;
+
+
 	// the dimension of the frame
 	private static int width = 900;
 	private static int height = 770;
@@ -37,7 +39,7 @@ public class GUI {
 	private JPasswordField passwordTextF;
 
 	// the username and password user entered
-	public String userId;	
+	public String userId;
 	public String password;
 	private Clerk clerk;
 
@@ -67,15 +69,15 @@ public class GUI {
 		LoginGUI loginGUI = new LoginGUI(this);
 		addPanel(loginGUI);
 	}
-	
+
 	public void setUIController(UIController u){
 		this.controller = u;
 	}
-	
+
 	public UIController getUIController(){
 		return this.controller;
 	}
-	
+
 	protected void addPanel(Panel panel){
 		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
 		frame.repaint();
@@ -121,20 +123,28 @@ public class GUI {
 	public static int getHeight() {
 		return height;
 	}
-	
+
 	public void setCurrentUser(Clerk clerk) {
 		this.clerk = clerk;
 	}
-	
+
 	public String getCurretUsername() {
 		return clerk.getName();
 	}
-	
+
 	public void setBusinessFiguresTotal(BusinessFiguresTotal businessFiguresTotal){
-		this.bfp = businessFiguresTotal;
+		this.bft = businessFiguresTotal;
 	}
-	
+
 	public BusinessFiguresTotal getBusinessFiguresTotal(){
+		return bft;
+	}
+
+	public void setBusinessFiguresPane(BusinessFiguresPane businessFiguresPane) {
+		// TODO Auto-generated method stub
+		this.bfp = businessFiguresPane;
+	}
+	public BusinessFiguresPane getBusinessFiguresPane(){
 		return bfp;
 	}
 }

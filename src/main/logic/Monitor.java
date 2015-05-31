@@ -49,13 +49,10 @@ public class Monitor {
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
-		controller.updateRevenue(revenue);
-		controller.updateExpenditure(expenditure);
 		try {
-			controller.setNumberOfEvents(handler.getEvents().size());
+			controller.setTotalTransportFigures(revenue, expenditure, handler.getEvents().size());
 		} catch (NullPointerException e) {
-			controller.setNumberOfEvents(0);
-		}
+			controller.setTotalTransportFigures(revenue, expenditure, 0);		}
 	}
 
 	/**
@@ -154,7 +151,7 @@ public class Monitor {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -193,7 +190,7 @@ public class Monitor {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -245,7 +242,7 @@ public class Monitor {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -256,7 +253,7 @@ public class Monitor {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -269,7 +266,7 @@ public class Monitor {
 	/**
 	 * This method can both update an existing route's transport costs, or if
 	 * the route does not exist it will create it.
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -281,12 +278,12 @@ public class Monitor {
 
 	/**
 	 * Determines whether a route exists
-	 * 
+	 *
 	 * @param priority
 	 * @param transportCompany
 	 * @param destination
 	 * @param origin
-	 * 
+	 *
 	 * @return
 	 */
 	private boolean routeExists(String origin, String destination,
@@ -294,7 +291,7 @@ public class Monitor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public List<String> getMostRecentEvent(){
 		BusinessEvent event = handler.getNewestEvent();
 		if (event == null){

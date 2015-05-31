@@ -82,6 +82,7 @@ public class FunctionGUI extends Panel{
 	private Button previousEventButton;
 	private Button nextEventButton;
 	private Button newestEventButton;
+	private Button createRoute;
 	private List<String> event;
 	private JPanel routeTab;
 	private JTable table;
@@ -164,7 +165,15 @@ public class FunctionGUI extends Panel{
 
 		transportCostUpdate = new Button("Transport Cost Update");
 		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(transportCostUpdate, BorderLayout.SOUTH);
+		transportCostUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
+
+		createRoute = new Button("Create Route");
+		createRoute.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(createRoute, BorderLayout.SOUTH);
 
 		transportDiscontinued = new Button("Transport Discontinued");
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
@@ -176,7 +185,7 @@ public class FunctionGUI extends Panel{
 
 		button_1 = new Button("Mail recieved");
 		button_1.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(button_1, BorderLayout.SOUTH);
+		buttonPanel.add(button_1, BorderLayout.CENTER);
 
 		button_2 = new Button("");
 		buttonPanel.add(button_2, BorderLayout.SOUTH);
@@ -192,6 +201,8 @@ public class FunctionGUI extends Panel{
 
 		button_5 = new Button("");
 		buttonPanel.add(button_5, BorderLayout.SOUTH);
+
+
 		button_5.disable();
 
 		jSplitPanel.add(displayPanel, JSplitPane.RIGHT);
@@ -276,14 +287,10 @@ public class FunctionGUI extends Panel{
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
-		//RoutePanel routePanel = new RoutePanel(gui);
-		//	routeTab.setPreferredSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
-
 
 		tabbedPane.addTab("Route", null, routeTab, null);
 		table = new JTable( new MyTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
-		//routeTab.add(table);
 
 	}
 	/**
@@ -323,6 +330,18 @@ public class FunctionGUI extends Panel{
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new TransportCostUpdatePane(gui), JSplitPane.RIGHT);
+				}
+			}
+		});
+		createRoute.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Button button = (Button) e.getSource();
+				if(button == createRoute){
+					init();
+					displayPanel.setVisible(false);
+					jSplitPanel.add(new CreateRoutePane(gui), JSplitPane.RIGHT);
 				}
 			}
 		});
