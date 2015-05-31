@@ -78,6 +78,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		this.controller = this.gui.getUIController();
 
 		setUpComponents();
+		this.repaint();
 		addListenner();
 	}
 
@@ -241,54 +242,55 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		if (!origin.equals("")){
 			currentEvent.put("origin", origin);
 		}
-		else if (!destination.equals("")){
+		if (!destination.equals("")){
 			currentEvent.put("destination", destination);
 		}
-		else if (((Number)textWeight.getValue()).doubleValue()!=0.0){
+		if (((Number)textWeight.getValue()).doubleValue()!=0.0){
 			currentEvent.put("weight", "" + textWeight.getValue());
 		}
-		else if (((Number)textVolume.getValue()).doubleValue()!=0.0){
+		if (((Number)textVolume.getValue()).doubleValue()!=0.0){
 			currentEvent.put("volume", "" + textVolume.getValue());
 		}
-		else if (!priority.equals("")){
+		if (!priority.equals("")){
 			currentEvent.put("priority", priority);
 		}
-		else if (!textTime.getText().equals("")){
+		if (!textTime.getText().equals("")){
 			currentEvent.put("time", textTime.getText());
 		}
-		else if (((Number)textCustomerNewPricePerGram.getValue()).doubleValue()!=0.0){
+		if (((Number)textCustomerNewPricePerGram.getValue()).doubleValue()!=0.0){
 			currentEvent.put("customerNewPricePerGram", "" + textCustomerNewPricePerGram.getValue());
 		}
-		else if (((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()!=0.0){
+		if (((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()!=0.0){
 			currentEvent.put("customerNewPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
 		}
-		else if (!transportFirm.equals("")){
+		if (!transportFirm.equals("")){
 			currentEvent.put("transportFirm", transportFirm);
 		}
-		else if (!transportType.equals("")){
+		if (!transportType.equals("")){
 			currentEvent.put("transportType", transportType);
 		}
-		else if (!transportDay.equals("")){
+		if (!transportDay.equals("")){
 			currentEvent.put("transportDay", transportDay);
 		}
-		else if (((Number)textTPNewCostPerGram.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPNewCostPerGram.getValue()).doubleValue()!=0.0){
 			currentEvent.put("tpNewCostPerGram", "" + textTPNewCostPerGram.getValue());
 		}
-		else if (((Number)textTPNewCostPerCubic.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPNewCostPerCubic.getValue()).doubleValue()!=0.0){
 			currentEvent.put("tpNewCostPerCubic", "" + textTPNewCostPerCubic.getValue());
 		}
-		else if (((Number)textTPmaxWeight.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPmaxWeight.getValue()).doubleValue()!=0.0){
 			currentEvent.put("maxWeight", "" + textTPmaxWeight.getValue());
 		}
-		else if (((Number)textTPmaxVolume.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPmaxVolume.getValue()).doubleValue()!=0.0){
 			currentEvent.put("maxVolume", "" + textTPmaxVolume.getValue());
 		}
-		else if (((Number)textTPFrequency.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPFrequency.getValue()).doubleValue()!=0.0){
 			currentEvent.put("frequency", "" + textTPFrequency.getValue());
 		}
-		else if (((Number)textTPDuration.getValue()).doubleValue()!=0.0){
+		if (((Number)textTPDuration.getValue()).doubleValue()!=0.0){
 			currentEvent.put("duration", "" + textTPDuration.getValue());
 		}
+		currentEvent.put("clerkName", gui.getCurretUsername());
 
 		System.out.println(currentEvent);
 		controller.addEvent(currentEvent);
