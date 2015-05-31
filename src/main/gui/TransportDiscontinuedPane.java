@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 public class TransportDiscontinuedPane extends Panel{
 
 	private JButton reset;
-	private JButton update;
+	private JButton delete;
 
 	public TransportDiscontinuedPane(GUI gui) {
 		super(gui);
@@ -28,50 +28,52 @@ public class TransportDiscontinuedPane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(distributionCentres);
-		comboBoxOrigin.setSelectedItem(null);
-		comboBoxListenner(comboBoxOrigin, "origin");
+//		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
+//		comboBoxOrigin = new JComboBox(distributionCentres);
+//		comboBoxOrigin.setSelectedItem(null);
+//		comboBoxListenner(comboBoxOrigin, "origin");
+//
+//		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
+//		comboBoxDestination = new JComboBox(distributionCentres);
+//		comboBoxDestination.setSelectedItem(null);
+//		comboBoxListenner(comboBoxDestination, "destination");
+//
+//		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
+//		comboBoxTransportFirm = new JComboBox(TransportFirmList);
+//		comboBoxTransportFirm.setSelectedItem(null);
+//		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
+//
+//		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
+//		comboBoxTransportType = new JComboBox(TransportTpyeList);
+//		comboBoxTransportType.setSelectedItem(null);
+//		comboBoxListenner(comboBoxTransportType, "transportType");
 
-		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(distributionCentres);
-		comboBoxDestination.setSelectedItem(null);
-		comboBoxListenner(comboBoxDestination, "destination");
-
-		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
-		comboBoxTransportFirm = new JComboBox(TransportFirmList);
-		comboBoxTransportFirm.setSelectedItem(null);
-		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
-
-		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
-		comboBoxTransportType = new JComboBox(TransportTpyeList);
-		comboBoxTransportType.setSelectedItem(null);
-		comboBoxListenner(comboBoxTransportType, "transportType");
-
+		comboBoxRouteList();
 		reset = new JButton("Reset");
-		update = new JButton("Update");
-		add(labelComboOrigin);
-		add(comboBoxOrigin);
-		add(labelComboDestination);
-		add(comboBoxDestination);
-		add(labelTransportFirm);
-		add(comboBoxTransportFirm);
-		add(labelTransportType);
-		add(comboBoxTransportType);
+		delete = new JButton("Delete");
+		add(comboBoxRoute);
+//		add(labelComboOrigin);
+//		add(comboBoxOrigin);
+//		add(labelComboDestination);
+//		add(comboBoxDestination);
+//		add(labelTransportFirm);
+//		add(comboBoxTransportFirm);
+//		add(labelTransportType);
+//		add(comboBoxTransportType);
 		add(reset);
-		add(update);
+		add(delete);
 	}
 
 	@Override
 	protected void addListenner() {
-		update.addActionListener(new ActionListener(){
+		delete.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
-				if(button == update){
+				if(button == delete){
 					addBusinessEvent("transportDiscontinued");
-					
+
 				}
 			}
 		});
@@ -81,10 +83,10 @@ public class TransportDiscontinuedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-					comboBoxTransportType.setSelectedItem(null);
-					comboBoxOrigin.setSelectedItem(null);
-					comboBoxTransportFirm.setSelectedItem(null);
-					comboBoxDestination.setSelectedItem(null);
+					//comboBoxTransportType.setSelectedItem(null);
+					//comboBoxOrigin.setSelectedItem(null);
+					//comboBoxTransportFirm.setSelectedItem(null);
+					comboBoxRoute.setSelectedItem(null);
 					init();
 				}
 			}
@@ -96,8 +98,8 @@ public class TransportDiscontinuedPane extends Panel{
 		// TODO Auto-generated method stub
 
 	}
-	public String toStringTPD(){
-		return("Origin: "+ origin +"  Destination: "+ destination+"Transport Firm: "+ transportFirm+"    Transport Tpye:"+transportType);
-	}
+//	public String toStringTPD(){
+//		return("Origin: "+ origin +"  Destination: "+ destination+"Transport Firm: "+ transportFirm+"    Transport Tpye:"+transportType);
+//	}
 
 }

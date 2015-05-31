@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ import main.gui.Panel;
 import main.logic.Clerk;
 import main.logic.InvalidLoginException;
 import main.logic.Monitor;
+import main.logic.Route;
 
 public class UIController {
 	private static GUI gui;
@@ -65,20 +67,7 @@ public class UIController {
 		//return (monitor.makeNewUser(id, password, name));
 		return true;
 	}
-
-	public void updateRevenue(double revenue){
-		gui.getBusinessFiguresTotal().setRevenue(revenue);
-	}
-
-	public void updateExpenditure(double expenditure){
-		gui.getBusinessFiguresTotal().setExpend(expenditure);
-	}
-
-	public void setNumberOfEvents(int events){
-		gui.getBusinessFiguresTotal().setEvents(events);
-	}
-
-	public void addEvent(Map<String, String> eventInfo) {
+	public void addEvent(Route r, Map<String, String> eventInfo) {
 		monitor.saveEvent(eventInfo);
 	}
 
@@ -103,6 +92,19 @@ public class UIController {
 		//		m.put("type", "mailDelivery");
 		//		m.put("origin", "wellington");
 	}
-
+	public Set<Route> getRoutes(){
+		return monitor.getRoutes();
+	}
+	public void setSingleTransportFigures(double revenue, double expenditure, int numOfEvents, double averageDeliveryTime){
+		gui.getBusinessFiguresPane().setRevenue(revenue);
+		gui.getBusinessFiguresPane().setExpend(expenditure);
+		gui.getBusinessFiguresPane().setEvents(numOfEvents);
+		gui.getBusinessFiguresPane().setAverageTime(averageDeliveryTime);
+	}
+	public void setTotalTransportFigures(double revenue, double expenditure, int numOfEvents){
+		gui.getBusinessFiguresTotal().setRevenue(revenue);
+		gui.getBusinessFiguresTotal().setExpend(expenditure);
+		gui.getBusinessFiguresTotal().setEvents(numOfEvents);
+	}
 
 }

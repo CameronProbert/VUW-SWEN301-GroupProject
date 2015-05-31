@@ -80,13 +80,10 @@ public class Monitor {
 	private void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
-		controller.updateRevenue(revenue);
-		controller.updateExpenditure(expenditure);
 		try {
-			controller.setNumberOfEvents(handler.getEvents().size());
+			controller.setTotalTransportFigures(revenue, expenditure, handler.getEvents().size());
 		} catch (NullPointerException e) {
-			controller.setNumberOfEvents(0);
-		}
+			controller.setTotalTransportFigures(revenue, expenditure, 0);		}
 	}
 
 	/**
@@ -192,9 +189,11 @@ public class Monitor {
 		default:
 			return false;
 		}
-		boolean successful = handler.newEvent(event);
-		calculateBusinessFigures();
-		return successful;
+		// TODO uncomment this
+		// boolean successful = handler.newEvent(event);
+		// calculateBusinessFigures();
+		// return successful;
+		return false;
 	}
 
 	/**

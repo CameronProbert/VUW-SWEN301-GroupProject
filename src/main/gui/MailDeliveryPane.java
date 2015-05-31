@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import main.logic.Location;
+import main.logic.Route;
+
 /**
  * The JoinServerPanel class is a JPanel which is represented on
  * the frame once the player choose to start a game in a server.
@@ -44,14 +47,27 @@ public class MailDeliveryPane extends Panel {
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
-
+		String[] origins = new String[controller.getRoutes().size()];
+		int i = 0;
+		for( Route s: controller.getRoutes()){
+			origins[i] = s.getOrigin().getName();
+			i++;
+		}
+		String[] destinatiions = new String[controller.getRoutes().size()];
+		i = 0;
+		for( Route s: controller.getRoutes()){
+			destinatiions[i] = s.getDestination().getName();
+			i++;
+		}
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(distributionCentres);
+		comboBoxOrigin = new JComboBox(origins);
+		//comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(distributionCentres);
+		comboBoxDestination = new JComboBox(destinatiions);
+		//comboBoxDestination.setEnabled(true);
 		comboBoxDestination.setSelectedItem(null);
 
 		comboBoxListenner(comboBoxDestination, "destination");
@@ -68,7 +84,7 @@ public class MailDeliveryPane extends Panel {
 		comboBoxPriority = new JComboBox(priorityList);
 		comboBoxPriority.setSelectedItem(null);
 		comboBoxListenner(comboBoxPriority, "priority");
-		
+
 		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
 		textTime = new JTextField(20);
 		textTime.disable();
@@ -154,8 +170,8 @@ public class MailDeliveryPane extends Panel {
 	            amount = ((Number)textVolume.getValue()).doubleValue();
 	        }
 	}
-	public String toStringMD(){
-		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   Volume: "+ ((Number)textVolume.getValue()).doubleValue()+"    Weight:"+
-				((Number)textWeight.getValue()).doubleValue()+"    Date/Time:"+textTime.getText());
-	}
+	//public String toStringMD(){
+//		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   Volume: "+ ((Number)textVolume.getValue()).doubleValue()+"    Weight:"+
+//				((Number)textWeight.getValue()).doubleValue()+"    Date/Time:"+textTime.getText());
+	//}
 }
