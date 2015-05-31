@@ -1,9 +1,7 @@
 package main.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.Map.Entry;
 
 import main.controllers.UIController;
 import main.events.*;
@@ -41,6 +39,39 @@ public class Monitor {
 		routes = handler.getRoutes();
 		initialiseGUI();
 		calculateBusinessFigures();
+	}
+
+	/**
+	 * Finds all the routes that result in a loss to KPS
+	 * 
+	 * @return
+	 */
+	public List<Route> findCriticalRoutes() {
+		List<Route> criticalRoutes = new ArrayList<Route>();
+		List<MailDelivery> deliveries = getMailEvents();
+		Map<Route, Double> deliveryProfit = new HashMap<Route, Double>();
+		for (MailDelivery del : deliveries) {
+			for (Route r : del.getRoutes()) {
+				double costToCust = del.getWeight()
+						* r.getPricePerGramCustomer() + del.getVolume()
+						* r.getPricePerVolumeCustomer();
+				double costToTrans = del.getWeight()
+						* r.getPricePerGramTransport() + del.getVolume()
+						* r.getPricePerVolumeTransport();
+				double profit = costToCust - costToTrans;
+				if (!deliveryProfit.containsKey(r)){
+					deliveryProfit.put(r, deliveryProfit.get(r)+profit);
+				} else {
+					deliveryProfit.put(r, profit);
+				}				
+			}
+		}
+		for (Entry<Route, Double> e : deliveryProfit.entrySet()) {
+			if (e.getValue() <= 0) {
+				criticalRoutes.add(e.getKey());
+			}
+		}
+		return criticalRoutes;
 	}
 
 	/**
@@ -118,7 +149,14 @@ public class Monitor {
 	 * @return
 	 */
 	public List<MailDelivery> getMailEvents() {
-		return null;
+		List<MailDelivery> deliveries = new ArrayList<MailDelivery>();
+		List<BusinessEvent> events = handler.getEvents();
+		for (BusinessEvent event : events) {
+			if (event instanceof MailDelivery) {
+				deliveries.add((MailDelivery) event);
+			}
+		}
+		return deliveries;
 	}
 
 	/**
@@ -132,7 +170,6 @@ public class Monitor {
 	public boolean saveEvent(Map<String, String> eventData) {
 		BusinessEvent event = null;
 		switch (eventData.get("type")) {
-		// TODO Get the exact type strings
 		case "customerPriceUpdate":
 			event = createCustPriceChange(eventData);
 			break;
