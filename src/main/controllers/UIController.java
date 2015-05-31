@@ -85,24 +85,22 @@ public class UIController {
 	public List<String> getCurrentEvent(){
 		System.out.println("get current event from monitor.......");
 		return monitor.getCurrentEvent();
-//		Map<String, String> m = new HashMap<String, String>();
-//		m.put("type", "mailDelivery");
-//		m.put("origin", "auckland");
+		//		Map<String, String> m = new HashMap<String, String>();
+		//		m.put("type", "mailDelivery");
+		//		m.put("origin", "auckland");
 	}
 
-	public Map<String, String> getNextEvent(){
+	public List<String> getNextEvent(){
 		System.out.println("get next event from  monitor.......");
-		//return monitor.nextEvent();
-		return null;
+		return monitor.nextEvent();
 	}
 
-	public Map<String, String> getPreviousEvent(){
+	public List<String> getPreviousEvent(){
 		System.out.println("get previous event from  monitor.......");
-		//return monitor.previousEvent();
-//		Map<String, String> m = new HashMap<String, String>();
-//		m.put("type", "mailDelivery");
-//		m.put("origin", "wellington");
-		return null;
+		return monitor.previousEvent();
+		//		Map<String, String> m = new HashMap<String, String>();
+		//		m.put("type", "mailDelivery");
+		//		m.put("origin", "wellington");
 	}
 
 
