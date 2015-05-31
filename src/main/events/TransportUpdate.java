@@ -9,6 +9,11 @@ import org.w3c.dom.Element;
 
 import main.logic.Route;
 
+/**
+ * a business event which describes an update to the cost to the company to send a package along a route
+ * @author burlinfran
+ *
+ */
 public class TransportUpdate extends BusinessEvent {
 
 	private double oldPricePerGram;

@@ -19,6 +19,11 @@ import org.w3c.dom.Element;
 
 import main.logic.Route;
 
+/**
+ * Describes the business event of changing the price for a customer for using a certain route
+ * @author burlinfran
+ *
+ */
 public class CustomerPriceChange extends BusinessEvent {
 
 

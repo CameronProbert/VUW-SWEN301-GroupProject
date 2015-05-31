@@ -20,7 +20,11 @@ import main.logic.Route.DaysOfWeek;
 import main.logic.Route.TransportType;
 
 
-
+/** tests reading and writing from and to xml
+ *
+ * @author burlinfran
+ *
+ */
 public class FileTests {
 
 	private final static Location origin = new Location("Auckland");
@@ -48,13 +52,16 @@ public class FileTests {
 	private final static DaysOfWeek day = DaysOfWeek.Monday;
 
 	private Set<Route> routes;
+	private Set<Location> locs;
 
 	public FileTests(){
 
 		setUpOne();
-		testRouteDelete();
 	}
 
+	/**
+	 * sets up the handler and load and save classes
+	 */
 	private void setUpOne(){
 		List<BusinessEvent> events = eventsOne();
 		SaveXML save = new SaveXML("xml/saveFile");
@@ -64,26 +71,53 @@ public class FileTests {
 		events = load.getEvents();
 		for(BusinessEvent e: events){
 			for(String s: e.description()){
-				System.out.println(s);
+				//System.out.println(s);
 			}
 		}
-
+		locs = load.getLocations();
 		routes = load.getRoutes();
 
 		testRoutes();
+		testLocation();
 		//testLocation(load.getLocations());
 	}
 
-	@Test
+	/*@Test
 	public void testRouteDelete() {
 
-	}
+	}*/
 
 	@Test
 	public void testLocation(){
-
+		assertTrue(locs.size()==2);
+		Location[] locArray = new Location[locs.size()];
+		int i=0;
+		for(Location loc: locs){
+			locArray[i] = loc;
+			i++;
+		}
+		Route[] rArray = new Route[routes.size()];
+		i=0;
+		for(Route r: routes){
+			rArray[i] = r;
+			i++;
+		}
+		System.out.println("length of origin out bound" + locArray[0].getOutbound().size());
+		for(Route r: locArray[0].getOutbound() ){
+			System.out.println("origin out bound "+r.toString());
+			System.out.println("");
+		}
+		for(Route r: locArray[1].getInbound() ){
+			System.out.println("destination inbound "+r.toString());
+			System.out.println("");
+		}
+		assertTrue(locArray[0].getOutbound().contains(rArray[0]));
+		assertTrue(locArray[1].getInbound().contains(rArray[0]));
 	}
 
+	/**
+	 * tests the values of the final route is what is expected
+	 */
 	@Test
 	public void testRoutes() {
 		assertTrue(routes.size()==1);
@@ -105,6 +139,12 @@ public class FileTests {
 		}
 	}
 
+	/**
+	 * this is a public method which can be called anywhere which return a list of business events which can be used for testing
+	 *
+	 * creates every type of event except a delete event
+	 * @return
+	 */
 	public static List<BusinessEvent> eventsOne(){
 		List<Route> routes = new ArrayList<Route>();
 		try {

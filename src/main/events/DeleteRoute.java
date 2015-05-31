@@ -19,6 +19,11 @@ import org.w3c.dom.Element;
 
 import main.logic.Route;
 
+/**
+ * returns a business event which describes deleting an event
+ * @author burlinfran
+ *
+ */
 public class DeleteRoute extends BusinessEvent {
 
 	/**
