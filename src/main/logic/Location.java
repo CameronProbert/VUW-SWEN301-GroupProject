@@ -6,19 +6,48 @@ import java.util.Set;
 /**
  * A Location represents a real world port and contains a list of all the routes
  * that come in and leave from this location.
- * 
+ *
  * @author Cameron Probert
  *
  */
-public class Location {
+public class Location implements Comparable<Location> {
 
 	private String name;
 	private Set<Route> inbound;
 	private Set<Route> outbound;
+	private Location previous;
+	private boolean visited=false;
+
+	private double minDistance = Double.POSITIVE_INFINITY; //initialise all nodes to be min distance of infinity
+
+
+	public double getMinDistance() {
+		return minDistance;
+	}
+
+	public void setMinDistance( double d ) {
+		minDistance = d;
+	}
+
+	public void setPrevious( Location l ) {
+		previous = l;
+	}
+
+	public Location getPrevious() {
+		return previous;
+	}
+
+	public boolean getVisited() {
+		return visited;
+	}
+
+	public void setVisited(Boolean b) {
+		visited = b;
+	}
 
 	/**
 	 * Creates a location with the given name
-	 * 
+	 *
 	 * @param name
 	 */
 	public Location(String name) {
@@ -29,7 +58,7 @@ public class Location {
 
 	/**
 	 * Returns the name of the Location
-	 * 
+	 *
 	 * @return
 	 */
 	public String getName() {
@@ -38,7 +67,7 @@ public class Location {
 
 	/**
 	 * Returns the set of routes that come in to this location
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<Route> getInbound() {
@@ -47,7 +76,7 @@ public class Location {
 
 	/**
 	 * Returns the set of routes that leave this location
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<Route> getOutbound() {
@@ -56,7 +85,7 @@ public class Location {
 
 	/**
 	 * Sets the set of inbound routes to the given set
-	 * 
+	 *
 	 * @param inbound
 	 */
 	public void setInbound(Set<Route> inbound) {
@@ -65,7 +94,7 @@ public class Location {
 
 	/**
 	 * Adds the given routes to the current set of inbound routes
-	 * 
+	 *
 	 * @param inbound
 	 */
 	public void addInbound(Route... inbound) {
@@ -76,7 +105,7 @@ public class Location {
 
 	/**
 	 * Removes the given routes to the current set of inbound routes
-	 * 
+	 *
 	 * @param inbound
 	 */
 	public void rmInbound(Route... inbound) {
@@ -87,7 +116,7 @@ public class Location {
 
 	/**
 	 * Sets the list of outbound routes to the given set
-	 * 
+	 *
 	 * @param inbound
 	 */
 	public void setOutbound(Set<Route> outbound) {
@@ -96,7 +125,7 @@ public class Location {
 
 	/**
 	 * Adds the given routes to the current set of outbound routes
-	 * 
+	 *
 	 * @param outbound
 	 */
 	public void addOutbound(Route... outbound) {
@@ -107,7 +136,7 @@ public class Location {
 
 	/**
 	 * Removes the given routes to the current set of outbound routes
-	 * 
+	 *
 	 * @param outbound
 	 */
 	public void rmOutbound(Route... outbound) {
@@ -143,5 +172,19 @@ public class Location {
 		sb.append("Location");
 		sb.append("\nName: " + name);
 		return sb.toString();
+	}
+
+	@Override
+	public int compareTo(Location other) {
+
+		if ( this.minDistance<other.minDistance ) {
+			return -1;
+		}
+		else if ( this.minDistance==other.minDistance ) {
+			return 0;
+		}
+		else {
+			return 1;
+		}
 	}
 }
