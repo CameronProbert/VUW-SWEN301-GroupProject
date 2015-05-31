@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 
 public class DijkAir {
@@ -28,7 +27,7 @@ public class DijkAir {
 
 	private Location origin;
 	private Location destination;
-	private Set<Location> locations;
+	private ArrayList<Location> locations;
 
 	private double weight;
 	private double volume;
@@ -42,8 +41,8 @@ public class DijkAir {
 	}
 
 
-	public void initialiseGraph(Set<Location> locations) {
-		this.locations = locations;
+	public void initialiseGraph(ArrayList<Location> l) {
+		locations = l;
 		setInfinity();
 
 		PriorityQueue<Location> nodeQueue = new PriorityQueue<Location>();
