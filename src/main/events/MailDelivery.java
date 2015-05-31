@@ -9,6 +9,11 @@ import org.w3c.dom.Element;
 
 import main.logic.Route;
 
+/**
+ * A business event which describes sending a package on a delivery
+ * @author burlinfran
+ *
+ */
 public class MailDelivery extends BusinessEvent {
 
 	private String origin;

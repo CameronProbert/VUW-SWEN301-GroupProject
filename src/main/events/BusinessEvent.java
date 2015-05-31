@@ -60,6 +60,11 @@ public abstract class BusinessEvent {
 
 	}
 
+	/**
+	 * returns an xml description of a route
+	 * @param doc
+	 * @param elm
+	 */
 	protected void routesToXML(Document doc, Element elm){
 		for(Route r: getRoutes()){
 
@@ -126,7 +131,7 @@ public abstract class BusinessEvent {
 	}
 
 	/**
-	 * returns a long desciption of all the routes
+	 * returns a long description of all the routes
 	 * @return
 	 * TODO uncomment
 	 */
@@ -139,6 +144,11 @@ public abstract class BusinessEvent {
 	}
 
 
+	/**
+	 * returns a detailed list of strings which describes the business event. Essentially
+	 * gives formatting to the listDec method
+	 * @return
+	 */
 	public List<String> description(){
 		if(this instanceof MailDelivery){
 			return listDesc();
@@ -156,6 +166,11 @@ public abstract class BusinessEvent {
 		return des;
 	}
 
+	/**
+	 * a method for all business events that returns a list of strings describing the event
+	 *
+	 * @return
+	 */
 	public abstract List<String> listDesc();
 
 }

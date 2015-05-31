@@ -63,6 +63,10 @@ public class LogHandler {
 		return true; // change this return false if unsuccessful
 	}
 
+	/**
+	 * called when a new event is added. Rewrites the xml file
+	 * @return
+	 */
 	public boolean upDateLog(){
 		return save.save(events);
 	}
@@ -72,6 +76,11 @@ public class LogHandler {
 	 * @return
 	 */
 	public BusinessEvent getCurrentEvent(){
+		return current;
+	}
+
+	public BusinessEvent getNewestEvent(){
+		this.current = events.get(events.size()-1);
 		return current;
 	}
 
