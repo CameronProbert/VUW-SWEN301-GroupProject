@@ -175,7 +175,8 @@ public class Monitor {
 			event = createCustPriceChange(route, eventData);
 			break;
 		case "mailDelivery":
-			System.out.println("MAKING A MAIL DELIVERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			System.out
+					.println("MAKING A MAIL DELIVERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			event = createMailDelivery(eventData);
 			break;
 		case "transportCostUpdate":
@@ -190,8 +191,9 @@ public class Monitor {
 		default:
 			return false;
 		}
-		if(event==null){
-			System.err.println("errrrrrrrrrrrrrrrroooooooooooooooorrrrrrrrrrrrrr========================================");
+		if (event == null) {
+			System.err
+					.println("errrrrrrrrrrrrrrrroooooooooooooooorrrrrrrrrrrrrr========================================");
 		}
 		boolean successful = handler.newEvent(event);
 		calculateBusinessFigures();
@@ -229,8 +231,9 @@ public class Monitor {
 					findLocation(destination), weight, volume);
 			standard.initialiseGraph(locations);
 			routes = standard.getBestRoute();
-			if (routes == null){
-				System.err.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			if (routes == null) {
+				System.err
+						.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
 			revenue = standard.getCostOfRoute();
 			priority = 0;
@@ -275,6 +278,8 @@ public class Monitor {
 				.parseDouble(data.get("customerNewPricePerCubic"));
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
+		route.setPricePerGramCustomer(newGr);
+		route.setPricePerVolumeCustomer(newVol);
 		event = new CustomerPriceChange(clerkName, date, oldGr, newGr, oldVol,
 				newVol, routes);
 		return event;
@@ -327,6 +332,7 @@ public class Monitor {
 	public BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
+		this.routes.remove(route);
 		return new DeleteRoute(currentUser.name, data.get("time"), routes);
 	}
 
@@ -363,13 +369,15 @@ public class Monitor {
 		} catch (InvalidLocationException e) {
 
 		}
-		if (route == null){
-			System.out.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		if (route == null) {
+			System.out
+					.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		origin.addOutbound(route);
 		origin.addInbound(route);
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
+		this.routes.add(route);
 		event = new OpenNewRoute(currentUser.name, data.get("time"), routes);
 		return event;
 	}
@@ -387,11 +395,15 @@ public class Monitor {
 		TransportUpdate event = null;
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
+		double transVol = Double.parseDouble(data
+				.get("transportNewCostPerCubic"));
+		double transGram = Double.parseDouble(data
+				.get("transportNewCostPerGram"));
+		route.setPricePerGramTransport(transGram);
+		route.setPricePerVolumeTransport(transVol);
 		event = new TransportUpdate(currentUser.getName(), data.get("time"),
-				route.getPricePerVolumeTransport(), Double.parseDouble(data
-						.get("transportNewCostPerGram")),
-				route.getPricePerVolumeTransport(), Double.parseDouble(data
-						.get("transportNewCostPerCubic")), routes);
+				route.getPricePerVolumeTransport(), transGram,
+				route.getPricePerVolumeTransport(), transVol, routes);
 		return event;
 	}
 
