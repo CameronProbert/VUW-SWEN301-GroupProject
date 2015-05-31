@@ -397,4 +397,12 @@ public class Route {
 		}
 		return true;
 	}
+
+	public String shortDescription(){
+		  String des = "";
+		  des += origin.getName() + " to " + destination.getName();
+		  des += " via " + transportType.toString();
+		  des += " (" + transportFirm + ")";
+		  return des;
+	}
 }

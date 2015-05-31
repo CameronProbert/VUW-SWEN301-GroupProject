@@ -60,7 +60,7 @@ public class LoadXML {
 				for (int i = 0; i < nList.getLength(); i++) {
 
 					Node nNode = nList.item(i);
-					System.out.println("i is : " + i);
+					//System.out.println("i is : " + i);
 
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 

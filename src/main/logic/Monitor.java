@@ -2,11 +2,11 @@ package main.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import main.controllers.UIController;
-import main.events.BusinessEvent;
-import main.events.MailDelivery;
+import main.events.*;
 import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
@@ -113,15 +113,197 @@ public class Monitor {
 	}
 
 	/**
-	 * Passes a BusinessEvent to the LogHandler to save
+	 * Passes a BusinessEvent to the LogHandler to save. Receives a map of data,
+	 * the 0th element of which should be the type of business event to be
+	 * created.
 	 *
-	 * @param event
+	 * @param eventData
 	 * @return
 	 */
-	public boolean saveEvent(BusinessEvent event) {
-		boolean successful = handler.newEvent(event);
-		calculateBusinessFigures();
-		return successful;
+	public boolean saveEvent(Map<String, String> eventData) {
+		BusinessEvent event = null;
+		switch (eventData.get("type")) {
+		// TODO Get the exact type strings
+		case "customerPriceUpdate":
+			event = createCustPriceChange(eventData);
+			break;
+		case "mailDelivery":
+			event = createMailDelivery(eventData);
+			break;
+		case "transportCostUpdate":
+			if (routeExists(eventData.get("origin"),
+					eventData.get("destination"),
+					eventData.get("transportCompany"),
+					eventData.get("priority"))) {
+				event = createTransUpdate(eventData);
+			} else {
+				event = createOpenRoute(eventData);
+			}
+			break;
+		case "transportDiscontinued":
+			event = createDeleteRoute(eventData);
+			break;
+		default:
+			return false;
+		}
+		// TODO uncomment this
+		// boolean successful = handler.newEvent(event);
+		// calculateBusinessFigures();
+		// return successful;
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public BusinessEvent createMailDelivery(Map<String, String> data) {
+		MailDelivery event = null;
+		String clerkName = data.get("name");
+		String date = data.get("date");
+		String origin = data.get("origin");
+		String destination = data.get("destination");
+		double weight = Double.parseDouble(data.get("weight"));
+		double volume = Double.parseDouble(data.get("volume"));
+
+		// Convert the priority to 0 or 1 for standard and air respectively
+		double priority = 0;
+		if (data.get("priority").equals("air")) {
+			priority = 1;
+		}
+		// TODO FIND ROUTE FROM ORIGIN TO DEST
+		List<Route> routes = null;// findRoute(origin, destination);
+		double revenue = calculateRouteRevenue(routes, weight, volume);
+		double time = calculateTime(routes);
+		event = new MailDelivery(clerkName, date, origin, destination, weight,
+				volume, priority, revenue, time, routes);
+		return event;
+	}
+
+	private double calculateTime(List<Route> routes) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private double calculateRouteRevenue(List<Route> routes, double weight,
+			double volume) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public BusinessEvent createCustPriceChange(Map<String, String> data) {
+		CustomerPriceChange event = null;
+		String clerk = data.get("name");
+		String date = data.get("date");
+		Location origin = findLocation(data.get("origin"));
+		Location destination = findLocation(data.get("destination"));
+		double oldGr = Double.parseDouble(data.get(""));
+		double newGr = Double.parseDouble(data.get(""));
+		double oldVol = Double.parseDouble(data.get(""));
+		double newVol = Double.parseDouble(data.get(""));
+		List<Route> routes = findRoutes(origin, destination, data.get("priority"));
+		event = new CustomerPriceChange(clerk, date, oldGr, newGr, oldVol,
+				newVol, routes);
+		return event;
+	}
+
+	/**
+	 * Finds the route associated with the origin and destination locations
+	 * @param origin
+	 * @param destination
+	 * @return
+	 */
+	private List<Route> findRoutes(Location origin, Location destination, String priority) {
+		List<Route> routeList = new ArrayList<Route>();
+		for (Route r : routes) {
+			if (r.getOrigin().equals(origin)
+					&& r.getDestination().equals(destination)) {
+				routeList.add(r);
+			}
+		}
+		return routeList;
+	}
+
+	/**
+	 * Finds the location associated with the name of a location
+	 * @param locationName
+	 * @return
+	 */
+	private Location findLocation(String locationName) {
+		for (Location l : locations) {
+			if (l.getName().equals(locationName)) {
+				return l;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public BusinessEvent createDeleteRoute(Map<String, String> data) {
+		DeleteRoute event = null;
+
+		return event;
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public BusinessEvent createOpenRoute(Map<String, String> data) {
+		OpenNewRoute event = null;
+
+		return event;
+	}
+
+	/**
+	 * This method can both update an existing route's transport costs, or if
+	 * the route does not exist it will create it.
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public BusinessEvent createTransUpdate(Map<String, String> data) {
+		TransportUpdate event = null;
+
+		return event;
+	}
+
+	/**
+	 * Determines whether a route exists
+	 * 
+	 * @param priority
+	 * @param transportCompany
+	 * @param destination
+	 * @param origin
+	 * 
+	 * @return
+	 */
+	private boolean routeExists(String origin, String destination,
+			String transportCompany, String priority) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public List<String> getMostRecentEvent(){
+		BusinessEvent event = handler.getNewestEvent();
+		if (event == null){
+			List<String> noData = new ArrayList<String>();
+			noData.add("No data to Display");
+			return noData;
+		}
+		List<String> data = event.description();
+		return data;
 	}
 
 	/**
@@ -130,11 +312,13 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> getCurrentEvent() {
-		List<String> data = handler.getCurrentEvent().description();
-		if (data == null) {
-			data = new ArrayList<String>();
-			data.add("No data to display");
+		BusinessEvent event = handler.getCurrentEvent();
+		if (event == null){
+			List<String> noData = new ArrayList<String>();
+			noData.add("No data to Display");
+			return noData;
 		}
+		List<String> data = event.description();
 		return data;
 	}
 
@@ -145,11 +329,13 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> nextEvent() {
-		List<String> data = handler.getNextEvent().description();
-		if (data == null) {
-			data = new ArrayList<String>();
-			data.add("No data to display");
+		BusinessEvent event = handler.getNextEvent();
+		if (event == null){
+			List<String> noData = new ArrayList<String>();
+			noData.add("No data to Display");
+			return noData;
 		}
+		List<String> data = event.description();
 		return data;
 	}
 
@@ -160,11 +346,13 @@ public class Monitor {
 	 * @return
 	 */
 	public List<String> previousEvent() {
-		List<String> data = handler.getPreviousEvent().description();
-		if (data == null) {
-			data = new ArrayList<String>();
-			data.add("No data to display");
+		BusinessEvent event = handler.getPreviousEvent();
+		if (event == null){
+			List<String> noData = new ArrayList<String>();
+			noData.add("No data to Display");
+			return noData;
 		}
+		List<String> data = event.description();
 		return data;
 	}
 
@@ -316,9 +504,9 @@ public class Monitor {
 		sb.append("Monitor class");
 		sb.append("\nCurrently logged in: ");
 		if (currentUser != null) {
-			sb.append("\n" + currentUser.toString());
+			sb.append(currentUser.toString());
 		} else {
-			sb.append("\nNobody logged in.");
+			sb.append("Nobody logged in.");
 		}
 		return sb.toString();
 	}
