@@ -142,4 +142,146 @@
     <revenue>0.0</revenue>
     <timeTaken>0.0</timeTaken>
   </event>
+  <event type="Delete Route">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>400.0</costPGramForTransport>
+      <costPVolumeForTransport>600.0</costPVolumeForTransport>
+      <costPGramToCustomer>300.0</costPGramToCustomer>
+      <costPVolumeToCustomer>500.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>c</firmName>
+      <costPGramForTransport>1111.0</costPGramForTransport>
+      <costPVolumeForTransport>2222.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+  </event>
+  <event type="Transport Update">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>c</firmName>
+      <costPGramForTransport>1111.0</costPGramForTransport>
+      <costPVolumeForTransport>2222.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>2222.0</oldPricePGram>
+    <newPricePGram>1111.0</newPricePGram>
+    <oldPricePVolume>2222.0</oldPricePVolume>
+    <newPricePVolume>2222.0</newPricePVolume>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>d</firmName>
+      <costPGramForTransport>3.0</costPGramForTransport>
+      <costPVolumeForTransport>3.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+  </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>c</firmName>
+      <costPGramForTransport>1111.0</costPGramForTransport>
+      <costPVolumeForTransport>2222.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>3.0</oldPricePGram>
+    <newPricePGram>2.0</newPricePGram>
+    <oldPricePVolume>4.0</oldPricePVolume>
+    <newPricePVolume>2.0</newPricePVolume>
+  </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>d</firmName>
+      <costPGramForTransport>3.0</costPGramForTransport>
+      <costPVolumeForTransport>3.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>1.0</oldPricePGram>
+    <newPricePGram>2.0</newPricePGram>
+    <oldPricePVolume>1.0</oldPricePVolume>
+    <newPricePVolume>2.0</newPricePVolume>
+  </event>
+  <event type="Transport Update">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>d</firmName>
+      <costPGramForTransport>3.0</costPGramForTransport>
+      <costPVolumeForTransport>3.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>a</date>
+    <oldPricePGram>3.0</oldPricePGram>
+    <newPricePGram>3.0</newPricePGram>
+    <oldPricePVolume>3.0</oldPricePVolume>
+    <newPricePVolume>3.0</newPricePVolume>
+  </event>
 </businessEvents>
