@@ -399,11 +399,11 @@ public class Monitor {
 				.get("transportNewCostPerCubic"));
 		double transGram = Double.parseDouble(data
 				.get("transportNewCostPerGram"));
-		route.setPricePerGramTransport(transGram);
-		route.setPricePerVolumeTransport(transVol);
 		event = new TransportUpdate(currentUser.getName(), data.get("time"),
 				route.getPricePerVolumeTransport(), transGram,
 				route.getPricePerVolumeTransport(), transVol, routes);
+		route.setPricePerGramTransport(transGram);
+		route.setPricePerVolumeTransport(transVol);
 		return event;
 	}
 
@@ -496,17 +496,24 @@ public class Monitor {
 		}
 		System.out.println("Done loading users.");
 	}
-	
-	public void getEventsForRoute(Route route){
+
+	/**
+	 * Given a route, finds all the relevent statistics and pushes them to the
+	 * GUI to be displayed
+	 * 
+	 * @param route
+	 */
+	public void getEventsForRoute(Route route) {
 		double revenue = 0;
 		double expenditure = 0;
 		int numOfEvents = 0;
 		double averageDeliveryTime = 0;
 		List<BusinessEvent> events = handler.getEvents();
-		for (BusinessEvent event : events){
-			
+		for (BusinessEvent event : events) {
+			//TODO THIS BIT
 		}
-		controller.setSingleTransportFigures(revenue, expenditure, numOfEvents, averageDeliveryTime);
+		controller.setSingleTransportFigures(revenue, expenditure, numOfEvents,
+				averageDeliveryTime);
 	}
 
 	/**
