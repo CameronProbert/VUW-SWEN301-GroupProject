@@ -179,7 +179,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 					selectedRouteString = selected;
 					selectedRoute = routeMap.get(selectedRouteString);
 					if(isBusinessFigures){
-
+						controller.getSpecificSingleBF(selectedRoute);
 					}
 				}
 			}
