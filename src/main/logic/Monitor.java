@@ -496,6 +496,18 @@ public class Monitor {
 		}
 		System.out.println("Done loading users.");
 	}
+	
+	public void getEventsForRoute(Route route){
+		double revenue = 0;
+		double expenditure = 0;
+		int numOfEvents = 0;
+		double averageDeliveryTime = 0;
+		List<BusinessEvent> events = handler.getEvents();
+		for (BusinessEvent event : events){
+			
+		}
+		controller.setSingleTransportFigures(revenue, expenditure, numOfEvents, averageDeliveryTime);
+	}
 
 	/**
 	 * Logs in a user if they have the correct credentials
