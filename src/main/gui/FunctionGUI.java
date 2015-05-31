@@ -81,6 +81,7 @@ public class FunctionGUI extends Panel{
 	private JPanel eventPane;
 	private Button previousEventButton;
 	private Button nextEventButton;
+	private Button newestEventButton;
 	private List<String> event;
 	private JPanel routeTab;
 	private JTable table;
@@ -252,6 +253,24 @@ public class FunctionGUI extends Panel{
 					}
 			});
 			eventPane.add(nextEventButton);
+
+			newestEventButton = new Button("Newest Event");
+			newestEventButton.setBackground(Color.LIGHT_GRAY);
+			newestEventButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					currentEvent = controller.getCurrentEvent();
+					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+						return;
+					}
+					eventPane.remove(businessEventPane);
+					eventPane.repaint();
+					businessEventPane = new BusinessEventPane(gui);
+					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
+					eventPane.add(businessEventPane);
+					repaint();
+					}
+			});
+			eventPane.add(newestEventButton);
 			eventPane.add(businessEventPane);
 		}
 		add(bottomPanel);
