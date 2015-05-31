@@ -113,6 +113,15 @@ public class Monitor {
 	}
 
 	/**
+	 * Returns a list of Mail Delivery Events
+	 * 
+	 * @return
+	 */
+	public List<MailDelivery> getMailEvents() {
+		return null;
+	}
+
+	/**
 	 * Passes a BusinessEvent to the LogHandler to save. Receives a map of data,
 	 * the 0th element of which should be the type of business event to be
 	 * created.
@@ -146,11 +155,9 @@ public class Monitor {
 		default:
 			return false;
 		}
-		// TODO uncomment this
-		// boolean successful = handler.newEvent(event);
-		// calculateBusinessFigures();
-		// return successful;
-		return false;
+		boolean successful = handler.newEvent(event);
+		calculateBusinessFigures();
+		return successful;
 	}
 
 	/**
@@ -187,7 +194,6 @@ public class Monitor {
 			revenue = standard.getCostOfRoute();
 			priority = 0;
 		}
-		// TODO FIND ROUTE FROM ORIGIN TO DEST
 		double time = calculateTime(routes);
 		event = new MailDelivery(clerkName, date, origin, destination, weight,
 				volume, priority, revenue, time, routes);
@@ -202,7 +208,7 @@ public class Monitor {
 	 */
 	private double calculateTime(List<Route> routes) {
 		double sum = 0;
-		for (Route r : routes){
+		for (Route r : routes) {
 			sum += r.getAverageTimeToDeliver();
 		}
 		return sum;
