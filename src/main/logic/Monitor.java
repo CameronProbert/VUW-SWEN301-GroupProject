@@ -169,11 +169,12 @@ public class Monitor {
 
 		// Convert the priority to 0 or 1 for standard and air respectively
 		double priority = 0;
+		List<Route> routes = null;// findRoute(origin, destination);
 		if (data.get("priority").equals("air")) {
+			
 			priority = 1;
 		}
 		// TODO FIND ROUTE FROM ORIGIN TO DEST
-		List<Route> routes = null;// findRoute(origin, destination);
 		double revenue = calculateRouteRevenue(routes, weight, volume);
 		double time = calculateTime(routes);
 		event = new MailDelivery(clerkName, date, origin, destination, weight,
@@ -181,11 +182,25 @@ public class Monitor {
 		return event;
 	}
 
+	/**
+	 * Calculates the time that it should take to send the package
+	 * 
+	 * @param routes
+	 * @return
+	 */
 	private double calculateTime(List<Route> routes) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * Calculates the Revenue gained from the customer sending the route
+	 * 
+	 * @param routes
+	 * @param weight
+	 * @param volume
+	 * @return
+	 */
 	private double calculateRouteRevenue(List<Route> routes, double weight,
 			double volume) {
 		// TODO Auto-generated method stub
@@ -193,6 +208,7 @@ public class Monitor {
 	}
 
 	/**
+	 * Creates a customer change price event
 	 * 
 	 * @param data
 	 * @return
@@ -207,7 +223,8 @@ public class Monitor {
 		double newGr = Double.parseDouble(data.get(""));
 		double oldVol = Double.parseDouble(data.get(""));
 		double newVol = Double.parseDouble(data.get(""));
-		List<Route> routes = findRoutes(origin, destination, data.get("priority"));
+		List<Route> routes = findRoutes(origin, destination,
+				data.get("priority"));
 		event = new CustomerPriceChange(clerk, date, oldGr, newGr, oldVol,
 				newVol, routes);
 		return event;
@@ -215,11 +232,13 @@ public class Monitor {
 
 	/**
 	 * Finds the route associated with the origin and destination locations
+	 * 
 	 * @param origin
 	 * @param destination
 	 * @return
 	 */
-	private List<Route> findRoutes(Location origin, Location destination, String priority) {
+	private List<Route> findRoutes(Location origin, Location destination,
+			String priority) {
 		List<Route> routeList = new ArrayList<Route>();
 		for (Route r : routes) {
 			if (r.getOrigin().equals(origin)
@@ -232,6 +251,7 @@ public class Monitor {
 
 	/**
 	 * Finds the location associated with the name of a location
+	 * 
 	 * @param locationName
 	 * @return
 	 */
@@ -245,6 +265,7 @@ public class Monitor {
 	}
 
 	/**
+	 * Creates a delete route event
 	 * 
 	 * @param data
 	 * @return
@@ -256,6 +277,7 @@ public class Monitor {
 	}
 
 	/**
+	 * Creates an openroute event
 	 * 
 	 * @param data
 	 * @return
@@ -294,10 +316,10 @@ public class Monitor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	public List<String> getMostRecentEvent(){
+
+	public List<String> getMostRecentEvent() {
 		BusinessEvent event = handler.getNewestEvent();
-		if (event == null){
+		if (event == null) {
 			List<String> noData = new ArrayList<String>();
 			noData.add("No data to Display");
 			return noData;
@@ -313,7 +335,7 @@ public class Monitor {
 	 */
 	public List<String> getCurrentEvent() {
 		BusinessEvent event = handler.getCurrentEvent();
-		if (event == null){
+		if (event == null) {
 			List<String> noData = new ArrayList<String>();
 			noData.add("No data to Display");
 			return noData;
@@ -330,7 +352,7 @@ public class Monitor {
 	 */
 	public List<String> nextEvent() {
 		BusinessEvent event = handler.getNextEvent();
-		if (event == null){
+		if (event == null) {
 			List<String> noData = new ArrayList<String>();
 			noData.add("No data to Display");
 			return noData;
@@ -347,7 +369,7 @@ public class Monitor {
 	 */
 	public List<String> previousEvent() {
 		BusinessEvent event = handler.getPreviousEvent();
-		if (event == null){
+		if (event == null) {
 			List<String> noData = new ArrayList<String>();
 			noData.add("No data to Display");
 			return noData;
