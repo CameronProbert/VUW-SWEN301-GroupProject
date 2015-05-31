@@ -115,16 +115,16 @@ public class FunctionGUI extends Panel{
 
 		//buttonPanel and displayPanel
 		jSplitPanel = new JSplitPane();
-		jSplitPanel.setPreferredSize(new Dimension(gui.getWidth()*2/5+15, gui.getHeight()-160));
+		jSplitPanel.setPreferredSize(new Dimension(gui.getWidth()*3/6, gui.getHeight()-160));
 		displayPanel = new JPanel(new BorderLayout());
 		displayPanel.setBorder ( new LineBorder(new Color(0, 0, 0)) );
-		displayPanel.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
+		displayPanel.setPreferredSize(new Dimension(gui.getWidth()*1/6+60, gui.getHeight()-160));
 		buttonPanel = new JPanel(new BorderLayout()); //
-		buttonPanel.setPreferredSize(new Dimension(gui.getWidth()*1/5, gui.getHeight()-160));
+		buttonPanel.setPreferredSize(new Dimension(gui.getWidth()*1/6+80, gui.getHeight()-160));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		//business events panel
 		inforPanel = new JPanel(new BorderLayout());
-		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/5-25, gui.getHeight()-160));
+		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/6-50, gui.getHeight()-160));
 		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
 		//TODO: find a way to set the width of the button
 		logOut = new JButton("Log Out");

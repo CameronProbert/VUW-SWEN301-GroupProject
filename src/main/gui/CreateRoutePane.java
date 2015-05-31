@@ -71,19 +71,19 @@ public class CreateRoutePane extends Panel{
 		comboBoxTransportType.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportType, "transportType");
 
-		JLabel labelTransportPricePerGram= new JLabel("Transport price per gram", SwingConstants.CENTER);
+		JLabel labelTransportPricePerGram= new JLabel("Transport $/gram", SwingConstants.CENTER);
 		textTPNewCostPerGram = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textTPNewCostPerGram);
 
-		JLabel labelTransportCostPerCB= new JLabel("Transport price per cubic centimeter", SwingConstants.CENTER);
+		JLabel labelTransportCostPerCB= new JLabel("Transport $/volume", SwingConstants.CENTER);
 		textTPNewCostPerCubic = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textTPNewCostPerCubic);
 
-		JLabel labelCustomerPricePerGram= new JLabel("Customer price per gram", SwingConstants.CENTER);
+		JLabel labelCustomerPricePerGram= new JLabel("Customer $/gram", SwingConstants.CENTER);
 		textCustomerNewPricePerGram = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textCustomerNewPricePerGram);
 
-		JLabel labelCustomerCostPerCB= new JLabel("Customer price per cubic centimeter", SwingConstants.CENTER);
+		JLabel labelCustomerCostPerCB= new JLabel("Customer $/volume", SwingConstants.CENTER);
 		textCustomerNewPricePerCubic = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textCustomerNewPricePerCubic);
 //
@@ -95,7 +95,7 @@ public class CreateRoutePane extends Panel{
 //		textTPmaxVolume = new JFormattedTextField(amountFormat);
 //		formatToDobuleJTextField(textTPmaxVolume);
 
-		JLabel labelFrequency= new JLabel("Frequency transport departs", SwingConstants.CENTER);
+		JLabel labelFrequency= new JLabel("Frequency departs", SwingConstants.CENTER);
 		textTPFrequency = new JFormattedTextField(amountFormat);
 		formatToIntegerJTextField(textTPFrequency);
 
