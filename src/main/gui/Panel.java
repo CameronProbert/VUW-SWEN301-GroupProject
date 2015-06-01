@@ -8,11 +8,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+
+
+
 
 
 
@@ -68,7 +77,6 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxTransportDay;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
-	protected static JTextField textTime;
 	protected static JFormattedTextField textCustomerNewPricePerGram;
 	protected static JFormattedTextField textCustomerNewPricePerCubic;
 	protected static JFormattedTextField textTPNewCostPerGram;
@@ -254,13 +262,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		Map<String, String> currentEvent = new HashMap<String, String>();
 		currentEvent.put("clerkName", gui.getCurretUsername());
 		currentEvent.put("type", type);
-		currentEvent.put("time", "a");// TODO IMPLEMENT TIME IN NECESSARY EVENTS textTime.getText());
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		currentEvent.put("time",dateFormat.format(date) );
 
 
 		if(type.equals("mailDelivery")){
 			if(origin.equals("")||destination.equals("")||((Number)textWeight.getValue()).doubleValue()==0.0||
-					((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")||
-					textTime.getText().equals("")){
+					((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")){
 				return;
 			}
 			else{
@@ -369,8 +378,33 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return fs;
 	}
+	protected String[] getOrigins(){
+		String[] origins = new String[controller.getRoutes().size()];
+		int i = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getOrigin().getName(), origins)){
+				origins[i] = s.getOrigin().getName();
+				i++;
+			}
+		}
+		return origins;
+	}
+	protected String[] getDestinations(){
+
+		String[] destinations = new String[controller.getRoutes().size()];
+		int j = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getDestination().getName(), destinations)){
+				destinations[j] = s.getDestination().getName();
+				j++;
+			}
+		}
+		return destinations;
+	}
 	protected String[] getTransportTypes(){
 		List<String> types = new ArrayList<String>();
+		types.add("Standard");
+		types.add("Air");
 		for(Route r: controller.getRoutes()){
 			if(!types.contains(r.getTransportType().toString())){
 				types.add(r.getTransportType().toString());
@@ -381,5 +415,13 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			fs[i] = types.get(i);
 		}
 		return fs;
+	}
+	protected boolean isContains(String a, String[] b){
+		for(int i = 0; i<b.length; i++){
+			if(a.equalsIgnoreCase(b[i])){
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -63,27 +63,22 @@ public class UIController {
 	public boolean addNewUser(String id, String password, String name, boolean isManager){
 		return (monitor.makeNewUser(id, password, name, isManager));
 	}
-	public boolean removeNewUser(String id, String password, String name){
-		//return (monitor.makeNewUser(id, password, name));
-		return true;
+	public boolean removeNewUser(String id){
+		return (monitor.removeUser(id));
 	}
 	public void addEvent(Route r, Map<String, String> eventInfo) {
 		monitor.saveEvent(r, eventInfo);
 	}
 
 	public List<String> getMostRecentEvent(){
-		System.out.println("get current event from monitor.......");
 		return monitor.getMostRecentEvent();
 	}
 
 	public List<String> getNextEvent(){
-		System.out.println("get next event from  monitor.......");
-		System.out.println(monitor.nextEvent());
 		return monitor.nextEvent();
 	}
 
 	public List<String> getPreviousEvent(){
-		System.out.println("get previous event from  monitor.......");
 		return monitor.previousEvent();
 	}
 	public Set<Route> getRoutes(){
