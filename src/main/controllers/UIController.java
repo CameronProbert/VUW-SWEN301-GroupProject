@@ -72,18 +72,14 @@ public class UIController {
 	}
 
 	public List<String> getMostRecentEvent(){
-		System.out.println("get current event from monitor.......");
 		return monitor.getMostRecentEvent();
 	}
 
 	public List<String> getNextEvent(){
-		System.out.println("get next event from  monitor.......");
-		System.out.println(monitor.nextEvent());
 		return monitor.nextEvent();
 	}
 
 	public List<String> getPreviousEvent(){
-		System.out.println("get previous event from  monitor.......");
 		return monitor.previousEvent();
 	}
 	public Set<Route> getRoutes(){

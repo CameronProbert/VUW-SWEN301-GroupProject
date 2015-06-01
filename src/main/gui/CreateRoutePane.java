@@ -34,27 +34,14 @@ public class CreateRoutePane extends Panel{
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
-
-		String[] origins = new String[controller.getRoutes().size()];
-		int i = 0;
-		for( Route s: controller.getRoutes()){
-			origins[i] = s.getOrigin().getName();
-			i++;
-		}
-		String[] destinatiions = new String[controller.getRoutes().size()];
-		int j = 0;
-		for( Route s: controller.getRoutes()){
-			destinatiions[j] = s.getDestination().getName();
-			j++;
-		}
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(origins);
+		comboBoxOrigin = new JComboBox(getOrigins());
 		comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(destinatiions);
+		comboBoxDestination = new JComboBox(getDestinations());
 		comboBoxDestination.setEditable(true);
 		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
@@ -67,7 +54,6 @@ public class CreateRoutePane extends Panel{
 
 		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
 		comboBoxTransportType = new JComboBox(getTransportTypes());
-		comboBoxTransportType.setEditable(true);
 		comboBoxTransportType.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportType, "transportType");
 

@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import main.logic.Location;
 import main.logic.Route;
+import java.awt.SystemColor;
 
 /**
  * The JoinServerPanel class is a JPanel which is represented on
@@ -36,10 +37,10 @@ public class MailDeliveryPane extends Panel {
 
 	private JButton reset;
 	private JButton add;
-	private JButton setDate;
 
 	public MailDeliveryPane(GUI gui) {
 		super(gui);
+		setBackground(SystemColor.window);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
 
@@ -47,26 +48,15 @@ public class MailDeliveryPane extends Panel {
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
-		String[] origins = new String[controller.getRoutes().size()];
-		int i = 0;
-		for( Route s: controller.getRoutes()){
-			origins[i] = s.getOrigin().getName();
-			i++;
-		}
-		String[] destinatiions = new String[controller.getRoutes().size()];
-		i = 0;
-		for( Route s: controller.getRoutes()){
-			destinatiions[i] = s.getDestination().getName();
-			i++;
-		}
+
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(origins);
+		comboBoxOrigin = new JComboBox(getOrigins());
 		//comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(destinatiions);
+		comboBoxDestination = new JComboBox(getDestinations());
 		//comboBoxDestination.setEnabled(true);
 		comboBoxDestination.setSelectedItem(null);
 
@@ -84,15 +74,14 @@ public class MailDeliveryPane extends Panel {
 		comboBoxPriority = new JComboBox(priorityList);
 		comboBoxPriority.setSelectedItem(null);
 		comboBoxListenner(comboBoxPriority, "priority");
-
-		JLabel labelCurrentTime= new JLabel("Time of entry into the system", SwingConstants.CENTER);
-		textTime = new JTextField(20);
+		JTextField textTime = new JTextField(20);
+		textTime.setEnabled(false);
+		textTime.setEditable(false);
+		textTime.setBackground(SystemColor.controlHighlight);
 		textTime.disable();
-		textTime.setDisabledTextColor(Color.black);
 
 		reset = new JButton("Reset");
 		add = new JButton("Add");
-		setDate = new JButton("Set Date and Time");
 		add(labelComboOrigin);
 		add(comboBoxOrigin);
 		add(labelComboDestination);
@@ -103,27 +92,15 @@ public class MailDeliveryPane extends Panel {
 		add(textVolume);
 		add(labelPriority);
 		add(comboBoxPriority);
-		add(labelCurrentTime);
-		add(textTime);
-		add(setDate);
 		add(reset);
 		add(add);
+		add(textTime);
+
 
 	}
 
 	@Override
 	protected void addListenner() {
-		setDate.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				JButton button = (JButton) e.getSource();
-				if(button == setDate){
-					Date currentDate = new Date();
-					textTime.setText(currentDate.toString());
-				}
-			}
-		});
 		add.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -156,10 +133,6 @@ public class MailDeliveryPane extends Panel {
 		return ((Number)textVolume.getValue()).doubleValue();
 	}
 
-	public static String getMDTextTime() {
-		return textTime.getText();
-	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent e ) {
 		// TODO Auto-generated method stub
@@ -170,8 +143,5 @@ public class MailDeliveryPane extends Panel {
 	            amount = ((Number)textVolume.getValue()).doubleValue();
 	        }
 	}
-	//public String toStringMD(){
-//		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   Volume: "+ ((Number)textVolume.getValue()).doubleValue()+"    Weight:"+
-//				((Number)textWeight.getValue()).doubleValue()+"    Date/Time:"+textTime.getText());
-	//}
+
 }
