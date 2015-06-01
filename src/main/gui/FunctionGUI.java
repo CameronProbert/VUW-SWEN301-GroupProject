@@ -2,6 +2,7 @@ package main.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -35,12 +36,15 @@ import main.controllers.UIController;
 import javax.swing.JTabbedPane;
 import javax.swing.JMenu;
 import javax.swing.UIManager;
+
 import java.awt.Button;
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
 import javax.swing.table.AbstractTableModel;
 
 import java.awt.Scrollbar;
+
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
@@ -233,9 +237,9 @@ public class FunctionGUI extends Panel{
 			previousEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getPreviousEvent();
-//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-//						return;
-//					}
+					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+					//						return;
+					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);
@@ -251,16 +255,16 @@ public class FunctionGUI extends Panel{
 			nextEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getNextEvent();
-//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-//						return;
-//					}
+					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+					//						return;
+					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 					eventPane.add(businessEventPane);
 					repaint();
-					}
+				}
 			});
 			eventPane.add(nextEventButton);
 
@@ -269,16 +273,16 @@ public class FunctionGUI extends Panel{
 			newestEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getMostRecentEvent();
-//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-//						return;
-//					}
+					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+					//						return;
+					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventPane(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 					eventPane.add(businessEventPane);
 					repaint();
-					}
+				}
 			});
 			eventPane.add(newestEventButton);
 			eventPane.add(businessEventPane);
@@ -313,11 +317,14 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == mailDelivery){
+					buttonColorSwitch("Mail Delivery", button);
 					displayPanel.setVisible(false);
 					init();
 					jSplitPanel.add(new MailDeliveryPane(gui), JSplitPane.RIGHT);
 				}
 			}
+
+
 		});
 		transportCostUpdate.addActionListener(new ActionListener(){
 
@@ -325,6 +332,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == transportCostUpdate){
+					buttonColorSwitch("Transport Cost Update", button);
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new TransportCostUpdatePane(gui), JSplitPane.RIGHT);
@@ -337,6 +345,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == createRoute){
+					buttonColorSwitch("Create Route", button);
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new CreateRoutePane(gui), JSplitPane.RIGHT);
@@ -349,6 +358,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == customerPriceUpdate){
+					buttonColorSwitch("Customer Price Update", button);
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new CustomerPriceUpdatePane(gui), JSplitPane.RIGHT);
@@ -361,6 +371,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == transportDiscontinued){
+					buttonColorSwitch("Transport Discontinued", button);
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new TransportDiscontinuedPane(gui), JSplitPane.RIGHT);
@@ -373,6 +384,7 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == businessFigures){
+					buttonColorSwitch("Business Figures", button);
 					init();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new BusinessFiguresPane(gui), JSplitPane.RIGHT);
@@ -522,7 +534,7 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		
+
 		final Panel p =  this;
 		logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -615,5 +627,23 @@ public class FunctionGUI extends Panel{
 			System.out.println("--------------------------");
 		}
 	}
+	private void buttonColorSwitch(String buttonName, Button b) {
+		// TODO Auto-generated method stub
+		for(Component c: buttonPanel.getComponents()){
+			if(c instanceof Button &&
+					!((Button) c).getLabel().equals("")){
+				if(((Button) c).getLabel().equals(buttonName)){
+					System.out.println(222);
+					b.setBackground(Color.GRAY);
+				}
 
+				else{
+					System.out.println(111);
+					((Button) c).setBackground(Color.LIGHT_GRAY);
+				}
+			}
+		}
+
+
+	}
 }

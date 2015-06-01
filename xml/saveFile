@@ -358,8 +358,8 @@
       <firmName>d</firmName>
       <costPGramForTransport>1.0</costPGramForTransport>
       <costPVolumeForTransport>2.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>3.0</costPVolumeToCustomer>
       <departureDays>
         <day>Monday</day>
       </departureDays>
@@ -378,5 +378,38 @@
     <priority>0.0</priority>
     <revenue>0.0</revenue>
     <timeTaken>0.0</timeTaken>
+  </event>
+  <event type="Mail Delivery">
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/01 15:09:48</date>
+    <origin>w</origin>
+    <destination>b</destination>
+    <weight>2.0</weight>
+    <volume>2.0</volume>
+    <priority>0.0</priority>
+    <revenue>0.0</revenue>
+    <timeTaken>0.0</timeTaken>
+  </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>w</origin>
+      <destination>a</destination>
+      <transportType>Standard</transportType>
+      <firmName>d</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>2.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>3.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/01 15:09:56</date>
+    <oldPricePGram>3.0</oldPricePGram>
+    <newPricePGram>2.0</newPricePGram>
+    <oldPricePVolume>4.0</oldPricePVolume>
+    <newPricePVolume>3.0</newPricePVolume>
   </event>
 </businessEvents>
