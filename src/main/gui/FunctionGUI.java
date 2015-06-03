@@ -67,7 +67,9 @@ public class FunctionGUI extends Panel{
 	private Button customerPriceUpdate;
 	private Button transportCostUpdate;
 	private Button transportDiscontinued;
-	private Button businessFigures;
+	private Button businessFiguresRoute;
+	private Button businessFiguresLocation;
+
 	private JButton logOut;
 	private JButton exit;
 	private JButton addUser;
@@ -182,14 +184,15 @@ public class FunctionGUI extends Panel{
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
 
-		businessFigures = new Button("Business Figures");
-		businessFigures.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(businessFigures, BorderLayout.NORTH);
+		businessFiguresRoute = new Button("Business Figures Route");
+		businessFiguresRoute.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(businessFiguresRoute, BorderLayout.NORTH);
 
-		button_1 = new Button("Mail recieved");
-		button_1.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(button_1, BorderLayout.CENTER);
-
+		businessFiguresLocation = new Button("Business Figures Location");
+		businessFiguresLocation.setFont(new Font("Dialog", Font.BOLD, 12));
+		businessFiguresLocation.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(businessFiguresLocation, BorderLayout.CENTER);
+		
 		button_2 = new Button("");
 		buttonPanel.add(button_2, BorderLayout.SOUTH);
 		button_2.disable();
@@ -378,12 +381,12 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		businessFigures.addActionListener(new ActionListener(){
+		businessFiguresRoute.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == businessFigures){
+				if(button == businessFiguresRoute){
 					buttonColorSwitch("Business Figures", button);
 					init();
 					displayPanel.setVisible(false);
