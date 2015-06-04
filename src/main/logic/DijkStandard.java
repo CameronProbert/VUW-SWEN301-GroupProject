@@ -129,7 +129,13 @@ public class DijkStandard {
 	}
 
 
-
+	/**
+	 * Returns the list of routes that connects the locations
+	 * Will return an empty array if there is no route or if
+	 * there is no single route between two locations which the algorithm thought
+	 * there was a route between
+	 * @return
+	 */
 	public List<Route> getBestRoute(){
 		List<Route> route = new ArrayList<Route>();
 		for(int i=0; i<finalLocations.size()-1; i++){
