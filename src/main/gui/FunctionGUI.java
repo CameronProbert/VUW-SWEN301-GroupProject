@@ -393,14 +393,26 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == businessFiguresRoute){
-					buttonColorSwitch("Business Figures", button);
+					buttonColorSwitch("Business Figures Route", button);
 					init();
 					displayPanel.setVisible(false);
-					jSplitPanel.add(new BusinessFiguresPane(gui), JSplitPane.RIGHT);
+					jSplitPanel.add(new BusinessFiguresRoutePane(gui), JSplitPane.RIGHT);
 				}
 			}
 		});
+		businessFiguresLocation.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Button button = (Button) e.getSource();
+				if(button == businessFiguresLocation){
+					buttonColorSwitch("Business Figures Location", button);
+					init();
+					displayPanel.setVisible(false);
+					jSplitPanel.add(new BusinessFiguresLocationPane(gui), JSplitPane.RIGHT);
+				}
+			}
+		});
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTextField id = new JTextField();
@@ -642,12 +654,10 @@ public class FunctionGUI extends Panel{
 			if(c instanceof Button &&
 					!((Button) c).getLabel().equals("")){
 				if(((Button) c).getLabel().equals(buttonName)){
-					System.out.println(222);
 					b.setBackground(Color.GRAY);
 				}
 
 				else{
-					System.out.println(111);
 					((Button) c).setBackground(Color.LIGHT_GRAY);
 				}
 			}

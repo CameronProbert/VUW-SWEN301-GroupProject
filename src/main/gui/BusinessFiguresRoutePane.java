@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
  * @author Zhiheng Sun
  *
  */
-public class BusinessFiguresPane extends Panel {
+public class BusinessFiguresRoutePane extends Panel {
 
 	// value labels on the panel
 	private static JLabel revenue;
@@ -35,7 +35,7 @@ public class BusinessFiguresPane extends Panel {
 	private static JLabel events;
 	private static JLabel averageTime;
 
-	public BusinessFiguresPane(GUI gui) {
+	public BusinessFiguresRoutePane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 		gui.setBusinessFiguresPane(this);

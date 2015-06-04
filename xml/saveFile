@@ -625,4 +625,22 @@
     <clerk>Cameron Probert</clerk>
     <date>2015/06/04 13:45:02</date>
   </event>
+  <event type="New Route">
+    <route>
+      <origin>WEGL</origin>
+      <destination>aaa</destination>
+      <transportType>Air</transportType>
+      <firmName>bsgfs</firmName>
+      <costPGramForTransport>0.01</costPGramForTransport>
+      <costPVolumeForTransport>2.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>2.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/04 15:06:53</date>
+  </event>
 </businessEvents>

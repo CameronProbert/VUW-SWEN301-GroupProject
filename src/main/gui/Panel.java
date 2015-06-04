@@ -325,6 +325,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				i++;
 			}
 		}
+		System.out.println(111);
 		return origins;
 	}
 	protected String[] getDestinations(){

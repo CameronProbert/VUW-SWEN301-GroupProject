@@ -27,7 +27,7 @@ public class GUI {
 	private Panel backgroundBlank;
 	private UIController controller;
 	protected BusinessFiguresTotal bft;
-	protected BusinessFiguresPane bfp;
+	protected BusinessFiguresRoutePane bfp;
 
 
 	// the dimension of the frame
@@ -140,11 +140,11 @@ public class GUI {
 		return bft;
 	}
 
-	public void setBusinessFiguresPane(BusinessFiguresPane businessFiguresPane) {
+	public void setBusinessFiguresPane(BusinessFiguresRoutePane businessFiguresPane) {
 		// TODO Auto-generated method stub
 		this.bfp = businessFiguresPane;
 	}
-	public BusinessFiguresPane getBusinessFiguresPane(){
+	public BusinessFiguresRoutePane getBusinessFiguresPane(){
 		return bfp;
 	}
 }
