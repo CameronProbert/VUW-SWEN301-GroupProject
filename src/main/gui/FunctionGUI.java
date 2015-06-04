@@ -161,14 +161,17 @@ public class FunctionGUI extends Panel{
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
 
 		mailDelivery = new Button("Mail Delivery");
+		mailDelivery.setFont(new Font("Dialog", Font.BOLD, 12));
 		mailDelivery.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailDelivery, BorderLayout.WEST);
 
 		customerPriceUpdate = new Button("Customer Price Update");
+		customerPriceUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
 		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
 
 		transportCostUpdate = new Button("Transport Cost Update");
+		transportCostUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
 		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
 		transportCostUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -177,14 +180,17 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
 
 		createRoute = new Button("Create Route");
+		createRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		createRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(createRoute, BorderLayout.SOUTH);
 
 		transportDiscontinued = new Button("Transport Discontinued");
+		transportDiscontinued.setFont(new Font("Dialog", Font.BOLD, 12));
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
 
 		businessFiguresRoute = new Button("Business Figures Route");
+		businessFiguresRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		businessFiguresRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFiguresRoute, BorderLayout.NORTH);
 
