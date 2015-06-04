@@ -40,7 +40,6 @@ public class Monitor {
 		locations = handler.getLocations();
 		routes = handler.getRoutes();
 		initialiseGUI();
-		calculateBusinessFigures();
 	}
 
 	/**
