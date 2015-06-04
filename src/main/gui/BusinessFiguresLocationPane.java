@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
  * @author Zhiheng Sun
  *
  */
-public class BusinessFiguresPane extends Panel {
+public class BusinessFiguresLocationPane extends Panel {
 
 	// value labels on the panel
 	private static JLabel revenue;
@@ -35,10 +35,10 @@ public class BusinessFiguresPane extends Panel {
 	private static JLabel events;
 	private static JLabel averageTime;
 
-	public BusinessFiguresPane(GUI gui) {
+	public BusinessFiguresLocationPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		gui.setBusinessFiguresPane(this);
+		//gui.setBusinessFiguresPane(this);
 
 	}
 
@@ -48,9 +48,13 @@ public class BusinessFiguresPane extends Panel {
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
 		// create labels for the business figures
-		isBusinessFigures = true;
-		comboBoxRouteList();
-
+		//isBusinessFigures = true;
+		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
+		comboBoxOrigin = new JComboBox(getOrigins());
+		//comboBoxOrigin.setEditable(true);
+		comboBoxOrigin.setSelectedItem(null);
+		comboBoxListenner(comboBoxOrigin, "origin");
+		
 		JLabel labelRevenue= new JLabel(" Revenue", SwingConstants.LEFT);
 		revenue = new JLabel();
 
@@ -93,7 +97,8 @@ public class BusinessFiguresPane extends Panel {
 		averageTime.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 		// add the labels onto the panel
-		add(comboBoxRoute);
+		add(labelComboOrigin);
+		add(comboBoxOrigin);
 		add(labelRevenue);
 		add(revenue);
 		add(labelExpend);

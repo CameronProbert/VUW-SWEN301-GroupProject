@@ -84,6 +84,8 @@ public class FunctionGUI extends Panel{
 	private JTabbedPane tabbedPane;
 	private JPanel businessEventTab;
 	private JPanel businessFigureTab;
+	private JPanel routeTab;
+
 	private JPanel eventPane;
 	private Button previousEventButton;
 	private Button nextEventButton;
@@ -161,14 +163,17 @@ public class FunctionGUI extends Panel{
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
 
 		mailDelivery = new Button("Mail Delivery");
+		mailDelivery.setFont(new Font("Dialog", Font.BOLD, 12));
 		mailDelivery.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailDelivery, BorderLayout.WEST);
 
 		customerPriceUpdate = new Button("Customer Price Update");
+		customerPriceUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
 		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
 
 		transportCostUpdate = new Button("Transport Cost Update");
+		transportCostUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
 		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
 		transportCostUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -177,14 +182,17 @@ public class FunctionGUI extends Panel{
 		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
 
 		createRoute = new Button("Create Route");
+		createRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		createRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(createRoute, BorderLayout.SOUTH);
 
 		transportDiscontinued = new Button("Transport Discontinued");
+		transportDiscontinued.setFont(new Font("Dialog", Font.BOLD, 12));
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
 
 		businessFiguresRoute = new Button("Business Figures Route");
+		businessFiguresRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		businessFiguresRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFiguresRoute, BorderLayout.NORTH);
 
@@ -290,12 +298,17 @@ public class FunctionGUI extends Panel{
 			eventPane.add(newestEventButton);
 			eventPane.add(businessEventPane);
 		}
+		routeTab = new JPanel(new BorderLayout());
+		tabbedPane.addTab("Routes", null, routeTab, null);
 		add(bottomPanel);
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
-
-		table = new JTable( new MyTableModel());
-		table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
+		
+		RoutesPane routes = new RoutesPane(gui);
+		routeTab.add(routes);
+		
+		//table = new JTable( new MyTableModel());
+		//table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
 
 	}
 	/**
@@ -387,14 +400,26 @@ public class FunctionGUI extends Panel{
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
 				if(button == businessFiguresRoute){
-					buttonColorSwitch("Business Figures", button);
+					buttonColorSwitch("Business Figures Route", button);
 					init();
 					displayPanel.setVisible(false);
-					jSplitPanel.add(new BusinessFiguresPane(gui), JSplitPane.RIGHT);
+					jSplitPanel.add(new BusinessFiguresRoutePane(gui), JSplitPane.RIGHT);
 				}
 			}
 		});
+		businessFiguresLocation.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Button button = (Button) e.getSource();
+				if(button == businessFiguresLocation){
+					buttonColorSwitch("Business Figures Location", button);
+					init();
+					displayPanel.setVisible(false);
+					jSplitPanel.add(new BusinessFiguresLocationPane(gui), JSplitPane.RIGHT);
+				}
+			}
+		});
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTextField id = new JTextField();
@@ -636,12 +661,10 @@ public class FunctionGUI extends Panel{
 			if(c instanceof Button &&
 					!((Button) c).getLabel().equals("")){
 				if(((Button) c).getLabel().equals(buttonName)){
-					System.out.println(222);
 					b.setBackground(Color.GRAY);
 				}
 
 				else{
-					System.out.println(111);
 					((Button) c).setBackground(Color.LIGHT_GRAY);
 				}
 			}

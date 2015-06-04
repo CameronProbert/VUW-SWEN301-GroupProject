@@ -371,4 +371,12 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			comboBoxRoute.addItem(rt);
 		}
 	}
+	protected List<String> routeList(){
+		List <String> routes = new ArrayList<String>();
+		for (Route r: controller.getRoutes()) {
+			String rt = r.shortDescription();
+			routes.add(rt);
+		}
+		return routes;
+	}
 }
