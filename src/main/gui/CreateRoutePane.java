@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import main.logic.Location;
@@ -72,14 +73,14 @@ public class CreateRoutePane extends Panel{
 		JLabel labelCustomerCostPerCB= new JLabel("Customer $/volume", SwingConstants.CENTER);
 		textCustomerNewPricePerCubic = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textCustomerNewPricePerCubic);
-//
-//		JLabel labelmaxWeight= new JLabel("Max weight", SwingConstants.CENTER);
-//		textTPmaxWeight = new JFormattedTextField(amountFormat);
-//		formatToDobuleJTextField(textTPmaxWeight);
-//
-//		JLabel labelmaxVolume= new JLabel("Max volume", SwingConstants.CENTER);
-//		textTPmaxVolume = new JFormattedTextField(amountFormat);
-//		formatToDobuleJTextField(textTPmaxVolume);
+		//
+		//		JLabel labelmaxWeight= new JLabel("Max weight", SwingConstants.CENTER);
+		//		textTPmaxWeight = new JFormattedTextField(amountFormat);
+		//		formatToDobuleJTextField(textTPmaxWeight);
+		//
+		//		JLabel labelmaxVolume= new JLabel("Max volume", SwingConstants.CENTER);
+		//		textTPmaxVolume = new JFormattedTextField(amountFormat);
+		//		formatToDobuleJTextField(textTPmaxVolume);
 
 		JLabel labelFrequency= new JLabel("Frequency departs", SwingConstants.CENTER);
 		textTPFrequency = new JFormattedTextField(amountFormat);
@@ -92,9 +93,9 @@ public class CreateRoutePane extends Panel{
 
 
 
-//		JLabel labelDuration= new JLabel("Duration of the trip", SwingConstants.CENTER);
-//		textTPDuration = new JFormattedTextField(amountFormat);
-//		formatToIntegerJTextField(textTPDuration);
+		//		JLabel labelDuration= new JLabel("Duration of the trip", SwingConstants.CENTER);
+		//		textTPDuration = new JFormattedTextField(amountFormat);
+		//		formatToIntegerJTextField(textTPDuration);
 
 		reset = new JButton("Reset");
 		add = new JButton("Add");
@@ -119,8 +120,8 @@ public class CreateRoutePane extends Panel{
 		add(labelDay);
 		add(comboBoxTransportDay);
 
-//		add(labelDuration);
-//		add(textTPDuration);
+		//		add(labelDuration);
+		//		add(textTPDuration);
 
 		add(reset);
 		add(add);
@@ -135,8 +136,23 @@ public class CreateRoutePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == add){
-					//updateButtonClicked = true;
-					addBusinessEvent("createRoute");
+					if(origin.equals("")||destination.equals("")||transportFirm.equals("")||transportType.equals("")||
+							transportDay.equals("")||((Number)textTPNewCostPerGram.getValue()).doubleValue()==0.0||
+							((Number)textTPNewCostPerCubic.getValue()).doubleValue()==0.0||
+							((Number)textCustomerNewPricePerGram.getValue()).doubleValue()==0.0||
+							((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()==0.0||
+							((Number)textTPFrequency.getValue()).doubleValue()==0.0){
+						JOptionPane.showMessageDialog(null, "Some data missing!", "Warning",
+								JOptionPane.WARNING_MESSAGE);
+					}
+					else{
+						int g = JOptionPane.YES_NO_OPTION;
+						int response = JOptionPane.showConfirmDialog(null, "Add ew route?", "Add new route", g);
+						if(response == JOptionPane.YES_OPTION){
+							addBusinessEvent("createRoute");
+							refreshRouteList();						}
+					}
+
 				}
 			}
 		});
@@ -146,12 +162,17 @@ public class CreateRoutePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-					init();
-					comboBoxOrigin.setSelectedItem(null);
-					comboBoxDestination.setSelectedItem(null);
-					comboBoxTransportFirm.setSelectedItem(null);
-					comboBoxTransportType.setSelectedItem(null);
-					comboBoxTransportDay.setSelectedItem(null);
+					int g = JOptionPane.YES_NO_OPTION;
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
+					if(response == JOptionPane.YES_OPTION){
+						init();
+						comboBoxOrigin.setSelectedItem(null);
+						comboBoxDestination.setSelectedItem(null);
+						comboBoxTransportFirm.setSelectedItem(null);
+						comboBoxTransportType.setSelectedItem(null);
+						comboBoxTransportDay.setSelectedItem(null);			
+					}
+					
 				}
 			}
 		});
