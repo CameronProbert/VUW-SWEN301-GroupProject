@@ -325,7 +325,6 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				i++;
 			}
 		}
-		System.out.println(111);
 		return origins;
 	}
 	protected String[] getDestinations(){
@@ -371,5 +370,13 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			String rt = r.shortDescription();
 			comboBoxRoute.addItem(rt);
 		}
+	}
+	protected List<String> routeList(){
+		List <String> routes = new ArrayList<String>();
+		for (Route r: controller.getRoutes()) {
+			String rt = r.shortDescription();
+			routes.add(rt);
+		}
+		return routes;
 	}
 }
