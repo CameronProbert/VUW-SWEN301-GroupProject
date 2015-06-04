@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -35,23 +36,7 @@ public class CustomerPriceUpdatePane extends Panel{
 	protected void setUpComponents() {
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
-
-//		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-//		comboBoxOrigin = new JComboBox(distributionCentres);
-//		comboBoxOrigin.setSelectedItem(null);
-//		comboBoxListenner(comboBoxOrigin, "origin");
-//
-//		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-//		comboBoxDestination = new JComboBox(distributionCentres);
-//		comboBoxDestination.setSelectedItem(null);
-//		comboBoxListenner(comboBoxDestination, "destination");
 		comboBoxRouteList();
-
-//
-//		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
-//		comboBoxPriority = new JComboBox(priorityList);
-//		comboBoxPriority.setSelectedItem(null);
-//		comboBoxListenner(comboBoxPriority, "priority");
 
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
 		textCustomerNewPricePerGram = new JFormattedTextField(amountFormat);
@@ -63,12 +48,6 @@ public class CustomerPriceUpdatePane extends Panel{
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
-//		add(labelComboOrigin);
-//		add(comboBoxOrigin);
-//		add(labelComboDestination);
-//		add(comboBoxDestination);
-//		add(labelPriority);
-//		add(comboBoxPriority);
 		add(comboBoxRoute);
 		add(labelNewPricePerGram);
 		add(textCustomerNewPricePerGram);
@@ -86,7 +65,17 @@ public class CustomerPriceUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					addBusinessEvent("customerPriceUpdate");
+					if(selectedRoute==null||((Number)textCustomerNewPricePerGram.getValue()).doubleValue()==0.0||
+							((Number)textCustomerNewPricePerCubic.getValue()).doubleValue()==0.0){
+						JOptionPane.showMessageDialog(null, "Some data missing!", "Warning",
+								JOptionPane.WARNING_MESSAGE);					}
+					else{
+						int g = JOptionPane.YES_NO_OPTION;
+						int response = JOptionPane.showConfirmDialog(null, "Add new mail delivery?", "Add new Mail Delivery", g);
+						if(response == JOptionPane.YES_OPTION){
+							addBusinessEvent("customerPriceUpdate");
+						}
+					}
 				}
 			}
 		});
@@ -96,11 +85,13 @@ public class CustomerPriceUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-//					comboBoxDestination.setSelectedItem(null);
-//					comboBoxTransportFirm.setSelectedItem(null);
-//					comboBoxPriority.setSelectedItem(null);
-					comboBoxRoute.setSelectedItem(null);
-					init();
+					int g = JOptionPane.YES_NO_OPTION;
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
+					if(response == JOptionPane.YES_OPTION){
+						comboBoxRoute.setSelectedItem(null);
+						init();				
+					}
+
 				}
 			}
 		});

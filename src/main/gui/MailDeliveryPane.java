@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -95,8 +96,6 @@ public class MailDeliveryPane extends Panel {
 		add(reset);
 		add(add);
 		add(textTime);
-
-
 	}
 
 	@Override
@@ -107,7 +106,19 @@ public class MailDeliveryPane extends Panel {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == add){
-					addBusinessEvent("mailDelivery");
+					if(origin.equals("")||destination.equals("")||((Number)textWeight.getValue()).doubleValue()==0.0||
+							((Number)textVolume.getValue()).doubleValue()==0.0||priority.equals("")){
+
+						JOptionPane.showMessageDialog(null, "Some data missing!", "Warning",
+								JOptionPane.WARNING_MESSAGE);
+					}
+					else{
+						int g = JOptionPane.YES_NO_OPTION;
+						int response = JOptionPane.showConfirmDialog(null, "Add new mail delivery?", "Add new Mail Delivery", g);
+						if(response == JOptionPane.YES_OPTION){
+							addBusinessEvent("mailDelivery");
+						}
+					}
 				}
 			}
 		});
@@ -117,9 +128,13 @@ public class MailDeliveryPane extends Panel {
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-					comboBoxOrigin.setSelectedItem(null);
-					comboBoxDestination.setSelectedItem(null);
-					init();
+					int g = JOptionPane.YES_NO_OPTION;
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
+					if(response == JOptionPane.YES_OPTION){
+						comboBoxOrigin.setSelectedItem(null);
+						comboBoxDestination.setSelectedItem(null);
+						init();					
+					}
 				}
 			}
 		});
@@ -136,12 +151,12 @@ public class MailDeliveryPane extends Panel {
 	@Override
 	public void propertyChange(PropertyChangeEvent e ) {
 		// TODO Auto-generated method stub
-		 Object source = e.getSource();
-	        if (source == textWeight) {
-	            amount = ((Number)textWeight.getValue()).doubleValue();
-	        }  else if (source == textVolume) {
-	            amount = ((Number)textVolume.getValue()).doubleValue();
-	        }
+		Object source = e.getSource();
+		if (source == textWeight) {
+			amount = ((Number)textWeight.getValue()).doubleValue();
+		}  else if (source == textVolume) {
+			amount = ((Number)textVolume.getValue()).doubleValue();
+		}
 	}
 
 }

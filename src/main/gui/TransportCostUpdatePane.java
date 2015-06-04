@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -65,7 +66,17 @@ public class TransportCostUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					addBusinessEvent("transportCostUpdate");
+					if(selectedRoute==null||((Number)textTPNewCostPerGram.getValue()).doubleValue()==0.0||
+							((Number)textTPNewCostPerCubic.getValue()).doubleValue()==0.0){
+						JOptionPane.showMessageDialog(null, "Some data missing!", "Warning",
+								JOptionPane.WARNING_MESSAGE);					}
+					else{
+						int g = JOptionPane.YES_NO_OPTION;
+						int response = JOptionPane.showConfirmDialog(null, "Add new mail delivery?", "Add new Mail Delivery", g);
+						if(response == JOptionPane.YES_OPTION){
+							addBusinessEvent("transportCostUpdate");
+						}
+					}
 				}
 			}
 		});
@@ -75,8 +86,14 @@ public class TransportCostUpdatePane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-					comboBoxRoute.setSelectedItem(null);
-					init();
+					int g = JOptionPane.YES_NO_OPTION;
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
+					if(response == JOptionPane.YES_OPTION){
+						comboBoxOrigin.setSelectedItem(null);
+						comboBoxDestination.setSelectedItem(null);
+						init();					
+					}
+
 				}
 			}
 		});

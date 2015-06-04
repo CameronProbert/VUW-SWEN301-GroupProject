@@ -8,6 +8,7 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -28,38 +29,11 @@ public class TransportDiscontinuedPane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-//		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-//		comboBoxOrigin = new JComboBox(distributionCentres);
-//		comboBoxOrigin.setSelectedItem(null);
-//		comboBoxListenner(comboBoxOrigin, "origin");
-//
-//		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-//		comboBoxDestination = new JComboBox(distributionCentres);
-//		comboBoxDestination.setSelectedItem(null);
-//		comboBoxListenner(comboBoxDestination, "destination");
-//
-//		JLabel labelTransportFirm= new JLabel("Transport Firm", SwingConstants.CENTER);
-//		comboBoxTransportFirm = new JComboBox(TransportFirmList);
-//		comboBoxTransportFirm.setSelectedItem(null);
-//		comboBoxListenner(comboBoxTransportFirm, "transportFirm");
-//
-//		JLabel labelTransportType= new JLabel("Transport Tpye", SwingConstants.CENTER);
-//		comboBoxTransportType = new JComboBox(TransportTpyeList);
-//		comboBoxTransportType.setSelectedItem(null);
-//		comboBoxListenner(comboBoxTransportType, "transportType");
 
 		comboBoxRouteList();
 		reset = new JButton("Reset");
 		delete = new JButton("Delete");
 		add(comboBoxRoute);
-//		add(labelComboOrigin);
-//		add(comboBoxOrigin);
-//		add(labelComboDestination);
-//		add(comboBoxDestination);
-//		add(labelTransportFirm);
-//		add(comboBoxTransportFirm);
-//		add(labelTransportType);
-//		add(comboBoxTransportType);
 		add(reset);
 		add(delete);
 	}
@@ -72,7 +46,18 @@ public class TransportDiscontinuedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == delete){
-					addBusinessEvent("transportDiscontinued");
+					if(selectedRoute==null){
+						JOptionPane.showMessageDialog(null, "Please select a route", "Warning",
+								JOptionPane.WARNING_MESSAGE);				
+					}
+					else{
+						int g = JOptionPane.YES_NO_OPTION;
+						int response = JOptionPane.showConfirmDialog(null, "Do you want to discontinue a transport?", "Discontinue Transport", g);
+						if(response == JOptionPane.YES_OPTION){
+							addBusinessEvent("transportDiscontinued");
+							refreshRouteList();
+						}
+					}
 
 				}
 			}
@@ -80,14 +65,14 @@ public class TransportDiscontinuedPane extends Panel{
 		reset.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == reset){
-					//comboBoxTransportType.setSelectedItem(null);
-					//comboBoxOrigin.setSelectedItem(null);
-					//comboBoxTransportFirm.setSelectedItem(null);
-					comboBoxRoute.setSelectedItem(null);
-					init();
+					int g = JOptionPane.YES_NO_OPTION;
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
+					if(response == JOptionPane.YES_OPTION){
+						comboBoxRoute.setSelectedItem(null);
+						init();				
+					}
 				}
 			}
 		});
@@ -95,11 +80,5 @@ public class TransportDiscontinuedPane extends Panel{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-
 	}
-//	public String toStringTPD(){
-//		return("Origin: "+ origin +"  Destination: "+ destination+"Transport Firm: "+ transportFirm+"    Transport Tpye:"+transportType);
-//	}
-
 }
