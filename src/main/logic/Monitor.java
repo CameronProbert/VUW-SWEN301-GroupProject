@@ -14,7 +14,7 @@ import main.gui.GUI;
 
 /**
  * The monitor is the main logic class of the program. It handles user input
- * passed in from the GUI and will .
+ * passed in from the GUI and will process data that moves around the program.
  *
  * @author Cameron Probert
  *
@@ -46,7 +46,7 @@ public class Monitor {
 	/**
 	 * Recalculates the business figures and updates the gui with them
 	 */
-	private void calculateBusinessFigures() {
+	public void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
 		controller.updateRevenue(revenue);

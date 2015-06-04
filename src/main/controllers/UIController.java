@@ -107,5 +107,9 @@ public class UIController {
 		return m;
 	}
 
+	public void updateBusinessEvents() {
+		monitor.calculateBusinessFigures();
+	}
+
 
 }
