@@ -135,9 +135,12 @@ public class DijkStandard {
 		for(int i=0; i<finalLocations.size()-1; i++){
 			Route r = bestOneRoute(finalLocations.get(i), finalLocations.get(i+1));
 			if(r==null){
-				System.out.println("error error error error error can't find route between locations"); // TODO need to throw an actual error
+				System.out.println("error error error error error can't find route between locations");
+				return new ArrayList<Route>();
 			}
-			route.add(r);
+			else{
+				route.add(r);
+			}
 		}
 		return route;
 	}
