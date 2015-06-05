@@ -44,6 +44,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected Route selectedRoute = null;
 	private String selectedRouteString = "";
 	private String selectedLocationString = "";
+	protected String selectedMailReceived = "";
 
 	protected NumberFormat amountFormat;
 	protected String[] priorityList = {"Air","Standard"};
@@ -63,6 +64,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxTransportType;
 	protected static JComboBox comboBoxTransportDay;
 	protected static JComboBox comboBoxLocation;
+	protected static JComboBox comboBoxMailDel;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
 	protected static JFormattedTextField textCustomerNewPricePerGram;
@@ -189,6 +191,9 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 
 						}
 					}
+				}
+				else if(type.equals("mailReceived")){
+					selectedMailReceived = selected;
 				}
 			}
 		});
@@ -413,5 +418,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			routes.add(rt);
 		}
 		return routes;
+	}
+	
+	protected String[] mailDelList(){
+		String [] mailDels = new String[controller.getMailDeliveries().size()];
+		int i = 0;
+		for (String md: controller.getMailDeliveries()) {
+			mailDels[i] = md;
+		}
+		return mailDels;
 	}
 }

@@ -1,6 +1,9 @@
 package main.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,7 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import main.events.MailDelivery;
 import main.gui.GUI;
 import main.gui.Panel;
 import main.logic.Clerk;
@@ -110,9 +114,19 @@ public class UIController {
 		System.out.println(selectedLocation.getName());
 		monitor.getEventsForLocation(selectedLocation);
 	}
-	
+
 	public void updateBusinessFiguresTotal() {
 		monitor.calculateBusinessFigures();
+	}
+	public List<MailDelivery> getMailDeliveries(){
+	    return monitor.getNotReceivedDels();
+	}
+
+	public void updateMailDelTime(MailDelivery selectedMailReceived) {
+		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		monitor.setTimeTaken(selectedMailReceived, dateFormat.format(date).toString());
 	}
 
 }
