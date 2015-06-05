@@ -181,7 +181,12 @@ public class Monitor {
 			event = createCustPriceChange(route, eventData);
 			break;
 		case "mailDelivery":
-			event = createMailDelivery(eventData);
+			try {
+				event = createMailDelivery(eventData);
+			} catch (LocationsNotConnectedException e) {
+				// TODO Update user somehow
+				return false;
+			}
 			break;
 		case "transportCostUpdate":
 			event = createTransUpdate(route, eventData);
@@ -205,8 +210,9 @@ public class Monitor {
 	 * TODO handle if we cannot find a route between two locations
 	 * @param data
 	 * @return
+	 * @throws LocationsNotConnectedException 
 	 */
-	public BusinessEvent createMailDelivery(Map<String, String> data) {
+	public BusinessEvent createMailDelivery(Map<String, String> data) throws LocationsNotConnectedException {
 		MailDelivery event = null;
 		String clerkName = currentUser.getName();
 		String time = data.get("time");
@@ -237,6 +243,9 @@ public class Monitor {
 			}
 			revenue = standard.getCostOfRoute();
 			priority = 0;
+		}
+		if (routes.isEmpty()){
+			throw new LocationsNotConnectedException();
 		}
 		double expectedTime = calculateTime(routes);
 		event = new MailDelivery(clerkName, time, origin, destination, weight,
