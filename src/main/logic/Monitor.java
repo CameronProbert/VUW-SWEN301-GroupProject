@@ -511,6 +511,7 @@ public class Monitor {
 	 */
 	public void setTimeTaken(MailDelivery m, String time) {
 		m.setTimeTaken(time);
+		handler.upDateLog();
 	}
 
 	/**
