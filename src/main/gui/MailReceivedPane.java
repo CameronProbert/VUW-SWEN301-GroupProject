@@ -31,6 +31,7 @@ import main.events.MailDelivery;
 public class MailReceivedPane extends Panel{
 
 	private JButton update;
+	private static JLabel aveTime;
 
 	/**
 	 * Create the TransportDiscontinuedPane by passing the gui it is on
@@ -40,6 +41,7 @@ public class MailReceivedPane extends Panel{
 	public MailReceivedPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
+		gui.setMailReceivedPane(this);
 	}
 
 	@Override
@@ -47,20 +49,39 @@ public class MailReceivedPane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-		JLabel labelComboMail = new JLabel("Mail Received", SwingConstants.CENTER);
-		comboBoxMailDel = new JComboBox(getLocations());
+		JLabel labelComboMail = new JLabel("Mail Delivery", SwingConstants.CENTER);
+		comboBoxMailDel = new JComboBox(mailDelList());
 		comboBoxMailDel.setSelectedItem(null);
-		comboBoxListenner(comboBoxMailDel, "mailReceived");
+		comboBoxListenner(comboBoxMailDel, "mailDel");
 		update = new JButton("Update");
 		JTextField blankSpace = new JTextField(20);
 		blankSpace.setEnabled(false);
 		blankSpace.setEditable(false);
 		blankSpace.setBackground(SystemColor.controlHighlight);
 		blankSpace.disable();
+
+		JLabel labelComboMailDelivered = new JLabel("Mail Delivered", SwingConstants.CENTER);
+		comboBoxMailDeled = new JComboBox(mailDeledList());
+		comboBoxMailDeled.setSelectedItem(null);
+		comboBoxListenner(comboBoxMailDeled, "mailDeled");
+
+		JLabel labelAveTime = new JLabel("Average Delivery Time", SwingConstants.CENTER);
+		aveTime = new JLabel();
+
+		// format value label shown business figures
+		aveTime.setText(" 0.0");
+		aveTime.setPreferredSize(new Dimension(250, 50));
+		aveTime.setFont(new Font("Arial", Font.PLAIN, 15));
+		aveTime.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
 		add(labelComboMail);
 		add(comboBoxMailDel);
 		add(update);
 		add(blankSpace);
+		add(labelComboMailDelivered);
+		add(comboBoxMailDeled);
+		add(labelAveTime);
+		add(aveTime);
 	}
 
 	@Override
@@ -77,12 +98,14 @@ public class MailReceivedPane extends Panel{
 					}
 					else{
 						int g = JOptionPane.YES_NO_OPTION;
-						int response = JOptionPane.showConfirmDialog(null, "Do you want to update the mail delivery time?", "Mail delivery time update", g);
+						int response = JOptionPane.showConfirmDialog(null, "Confirm Received?", "Confirm Received", g);
 						if(response == JOptionPane.YES_OPTION){
 							for (MailDelivery md: controller.getMailDeliveries()) {
 								if(md.toString().equals(selectedMailReceived)){
 									controller.updateMailDelTime(md);
-
+									refreshComboBoxMailDeliveryList();
+									
+									//refreshComboBoxMailDeliveredList();
 								}
 							}
 						}
@@ -92,7 +115,13 @@ public class MailReceivedPane extends Panel{
 			}
 		});
 	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+	}
+	
+	// controller calls to set the updated average delivery time
+	public void setAveTime(double time){
+		aveTime.setText(" " + time +" hours.");
 	}
 }

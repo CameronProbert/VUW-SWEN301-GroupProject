@@ -46,7 +46,7 @@ public class MailDelivery extends BusinessEvent {
 	}
 
 	public boolean isReceived() {
-		return (timeTaken!=0);
+		return (timeTaken != 0);
 	}
 
 	// getters
@@ -92,35 +92,43 @@ public class MailDelivery extends BusinessEvent {
 	}
 
 	/**
-	 * Finds the total time taken to complete this delivery, from creating the mail delivery event
-	 * Code adapted from user London's question on
+	 * Finds the total time taken to complete this delivery, from creating the
+	 * mail delivery event Code adapted from user London's question on
 	 * http://stackoverflow.com/questions
 	 * /5351483/calculate-date-time-difference-in-java
+	 * 
 	 * @author Cameron Probert
 	 * @param endTime
 	 */
 	public void setTimeTaken(String endTime) {
 
+		// If the timeTaken has already been set then do nothing
+		if (timeTaken != 0) {
+			return;
+		}
+
 		// Custom date format
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		Date d1 = null;
 		Date d2 = null;
 		try {
 			d1 = format.parse(date);
+			System.out.println("D1: " + d1.toString());
 			d2 = format.parse(endTime);
+			System.out.println("D2: " + d2.toString());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 		// Get msec from each, and subtract.
-		double diff = d2.getTime() - d1.getTime();
-		double diffSeconds = (diff / 1000) % 60;
-		double diffMinutes = (diff / (60 * 1000)) % 60;
-		double diffHours = diff / (60 * 60 * 1000);
-		System.out.println("Time in seconds: " + diffSeconds + " seconds.");
+		long diff = d2.getTime() - d1.getTime();
+		long diffMinutes = (long) (diff / (60 * 1000)) % 60;
+		double diffHours = (diff / (60 * 60 * 1000));
+		long diffDays = (long) (diff / (24 * 60 * 60 * 1000));
 		System.out.println("Time in minutes: " + diffMinutes + " minutes.");
-		System.out.println("Time in hours: " + diffHours + " hours.");
+		System.out.println("Time in hours: " + diffHours%24 + " hours.");
+		System.out.println("Time in days: " + diffDays + " days.");
 		timeTaken = diffHours;
 	}
 

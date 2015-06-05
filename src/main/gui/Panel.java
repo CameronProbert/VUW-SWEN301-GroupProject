@@ -70,6 +70,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxTransportDay;
 	protected static JComboBox comboBoxLocation;
 	protected static JComboBox comboBoxMailDel;
+	protected static JComboBox comboBoxMailDeled;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
 	protected static JFormattedTextField textCustomerNewPricePerGram;
@@ -171,8 +172,12 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 						}
 					}
 				}
-				else if(type.equals("mailReceived")){
+				else if(type.equals("mailDel")){
 					selectedMailReceived = selected;
+					System.out.println("panel 177: "+ selected);
+				}
+				else if(type.equals("mailDeled")){
+					controller.getMailAveTime(selected);	
 				}
 			}
 		});
@@ -375,18 +380,33 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	/**
 	 * refresh the combobox of the routes
 	 */
-	protected void refreshRouteList(){
+	protected void refreshComboBoxRouteList(){
 		if(comboBoxRoute==null) return;
 		comboBoxRoute.removeAllItems();
 		isComboBoxRouteModified = true;
-		String[] routes = new String[controller.getRoutes().size()];
-		int i = 0;
 		for (Route r: controller.getRoutes()) {
 			String rt = r.shortDescription();
 			comboBoxRoute.addItem(rt);
 		}
 	}
-
+	protected void refreshComboBoxMailDeliveryList(){
+		if(comboBoxMailDel==null) return;
+		comboBoxMailDel.removeAllItems();
+		//isComboBoxRouteModified = true;
+		for (MailDelivery r: controller.getMailDeliveries()) {
+			String rt = r.toString();
+			comboBoxMailDel.addItem(rt);
+		}
+	}
+	protected void refreshComboBoxMailDeliveredList(){
+		if(comboBoxMailDeled==null) return;
+		comboBoxMailDeled.removeAllItems();
+		//isComboBoxRouteModified = true;
+		for (String r: controller.getMailDeliveried()) {
+			String rt = r;
+			comboBoxMailDel.addItem(rt);
+		}
+	}
 	/**
 	 * get all of the routes 
 	 * @return  the list of routes
@@ -401,9 +421,22 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	}	
 	protected String[] mailDelList(){
 		String [] mailDels = new String[controller.getMailDeliveries().size()];
+		System.out.println(mailDels.length);
+
 		int i = 0;
 		for (MailDelivery md: controller.getMailDeliveries()) {
+			System.out.println(md.toString());
 			mailDels[i] = md.toString();
+			i++;
+		}
+		return mailDels;
+	}
+	protected String[] mailDeledList(){
+		String [] mailDels = new String[controller.getMailDeliveried().size()];
+		int i = 0;
+		for (String md: controller.getMailDeliveried()) {
+			mailDels[i] = md;
+			i++;
 		}
 		return mailDels;
 	}

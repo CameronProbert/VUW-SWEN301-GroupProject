@@ -9,6 +9,7 @@ import main.fileio.LogHandler;
 import main.fileio.NoRegisteredUsersException;
 import main.fileio.UserIO;
 import main.gui.GUI;
+import main.gui.utility.Utility;
 import main.logic.Route.DaysOfWeek;
 import main.logic.Route.TransportType;
 
@@ -45,9 +46,9 @@ public class Monitor {
 		initialiseGUI();
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Business model methods
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Finds all the routes that result in a loss to KPS
@@ -67,7 +68,7 @@ public class Monitor {
 						* r.getPricePerGramTransport() + del.getVolume()
 						* r.getPricePerVolumeTransport();
 				double profit = costToCust - costToTrans;
-				if (!deliveryProfit.containsKey(r)) {
+				if (deliveryProfit.containsKey(r)) {
 					Double p = deliveryProfit.get(r);
 					deliveryProfit.put(r, p + profit);
 				} else {
@@ -140,9 +141,9 @@ public class Monitor {
 		return expenditure;
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// New business event methods
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Returns a list of Mail Delivery Events
@@ -181,7 +182,8 @@ public class Monitor {
 			try {
 				event = createMailDelivery(eventData);
 			} catch (LocationsNotConnectedException e) {
-				// TODO Update user somehow
+				Utility.showMessageDialog("",
+						"No routes connect these two locations.\nA new route will need to be created.");
 				return false;
 			}
 			break;
@@ -381,9 +383,9 @@ public class Monitor {
 		return loc;
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Returns event displayed to gui
-	//=========================================================================
+	// =========================================================================
 
 	public List<String> getMostRecentEvent() {
 		BusinessEvent event = handler.getNewestEvent();
@@ -446,9 +448,9 @@ public class Monitor {
 		return data;
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Methods to update statistics in the GUI
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Given a route, finds all the relevant statistics and pushes them to the
@@ -509,6 +511,7 @@ public class Monitor {
 	 */
 	public void setTimeTaken(MailDelivery m, String time) {
 		m.setTimeTaken(time);
+		handler.upDateLog();
 	}
 
 	/**
@@ -542,12 +545,17 @@ public class Monitor {
 				avTime += m.getTimeTaken();
 			}
 		}
+		if (totNum == 0) {
+			controller.setAverageDeliveryTime(0);
+		} else {
+			controller.setAverageDeliveryTime(avTime / totNum);
+		}
 		return avTime / totNum;
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Methods relating to users
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Loads a list of the users in from a file
@@ -642,9 +650,9 @@ public class Monitor {
 		return false;
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Getters and Setters
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Returns the saved set of locations
@@ -708,9 +716,9 @@ public class Monitor {
 		return sb.toString();
 	}
 
-	//=========================================================================
+	// =========================================================================
 	// Initializers
-	//=========================================================================
+	// =========================================================================
 
 	/**
 	 * Initializes the GUI

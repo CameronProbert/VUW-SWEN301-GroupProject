@@ -48,13 +48,13 @@ public class CreateRoutePane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(getOrigins());
+		comboBoxOrigin = new JComboBox(getLocations());
 		comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
 
 		JLabel labelComboDestination = new JLabel("Destination", SwingConstants.CENTER);
-		comboBoxDestination = new JComboBox(getDestinations());
+		comboBoxDestination = new JComboBox(getLocations());
 		comboBoxDestination.setEditable(true);
 		comboBoxDestination.setSelectedItem(null);
 		comboBoxListenner(comboBoxDestination, "destination");
@@ -159,10 +159,10 @@ public class CreateRoutePane extends Panel{
 					}
 					else{
 						int g = JOptionPane.YES_NO_OPTION;
-						int response = JOptionPane.showConfirmDialog(null, "Add ew route?", "Add new route", g);
+						int response = JOptionPane.showConfirmDialog(null, "Add new route?", "Add new route", g);
 						if(response == JOptionPane.YES_OPTION){
 							addBusinessEvent("createRoute");
-							refreshRouteList();						}
+							refreshComboBoxRouteList();						}
 					}
 
 				}
