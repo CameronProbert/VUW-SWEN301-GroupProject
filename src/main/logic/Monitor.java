@@ -226,7 +226,7 @@ public class Monitor {
 			routes = standard.getBestRoute();
 			if (routes == null) {
 				System.err
-						.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
 			revenue = standard.getCostOfRoute();
 			priority = 0;
@@ -364,7 +364,7 @@ public class Monitor {
 		}
 		if (route == null) {
 			System.out
-					.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		origin.addOutbound(route);
 		origin.addInbound(route);
@@ -504,7 +504,45 @@ public class Monitor {
 		double totalVol = loc.getTotalVolume();
 		double totalWeight = loc.getTotalWeight();
 		int totalNumItems = loc.getDeliveriesIn();
+		System.out.println("Printing in the monitor....................." + totalVol + " " +
+				totalWeight + " " + totalNumItems);
 		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
+	}
+
+	public List<MailDelivery> getNotReceivedDels(){
+		List<MailDelivery> unrecMail = new ArrayList<MailDelivery>();
+		for(MailDelivery m : getMailEvents()){
+			if(m.getTimeTaken()==0){
+				unrecMail.add(m);
+			}
+		}
+		return unrecMail;
+	}
+
+	public void setTimeTaken(MailDelivery m, double time){
+		m.setTimeTaken(time);
+	}
+
+	public List<String> getMailDelGeneric(){
+		List<String> descriptions = new ArrayList<String>();
+		for(MailDelivery m : getMailEvents()){
+			if(!descriptions.contains(m.shortDes())){
+				descriptions.add(m.shortDes());
+			}
+		}
+		return descriptions;
+	}
+
+	public double getAverageDeliveryTime(String delDes){
+		int totNum = 0;
+		double avTime = 0;
+		for(MailDelivery m : getMailEvents()){
+			if(m.shortDes().equals(delDes)){
+				totNum ++;
+				avTime += m.getTimeTaken();
+			}
+		}
+		return avTime/totNum;
 	}
 
 	/**
