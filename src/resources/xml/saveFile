@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<businessEvents>
+  <event type="New Route">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Sammy</clerk>
+    <date>10/12/2014 10:53</date>
+  </event>
+  <event type="Mail Delivery">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Sammy</clerk>
+    <date>10/12/2014 10:53</date>
+    <origin>Auckland</origin>
+    <destination>Wellington</destination>
+    <weight>200.0</weight>
+    <volume>25.0</volume>
+    <priority>1.0</priority>
+    <revenue>27.0</revenue>
+    <timeTaken>0.0</timeTaken>
+  </event>
+  <event type="Customer Price Change">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Sammy</clerk>
+    <date>10/12/2014 10:53</date>
+    <oldPricePGram>10.0</oldPricePGram>
+    <newPricePGram>20.0</newPricePGram>
+    <oldPricePVolume>15.0</oldPricePVolume>
+    <newPricePVolume>25.0</newPricePVolume>
+  </event>
+  <event type="Transport Update">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Sammy</clerk>
+    <date>10/12/2014 10:53</date>
+    <oldPricePGram>10.0</oldPricePGram>
+    <newPricePGram>20.0</newPricePGram>
+    <oldPricePVolume>15.0</oldPricePVolume>
+    <newPricePVolume>25.0</newPricePVolume>
+  </event>
+</businessEvents> 
