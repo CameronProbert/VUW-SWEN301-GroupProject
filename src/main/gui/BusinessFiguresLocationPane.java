@@ -54,7 +54,7 @@ public class BusinessFiguresLocationPane extends Panel {
 		//comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
 		comboBoxListenner(comboBoxOrigin, "origin");
-		
+
 		JLabel labelRevenue= new JLabel(" Revenue", SwingConstants.LEFT);
 		revenue = new JLabel();
 

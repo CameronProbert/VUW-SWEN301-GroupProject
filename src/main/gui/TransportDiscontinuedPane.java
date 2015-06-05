@@ -12,6 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
+ * The TransportDiscontinuedPane class is a JPanel which is added onto the JFrame
+ * once the Transport Discontinued button is clicked. TransportDiscontinuedPane class is
+ * responsible for letting the user select the transport they want to remove
+ * and pass the information into the system.
+ *
+ * @author zhaojiang chang
  *
  */
 public class TransportDiscontinuedPane extends Panel{
@@ -19,6 +25,11 @@ public class TransportDiscontinuedPane extends Panel{
 	private JButton reset;
 	private JButton delete;
 
+	/**
+	 * Create the TransportDiscontinuedPane by passing the gui it is on
+	 *
+	 * @param gui the gui the TransportDiscontinuedPane is on
+	 */
 	public TransportDiscontinuedPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
@@ -48,7 +59,7 @@ public class TransportDiscontinuedPane extends Panel{
 				if(button == delete){
 					if(selectedRoute==null){
 						JOptionPane.showMessageDialog(null, "Please select a route", "Warning",
-								JOptionPane.WARNING_MESSAGE);				
+								JOptionPane.WARNING_MESSAGE);
 					}
 					else{
 						int g = JOptionPane.YES_NO_OPTION;
@@ -71,7 +82,7 @@ public class TransportDiscontinuedPane extends Panel{
 					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
 					if(response == JOptionPane.YES_OPTION){
 						comboBoxRoute.setSelectedItem(null);
-						init();				
+						init();
 					}
 				}
 			}

@@ -7,9 +7,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- * The BackgroundBlank class is a JPanel which is represented 
- * as the background image on the frame for the main stage. 
- * 
+ * The MailDeliveryPane class is a JPanel which is added onto the JFrame
+ * once the Mail Delivery button is clicked. MailDeliveryPane class is
+ * responsible for letting the user enter the information of the new delivery
+ * and pass the information into the system.
+ *
+ * @author zhaojiang chang
+ *
  */
 public class BackgroundBlank extends Panel{
 
@@ -34,6 +38,6 @@ public class BackgroundBlank extends Panel{
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

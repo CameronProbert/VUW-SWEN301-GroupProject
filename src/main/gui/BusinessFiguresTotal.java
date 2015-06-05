@@ -27,6 +27,11 @@ public class BusinessFiguresTotal extends Panel {
 	private static JLabel expenditure;
 	private static JLabel events;
 
+	/**
+	 * Create the BusinessFiguresTotal by passing the gui it is on
+	 *
+	 * @param gui the gui the BusinessFiguresTotal is on
+	 */
 	public BusinessFiguresTotal(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());

@@ -29,19 +29,24 @@ import main.logic.Clerk;
 import main.logic.Manager;
 
 /**
- * The LoginGUI class is a JPanel which is added onto the JFrame 
- * once the KPSmart system is started. LoginGUI class is responsible 
+ * The LoginGUI class is a JPanel which is added onto the JFrame
+ * once the KPSmart system is started. LoginGUI class is responsible
  * for letting the user enter username and password to log into the system.
  *
  * @author Zhiheng Sun
- * 
+ *
  */
 public class LoginGUI extends Panel{
 
 	// buttons on the panel
 	private JButton quit;
 	private JButton login;
-	
+
+	/**
+	 * Create the LoginGUI by passing the gui it is on
+	 *
+	 * @param gui the gui the LoginGUI is on
+	 */
 	public LoginGUI(GUI gui) {
 		super(gui);
 		setBounds(200, 370, 400, 350);
@@ -88,43 +93,14 @@ public class LoginGUI extends Panel{
 		setButtonStyle(login, 140, new Color(30,144,255));
 	}
 
-
-	/**
-	 * The following method sets the button style by the given
-	 * characteristics and adds the button onto the panel
-	 * @param button	the given button to set style on
-	 * @param buttonWidth	the given width of the button
-	 * @param defaultColor	the default color of the given button
-	 */
-	protected void setButtonStyle (final JButton button, int buttonWidth, final Color defaultColor){
-		// set the button size and font
-		button.setPreferredSize(new Dimension(buttonWidth, 45));
-		button.setFont(new Font("Arial", Font.PLAIN, 30));
-		button.setBackground(defaultColor);
-		button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-		button.setBackground(defaultColor);
-		button.setForeground(Color.WHITE);
-		
-		// set the button to transparent
-		button.setBorder(null);
-		button.setOpaque(true);
-		button.setContentAreaFilled(true);
-		button.setBorderPainted(true);
-		button.setFocusPainted(true);
-
-		// add the button to the panel
-		add(button);
-	}
-	
 	@Override
 	protected void addListenner() {
-		// if button login is clicked and username and password are verified, 
+		// if button login is clicked and username and password are verified,
 		// LoginGUI will be removed and FunctionGUI will be added
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				JButton button = (JButton) ae.getSource();
-				if(button == login){	
+				if(button == login){
 					Clerk clerk = controller.checkLogin(gui.getUserId().getText(), gui.getPassword().getText());
 					// verify username and password
 					if ((gui.getUserId().getText().equals("") || gui.getUserId().getText().equals("Username"))
@@ -158,7 +134,7 @@ public class LoginGUI extends Panel{
 		// if button quit is clicked, the frame will be closed
 		quit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);	
+				System.exit(0);
 			}
 		});
 
@@ -196,7 +172,7 @@ public class LoginGUI extends Panel{
 			public void mousePressed(MouseEvent evt){}
 		});
 
-		// if username textfield is clicked, the default value "Username" will be removed 
+		// if username textfield is clicked, the default value "Username" will be removed
 		gui.getUserId().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (gui.getUserId().getText().equals("Username")){
@@ -205,7 +181,7 @@ public class LoginGUI extends Panel{
 				}
 			}
 		});
-		
+
 		// if username textfield is changed, the color of the value will be changed to white
 		gui.getUserId().getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
@@ -223,7 +199,7 @@ public class LoginGUI extends Panel{
 			}
 		});
 
-		// if password textfield is focused, the default value "Password" will be removed 
+		// if password textfield is focused, the default value "Password" will be removed
 		// when the user enters password, the characters will be shown as "*"
 		gui.getPassword().addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -239,4 +215,33 @@ public class LoginGUI extends Panel{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {}
+
+	/**
+	 * The following method sets the button style by the given
+	 * characteristics and adds the button onto the panel
+	 *
+	 * @param button	the given button to set style on
+	 * @param buttonWidth	the given width of the button
+	 * @param defaultColor	the default color of the given button
+	 */
+	protected void setButtonStyle (final JButton button, int buttonWidth, final Color defaultColor){
+		// set the button size and font
+		button.setPreferredSize(new Dimension(buttonWidth, 45));
+		button.setFont(new Font("Arial", Font.PLAIN, 30));
+		button.setBackground(defaultColor);
+		button.setHorizontalTextPosition(SwingConstants.CENTER);
+
+		button.setBackground(defaultColor);
+		button.setForeground(Color.WHITE);
+
+		// set the button to transparent
+		button.setBorder(null);
+		button.setOpaque(true);
+		button.setContentAreaFilled(true);
+		button.setBorderPainted(true);
+		button.setFocusPainted(true);
+
+		// add the button to the panel
+		add(button);
+	}
 }

@@ -22,23 +22,27 @@ import main.logic.Route;
 import java.awt.SystemColor;
 
 /**
- * The JoinServerPanel class is a JPanel which is represented on
- * the frame once the player choose to start a game in a server.
- * JoinServerPanel class is responsible for letting player enter
- * the server information and then start the game.
+ * The MailDeliveryPane class is a JPanel which is added onto the JFrame
+ * once the Mail Delivery button is clicked. MailDeliveryPane class is
+ * responsible for letting the user enter the information of the new delivery
+ * and pass the information into the system.
+ *
+ * @author zhaojiang chang
  *
  */
 public class MailDeliveryPane extends Panel {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
-	// buttons on the panel
 
+	// buttons on the panel
 	private JButton reset;
 	private JButton add;
 
+	/**
+	 * Create the MailDeliveryPane by passing the gui it is on
+	 *
+	 * @param gui the gui the MailDeliveryPane is on
+	 */
 	public MailDeliveryPane(GUI gui) {
 		super(gui);
 		setBackground(SystemColor.window);
@@ -133,19 +137,11 @@ public class MailDeliveryPane extends Panel {
 					if(response == JOptionPane.YES_OPTION){
 						comboBoxOrigin.setSelectedItem(null);
 						comboBoxDestination.setSelectedItem(null);
-						init();					
+						init();
 					}
 				}
 			}
 		});
-	}
-
-	public static double getMDTextWeight() {
-		return ((Number)textWeight.getValue()).doubleValue();
-	}
-
-	public static double getMDTextVolume() {
-		return ((Number)textVolume.getValue()).doubleValue();
 	}
 
 	@Override
@@ -159,4 +155,12 @@ public class MailDeliveryPane extends Panel {
 		}
 	}
 
+	// the following methods are the getters
+	public static double getMDTextWeight() {
+		return ((Number)textWeight.getValue()).doubleValue();
+	}
+
+	public static double getMDTextVolume() {
+		return ((Number)textVolume.getValue()).doubleValue();
+	}
 }
