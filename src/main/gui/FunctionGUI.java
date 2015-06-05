@@ -63,12 +63,13 @@ public class FunctionGUI extends Panel{
 	 */
 	private static final long serialVersionUID = 1L;
 	// buttons on the panel
-	private Button mailDelivery;
-	private Button customerPriceUpdate;
-	private Button transportCostUpdate;
-	private Button transportDiscontinued;
-	private Button businessFiguresRoute;
-	private Button businessFiguresLocation;
+	private Button mailDeliveryButton;
+	private Button customerPriceUpdateButton;
+	private Button transportCostUpdateButton;
+	private Button transportDiscontinuedButton;
+	private Button businessFiguresRouteButton;
+	private Button businessFiguresLocationButton;
+	private Button mailReceivedButton;
 
 	private JButton logOut;
 	private JButton exit;
@@ -162,48 +163,45 @@ public class FunctionGUI extends Panel{
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
 
-		mailDelivery = new Button("Mail Delivery");
-		mailDelivery.setFont(new Font("Dialog", Font.BOLD, 12));
-		mailDelivery.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(mailDelivery, BorderLayout.WEST);
+		mailDeliveryButton = new Button("Mail Delivery");
+		mailDeliveryButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		mailDeliveryButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(mailDeliveryButton, BorderLayout.WEST);
 
-		customerPriceUpdate = new Button("Customer Price Update");
-		customerPriceUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
-		customerPriceUpdate.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(customerPriceUpdate, BorderLayout.SOUTH);
+		customerPriceUpdateButton = new Button("Customer Price Update");
+		customerPriceUpdateButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		customerPriceUpdateButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(customerPriceUpdateButton, BorderLayout.SOUTH);
 
-		transportCostUpdate = new Button("Transport Cost Update");
-		transportCostUpdate.setFont(new Font("Dialog", Font.BOLD, 12));
-		transportCostUpdate.setBackground(Color.LIGHT_GRAY);
-		transportCostUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		buttonPanel.add(transportCostUpdate, BorderLayout.CENTER);
+		transportCostUpdateButton = new Button("Transport Cost Update");
+		transportCostUpdateButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		transportCostUpdateButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(transportCostUpdateButton, BorderLayout.CENTER);
 
 		createRoute = new Button("Create Route");
 		createRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		createRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(createRoute, BorderLayout.SOUTH);
 
-		transportDiscontinued = new Button("Route Discontinued");
-		transportDiscontinued.setFont(new Font("Dialog", Font.BOLD, 12));
-		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
+		transportDiscontinuedButton = new Button("Route Discontinued");
+		transportDiscontinuedButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		transportDiscontinuedButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(transportDiscontinuedButton, BorderLayout.SOUTH);
 
-		businessFiguresRoute = new Button("Route Data");
-		businessFiguresRoute.setFont(new Font("Dialog", Font.BOLD, 12));
-		businessFiguresRoute.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(businessFiguresRoute, BorderLayout.NORTH);
+		businessFiguresRouteButton = new Button("Route Data");
+		businessFiguresRouteButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		businessFiguresRouteButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(businessFiguresRouteButton, BorderLayout.NORTH);
 
-		businessFiguresLocation = new Button("Location Data");
-		businessFiguresLocation.setFont(new Font("Dialog", Font.BOLD, 12));
-		businessFiguresLocation.setBackground(Color.LIGHT_GRAY);
-		buttonPanel.add(businessFiguresLocation, BorderLayout.CENTER);
+		businessFiguresLocationButton = new Button("Location Data");
+		businessFiguresLocationButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		businessFiguresLocationButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(businessFiguresLocationButton, BorderLayout.CENTER);
 		
-		button_2 = new Button("");
-		buttonPanel.add(button_2, BorderLayout.SOUTH);
-		button_2.disable();
+		mailReceivedButton = new Button("Mail Received");
+		mailReceivedButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		mailReceivedButton.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.add(mailReceivedButton, BorderLayout.CENTER);
 
 		button_3 = new Button("");
 		buttonPanel.add(button_3, BorderLayout.SOUTH);
@@ -327,12 +325,12 @@ public class FunctionGUI extends Panel{
 
 	@Override
 	protected void addListenner() {
-		mailDelivery.addActionListener(new ActionListener(){
+		mailDeliveryButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == mailDelivery){
+				if(button == mailDeliveryButton){
 					buttonColorSwitch("Mail Delivery", button);
 					displayPanel.setVisible(false);
 					init();
@@ -342,12 +340,12 @@ public class FunctionGUI extends Panel{
 
 
 		});
-		transportCostUpdate.addActionListener(new ActionListener(){
+		transportCostUpdateButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == transportCostUpdate){
+				if(button == transportCostUpdateButton){
 					buttonColorSwitch("Transport Cost Update", button);
 					init();
 					displayPanel.setVisible(false);
@@ -368,12 +366,12 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		customerPriceUpdate.addActionListener(new ActionListener(){
+		customerPriceUpdateButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == customerPriceUpdate){
+				if(button == customerPriceUpdateButton){
 					buttonColorSwitch("Customer Price Update", button);
 					init();
 					displayPanel.setVisible(false);
@@ -381,12 +379,12 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		transportDiscontinued.addActionListener(new ActionListener(){
+		transportDiscontinuedButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == transportDiscontinued){
+				if(button == transportDiscontinuedButton){
 					buttonColorSwitch("Transport Discontinued", button);
 					init();
 					displayPanel.setVisible(false);
@@ -394,12 +392,12 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		businessFiguresRoute.addActionListener(new ActionListener(){
+		businessFiguresRouteButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == businessFiguresRoute){
+				if(button == businessFiguresRouteButton){
 					buttonColorSwitch("Business Figures Route", button);
 					init();
 					displayPanel.setVisible(false);
@@ -407,12 +405,12 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		businessFiguresLocation.addActionListener(new ActionListener(){
+		businessFiguresLocationButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
-				if(button == businessFiguresLocation){
+				if(button == businessFiguresLocationButton){
 					buttonColorSwitch("Business Figures Location", button);
 					init();
 					displayPanel.setVisible(false);
