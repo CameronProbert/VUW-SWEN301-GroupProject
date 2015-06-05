@@ -18,9 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * The BusinessFiguresPane class is a JPanel which is added
- * on the display panel to show users the business figures.
- * BusinessFiguresPane class is responsible for letting users
+ * The BusinessFiguresRoutePane class is a JPanel which is added
+ * onto the JFrame once the Route Data button is clicked.
+ * BusinessFiguresRoutePane class is responsible for letting users
  * choose a route and displaying the corresponding business
  * figures.
  *
@@ -35,6 +35,11 @@ public class BusinessFiguresRoutePane extends Panel {
 	private static JLabel events;
 	private static JLabel isCritical;
 
+	/**
+	 * Create the BusinessFiguresRoutePane by passing the gui it is on
+	 *
+	 * @param gui the gui the BusinessFiguresRoutePane is on
+	 */
 	public BusinessFiguresRoutePane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
@@ -97,6 +102,7 @@ public class BusinessFiguresRoutePane extends Panel {
 		add(labelIsCritical);
 		add(isCritical);
 	}
+	
 	@Override
 	protected void addListenner() {}
 

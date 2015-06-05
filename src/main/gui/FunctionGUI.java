@@ -51,17 +51,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- * FunctionGUI have all the function buttons
- * this class is going to add all buttons and add Action Listener
- * for each button.
+ * FunctionGUI class have all the buttons on the frame. FunctionGUI class 
+ * is responsible for adding Action Listener for each button.
+ * 
  * @author zhaojiang chang
  */
 
 public class FunctionGUI extends Panel{
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	// buttons on the panel
 	private Button mailDeliveryButton;
 	private Button customerPriceUpdateButton;
@@ -70,43 +69,46 @@ public class FunctionGUI extends Panel{
 	private Button businessFiguresRouteButton;
 	private Button businessFiguresLocationButton;
 	private Button mailReceivedButton;
-
-	private JButton logOut;
-	private JButton exit;
-	private JButton addUser;
-	private JButton removeUser;
-	private JPanel displayPanel;
-	private JPanel buttonPanel;
-	private JPanel inforPanel;
-	private static JComboBox comboBox;
-	private JSplitPane jSplitPanel;
-	private String loginType = "";
-	private static String permission = "Clerk";
-	private JTabbedPane tabbedPane;
-	private JPanel businessEventTab;
-	private JPanel businessFigureTab;
-	private JPanel routeTab;
-
-	private JPanel eventPane;
 	private Button previousEventButton;
 	private Button nextEventButton;
 	private Button newestEventButton;
 	private Button createRoute;
-	private List<String> event;
-	private JTable table;
-	private Button button_1;
 	private Button button_2;
 	private Button button_3;
 	private Button button_4;
 	private Button button_5;
-	private BusinessEventTab businessEventPane ;
+	private JButton logOut;
+	private JButton exit;
+	private JButton addUser;
+	private JButton removeUser;
 
+	// the panels the buttons on
+	private JPanel displayPanel;
+	private JPanel buttonPanel;
+	private JPanel inforPanel;
+	private JPanel businessEventTab;
+	private JPanel businessFigureTab;
+	private JPanel routeTab;
+	private JPanel eventPane;
+
+	private BusinessEventTab businessEventPane ;
+	private JSplitPane jSplitPanel;
+	private String loginType = "";
+	private static String permission = "Clerk";
+	private JTabbedPane tabbedPane;
+
+	/**
+	 * Create the FunctionGUI by passing the gui it is on
+	 *
+	 * @param gui the gui the FunctionGUI is on
+	 */
 	public FunctionGUI(GUI gui) {
 		super(gui);
 		this.loginType = loginType;
 		setBounds(0, 0, gui.getWidth(), gui.getHeight());
 		this.controller = this.gui.getUIController();
 	}
+
 	/**
 	 * setup all all buttons, panel and label on the functionGUI panel
 	 */
@@ -131,15 +133,17 @@ public class FunctionGUI extends Panel{
 		buttonPanel = new JPanel(new BorderLayout()); //
 		buttonPanel.setPreferredSize(new Dimension(gui.getWidth()*1/6+80, gui.getHeight()-160));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
 		//business events panel
 		inforPanel = new JPanel(new BorderLayout());
 		inforPanel.setPreferredSize(new Dimension(gui.getWidth()*3/6-50, gui.getHeight()-160));
 		inforPanel.setBorder ( new TitledBorder ( new EtchedBorder () ) );
-		//TODO: find a way to set the width of the button
+
 		logOut = new JButton("Log Out");
 		exit = new JButton("Exit");
 		addUser = new JButton("Add User");
 		removeUser = new JButton("Remove User");
+
 		// add label and buttons onto bottomPanel
 		String staff ="";
 		if(isManager){
@@ -159,7 +163,6 @@ public class FunctionGUI extends Panel{
 		bottomPanel.add(logOut);
 		bottomPanel.add(exit);
 
-		//addImage("image/bottomImage.jpg", bottomPanel, 60);
 		//add buttonPanel and displayPanel to split panel
 		jSplitPanel.add(buttonPanel, JSplitPane.LEFT);
 
@@ -203,6 +206,7 @@ public class FunctionGUI extends Panel{
 		mailReceivedButton.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailReceivedButton, BorderLayout.CENTER);
 
+
 		button_3 = new Button("");
 		buttonPanel.add(button_3, BorderLayout.SOUTH);
 		button_3.disable();
@@ -213,11 +217,10 @@ public class FunctionGUI extends Panel{
 
 		button_5 = new Button("");
 		buttonPanel.add(button_5, BorderLayout.SOUTH);
-
-
 		button_5.disable();
 
 		jSplitPanel.add(displayPanel, JSplitPane.RIGHT);
+
 		//add all panels to functionGUI panel
 		add(titlePanel);
 		add(jSplitPanel);
@@ -301,14 +304,11 @@ public class FunctionGUI extends Panel{
 		add(bottomPanel);
 		BusinessFiguresTab businessFiguresTotal = new BusinessFiguresTab(gui);
 		businessFigureTab.add(businessFiguresTotal);
-		
+
 		RoutesTab routes = new RoutesTab(gui);
 		routeTab.add(routes);
-		
-		//table = new JTable( new MyTableModel());
-		//table.setPreferredScrollableViewportSize(new Dimension(gui.getWidth()*3/5, gui.getWidth()));
-
 	}
+
 	/**
 	 * add image on to the panel
 	 * @param iamgeAdd image address
@@ -316,7 +316,6 @@ public class FunctionGUI extends Panel{
 	 * @param height height of the panel
 	 */
 	private void addImage(String imageAdd, JPanel panel, int height) {
-		// TODO Auto-generated method stub
 		ImageIcon topImage = new ImageIcon(imageAdd);
 		Image scaledImage = topImage.getImage().getScaledInstance(900,height,Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
@@ -326,7 +325,6 @@ public class FunctionGUI extends Panel{
 	@Override
 	protected void addListenner() {
 		mailDeliveryButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -341,7 +339,6 @@ public class FunctionGUI extends Panel{
 
 		});
 		transportCostUpdateButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -353,8 +350,8 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
-		createRoute.addActionListener(new ActionListener(){
 
+		createRoute.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -367,7 +364,6 @@ public class FunctionGUI extends Panel{
 			}
 		});
 		customerPriceUpdateButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -380,7 +376,6 @@ public class FunctionGUI extends Panel{
 			}
 		});
 		transportDiscontinuedButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -393,7 +388,6 @@ public class FunctionGUI extends Panel{
 			}
 		});
 		businessFiguresRouteButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -406,7 +400,6 @@ public class FunctionGUI extends Panel{
 			}
 		});
 		businessFiguresLocationButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Button button = (Button) e.getSource();
@@ -432,6 +425,7 @@ public class FunctionGUI extends Panel{
 			}
 		});
 		addUser.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JTextField id = new JTextField();
 				JTextField password = new JTextField();
@@ -589,6 +583,7 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
+
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int g = JOptionPane.YES_NO_OPTION;
@@ -599,6 +594,7 @@ public class FunctionGUI extends Panel{
 			}
 		});
 	}
+
 	/**
 	 * big text area may need for business event
 	 */
@@ -645,13 +641,13 @@ public class FunctionGUI extends Panel{
 		}
 
 		public boolean isCellEditable(int row, int col) {
-
 			if (col < 2) {
 				return false;
 			} else {
 				return true;
 			}
 		}
+
 		private void printDebugData() {
 			int numRows = getRowCount();
 			int numCols = getColumnCount();
@@ -663,11 +659,15 @@ public class FunctionGUI extends Panel{
 				}
 				System.out.println();
 			}
-			System.out.println("--------------------------");
 		}
 	}
+
+	/**
+	 * change the color of button once it is clicked
+	 * @param buttonName   the name of the button
+	 * @param b    the button clicked
+	 */
 	private void buttonColorSwitch(String buttonName, Button b) {
-		// TODO Auto-generated method stub
 		for(Component c: buttonPanel.getComponents()){
 			if(c instanceof Button &&
 					!((Button) c).getLabel().equals("")){
@@ -680,7 +680,5 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		}
-
-
 	}
 }

@@ -50,6 +50,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected NumberFormat amountFormat;
 	protected String[] priorityList = {"Air","Standard"};
 	protected String[] TransportDateList = {"Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+	
+	// the selected value in the comboboxes
 	protected static String origin = "";
 	protected static String destination = "";
 	protected static String priority = "";
@@ -57,6 +59,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static String transportType = "";
 	protected static String transportDay = "";
 	protected static String selected = "";
+	
+	// the comboboxes on the frame
 	protected static JComboBox comboBoxRoute;
 	protected static JComboBox comboBoxOrigin;
 	protected static JComboBox comboBoxDestination;
@@ -76,15 +80,15 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JFormattedTextField textTPmaxVolume;
 	protected static JFormattedTextField textTPFrequency;
 	protected static JFormattedTextField textTPDuration;
-	protected static boolean isManager;
+	
 	protected static List<String> currentEvent = new ArrayList<String>();
 	private Map<String, Route> routeMap;
 	protected JLabel labelComboOrigin;
 	protected JLabel labelComboDestination;
+	protected static boolean isManager;
 	protected boolean isBusinessFiguresRoute = false;
 	protected boolean isBusinessFiguresLocation = false;
 	protected boolean isComboBoxRouteModified = false;
-
 
 	public Panel (GUI gui){
 		this.gui = gui;
@@ -109,18 +113,122 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected abstract void addListenner();
 
 	protected void formatToDobuleJTextField(JFormattedTextField textField) {
-		// TODO Auto-generated method stub
 		textField.setValue(new Double(amount));
 		textField.setColumns(10);
 		textField.addPropertyChangeListener("value", this);
 	}
 	protected void formatToIntegerJTextField(JFormattedTextField textField) {
-		// TODO Auto-generated method stub
 		textField.setValue(new Integer(amountInt));
 		textField.setColumns(10);
 		textField.addPropertyChangeListener("value", this);
 	}
 
+	/**
+	 * add listener to the given combobox
+	 * 
+	 * @param comboBox the given combobox
+	 * @param type the given type
+	 */
+	protected void comboBoxListenner(JComboBox comboBox,final String type){
+		comboBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selected=(String)((JComboBox)e.getSource()).getSelectedItem();
+
+				if(type.equals("origin")){
+					origin = selected;
+				}
+				else if(type.equals("destination")){
+					destination =  selected;
+				}
+				else if(type.equals("priority")){
+					priority =  selected;
+				}
+				else if(type.equals("transportType")){
+					transportType = selected;
+				}
+				else if(type.equals("transportFirm")){
+					transportFirm = selected;
+				}
+				else if(type.equals("transportDay")){
+					transportDay = selected;
+				}
+				else if(type.equals("route")){
+					selectedRouteString = selected;
+					selectedRoute = routeMap.get(selectedRouteString);
+					controller.getBFRoute(selectedRoute);
+				}
+				else if(type.equals("location")){
+					selectedLocationString = selected;
+					for( Route s: controller.getRoutes()){
+						if(s.getOrigin().getName().equals(selectedLocationString)){
+							System.out.println(selectedLocationString);
+							controller.getBFLocation(s.getOrigin());
+						}
+						if(s.getDestination().equals(selectedLocationString)){
+							controller.getBFLocation(s.getDestination());
+						}
+					}
+				}
+				else if(type.equals("mailReceived")){
+					selectedMailReceived = selected;
+				}
+			}
+		});
+	}
+
+	/**
+	 * add the given event to the system
+	 * @param type the type of the event
+	 */
+	public void addBusinessEvent(String type){
+		Map<String, String> currentEvent = new HashMap<String, String>();
+		currentEvent.put("clerkName", gui.getCurretUsername());
+		currentEvent.put("type", type);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		currentEvent.put("time",dateFormat.format(date) );
+		if(type.equals("mailDelivery")){
+			currentEvent.put("origin", origin);
+			currentEvent.put("destination", destination);
+			currentEvent.put("weight", "" + textWeight.getValue());
+			currentEvent.put("volume", "" + textVolume.getValue());
+			currentEvent.put("priority", priority);
+			controller.addEvent(null, currentEvent);
+		}
+		else if (type.equals("customerPriceUpdate")){
+
+			currentEvent.put("customerNewPricePerGram", "" + textCustomerNewPricePerGram.getValue());
+			currentEvent.put("customerNewPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
+			controller.addEvent(selectedRoute, currentEvent);
+		}
+		else if (type.equals("transportCostUpdate")){
+			currentEvent.put("transportNewCostPerGram", "" + textTPNewCostPerGram.getValue());
+			currentEvent.put("transportNewCostPerCubic", "" + textTPNewCostPerCubic.getValue());
+			controller.addEvent(selectedRoute, currentEvent);
+		}
+		else if (type.equals("transportDiscontinued")){
+			controller.addEvent(selectedRoute, currentEvent);
+		}
+		else if (type.equals("createRoute")){
+			currentEvent.put("origin", origin);
+			currentEvent.put("destination", destination);
+			currentEvent.put("transportFirm", transportFirm);
+			currentEvent.put("transportType", transportType);
+			currentEvent.put("transportDay", transportDay);
+			currentEvent.put("transportsCostPerGram", "" + textTPNewCostPerGram.getValue());
+			currentEvent.put("transportsCostPerCubic", "" + textTPNewCostPerCubic.getValue());
+			currentEvent.put("customerPricePerGram", "" + textCustomerNewPricePerGram.getValue());
+			currentEvent.put("customerPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
+			currentEvent.put("frequency", "" + textTPFrequency.getValue());
+			controller.addEvent(selectedRoute, currentEvent);
+		}
+	}
+
+	/**
+	 * put the route list into the route combobox
+	 */
 	protected void comboBoxRouteList(){
 		String[] routeKey = new String[controller.getRoutes().size()];
 		Route[] routeValue = new Route[controller.getRoutes().size()];
@@ -143,63 +251,186 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		comboBoxRoute.setSelectedItem(null);
 		comboBoxListenner(comboBoxRoute, "route");
 	}
-	protected void comboBoxListenner(JComboBox comboBox,final String type){
-		comboBox.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				selected=(String)((JComboBox)e.getSource()).getSelectedItem();
-
-				if(type.equals("origin")){
-					origin = selected;
-
-				}
-				else if(type.equals("destination")){
-					destination =  selected;
-
-				}
-				else if(type.equals("priority")){
-					priority =  selected;
-
-				}
-				else if(type.equals("transportType")){
-					transportType = selected;
-
-				}
-				else if(type.equals("transportFirm")){
-					transportFirm = selected;
-
-				}
-				else if(type.equals("transportDay")){
-					transportDay = selected;
-
-				}
-				else if(type.equals("route")){
-					selectedRouteString = selected;
-					selectedRoute = routeMap.get(selectedRouteString);
-					controller.getBFRoute(selectedRoute);
-				}
-				else if(type.equals("location")){
-					selectedLocationString = selected;
-					for( Route s: controller.getRoutes()){
-						if(s.getOrigin().getName().equals(selectedLocationString)){
-							System.out.println(selectedLocationString);
-							controller.getBFLocation(s.getOrigin());
-						}
-						if(s.getDestination().equals(selectedLocationString)){
-							controller.getBFLocation(s.getDestination());
-
-						}
-					}
-				}
-				else if(type.equals("mailReceived")){
-					selectedMailReceived = selected;
-				}
+	
+	/**
+	 * get all of the transport firms
+	 * @return the list of transport firms
+	 */
+	protected String[] getTransportFirms(){
+		List<String> firms = new ArrayList<String>();
+		for(Route r: controller.getRoutes()){
+			if(!firms.contains(r.getTransportFirm())){
+				firms.add(r.getTransportFirm());
 			}
-		});
+		}
+		String[] fs = new String[firms.size()];
+		for(int i = 0; i<firms.size(); i++){
+			fs[i] = firms.get(i);
+		}
+		return fs;
+	}
+	
+	/**
+	 * get all of the origins
+	 * @return the list of origins
+	 */
+	protected String[] getOrigins(){
+		String[] origins = new String[controller.getRoutes().size()];
+		int i = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getOrigin().getName(), origins)){
+				origins[i] = s.getOrigin().getName();
+				i++;
+			}
+		}
+
+		String[] originsNew = new String[i];
+		for (int j = 0; j < originsNew.length; j++){
+			originsNew[j] = origins[j];
+		}
+		return originsNew;
 	}
 
+	/**
+	 * get all of the destinations
+	 * @return the list of destinations
+	 */
+	protected String[] getDestinations(){
+		String[] destinations = new String[controller.getRoutes().size()];
+		int j = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getDestination().getName(), destinations)){
+				destinations[j] = s.getDestination().getName();
+				j++;
+			}
+		}
+
+		String[] destinationsNew = new String[j];
+		for (int i = 0; i < destinationsNew.length; i++){
+			destinationsNew[i] = destinations[i];
+		}
+		return destinationsNew;
+	}
+	
+	/**
+	 * get all of the transport types
+	 * @return the list of transport types
+	 */
+	protected String[] getTransportTypes(){
+		List<String> types = new ArrayList<String>();
+		types.add("Standard");
+		types.add("Air");
+		for(Route r: controller.getRoutes()){
+			if(!types.contains(r.getTransportType().toString())){
+				types.add(r.getTransportType().toString());
+			}
+		}
+		String[] fs = new String[types.size()];
+		for(int i = 0; i<types.size(); i++){
+			fs[i] = types.get(i);
+		}
+		return fs;
+	}
+	
+	/**
+	 * get all of the locations
+	 * @return the list of locations
+	 */
+	protected String[] getLocations(){
+		String[] location = new String[controller.getRoutes().size()*2];
+		int i = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getOrigin().getName(), location)){
+				location[i] = s.getOrigin().getName();
+				i++;
+			}
+		}
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getDestination().getName(), location)){
+				location[i] = s.getDestination().getName();
+				i++;
+			}
+		}
+
+		String[] locationNew = new String[i];
+		for (int j = 0; j < locationNew.length; j++){
+			locationNew[j] = location[j];
+		}
+		return locationNew;
+	}
+	
+	/**
+	 * check whether a string is contained in an array
+	 * @return in or not in
+	 */
+	protected boolean isContains(String a, String[] b){
+		for(int i = 0; i<b.length; i++){
+			if(a.equalsIgnoreCase(b[i])){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * refresh the combobox of the routes
+	 */
+	protected void refreshRouteList(){
+		if(comboBoxRoute==null) return;
+		comboBoxRoute.removeAllItems();
+		isComboBoxRouteModified = true;
+		String[] routes = new String[controller.getRoutes().size()];
+		int i = 0;
+		for (Route r: controller.getRoutes()) {
+			String rt = r.shortDescription();
+			comboBoxRoute.addItem(rt);
+		}
+	}
+
+	/**
+	 * get all of the routes 
+	 * @return  the list of routes
+	 */
+	protected List<String> routeList(){
+		List <String> routes = new ArrayList<String>();
+		for (Route r: controller.getRoutes()) {
+			String rt = r.shortDescription();
+			routes.add(rt);
+		}
+		return routes;
+	}	
+	protected String[] mailDelList(){
+		String [] mailDels = new String[controller.getMailDeliveries().size()];
+		int i = 0;
+		for (MailDelivery md: controller.getMailDeliveries()) {
+			mailDels[i] = md.toString();
+		}
+		return mailDels;
+	}
+
+	/**
+	 * initialise the comboboxes and the textfields
+	 */
+	public void init(){
+		selected = "";
+		transportFirm = "";
+		transportType = "";
+		transportDay = "";
+		selectedRoute = null;
+		selectedRouteString = "";
+		if(textVolume!=null) textVolume.setValue(0.0);
+		if(textWeight!=null) textWeight.setValue(0.0);
+		if(textTPmaxWeight!=null) textTPmaxWeight.setValue(0.0);
+		if(textTPmaxVolume!=null) textTPmaxVolume.setValue(0.0);
+		if(textTPFrequency!=null) textTPFrequency.setValue(0);
+		if(textTPDuration!=null) textTPDuration.setValue(0);
+		if(textCustomerNewPricePerCubic!=null) textCustomerNewPricePerCubic.setValue(0.0);
+		if(textCustomerNewPricePerGram!=null) textCustomerNewPricePerGram.setValue(0.0);
+		if(textTPNewCostPerGram!=null) textTPNewCostPerGram.setValue(0.0);
+		if(textTPNewCostPerCubic!=null) textTPNewCostPerCubic.setValue(0.0);
+	}
+	
+	// the following methods are the getters and setters
 	public static String getOrigin() {
 		return origin;
 	}
@@ -238,195 +469,5 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 
 	public static void setTransportFirm(String transportFirm) {
 		Panel.transportFirm = transportFirm;
-	}
-
-	public void init(){
-		selected = "";
-		//		origin = "";
-		//		destination = "";
-		//		priority = "";
-		transportFirm = "";
-		transportType = "";
-		transportDay = "";
-		selectedRoute = null;
-		selectedRouteString = "";
-		//textTime.setText("");
-		if(textVolume!=null) textVolume.setValue(0.0);
-		if(textWeight!=null) textWeight.setValue(0.0);
-		if(textTPmaxWeight!=null) textTPmaxWeight.setValue(0.0);
-		if(textTPmaxVolume!=null) textTPmaxVolume.setValue(0.0);
-		if(textTPFrequency!=null) textTPFrequency.setValue(0);
-		if(textTPDuration!=null) textTPDuration.setValue(0);
-		if(textCustomerNewPricePerCubic!=null) textCustomerNewPricePerCubic.setValue(0.0);
-		if(textCustomerNewPricePerGram!=null) textCustomerNewPricePerGram.setValue(0.0);
-		if(textTPNewCostPerGram!=null) textTPNewCostPerGram.setValue(0.0);
-		if(textTPNewCostPerCubic!=null) textTPNewCostPerCubic.setValue(0.0);
-
-	}
-
-	public void addBusinessEvent(String type){
-		Map<String, String> currentEvent = new HashMap<String, String>();
-		currentEvent.put("clerkName", gui.getCurretUsername());
-		currentEvent.put("type", type);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		currentEvent.put("time",dateFormat.format(date) );
-		if(type.equals("mailDelivery")){
-			currentEvent.put("origin", origin);
-			currentEvent.put("destination", destination);
-			currentEvent.put("weight", "" + textWeight.getValue());
-			currentEvent.put("volume", "" + textVolume.getValue());
-			currentEvent.put("priority", priority);
-			controller.addEvent(null, currentEvent);
-		}
-		else if (type.equals("customerPriceUpdate")){
-
-			currentEvent.put("customerNewPricePerGram", "" + textCustomerNewPricePerGram.getValue());
-			currentEvent.put("customerNewPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
-			controller.addEvent(selectedRoute, currentEvent);
-		}
-		else if (type.equals("transportCostUpdate")){
-			currentEvent.put("transportNewCostPerGram", "" + textTPNewCostPerGram.getValue());
-			currentEvent.put("transportNewCostPerCubic", "" + textTPNewCostPerCubic.getValue());
-			controller.addEvent(selectedRoute, currentEvent);
-		}
-		else if (type.equals("transportDiscontinued")){
-			controller.addEvent(selectedRoute, currentEvent);
-		}
-		else if (type.equals("createRoute")){
-
-			currentEvent.put("origin", origin);
-			currentEvent.put("destination", destination);
-			currentEvent.put("transportFirm", transportFirm);
-			currentEvent.put("transportType", transportType);
-			currentEvent.put("transportDay", transportDay);
-			currentEvent.put("transportsCostPerGram", "" + textTPNewCostPerGram.getValue());
-			currentEvent.put("transportsCostPerCubic", "" + textTPNewCostPerCubic.getValue());
-			currentEvent.put("customerPricePerGram", "" + textCustomerNewPricePerGram.getValue());
-			currentEvent.put("customerPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
-			currentEvent.put("frequency", "" + textTPFrequency.getValue());
-			controller.addEvent(selectedRoute, currentEvent);
-		}
-	}
-
-	protected String[] getTransportFirms(){
-		List<String> firms = new ArrayList<String>();
-		for(Route r: controller.getRoutes()){
-			if(!firms.contains(r.getTransportFirm())){
-				firms.add(r.getTransportFirm());
-			}
-		}
-		String[] fs = new String[firms.size()];
-		for(int i = 0; i<firms.size(); i++){
-			fs[i] = firms.get(i);
-		}
-		return fs;
-	}
-	protected String[] getOrigins(){
-		String[] origins = new String[controller.getRoutes().size()];
-		int i = 0;
-		for( Route s: controller.getRoutes()){
-			if(!isContains(s.getOrigin().getName(), origins)){
-				origins[i] = s.getOrigin().getName();
-				i++;
-			}
-		}
-
-		String[] originsNew = new String[i];
-		for (int j = 0; j < originsNew.length; j++){
-			originsNew[j] = origins[j];
-		}
-		return originsNew;
-	}
-
-	protected String[] getDestinations(){
-		String[] destinations = new String[controller.getRoutes().size()];
-		int j = 0;
-		for( Route s: controller.getRoutes()){
-			if(!isContains(s.getDestination().getName(), destinations)){
-				destinations[j] = s.getDestination().getName();
-				j++;
-			}
-		}
-
-		String[] destinationsNew = new String[j];
-		for (int i = 0; i < destinationsNew.length; i++){
-			destinationsNew[i] = destinations[i];
-		}
-		return destinationsNew;
-	}
-	protected String[] getTransportTypes(){
-		List<String> types = new ArrayList<String>();
-		types.add("Standard");
-		types.add("Air");
-		for(Route r: controller.getRoutes()){
-			if(!types.contains(r.getTransportType().toString())){
-				types.add(r.getTransportType().toString());
-			}
-		}
-		String[] fs = new String[types.size()];
-		for(int i = 0; i<types.size(); i++){
-			fs[i] = types.get(i);
-		}
-		return fs;
-	}
-	protected String[] getLocations(){
-		String[] location = new String[controller.getRoutes().size()*2];
-		int i = 0;
-		for( Route s: controller.getRoutes()){
-			if(!isContains(s.getOrigin().getName(), location)){
-				location[i] = s.getOrigin().getName();
-				i++;
-			}
-		}
-		for( Route s: controller.getRoutes()){
-			if(!isContains(s.getDestination().getName(), location)){
-				location[i] = s.getDestination().getName();
-				i++;
-			}
-		}
-
-		String[] locationNew = new String[i];
-		for (int j = 0; j < locationNew.length; j++){
-			locationNew[j] = location[j];
-		}
-		return locationNew;
-	}
-	protected boolean isContains(String a, String[] b){
-		for(int i = 0; i<b.length; i++){
-			if(a.equalsIgnoreCase(b[i])){
-				return true;
-			}
-		}
-		return false;
-	}
-	protected void refreshRouteList(){
-		if(comboBoxRoute==null) return;
-		comboBoxRoute.removeAllItems();
-		isComboBoxRouteModified = true;
-		String[] routes = new String[controller.getRoutes().size()];
-		int i = 0;
-		for (Route r: controller.getRoutes()) {
-			String rt = r.shortDescription();
-			comboBoxRoute.addItem(rt);
-		}
-	}
-
-	protected List<String> routeList(){
-		List <String> routes = new ArrayList<String>();
-		for (Route r: controller.getRoutes()) {
-			String rt = r.shortDescription();
-			routes.add(rt);
-		}
-		return routes;
-	}
-	
-	protected String[] mailDelList(){
-		String [] mailDels = new String[controller.getMailDeliveries().size()];
-		int i = 0;
-		for (MailDelivery md: controller.getMailDeliveries()) {
-			mailDels[i] = md.toString();
-		}
-		return mailDels;
 	}
 }
