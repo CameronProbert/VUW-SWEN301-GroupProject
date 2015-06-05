@@ -87,4 +87,76 @@
     <oldPricePVolume>15.0</oldPricePVolume>
     <newPricePVolume>25.0</newPricePVolume>
   </event>
+  <event type="New Route">
+    <route>
+      <origin>Christchurch</origin>
+      <destination>Dunedin</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>11.0</costPVolumeForTransport>
+      <costPGramToCustomer>17.0</costPGramToCustomer>
+      <costPVolumeToCustomer>20.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 20:38:33</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>Christchurch</origin>
+      <destination>Dunedin</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>11.0</costPVolumeForTransport>
+      <costPGramToCustomer>17.0</costPGramToCustomer>
+      <costPVolumeToCustomer>20.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 20:38:36</date>
+  </event>
+  <event type="Delete Route">
+    <route>
+      <origin>Christchurch</origin>
+      <destination>Dunedin</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>11.0</costPVolumeForTransport>
+      <costPGramToCustomer>17.0</costPGramToCustomer>
+      <costPVolumeToCustomer>20.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 20:45:37</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>Hamilton</origin>
+      <destination>Hawkes Bay</destination>
+      <transportType>Air</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>5.0</costPGramForTransport>
+      <costPVolumeForTransport>5.0</costPVolumeForTransport>
+      <costPGramToCustomer>5.0</costPGramToCustomer>
+      <costPVolumeToCustomer>5.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Saturday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 22:17:40</date>
+  </event>
 </businessEvents>
