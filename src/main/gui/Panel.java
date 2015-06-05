@@ -50,7 +50,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected NumberFormat amountFormat;
 	protected String[] priorityList = {"Air","Standard"};
 	protected String[] TransportDateList = {"Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-	
+
 	// the selected value in the comboboxes
 	protected static String origin = "";
 	protected static String destination = "";
@@ -59,7 +59,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static String transportType = "";
 	protected static String transportDay = "";
 	protected static String selected = "";
-	
+
 	// the comboboxes on the frame
 	protected static JComboBox comboBoxRoute;
 	protected static JComboBox comboBoxOrigin;
@@ -81,7 +81,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JFormattedTextField textTPmaxVolume;
 	protected static JFormattedTextField textTPFrequency;
 	protected static JFormattedTextField textTPDuration;
-	
+
 	protected static List<String> currentEvent = new ArrayList<String>();
 	private Map<String, Route> routeMap;
 	protected JLabel labelComboOrigin;
@@ -157,8 +157,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				}
 				else if(type.equals("route")){
 					selectedRouteString = selected;
+					//refreshRouteMap();
 					selectedRoute = routeMap.get(selectedRouteString);
-					controller.getBFRoute(selectedRoute);
+					System.out.println("!!!!!! " + selectedRouteString);
+					if (isBusinessFiguresRoute){	
+						isBusinessFiguresRoute = false;
+						controller.getBFRoute(selectedRoute);
+					}
+					//refreshComboBoxRouteList();
 				}
 				else if(type.equals("location")){
 					selectedLocationString = selected;
@@ -256,7 +262,31 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		comboBoxRoute.setSelectedItem(null);
 		comboBoxListenner(comboBoxRoute, "route");
 	}
-	
+
+	protected void refreshRouteMap(){
+		String[] routeKey = new String[controller.getRoutes().size()];
+		Route[] routeValue = new Route[controller.getRoutes().size()];
+		int i = 0;
+		for(Route r: controller.getRoutes()){
+			routeKey[i] = r.shortDescription();
+			i++;
+		}
+		i = 0;
+		for(Route r: controller.getRoutes()){
+			routeValue[i] = r;
+			i++;
+		}
+		routeMap = new HashMap<String, Route>();
+		for(int j = 0; j<routeKey.length; j++){
+			routeMap.put(routeKey[j], routeValue[j]);
+		}
+
+		comboBoxRoute = new JComboBox(routeKey);
+		comboBoxRoute.setSelectedItem(null);
+		comboBoxListenner(comboBoxRoute, "route");
+	}
+
+
 	/**
 	 * get all of the transport firms
 	 * @return the list of transport firms
@@ -274,7 +304,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return fs;
 	}
-	
+
 	/**
 	 * get all of the origins
 	 * @return the list of origins
@@ -316,7 +346,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return destinationsNew;
 	}
-	
+
 	/**
 	 * get all of the transport types
 	 * @return the list of transport types
@@ -336,7 +366,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return fs;
 	}
-	
+
 	/**
 	 * get all of the locations
 	 * @return the list of locations
@@ -363,7 +393,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return locationNew;
 	}
-	
+
 	/**
 	 * check whether a string is contained in an array
 	 * @return in or not in
@@ -376,7 +406,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * refresh the combobox of the routes
 	 */
@@ -462,7 +492,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		if(textTPNewCostPerGram!=null) textTPNewCostPerGram.setValue(0.0);
 		if(textTPNewCostPerCubic!=null) textTPNewCostPerCubic.setValue(0.0);
 	}
-	
+
 	// the following methods are the getters and setters
 	public static String getOrigin() {
 		return origin;
