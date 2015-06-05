@@ -29,7 +29,7 @@ public class GUI {
 	protected BusinessFiguresTab bft;
 	protected BusinessFiguresRoutePane bfrp;
 	protected BusinessFiguresLocationPane bflp;
-
+	protected MailReceivedPane mrp;
 
 	// the dimension of the frame
 	private static int width = 900;
@@ -165,7 +165,16 @@ public class GUI {
 	public void setBusinessFiguresLocationPane(BusinessFiguresLocationPane businessFiguresLocationPane) {
 		this.bflp = businessFiguresLocationPane;
 	}
+	
 	public BusinessFiguresLocationPane getBusinessFiguresLocationPane(){
 		return bflp;
+	}
+	
+	public void setMailReceivedPane(MailReceivedPane mailReceivednPane) {
+		this.mrp = mailReceivednPane;
+	}
+	
+	public MailReceivedPane getMailReceivedPane(){
+		return mrp;
 	}
 }

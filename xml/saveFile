@@ -210,6 +210,17 @@
       </departureDays>
       <departureFrequency>3.0</departureFrequency>
     </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 19:29:20</date>
+    <origin>SpringLand</origin>
+    <destination>Halpie</destination>
+    <weight>340.0</weight>
+    <volume>400.0</volume>
+    <priority>0.0</priority>
+    <revenue>136120.0</revenue>
+    <timeTaken>0.0</timeTaken>
+  </event>
+  <event type="Mail Delivery">
     <route>
       <origin>Halpie</origin>
       <destination>Sunnyville</destination>
@@ -224,28 +235,14 @@
       </departureDays>
       <departureFrequency>6.0</departureFrequency>
     </route>
-    <route>
-      <origin>Sunnyville</origin>
-      <destination>Murkwood</destination>
-      <transportType>Standard</transportType>
-      <firmName>NZPost</firmName>
-      <costPGramForTransport>60.0</costPGramForTransport>
-      <costPVolumeForTransport>90.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>30.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>3.0</departureFrequency>
-    </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 19:29:20</date>
-    <origin>SpringLand</origin>
-    <destination>Murkwood</destination>
-    <weight>340.0</weight>
-    <volume>400.0</volume>
+    <date>2015/06/05 20:25:07</date>
+    <origin>Halpie</origin>
+    <destination>Sunnyville</destination>
+    <weight>2.0</weight>
+    <volume>3.0</volume>
     <priority>0.0</priority>
-    <revenue>136120.0</revenue>
+    <revenue>310.0</revenue>
     <timeTaken>0.0</timeTaken>
   </event>
 </businessEvents>

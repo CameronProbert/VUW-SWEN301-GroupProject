@@ -43,7 +43,6 @@ public class BusinessFiguresLocationPane extends Panel {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 		gui.setBusinessFiguresLocationPane(this);
-
 	}
 
 	@Override

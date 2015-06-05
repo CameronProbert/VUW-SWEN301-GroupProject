@@ -77,7 +77,7 @@ public class MailDeliveryPane extends Panel {
 
 		JLabel labelPriority= new JLabel("Priority", SwingConstants.CENTER);
 		comboBoxPriority = new JComboBox(priorityList);
-		comboBoxPriority.setSelectedItem(null);
+		comboBoxPriority.setSelectedIndex(1);
 		comboBoxListenner(comboBoxPriority, "priority");
 		JTextField textTime = new JTextField(20);
 		textTime.setEnabled(false);

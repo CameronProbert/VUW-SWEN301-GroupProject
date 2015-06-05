@@ -22,7 +22,6 @@ import javax.swing.SwingConstants;
  */
 public class TransportDiscontinuedPane extends Panel{
 
-	private JButton reset;
 	private JButton delete;
 
 	/**
@@ -42,12 +41,10 @@ public class TransportDiscontinuedPane extends Panel{
 
 		JLabel labelComboRoute = new JLabel("Select Route", SwingConstants.CENTER);
 		comboBoxRouteList();
-		reset = new JButton("Reset");
 		delete = new JButton("Delete");
 		
 		add(labelComboRoute);
 		add(comboBoxRoute);
-		add(reset);
 		add(delete);
 	}
 
@@ -72,20 +69,6 @@ public class TransportDiscontinuedPane extends Panel{
 						}
 					}
 
-				}
-			}
-		});
-		reset.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
-				if(button == reset){
-					int g = JOptionPane.YES_NO_OPTION;
-					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
-					if(response == JOptionPane.YES_OPTION){
-						comboBoxRoute.setSelectedItem(null);
-						init();
-					}
 				}
 			}
 		});

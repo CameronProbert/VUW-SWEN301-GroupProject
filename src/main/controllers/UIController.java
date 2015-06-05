@@ -100,6 +100,7 @@ public class UIController {
 		gui.getBusinessFiguresLocationPane().setTotalWeight(expenditure);
 		gui.getBusinessFiguresLocationPane().setNumItems(numOfEvents);
 	}
+	
 	public void setTotalTransportFigures(double revenue, double expenditure, int numOfEvents){
 		gui.getBusinessFiguresTab().setRevenue(revenue);
 		gui.getBusinessFiguresTab().setExpend(expenditure);
@@ -121,6 +122,9 @@ public class UIController {
 	public List<MailDelivery> getMailDeliveries(){
 	    return monitor.getNotReceivedDels();
 	}
+	public List<String> getMailDeliveried(){
+	    return monitor.getMailDelGeneric();
+	}
 
 	public void updateMailDelTime(MailDelivery selectedMail) {
 		// TODO Auto-generated method stub
@@ -129,4 +133,11 @@ public class UIController {
 		monitor.setTimeTaken(selectedMail, dateFormat.format(date));
 	}
 
+	public void getMailAveTime(String selected) {
+		monitor.getAverageDeliveryTime(selected);
+	}
+	
+	public void setAverageDeliveryTime(double time){
+		gui.getMailReceivedPane().setAveTime(time);
+	}
 }

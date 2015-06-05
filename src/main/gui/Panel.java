@@ -70,6 +70,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxTransportDay;
 	protected static JComboBox comboBoxLocation;
 	protected static JComboBox comboBoxMailDel;
+	protected static JComboBox comboBoxMailDeled;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
 	protected static JFormattedTextField textCustomerNewPricePerGram;
@@ -171,8 +172,11 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 						}
 					}
 				}
-				else if(type.equals("mailReceived")){
+				else if(type.equals("mailDel")){
 					selectedMailReceived = selected;
+				}
+				else if(type.equals("mailDeled")){
+					controller.getMailAveTime(selected);	
 				}
 			}
 		});
@@ -404,6 +408,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		int i = 0;
 		for (MailDelivery md: controller.getMailDeliveries()) {
 			mailDels[i] = md.toString();
+		}
+		return mailDels;
+	}
+	protected String[] mailDeledList(){
+		String [] mailDels = new String[controller.getMailDeliveried().size()];
+		int i = 0;
+		for (String md: controller.getMailDeliveried()) {
+			mailDels[i] = md;
 		}
 		return mailDels;
 	}
