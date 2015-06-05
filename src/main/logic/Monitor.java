@@ -294,10 +294,10 @@ public class Monitor {
 	 * @return
 	 */
 	private BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
-		List<Route> routes = new ArrayList<Route>();
-		routes.add(route);
+		List<Route> routesforEvent = new ArrayList<Route>();
+		routesforEvent.add(route);
 		this.routes.remove(route);
-		return new DeleteRoute(currentUser.name, data.get("time"), routes);
+		return new DeleteRoute(currentUser.name, data.get("time"), routesforEvent);
 	}
 
 	/**
@@ -469,9 +469,12 @@ public class Monitor {
 	 * @param route
 	 */
 	public void getEventsForRoute(Route route) {
-		double revenue = route.getRevenue(getMailEvents()); // TODO double check
-															// the mail delivery
-															// list is populated
+		List<MailDelivery> m = getMailEvents();
+		if(route==null){
+			System.out.println("route is nullllllllllllllllll");
+			return;
+		}
+		double revenue = route.getRevenue(m);
 		double expenditure = route.getExpenditure(getMailEvents());
 		int numOfEvents = route.getNumEvents(getMailEvents());
 		boolean isCritical = false;
@@ -480,7 +483,6 @@ public class Monitor {
 				isCritical = true;
 			}
 		}
-
 		controller.setRouteFigures(revenue, expenditure, numOfEvents,
 				isCritical);
 	}
