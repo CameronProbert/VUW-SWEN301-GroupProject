@@ -98,7 +98,7 @@ public class FunctionGUI extends Panel{
 	private Button button_3;
 	private Button button_4;
 	private Button button_5;
-	private BusinessEventPane businessEventPane ;
+	private BusinessEventTab businessEventPane ;
 
 	public FunctionGUI(GUI gui) {
 		super(gui);
@@ -241,7 +241,7 @@ public class FunctionGUI extends Panel{
 			businessEventTab.add(eventPane, BorderLayout.NORTH);
 			currentEvent = controller.getMostRecentEvent();
 
-			businessEventPane = new BusinessEventPane(gui);
+			businessEventPane = new BusinessEventTab(gui);
 			businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 			previousEventButton = new Button("Previous Event");
 			previousEventButton.setBackground(Color.LIGHT_GRAY);
@@ -253,7 +253,7 @@ public class FunctionGUI extends Panel{
 					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
-					businessEventPane = new BusinessEventPane(gui);
+					businessEventPane = new BusinessEventTab(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 					eventPane.add(businessEventPane);
 					repaint();
@@ -271,7 +271,7 @@ public class FunctionGUI extends Panel{
 					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
-					businessEventPane = new BusinessEventPane(gui);
+					businessEventPane = new BusinessEventTab(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 					eventPane.add(businessEventPane);
 					repaint();
@@ -289,7 +289,7 @@ public class FunctionGUI extends Panel{
 					//					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
-					businessEventPane = new BusinessEventPane(gui);
+					businessEventPane = new BusinessEventTab(gui);
 					businessEventPane.setPreferredSize(new Dimension(gui.getWidth()*2/5,gui.getHeight()-300));
 					eventPane.add(businessEventPane);
 					repaint();
@@ -304,7 +304,7 @@ public class FunctionGUI extends Panel{
 		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
 		businessFigureTab.add(businessFiguresTotal);
 		
-		RoutesPane routes = new RoutesPane(gui);
+		RoutesTab routes = new RoutesTab(gui);
 		routeTab.add(routes);
 		
 		//table = new JTable( new MyTableModel());

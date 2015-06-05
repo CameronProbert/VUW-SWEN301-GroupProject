@@ -17,20 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -91,7 +77,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected JLabel labelComboOrigin;
 	protected JLabel labelComboDestination;
 	protected boolean isBusinessFigures = false;
-
+	protected boolean isComboBoxRouteModified = false;
 
 
 	public Panel (GUI gui){
@@ -299,7 +285,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			currentEvent.put("customerPricePerGram", "" + textCustomerNewPricePerGram.getValue());
 			currentEvent.put("customerPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
 			currentEvent.put("frequency", "" + textTPFrequency.getValue());
-			controller.addEvent(selectedRoute, currentEvent);		
+			controller.addEvent(selectedRoute, currentEvent);
 		}
 	}
 
@@ -363,7 +349,9 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		return false;
 	}
 	protected void refreshRouteList(){
+		if(comboBoxRoute==null) return;
 		comboBoxRoute.removeAllItems();
+		isComboBoxRouteModified = true;
 		String[] routes = new String[controller.getRoutes().size()];
 		int i = 0;
 		for (Route r: controller.getRoutes()) {
@@ -371,6 +359,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			comboBoxRoute.addItem(rt);
 		}
 	}
+
 	protected List<String> routeList(){
 		List <String> routes = new ArrayList<String>();
 		for (Route r: controller.getRoutes()) {

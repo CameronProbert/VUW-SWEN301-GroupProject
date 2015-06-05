@@ -643,4 +643,58 @@
     <clerk>Cameron Probert</clerk>
     <date>2015/06/04 15:06:53</date>
   </event>
+  <event type="New Route">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>c</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>1.0</costPVolumeForTransport>
+      <costPGramToCustomer>1.0</costPGramToCustomer>
+      <costPVolumeToCustomer>1.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 13:03:33</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>a</origin>
+      <destination>b</destination>
+      <transportType>Standard</transportType>
+      <firmName>c</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>1.0</costPVolumeForTransport>
+      <costPGramToCustomer>1.0</costPGramToCustomer>
+      <costPVolumeToCustomer>1.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 13:04:20</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>b</origin>
+      <destination>c</destination>
+      <transportType>Air</transportType>
+      <firmName>ccc</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>1.0</costPVolumeForTransport>
+      <costPGramToCustomer>1.0</costPGramToCustomer>
+      <costPVolumeToCustomer>1.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 13:05:12</date>
+  </event>
 </businessEvents>

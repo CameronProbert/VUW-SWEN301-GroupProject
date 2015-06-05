@@ -24,11 +24,11 @@ import javax.swing.SwingConstants;
  * @author zhaojiang chang & zhiheng sun
  *
  */
-public class BusinessEventPane extends Panel {
+public class BusinessEventTab extends Panel {
 
 
 
-	public BusinessEventPane(GUI gui) {
+	public BusinessEventTab(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 	}
