@@ -196,8 +196,8 @@ public class Location implements Comparable<Location> {
 		}
 	}
 
-	public double getDeliveriesIn(){
-		double mailIn = 0;
+	public int getDeliveriesIn(){
+		int mailIn = 0;
 		for(MailDelivery del: monitor.getMailEvents()){
 			for(Route r: del.getRoutes()){
 				if(inbound.contains(r)){

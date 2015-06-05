@@ -507,8 +507,26 @@ public class Monitor {
 		double expenditure = route.getExpenditure(getMailEvents());
 		int numOfEvents = route.getNumEvents(getMailEvents());
 		double averageDeliveryTime = 0;
-		controller.setSingleTransportFigures(revenue, expenditure, numOfEvents,
-				averageDeliveryTime);
+		boolean isCritical = false;
+		for(Route r: findCriticalRoutes()){
+			if(route.equals(r)){
+				isCritical = true;
+			}
+		}
+
+		controller.setRouteFigures(revenue, expenditure, numOfEvents,
+				isCritical);
+	}
+
+	/**
+	 * Given a location will return the info about it and call the mehod to update
+	 * @param loc
+	 */
+	public void getInfoForLocation(Location origin, Location dest){
+		double totalVol = origin.getTotalVolume();
+		double totalWeight = origin.getTotalWeight();
+		int totalNumItems = origin.getDeliveriesIn();
+		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
 	}
 
 	/**
