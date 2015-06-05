@@ -202,7 +202,7 @@ public class Monitor {
 
 	/**
 	 * Creates a mail delivery event
-	 *
+	 * TODO handle if we cannot find a route between two locations
 	 * @param data
 	 * @return
 	 */
@@ -219,7 +219,7 @@ public class Monitor {
 		double priority = 0;
 		double revenue = 0;
 		List<Route> routes = null;
-		if (data.get("priority").equals("air")) {
+		if (data.get("priority").equals("Air")) {
 			DijkAir air = new DijkAir(findLocation(origin),
 					findLocation(destination), weight, volume);
 			air.initialiseGraph(locations);
@@ -227,11 +227,11 @@ public class Monitor {
 			revenue = air.getCostOfRoute();
 			priority = 1;
 		} else {
-			DijkAir standard = new DijkAir(findLocation(origin),
+			DijkStandard standard = new DijkStandard(findLocation(origin),
 					findLocation(destination), weight, volume);
 			standard.initialiseGraph(locations);
 			routes = standard.getBestRoute();
-			if (routes == null) {
+			if (routes == null || routes.isEmpty()) {
 				System.err
 				.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
