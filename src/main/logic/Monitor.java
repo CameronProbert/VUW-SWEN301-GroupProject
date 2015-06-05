@@ -174,8 +174,6 @@ public class Monitor {
 			event = createCustPriceChange(route, eventData);
 			break;
 		case "mailDelivery":
-			System.out
-					.println("MAKING A MAIL DELIVERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			event = createMailDelivery(eventData);
 			break;
 		case "transportCostUpdate":
@@ -189,10 +187,6 @@ public class Monitor {
 			break;
 		default:
 			return false;
-		}
-		if (event == null) {
-			System.err
-					.println("errrrrrrrrrrrrrrrroooooooooooooooorrrrrrrrrrrrrr========================================");
 		}
 		boolean successful = handler.newEvent(event);
 		calculateBusinessFigures();
@@ -347,7 +341,7 @@ public class Monitor {
 		Location destination = findLocation(data.get("destination"));
 		String transportFirm = data.get("transportFirm");
 		TransportType transportType = TransportType.valueOf(data
-				.get("transportType")); // TODO Make sure case matches
+				.get("transportType"));
 		double costWeightTrans = Double.parseDouble(data
 				.get("transportsCostPerGram"));
 		double costVolTrans = Double.parseDouble(data
@@ -404,22 +398,6 @@ public class Monitor {
 		route.setPricePerGramTransport(transGram);
 		route.setPricePerVolumeTransport(transVol);
 		return event;
-	}
-
-	/**
-	 * Determines whether a route exists
-	 *
-	 * @param priority
-	 * @param transportCompany
-	 * @param destination
-	 * @param origin
-	 *
-	 * @return
-	 */
-	private boolean routeExists(String origin, String destination,
-			String transportCompany, String priority) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public List<String> getMostRecentEvent() {
