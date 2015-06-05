@@ -500,10 +500,10 @@ public class Monitor {
 	 * Given a location will return the info about it and call the mehod to update
 	 * @param loc
 	 */
-	public void getEventsForLocation(Location origin, Location dest){
-		double totalVol = origin.getTotalVolume();
-		double totalWeight = origin.getTotalWeight();
-		int totalNumItems = origin.getDeliveriesIn();
+	public void getEventsForLocation(Location loc){
+		double totalVol = loc.getTotalVolume();
+		double totalWeight = loc.getTotalWeight();
+		int totalNumItems = loc.getDeliveriesIn();
 		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
 	}
 
