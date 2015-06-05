@@ -56,14 +56,14 @@ public class LoginGUI extends Panel{
 	@Override
 	protected void setUpComponents() {
 		// textFields used on LoginGUI
-		gui.getUserId().setText("Cameron");
+		gui.getUserId().setText("Username");
 		gui.getUserId().setPreferredSize(new Dimension(250, 50));
 		gui.getUserId().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getUserId().setForeground(new Color(130, 130, 130));
 		gui.getUserId().setBackground(new Color(50, 50, 50));
 		gui.getUserId().setBorder(null);
 
-		gui.getPassword().setText("Cameron");
+		gui.getPassword().setText("Password");
 		gui.getPassword().setPreferredSize(new Dimension(250, 50));
 		gui.getPassword().setFont(new Font("Arial", Font.PLAIN, 20));
 		gui.getPassword().setForeground(new Color(130, 130, 130));
