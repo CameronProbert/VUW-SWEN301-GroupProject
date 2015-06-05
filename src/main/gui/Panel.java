@@ -62,6 +62,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected static JComboBox comboBoxTransportFirm;
 	protected static JComboBox comboBoxTransportType;
 	protected static JComboBox comboBoxTransportDay;
+	protected static JComboBox comboBoxLocation;
 	protected static JFormattedTextField textWeight;
 	protected static JFormattedTextField textVolume;
 	protected static JFormattedTextField textCustomerNewPricePerGram;
@@ -181,7 +182,17 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				else if(type.equals("location")){
 					selectedLocationString = selected;
 					if(isBusinessFiguresLocation){
-						controller.getBFLocation(selectedLocationString);
+						for( Route s: controller.getRoutes()){
+							if(s.getOrigin().getName().equals(selectedLocationString)){
+								controller.getBFLocation(s.getOrigin());
+
+								
+							}
+							if(s.getDestination().equals(selectedLocationString)){
+								controller.getBFLocation(s.getDestination());
+
+							}
+						}
 					}
 				}
 			}
@@ -357,6 +368,28 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			fs[i] = types.get(i);
 		}
 		return fs;
+	}
+	protected String[] getLocations(){
+		String[] location = new String[controller.getRoutes().size()*2];
+		int i = 0;
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getOrigin().getName(), location)){
+				location[i] = s.getOrigin().getName();
+				i++;
+			}
+		}
+		for( Route s: controller.getRoutes()){
+			if(!isContains(s.getDestination().getName(), location)){
+				location[i] = s.getDestination().getName();
+				i++;
+			}
+		}
+		
+		String[] locationNew = new String[i];
+		for (int j = 0; j < locationNew.length; j++){
+			locationNew[j] = location[j];
+		}
+		return locationNew;
 	}
 	protected boolean isContains(String a, String[] b){
 		for(int i = 0; i<b.length; i++){

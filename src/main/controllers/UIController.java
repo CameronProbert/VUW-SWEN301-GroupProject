@@ -12,6 +12,7 @@ import main.gui.GUI;
 import main.gui.Panel;
 import main.logic.Clerk;
 import main.logic.InvalidLoginException;
+import main.logic.Location;
 import main.logic.Monitor;
 import main.logic.Route;
 
@@ -105,7 +106,7 @@ public class UIController {
 		monitor.getEventsForRoute(selectedRoute);
 	}
 
-	public void getBFLocation(String selectedLocation) {
+	public void getBFLocation(Location selectedLocation) {
 		monitor.getEventsForLocation(selectedLocation);
 	}
 	

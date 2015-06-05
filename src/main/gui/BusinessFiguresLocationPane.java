@@ -49,10 +49,10 @@ public class BusinessFiguresLocationPane extends Panel {
 		// create labels for the business figures
 		//isBusinessFigures = true;
 		JLabel labelComboLocation = new JLabel("Select Location", SwingConstants.CENTER);
-		comboBoxOrigin = new JComboBox(getOrigins());
+		comboBoxLocation = new JComboBox(getLocations());
 		//comboBoxOrigin.setEditable(true);
-		comboBoxOrigin.setSelectedItem(null);
-		comboBoxListenner(comboBoxOrigin, "location");
+		comboBoxLocation.setSelectedItem(null);
+		comboBoxListenner(comboBoxLocation, "location");
 
 		JLabel labelVolume= new JLabel(" Total Volume", SwingConstants.LEFT);
 		totalVol = new JLabel();
@@ -81,7 +81,7 @@ public class BusinessFiguresLocationPane extends Panel {
 
 		// add the labels onto the panel
 		add(labelComboLocation);
-		add(comboBoxOrigin);
+		add(comboBoxLocation);
 		add(labelVolume);
 		add(totalVol);
 		add(labelWeight);
