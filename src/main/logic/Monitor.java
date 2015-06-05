@@ -67,7 +67,7 @@ public class Monitor {
 						* r.getPricePerGramTransport() + del.getVolume()
 						* r.getPricePerVolumeTransport();
 				double profit = costToCust - costToTrans;
-				if (!deliveryProfit.containsKey(r)) {
+				if (deliveryProfit.containsKey(r)) {
 					Double p = deliveryProfit.get(r);
 					deliveryProfit.put(r, p + profit);
 				} else {
