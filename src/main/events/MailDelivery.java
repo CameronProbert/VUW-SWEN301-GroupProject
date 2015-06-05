@@ -23,6 +23,7 @@ public class MailDelivery extends BusinessEvent {
 	private double priority;
 	private double revenue;
 	private double timeTaken;
+	private double timeStart;
 	private boolean isReceived;
 
 	public MailDelivery(String clerk, String date, String or, String des, double we, double vol, double prio, double rev, double time, List<Route> routes) {
@@ -34,7 +35,8 @@ public class MailDelivery extends BusinessEvent {
 		volume = vol;
 		priority = prio;
 		revenue = rev;
-		timeTaken = time;
+		timeStart = time;
+		timeTaken = 0;
 		this.routes = routes;
 
 		isReceived = false; //initialise false
@@ -42,14 +44,6 @@ public class MailDelivery extends BusinessEvent {
 
 	public boolean isReceived() {
 		return isReceived;
-	}
-
-	public void setReceived(boolean b) {
-		isReceived = b;
-	}
-
-	public void operation() {
-
 	}
 
 	//getters
@@ -80,6 +74,10 @@ public class MailDelivery extends BusinessEvent {
 		return timeTaken;
 	}
 
+	public double getStartTime(){
+		return timeStart;
+	}
+
 	//setters
 	public void setWeight(int w) {
 		weight=w;
@@ -93,8 +91,9 @@ public class MailDelivery extends BusinessEvent {
 		priority = p;
 	}
 
-	public void setTimeTaken(int time) {
+	public void setTimeTaken(double time) {
 		timeTaken = time;
+		isReceived = true;
 	}
 
 
@@ -144,11 +143,14 @@ public class MailDelivery extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "MailDelivery :\n------------------------------------\norigin=" + origin + ", \ndestination="
-				+ destination + ", \nweight=" + weight + ", \nvolume=" + volume
-				+ ", \npriority=" + priority + ", \nrevenue=" + revenue
-				+ ", \ntimeTaken=" + timeTaken + ", \nisReceived=" + isReceived
-				+ "\n";
+		String str =  origin + " "
+				+ destination + " $" + revenue + " (";
+		if(priority==0){
+			str += "Standard)";
+		}else{
+			str += "Air)";
+		}
+		return str;
 	}
 
 	@Override
@@ -165,6 +167,16 @@ public class MailDelivery extends BusinessEvent {
 		des.add("revenue = " + revenue);
 		des.add("time taken = " + timeTaken);
 		des.add("is received = " + isReceived);
+		return des;
+	}
+
+	public String shortDes(){
+		String des = origin + " to " + destination + " (";
+		if(priority==0){
+			des += "Standard)";
+		}else{
+			des += "Air)";
+		}
 		return des;
 	}
 

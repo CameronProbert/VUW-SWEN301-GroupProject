@@ -522,7 +522,7 @@ public class Monitor {
 	 * Given a location will return the info about it and call the mehod to update
 	 * @param loc
 	 */
-	public void getInfoForLocation(Location origin, Location dest){
+	public void getEventsForLocation(Location origin, Location dest){
 		double totalVol = origin.getTotalVolume();
 		double totalWeight = origin.getTotalWeight();
 		int totalNumItems = origin.getDeliveriesIn();
