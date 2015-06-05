@@ -48,7 +48,7 @@ public class MailReceivedPane extends Panel{
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
 		JLabel labelComboMail = new JLabel("Mail Received", SwingConstants.CENTER);
-		comboBoxMailDel = new JComboBox(getLocations());
+		comboBoxMailDel = new JComboBox(mailDelList());
 		comboBoxMailDel.setSelectedItem(null);
 		comboBoxListenner(comboBoxMailDel, "mailReceived");
 		update = new JButton("Update");
