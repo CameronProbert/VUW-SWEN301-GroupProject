@@ -197,6 +197,14 @@ public class Monitor {
 				Utility.showMessageDialog("",
 						"Frequency has to be greater than 0 and smaller than 24.");
 				return false;
+			} catch (NoDaysToShipException e) {
+				Utility.showMessageDialog("",
+						"A day has to be selected to ship.");
+				return false;
+			} catch (InvalidLocationException e) {
+				Utility.showMessageDialog("",
+						"That location does not exist.");
+				return false;
 			}
 			break;
 		case "transportDiscontinued":
@@ -293,7 +301,8 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 */
-	private BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
+	private BusinessEvent createDeleteRoute(Route route,
+			Map<String, String> data) {
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
 		this.routes.remove(route);
@@ -305,9 +314,12 @@ public class Monitor {
 	 *
 	 * @param data
 	 * @return
-	 * @throws InvalidFrequencyException 
+	 * @throws InvalidFrequencyException
+	 * @throws InvalidLocationException 
+	 * @throws NoDaysToShipException 
 	 */
-	private BusinessEvent createOpenRoute(Map<String, String> data) throws InvalidFrequencyException {
+	private BusinessEvent createOpenRoute(Map<String, String> data)
+			throws InvalidFrequencyException, NoDaysToShipException, InvalidLocationException {
 		OpenNewRoute event = null;
 		Location origin = findLocation(data.get("origin"));
 		Location destination = findLocation(data.get("destination"));
@@ -323,24 +335,14 @@ public class Monitor {
 		double costVolCust = Double.parseDouble(data
 				.get("customerPricePerCubic"));
 		double frequency = Double.parseDouble(data.get("frequency"));
-		if (frequency <= 0 || frequency >= 24){
+		if (frequency <= 0 || frequency >= 24) {
 			throw new InvalidFrequencyException();
 		}
 		DaysOfWeek day = DaysOfWeek.valueOf(data.get("transportDay"));
 		Route route = null;
-		try {
-			route = new Route(origin, destination, transportFirm,
-					transportType, costWeightTrans, costVolTrans,
-					costWeightCust, costVolCust, frequency, day);
-		} catch (NoDaysToShipException e) {
-
-		} catch (InvalidLocationException e) {
-
-		}
-		if (route == null) {
-			System.out
-					.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
+		route = new Route(origin, destination, transportFirm, transportType,
+				costWeightTrans, costVolTrans, costWeightCust, costVolCust,
+				frequency, day);
 		origin.addOutbound(route);
 		origin.addInbound(route);
 		List<Route> routes = new ArrayList<Route>();
@@ -359,7 +361,8 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 */
-	private BusinessEvent createTransUpdate(Route route, Map<String, String> data) {
+	private BusinessEvent createTransUpdate(Route route,
+			Map<String, String> data) {
 		TransportUpdate event = null;
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
