@@ -14,7 +14,7 @@ import main.logic.Route;
 
 /**
  * A business event which describes sending a package on a delivery
- * 
+ *
  * @author burlinfran
  *
  */
@@ -30,7 +30,7 @@ public class MailDelivery extends BusinessEvent {
 
 	// TODO Get rid of the 'time' parameter
 	public MailDelivery(String clerk, String date, String or, String des,
-			double we, double vol, double prio, double rev, double time,
+			double we, double vol, double prio, double rev, double timeT,
 			List<Route> routes) {
 		this.clerk = clerk;
 		this.date = date;
@@ -40,7 +40,7 @@ public class MailDelivery extends BusinessEvent {
 		volume = vol;
 		priority = prio;
 		revenue = rev;
-		timeTaken = 0;
+		timeTaken = timeT;
 		this.routes = routes;
 
 	}
