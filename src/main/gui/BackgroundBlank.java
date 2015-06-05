@@ -1,10 +1,15 @@
 package main.gui;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import main.Main;
 
 /**
  * The BackgroundBlank class is a JPanel which is added onto the JFrame
@@ -29,7 +34,13 @@ public class BackgroundBlank extends Panel{
 
 	@Override
 	protected void setUpComponents() {
-		background = new ImageIcon("image/bgBlank.jpg");
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(Main.class.getResource("/resources/image/bgBlank.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		background = new ImageIcon(img);
 		Image scaledImage = background.getImage().getScaledInstance(900, 770, Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		add(jl);

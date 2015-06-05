@@ -10,9 +10,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -31,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import main.Main;
 import main.controllers.UIController;
 
 import javax.swing.JTabbedPane;
@@ -116,7 +120,15 @@ public class FunctionGUI extends Panel{
 	protected void setUpComponents() {
 		//titlePanel
 		JPanel titlePanel = new JPanel(new BorderLayout());
-		addImage("image/topImage.jpg", titlePanel, 60);
+		
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(Main.class.getResource("/resources/image/topImage.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		addImage(img, titlePanel, 60);
 		titlePanel.setPreferredSize(new Dimension(gui.getWidth(),60));
 
 		//bottomPanel
@@ -314,8 +326,8 @@ public class FunctionGUI extends Panel{
 	 * @param panel
 	 * @param height height of the panel
 	 */
-	private void addImage(String imageAdd, JPanel panel, int height) {
-		ImageIcon topImage = new ImageIcon(imageAdd);
+	private void addImage(BufferedImage img, JPanel panel, int height) {
+		ImageIcon topImage = new ImageIcon(img);
 		Image scaledImage = topImage.getImage().getScaledInstance(900,height,Image.SCALE_SMOOTH);
 		JLabel jl = new JLabel(new ImageIcon(scaledImage));
 		panel.add(jl);
