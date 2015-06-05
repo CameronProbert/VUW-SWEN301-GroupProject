@@ -67,16 +67,14 @@ public class DijkStandard {
 			node.setVisited(true);
 
 			if( node.getPrevious()!=null ) {
-				System.out.println("\n" + node.getName() + " from "+node.getPrevious().getName());
+/*				System.out.println("\n" + node.getName() + " from "+node.getPrevious().getName());*/
 			}
 
 			// Visit all outbound routes
 			for (Route edge : node.getOutbound()) {
-				System.out.println(edge.getOrigin().getName() + " - "+edge.getDestination().getName() );
 				Location siblingNode = edge.getDestination();
 
 				if( siblingNode==destination ) {
-					System.out.println("FOUND!");
 					siblingNode.setPrevious(node);
 					break; }
 
@@ -141,7 +139,6 @@ public class DijkStandard {
 		for(int i=0; i<finalLocations.size()-1; i++){
 			Route r = bestOneRoute(finalLocations.get(i), finalLocations.get(i+1));
 			if(r==null){
-				System.out.println("error error error error error can't find route between locations");
 				return new ArrayList<Route>();
 			}
 			else{

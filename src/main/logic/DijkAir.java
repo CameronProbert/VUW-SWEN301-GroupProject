@@ -57,8 +57,6 @@ public class DijkAir {
 		while (!nodeQueue.isEmpty()) {
 			Location node = nodeQueue.poll();
 
-			System.out.println("\n"+node.getName());
-
 			// Visit all outbound routes
 			for (Route edge : node.getOutbound() ) {
 				if( edge.getTransportType()==Route.TransportType.Standard ) {
@@ -78,9 +76,9 @@ public class DijkAir {
 			}
 		}
 
-		for( Location LL : nodeQueue ) {
+		/*for( Location LL : nodeQueue ) {
 			System.out.println(LL.getName() +":"+ LL.getMinDistance());
-		}
+		}*/
 
 		finalLocations =  getShortestPathTo(destination) ;
 
@@ -123,7 +121,7 @@ public class DijkAir {
 		for(int i=0; i<finalLocations.size()-1; i++){
 			Route r = bestOneRoute(finalLocations.get(i), finalLocations.get(i+1));
 			if(r==null){
-				System.out.println("error error error error error can't find route between locations");
+/*				System.out.println("error error error error error can't find route between locations");*/
 				return new ArrayList<Route>();
 			}
 			else{
