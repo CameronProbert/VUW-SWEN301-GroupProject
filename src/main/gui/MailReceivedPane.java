@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -13,7 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import main.events.MailDelivery;
 
 /**
  * The TransportDiscontinuedPane class is a JPanel which is added onto the JFrame
@@ -26,7 +30,6 @@ import javax.swing.SwingConstants;
  */
 public class MailReceivedPane extends Panel{
 
-	private JButton reset;
 	private JButton update;
 
 	/**
@@ -48,22 +51,16 @@ public class MailReceivedPane extends Panel{
 		comboBoxMailDel = new JComboBox(getLocations());
 		comboBoxMailDel.setSelectedItem(null);
 		comboBoxListenner(comboBoxMailDel, "mailReceived");
-		JLabel labelMailDelTime = new JLabel("Mail Delvery Time", SwingConstants.CENTER);
-		JLabel mailDelTime = new JLabel();
-
-		mailDelTime.setText("");
-		mailDelTime.setPreferredSize(new Dimension(250, 50));
-		mailDelTime.setFont(new Font("Arial", Font.PLAIN, 15));
-		mailDelTime.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		reset = new JButton("Reset");
 		update = new JButton("Update");
-		
+		JTextField blankSpace = new JTextField(20);
+		blankSpace.setEnabled(false);
+		blankSpace.setEditable(false);
+		blankSpace.setBackground(SystemColor.controlHighlight);
+		blankSpace.disable();
 		add(labelComboMail);
 		add(comboBoxMailDel);
-		add(labelMailDelTime);
-		add(mailDelTime);
-		add(reset);
 		add(update);
+		add(blankSpace);
 	}
 
 	@Override
@@ -74,38 +71,27 @@ public class MailReceivedPane extends Panel{
 				// TODO Auto-generated method stub
 				JButton button = (JButton) e.getSource();
 				if(button == update){
-					if(selectedMailReceived==null){
-						JOptionPane.showMessageDialog(null, "Please select a route", "Warning",
+					if(comboBoxMailDel.getSelectedItem()==null){
+						JOptionPane.showMessageDialog(null, "Please select from Mail Delivery list", "Warning",
 								JOptionPane.WARNING_MESSAGE);
 					}
 					else{
 						int g = JOptionPane.YES_NO_OPTION;
-						int response = JOptionPane.showConfirmDialog(null, "Do you want to discontinue a transport?", "Discontinue Transport", g);
+						int response = JOptionPane.showConfirmDialog(null, "Do you want to update the mail delivery time?", "Mail delivery time update", g);
 						if(response == JOptionPane.YES_OPTION){
-							addBusinessEvent("transportDiscontinued");
-							refreshRouteList();
+							for (MailDelivery md: controller.getMailDeliveries()) {
+								if(md.toString().equals(selectedMailReceived)){
+									controller.updateMailDelTime(md);
+
+								}
+							}
 						}
 					}
 
 				}
 			}
 		});
-		reset.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
-				if(button == reset){
-					int g = JOptionPane.YES_NO_OPTION;
-					int response = JOptionPane.showConfirmDialog(null, "Do you want to reset Values?", "Reset values", g);
-					if(response == JOptionPane.YES_OPTION){
-						comboBoxRoute.setSelectedItem(null);
-						init();
-					}
-				}
-			}
-		});
 	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 	}

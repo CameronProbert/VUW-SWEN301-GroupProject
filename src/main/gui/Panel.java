@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.controllers.UIController;
+import main.events.MailDelivery;
 import main.logic.Location;
 import main.logic.Route;
 
@@ -423,8 +424,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected String[] mailDelList(){
 		String [] mailDels = new String[controller.getMailDeliveries().size()];
 		int i = 0;
-		for (String md: controller.getMailDeliveries()) {
-			mailDels[i] = md;
+		for (MailDelivery md: controller.getMailDeliveries()) {
+			mailDels[i] = md.toString();
 		}
 		return mailDels;
 	}

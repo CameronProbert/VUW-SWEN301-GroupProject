@@ -418,6 +418,19 @@ public class FunctionGUI extends Panel{
 				}
 			}
 		});
+		mailReceivedButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Button button = (Button) e.getSource();
+				if(button == mailReceivedButton){
+					buttonColorSwitch("Mail Received", button);
+					init();
+					displayPanel.setVisible(false);
+					jSplitPanel.add(new MailReceivedPane(gui), JSplitPane.RIGHT);
+				}
+			}
+		});
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTextField id = new JTextField();
