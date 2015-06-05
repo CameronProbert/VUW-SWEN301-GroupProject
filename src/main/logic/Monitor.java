@@ -322,7 +322,7 @@ public class Monitor {
 	 */
 	private Location findLocation(String locationName) {
 		for (Location l : locations) {
-			if (l.getName().equals(locationName)) {
+			if (l.getName().equalsIgnoreCase(locationName)) {
 				return l;
 			}
 		}
