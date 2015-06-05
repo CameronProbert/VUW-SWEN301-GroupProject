@@ -43,6 +43,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	protected int amountInt = 0;
 	protected Route selectedRoute = null;
 	private String selectedRouteString = "";
+	private String selectedLocationString = "";
 
 	protected NumberFormat amountFormat;
 	protected String[] priorityList = {"Air","Standard"};
@@ -76,7 +77,8 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	private Map<String, Route> routeMap;
 	protected JLabel labelComboOrigin;
 	protected JLabel labelComboDestination;
-	protected boolean isBusinessFigures = false;
+	protected boolean isBusinessFiguresRoute = false;
+	protected boolean isBusinessFiguresLocation = false;
 	protected boolean isComboBoxRouteModified = false;
 
 
@@ -172,8 +174,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				else if(type.equals("route")){
 					selectedRouteString = selected;
 					selectedRoute = routeMap.get(selectedRouteString);
-					if(isBusinessFigures){
-						controller.getSpecificSingleBF(selectedRoute);
+					if(isBusinessFiguresRoute){
+						controller.getBFRoute(selectedRoute);
+					}
+				}
+				else if(type.equals("location")){
+					selectedLocationString = selected;
+					if(isBusinessFiguresLocation){
+						controller.getBFLocation(selectedLocationString);
 					}
 				}
 			}
@@ -311,10 +319,15 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				i++;
 			}
 		}
-		return origins;
+		
+		String[] originsNew = new String[i];
+		for (int j = 0; j < originsNew.length; j++){
+			originsNew[j] = origins[j];
+		}
+		return originsNew;
 	}
+	
 	protected String[] getDestinations(){
-
 		String[] destinations = new String[controller.getRoutes().size()];
 		int j = 0;
 		for( Route s: controller.getRoutes()){
@@ -323,7 +336,12 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				j++;
 			}
 		}
-		return destinations;
+		
+		String[] destinationsNew = new String[j];
+		for (int i = 0; i < destinationsNew.length; i++){
+			destinationsNew[i] = destinations[i];
+		}
+		return destinationsNew;
 	}
 	protected String[] getTransportTypes(){
 		List<String> types = new ArrayList<String>();

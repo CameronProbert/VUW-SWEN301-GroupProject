@@ -30,15 +30,14 @@ import javax.swing.SwingConstants;
 public class BusinessFiguresLocationPane extends Panel {
 
 	// value labels on the panel
-	private static JLabel revenue;
-	private static JLabel expenditure;
-	private static JLabel events;
-	private static JLabel averageTime;
+	private static JLabel totalVol;
+	private static JLabel totalWeight;
+	private static JLabel totalNumItems;
 
 	public BusinessFiguresLocationPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		//gui.setBusinessFiguresPane(this);
+		gui.setBusinessFiguresLocationPane(this);
 
 	}
 
@@ -49,64 +48,46 @@ public class BusinessFiguresLocationPane extends Panel {
 
 		// create labels for the business figures
 		//isBusinessFigures = true;
-		JLabel labelComboOrigin = new JLabel("Origin", SwingConstants.CENTER);
+		JLabel labelComboLocation = new JLabel("Select Location", SwingConstants.CENTER);
 		comboBoxOrigin = new JComboBox(getOrigins());
 		//comboBoxOrigin.setEditable(true);
 		comboBoxOrigin.setSelectedItem(null);
-		comboBoxListenner(comboBoxOrigin, "origin");
+		comboBoxListenner(comboBoxOrigin, "location");
 
-		JLabel labelRevenue= new JLabel(" Revenue", SwingConstants.LEFT);
-		revenue = new JLabel();
+		JLabel labelVolume= new JLabel(" Total Volume", SwingConstants.LEFT);
+		totalVol = new JLabel();
 
-		JLabel labelExpend= new JLabel(" Expenditure", SwingConstants.LEFT);
-		expenditure = new JLabel();
+		JLabel labelWeight = new JLabel(" Total Weight", SwingConstants.LEFT);
+		totalWeight = new JLabel();
 
-		JLabel labelEvents= new JLabel(" Number of Events", SwingConstants.LEFT);
-		events = new JLabel();
-
-		JLabel labelAverageTime = new JLabel(" Average Delivery Time", SwingConstants.LEFT);
-		averageTime = new JLabel();
+		JLabel labelItems = new JLabel(" Number of Items", SwingConstants.LEFT);
+		totalNumItems = new JLabel();
 
 		// format value labels shown business figures
-		//revenue.disable();
-		revenue.setText(" 0.0");
-		//revenue.setDisabledTextColor(Color.BLACK);
-		revenue.setPreferredSize(new Dimension(250, 50));
-		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
-		revenue.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		totalVol.setText(" 0.0");
+		totalVol.setPreferredSize(new Dimension(250, 50));
+		totalVol.setFont(new Font("Arial", Font.PLAIN, 15));
+		totalVol.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		//expenditure.disable();
-		expenditure.setText(" 0.0");
-		//expenditure.setDisabledTextColor(Color.BLACK);
-		expenditure.setPreferredSize(new Dimension(250, 50));
-		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
-		expenditure.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		totalWeight.setText(" 0.0");
+		totalWeight.setPreferredSize(new Dimension(250, 50));
+		totalWeight.setFont(new Font("Arial", Font.PLAIN, 15));
+		totalWeight.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		//events.disable();
-		events.setText(" 0");
-		//events.setDisabledTextColor(Color.BLACK);
-		events.setPreferredSize(new Dimension(250, 50));
-		events.setFont(new Font("Arial", Font.PLAIN, 15));
-		events.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-		//averageTime.disable();
-		averageTime.setText(" 0.0");
-		//averageTime.setDisabledTextColor(Color.BLACK);
-		averageTime.setPreferredSize(new Dimension(250, 50));
-		averageTime.setFont(new Font("Arial", Font.PLAIN, 15));
-		averageTime.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		totalNumItems.setText(" 0");
+		totalNumItems.setPreferredSize(new Dimension(250, 50));
+		totalNumItems.setFont(new Font("Arial", Font.PLAIN, 15));
+		totalNumItems.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 		// add the labels onto the panel
-		add(labelComboOrigin);
+		add(labelComboLocation);
 		add(comboBoxOrigin);
-		add(labelRevenue);
-		add(revenue);
-		add(labelExpend);
-		add(expenditure);
-		add(labelEvents);
-		add(events);
-		add(labelAverageTime);
-		add(averageTime);
+		add(labelVolume);
+		add(totalVol);
+		add(labelWeight);
+		add(totalWeight);
+		add(labelItems);
+		add(totalNumItems);
 	}
 	@Override
 	protected void addListenner() {}
@@ -115,22 +96,17 @@ public class BusinessFiguresLocationPane extends Panel {
 	public void propertyChange(PropertyChangeEvent e ) {}
 
 	// controller calls to set the updated revenue
-	public void setRevenue(double r){
-		revenue.setText("" + r);
+	public void setTotalVol(double vol){
+		totalVol.setText("" + vol);
 	}
 
 	// controller calls to set the updated expenditure
-	public void setExpend(double e){
-		expenditure.setText("" + e);
+	public void setTotalWeight(double wei){
+		totalWeight.setText("" + wei);
 	}
 
 	// controller calls to set the updated events
-	public void setEvents(double e){
-		events.setText("" + e);
-	}
-
-	// controller calls to set the updated events
-	public void setAverageTime(double a){
-		averageTime.setText("" + a);
+	public void setNumItems(double items){
+		totalNumItems.setText("" + items);
 	}
 }

@@ -43,6 +43,7 @@ public class TransportCostUpdatePane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
+		JLabel labelComboRoute = new JLabel("Select Route", SwingConstants.CENTER);
 		comboBoxRouteList();
 
 		JLabel labelNewPricePerGram= new JLabel("New price per gram", SwingConstants.CENTER);
@@ -55,6 +56,8 @@ public class TransportCostUpdatePane extends Panel{
 
 		reset = new JButton("Reset");
 		update = new JButton("Update");
+		
+		add(labelComboRoute);
 		add(comboBoxRoute);
 		add(labelNewPricePerGram);
 		add(textTPNewCostPerGram);

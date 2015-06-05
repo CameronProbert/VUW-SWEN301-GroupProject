@@ -186,17 +186,17 @@ public class FunctionGUI extends Panel{
 		createRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(createRoute, BorderLayout.SOUTH);
 
-		transportDiscontinued = new Button("Transport Discontinued");
+		transportDiscontinued = new Button("Route Discontinued");
 		transportDiscontinued.setFont(new Font("Dialog", Font.BOLD, 12));
 		transportDiscontinued.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(transportDiscontinued, BorderLayout.SOUTH);
 
-		businessFiguresRoute = new Button("Business Figures Route");
+		businessFiguresRoute = new Button("Route Data");
 		businessFiguresRoute.setFont(new Font("Dialog", Font.BOLD, 12));
 		businessFiguresRoute.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFiguresRoute, BorderLayout.NORTH);
 
-		businessFiguresLocation = new Button("Business Figures Location");
+		businessFiguresLocation = new Button("Location Data");
 		businessFiguresLocation.setFont(new Font("Dialog", Font.BOLD, 12));
 		businessFiguresLocation.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFiguresLocation, BorderLayout.CENTER);
@@ -301,7 +301,7 @@ public class FunctionGUI extends Panel{
 		routeTab = new JPanel(new BorderLayout());
 		tabbedPane.addTab("Routes", null, routeTab, null);
 		add(bottomPanel);
-		BusinessFiguresTotal businessFiguresTotal = new BusinessFiguresTotal(gui);
+		BusinessFiguresTab businessFiguresTotal = new BusinessFiguresTab(gui);
 		businessFigureTab.add(businessFiguresTotal);
 		
 		RoutesTab routes = new RoutesTab(gui);

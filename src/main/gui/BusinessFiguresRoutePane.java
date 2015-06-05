@@ -33,12 +33,12 @@ public class BusinessFiguresRoutePane extends Panel {
 	private static JLabel revenue;
 	private static JLabel expenditure;
 	private static JLabel events;
-	private static JLabel averageTime;
+	private static JLabel isCritical;
 
 	public BusinessFiguresRoutePane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
-		gui.setBusinessFiguresPane(this);
+		gui.setBusinessFiguresRoutePane(this);
 
 	}
 
@@ -48,7 +48,8 @@ public class BusinessFiguresRoutePane extends Panel {
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
 		// create labels for the business figures
-		isBusinessFigures = true;
+		isBusinessFiguresRoute = true;
+		JLabel labelComboRoute = new JLabel("Select Route", SwingConstants.CENTER);
 		comboBoxRouteList();
 
 		JLabel labelRevenue= new JLabel(" Revenue", SwingConstants.LEFT);
@@ -60,39 +61,32 @@ public class BusinessFiguresRoutePane extends Panel {
 		JLabel labelEvents= new JLabel(" Number of Events", SwingConstants.LEFT);
 		events = new JLabel();
 
-		JLabel labelAverageTime = new JLabel(" Average Delivery Time", SwingConstants.LEFT);
-		averageTime = new JLabel();
+		JLabel labelIsCritical = new JLabel(" Is Critical", SwingConstants.LEFT);
+		isCritical = new JLabel();
 
 		// format value labels shown business figures
-		//revenue.disable();
 		revenue.setText(" 0.0");
-		//revenue.setDisabledTextColor(Color.BLACK);
 		revenue.setPreferredSize(new Dimension(250, 50));
 		revenue.setFont(new Font("Arial", Font.PLAIN, 15));
 		revenue.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		//expenditure.disable();
 		expenditure.setText(" 0.0");
-		//expenditure.setDisabledTextColor(Color.BLACK);
 		expenditure.setPreferredSize(new Dimension(250, 50));
 		expenditure.setFont(new Font("Arial", Font.PLAIN, 15));
 		expenditure.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		//events.disable();
 		events.setText(" 0");
-		//events.setDisabledTextColor(Color.BLACK);
 		events.setPreferredSize(new Dimension(250, 50));
 		events.setFont(new Font("Arial", Font.PLAIN, 15));
 		events.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		//averageTime.disable();
-		averageTime.setText(" 0.0");
-		//averageTime.setDisabledTextColor(Color.BLACK);
-		averageTime.setPreferredSize(new Dimension(250, 50));
-		averageTime.setFont(new Font("Arial", Font.PLAIN, 15));
-		averageTime.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		isCritical.setText(" False");
+		isCritical.setPreferredSize(new Dimension(250, 50));
+		isCritical.setFont(new Font("Arial", Font.PLAIN, 15));
+		isCritical.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 		// add the labels onto the panel
+		add(labelComboRoute);
 		add(comboBoxRoute);
 		add(labelRevenue);
 		add(revenue);
@@ -100,8 +94,8 @@ public class BusinessFiguresRoutePane extends Panel {
 		add(expenditure);
 		add(labelEvents);
 		add(events);
-		add(labelAverageTime);
-		add(averageTime);
+		add(labelIsCritical);
+		add(isCritical);
 	}
 	@Override
 	protected void addListenner() {}
@@ -125,7 +119,7 @@ public class BusinessFiguresRoutePane extends Panel {
 	}
 
 	// controller calls to set the updated events
-	public void setAverageTime(double a){
-		averageTime.setText("" + a);
+	public void setIsCritical(boolean isCritical){
+		this.isCritical.setText("" + isCritical);
 	}
 }

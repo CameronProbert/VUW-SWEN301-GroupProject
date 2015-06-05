@@ -26,8 +26,9 @@ public class GUI {
 	private Panel backgroundPanel;
 	private Panel backgroundBlank;
 	private UIController controller;
-	protected BusinessFiguresTotal bft;
-	protected BusinessFiguresRoutePane bfp;
+	protected BusinessFiguresTab bft;
+	protected BusinessFiguresRoutePane bfrp;
+	protected BusinessFiguresLocationPane bflp;
 
 
 	// the dimension of the frame
@@ -145,19 +146,26 @@ public class GUI {
 		return clerk.getName();
 	}
 
-	public void setBusinessFiguresTotal(BusinessFiguresTotal businessFiguresTotal){
+	public void setBusinessFiguresTotal(BusinessFiguresTab businessFiguresTotal){
 		this.bft = businessFiguresTotal;
 		controller.updateBusinessFiguresTotal();
 	}
 
-	public BusinessFiguresTotal getBusinessFiguresTotal(){
+	public BusinessFiguresTab getBusinessFiguresTab(){
 		return bft;
 	}
 
-	public void setBusinessFiguresPane(BusinessFiguresRoutePane businessFiguresPane) {
-		this.bfp = businessFiguresPane;
+	public void setBusinessFiguresRoutePane(BusinessFiguresRoutePane businessFiguresRoutePane) {
+		this.bfrp = businessFiguresRoutePane;
 	}
-	public BusinessFiguresRoutePane getBusinessFiguresPane(){
-		return bfp;
+	public BusinessFiguresRoutePane getBusinessFiguresRoutePane(){
+		return bfrp;
+	}
+	
+	public void setBusinessFiguresLocationPane(BusinessFiguresLocationPane businessFiguresLocationPane) {
+		this.bflp = businessFiguresLocationPane;
+	}
+	public BusinessFiguresLocationPane getBusinessFiguresLocationPane(){
+		return bflp;
 	}
 }

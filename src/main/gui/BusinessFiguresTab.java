@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
  * @author Zhiheng Sun
  *
  */
-public class BusinessFiguresTotal extends Panel {
+public class BusinessFiguresTab extends Panel {
 
 	// value labels on the panel
 	private static JLabel revenue;
@@ -32,7 +32,7 @@ public class BusinessFiguresTotal extends Panel {
 	 *
 	 * @param gui the gui the BusinessFiguresTotal is on
 	 */
-	public BusinessFiguresTotal(GUI gui) {
+	public BusinessFiguresTab(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-60,gui.getHeight()-250));

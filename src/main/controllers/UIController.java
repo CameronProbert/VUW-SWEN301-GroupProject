@@ -84,22 +84,31 @@ public class UIController {
 	public Set<Route> getRoutes(){
 		return monitor.getRoutes();
 	}
-	public void setSingleTransportFigures(double revenue, double expenditure, int numOfEvents, double averageDeliveryTime){
-		gui.getBusinessFiguresPane().setRevenue(revenue);
-		gui.getBusinessFiguresPane().setExpend(expenditure);
-		gui.getBusinessFiguresPane().setEvents(numOfEvents);
-		gui.getBusinessFiguresPane().setAverageTime(averageDeliveryTime);
+	public void setRouteFigures(double revenue, double expenditure, int numOfEvents, boolean isCritical){
+		gui.getBusinessFiguresRoutePane().setRevenue(revenue);
+		gui.getBusinessFiguresRoutePane().setExpend(expenditure);
+		gui.getBusinessFiguresRoutePane().setEvents(numOfEvents);
+		gui.getBusinessFiguresRoutePane().setIsCritical(isCritical);
+	}
+	public void setLocationFigures(double revenue, double expenditure, int numOfEvents){
+		gui.getBusinessFiguresLocationPane().setTotalVol(revenue);
+		gui.getBusinessFiguresLocationPane().setTotalWeight(expenditure);
+		gui.getBusinessFiguresLocationPane().setNumItems(numOfEvents);
 	}
 	public void setTotalTransportFigures(double revenue, double expenditure, int numOfEvents){
-		gui.getBusinessFiguresTotal().setRevenue(revenue);
-		gui.getBusinessFiguresTotal().setExpend(expenditure);
-		gui.getBusinessFiguresTotal().setEvents(numOfEvents);
+		gui.getBusinessFiguresTab().setRevenue(revenue);
+		gui.getBusinessFiguresTab().setExpend(expenditure);
+		gui.getBusinessFiguresTab().setEvents(numOfEvents);
 	}
 
-	public void getSpecificSingleBF(Route selectedRoute) {
+	public void getBFRoute(Route selectedRoute) {
 		monitor.getEventsForRoute(selectedRoute);
 	}
 
+	public void getBFLocation(String selectedLocation) {
+		monitor.getEventsForLocation(selectedLocation);
+	}
+	
 	public void updateBusinessFiguresTotal() {
 		monitor.calculateBusinessFigures();
 	}

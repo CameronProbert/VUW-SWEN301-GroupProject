@@ -40,10 +40,12 @@ public class TransportDiscontinuedPane extends Panel{
 		this.setLayout(new GridLayout(20,2));
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
-
+		JLabel labelComboRoute = new JLabel("Select Route", SwingConstants.CENTER);
 		comboBoxRouteList();
 		reset = new JButton("Reset");
 		delete = new JButton("Delete");
+		
+		add(labelComboRoute);
 		add(comboBoxRoute);
 		add(reset);
 		add(delete);
