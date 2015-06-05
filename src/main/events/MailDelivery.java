@@ -124,10 +124,10 @@ public class MailDelivery extends BusinessEvent {
 		// Get msec from each, and subtract.
 		long diff = d2.getTime() - d1.getTime();
 		long diffMinutes = (long) (diff / (60 * 1000)) % 60;
-		long diffHours = (long) (diff / (60 * 60 * 1000)) % 24;
+		long diffHours = (long) (diff / (60 * 60 * 1000));
 		long diffDays = (long) (diff / (24 * 60 * 60 * 1000));
 		System.out.println("Time in minutes: " + diffMinutes + " minutes.");
-		System.out.println("Time in hours: " + diffHours + " hours.");
+		System.out.println("Time in hours: " + diffHours%24 + " hours.");
 		System.out.println("Time in days: " + diffDays + " days.");
 		timeTaken = diffHours;
 	}
