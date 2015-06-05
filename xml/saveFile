@@ -18,238 +18,148 @@
     <clerk>Sammy</clerk>
     <date>2015/03/03 10:53:00</date>
   </event>
-  <event type="Mail Delivery">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
-    <origin>Auckland</origin>
-    <destination>Wellington</destination>
-    <weight>200.0</weight>
-    <volume>25.0</volume>
-    <priority>1.0</priority>
-    <revenue>27.0</revenue>
-    <timeTaken>0.0</timeTaken>
-  </event>
-  <event type="Customer Price Change">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
-    <oldPricePGram>10.0</oldPricePGram>
-    <newPricePGram>20.0</newPricePGram>
-    <oldPricePVolume>15.0</oldPricePVolume>
-    <newPricePVolume>25.0</newPricePVolume>
-  </event>
-  <event type="Transport Update">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
-    <oldPricePGram>10.0</oldPricePGram>
-    <newPricePGram>20.0</newPricePGram>
-    <oldPricePVolume>15.0</oldPricePVolume>
-    <newPricePVolume>25.0</newPricePVolume>
-  </event>
-  <event type="Mail Delivery">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:42:21</date>
-    <origin>Auckland</origin>
-    <destination>Wellington</destination>
-    <weight>3.0</weight>
-    <volume>4.0</volume>
-    <priority>0.0</priority>
-    <revenue>160.0</revenue>
-    <timeTaken>0.005555555555555556</timeTaken>
-  </event>
-  <event type="Mail Delivery">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:42:25</date>
-    <origin>Auckland</origin>
-    <destination>Wellington</destination>
-    <weight>3.0</weight>
-    <volume>1.0</volume>
-    <priority>0.0</priority>
-    <revenue>85.0</revenue>
-    <timeTaken>0.0030555555555555557</timeTaken>
-  </event>
-  <event type="Mail Delivery">
-    <route>
-      <origin>Auckland</origin>
-      <destination>Wellington</destination>
-      <transportType>Standard</transportType>
-      <firmName>Transport firm A</firmName>
-      <costPGramForTransport>20.0</costPGramForTransport>
-      <costPVolumeForTransport>25.0</costPVolumeForTransport>
-      <costPGramToCustomer>20.0</costPGramToCustomer>
-      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
-      <departureDays>
-        <day>Monday</day>
-      </departureDays>
-      <departureFrequency>2.0</departureFrequency>
-    </route>
-    <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:42:30</date>
-    <origin>Auckland</origin>
-    <destination>Wellington</destination>
-    <weight>4.0</weight>
-    <volume>5.0</volume>
-    <priority>0.0</priority>
-    <revenue>205.0</revenue>
-    <timeTaken>0.0</timeTaken>
-  </event>
   <event type="New Route">
     <route>
-      <origin>asdf</origin>
-      <destination>asdf</destination>
-      <transportType>Air</transportType>
-      <firmName>asdf</firmName>
-      <costPGramForTransport>21.0</costPGramForTransport>
+      <origin>Auckland</origin>
+      <destination>Taupo</destination>
+      <transportType>Standard</transportType>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
       <costPVolumeForTransport>3.0</costPVolumeForTransport>
       <costPGramToCustomer>2.0</costPGramToCustomer>
-      <costPVolumeToCustomer>3.0</costPVolumeToCustomer>
+      <costPVolumeToCustomer>6.0</costPVolumeToCustomer>
       <departureDays>
-        <day>Wednesday</day>
+        <day>Monday</day>
       </departureDays>
-      <departureFrequency>1.0</departureFrequency>
+      <departureFrequency>3.0</departureFrequency>
     </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:52:14</date>
+    <date>2015/06/05 23:59:50</date>
   </event>
   <event type="New Route">
     <route>
-      <origin>sdf</origin>
-      <destination>sdf</destination>
+      <origin>Auckland</origin>
+      <destination>Christchurch</destination>
       <transportType>Air</transportType>
-      <firmName>23</firmName>
-      <costPGramForTransport>1.0</costPGramForTransport>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>3.0</costPGramForTransport>
+      <costPVolumeForTransport>6.0</costPVolumeForTransport>
+      <costPGramToCustomer>6.0</costPGramToCustomer>
+      <costPVolumeToCustomer>6.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Tuesday</day>
+      </departureDays>
+      <departureFrequency>3.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/06 00:00:22</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Dunedin</destination>
+      <transportType>Air</transportType>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>4.0</costPGramForTransport>
+      <costPVolumeForTransport>6.0</costPVolumeForTransport>
+      <costPGramToCustomer>1.0</costPGramToCustomer>
+      <costPVolumeToCustomer>6.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>3.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/06 00:00:46</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>Taupo</origin>
+      <destination>Hamilton</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>4.0</costPGramForTransport>
       <costPVolumeForTransport>2.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <costPGramToCustomer>5.0</costPGramToCustomer>
+      <costPVolumeToCustomer>1.0</costPVolumeToCustomer>
       <departureDays>
         <day>Wednesday</day>
       </departureDays>
-      <departureFrequency>5.0</departureFrequency>
+      <departureFrequency>3.0</departureFrequency>
     </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:52:53</date>
+    <date>2015/06/06 00:01:22</date>
   </event>
   <event type="New Route">
     <route>
-      <origin>sdf</origin>
-      <destination>sdf</destination>
-      <transportType>Air</transportType>
-      <firmName>23</firmName>
-      <costPGramForTransport>1.0</costPGramForTransport>
-      <costPVolumeForTransport>666.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <origin>Hamilton</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>4.0</costPGramForTransport>
+      <costPVolumeForTransport>4.0</costPVolumeForTransport>
+      <costPGramToCustomer>5.0</costPGramToCustomer>
+      <costPVolumeToCustomer>5.0</costPVolumeToCustomer>
       <departureDays>
-        <day>Wednesday</day>
+        <day>Thursday</day>
       </departureDays>
-      <departureFrequency>5.0</departureFrequency>
+      <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:53:05</date>
+    <date>2015/06/06 00:02:04</date>
   </event>
   <event type="New Route">
     <route>
-      <origin>sdf</origin>
-      <destination>sdf</destination>
-      <transportType>Air</transportType>
-      <firmName>23</firmName>
-      <costPGramForTransport>1.0</costPGramForTransport>
-      <costPVolumeForTransport>34.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <origin>Wellington</origin>
+      <destination>Christchurch</destination>
+      <transportType>Standard</transportType>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>12.0</costPVolumeForTransport>
+      <costPGramToCustomer>15.0</costPGramToCustomer>
+      <costPVolumeToCustomer>11.0</costPVolumeToCustomer>
       <departureDays>
-        <day>Wednesday</day>
+        <day>Friday</day>
       </departureDays>
-      <departureFrequency>5.0</departureFrequency>
+      <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:53:18</date>
+    <date>2015/06/06 00:02:50</date>
   </event>
-  <event type="Delete Route">
+  <event type="New Route">
     <route>
-      <origin>sdf</origin>
-      <destination>sdf</destination>
+      <origin>Christchurch</origin>
+      <destination>Dunedin</destination>
+      <transportType>Standard</transportType>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>10.0</costPGramForTransport>
+      <costPVolumeForTransport>12.0</costPVolumeForTransport>
+      <costPGramToCustomer>15.0</costPGramToCustomer>
+      <costPVolumeToCustomer>11.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Friday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/06 00:03:10</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>Dunedin</origin>
+      <destination>Auckland</destination>
       <transportType>Air</transportType>
-      <firmName>23</firmName>
-      <costPGramForTransport>1.0</costPGramForTransport>
+      <firmName>NZPost</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
       <costPVolumeForTransport>2.0</costPVolumeForTransport>
-      <costPGramToCustomer>3.0</costPGramToCustomer>
-      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <costPGramToCustomer>21.0</costPGramToCustomer>
+      <costPVolumeToCustomer>1.0</costPVolumeToCustomer>
       <departureDays>
-        <day>Wednesday</day>
+        <day>Saturday</day>
       </departureDays>
-      <departureFrequency>5.0</departureFrequency>
+      <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Cameron Probert</clerk>
-    <date>2015/06/05 23:54:47</date>
+    <date>2015/06/06 00:03:47</date>
   </event>
 </businessEvents>
