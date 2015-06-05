@@ -126,8 +126,7 @@ public class UIController {
 		// TODO Auto-generated method stub
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		System.out.println("aaaa: "+dateFormat.format(date).toString());
-		monitor.setTimeTaken(selectedMail, dateFormat.format(date).toString());
+		monitor.setTimeTaken(selectedMail, dateFormat.format(date));
 	}
 
 }
