@@ -12,9 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * The BusinessFiguresTotal class is a JPanel which is added
+ * The BusinessFiguresTab class is a JPanel which is added
  * on the button panel to show users the business figures.
- * BusinessFiguresTotal class is responsible for directly
+ * BusinessFiguresTab class is responsible for directly
  * letting users know the key general business figures.
  *
  * @author Zhiheng Sun
@@ -28,9 +28,9 @@ public class BusinessFiguresTab extends Panel {
 	private static JLabel events;
 
 	/**
-	 * Create the BusinessFiguresTotal by passing the gui it is on
+	 * Create the BusinessFiguresTab by passing the gui it is on
 	 *
-	 * @param gui the gui the BusinessFiguresTotal is on
+	 * @param gui the gui the BusinessFiguresTab is on
 	 */
 	public BusinessFiguresTab(GUI gui) {
 		super(gui);
@@ -59,21 +59,15 @@ public class BusinessFiguresTab extends Panel {
 		events = new JLabel();
 
 		// format value labels shown business figures
-		//revenue.disable();
 		revenue.setText(" 0.0");
-		//revenue.setDisabledTextColor(Color.BLACK);
 		revenue.setPreferredSize(new Dimension(100, 50));
 		revenue.setFont(new Font("Dialog", Font.PLAIN, 14));
 
-		//expenditure.disable();
 		expenditure.setText(" 0.0");
-		//expenditure.setDisabledTextColor(Color.BLACK);
 		expenditure.setPreferredSize(new Dimension(100, 50));
 		expenditure.setFont(new Font("Dialog", Font.PLAIN, 14));
 
-		//events.disable();
 		events.setText(" 0");
-		//events.setDisabledTextColor(Color.BLACK);
 		events.setPreferredSize(new Dimension(100, 50));
 		events.setFont(new Font("Dialog", Font.PLAIN, 14));
 		add(labelRevenue);
@@ -85,7 +79,7 @@ public class BusinessFiguresTab extends Panel {
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent e ) {}
+	public void propertyChange(PropertyChangeEvent e) {}
 
 	@Override
 	protected void addListenner() {}

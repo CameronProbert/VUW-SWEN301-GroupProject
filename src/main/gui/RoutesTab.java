@@ -19,12 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * The BusinessFiguresTotal class is a JPanel which is added
- * on the button panel to show users the business figures.
- * BusinessFiguresTotal class is responsible for directly
- * letting users know the key general business figures.
+ * The RoutesTab class is a JPanel which is added onto the JFrame
+ * once Routes Tab is clicked. RoutesTab class is responsible for 
+ * letting the user choose the route he wants to see.
  *
- * @author Zhiheng Sun
+ * @author zhaojiang chang
  *
  */
 public class RoutesTab extends Panel implements MouseListener{
@@ -34,11 +33,15 @@ public class RoutesTab extends Panel implements MouseListener{
 	private static JLabel expenditure;
 	private static JLabel events;
 
+	/**
+	 * Create the RoutesTab by passing the gui it is on
+	 *
+	 * @param gui the gui the RoutesTab is on
+	 */
 	public RoutesTab(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-60,gui.getHeight()-250));
-
 	}
 
 	@Override
@@ -50,10 +53,13 @@ public class RoutesTab extends Panel implements MouseListener{
 		labelRevenue.setFont(new Font("Dialog", Font.PLAIN, 14));
 		routes = new JLabel();
 
-
 		add(labelRevenue);
 		addLabels();
 	}
+	
+	/**
+	 * add the route labels onto the panel
+	 */
 	protected void addLabels() {
 		for (int i = 0; i < routeList().size(); i++) {
 			JLabel value = new JLabel(i+" : "+routeList().get(i), SwingConstants.LEFT);
@@ -61,50 +67,25 @@ public class RoutesTab extends Panel implements MouseListener{
 			add(value);
 		}
 	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent e ) {}
 
 	@Override
-	protected void addListenner() {
-//		for(int i = 0; i<this.getComponents().length; i++){
-//			if(this.getComponents()[i] instanceof JLabel){
-//				this.getComponents()[i].addMouseListener(new MouseMotionAdapter() {
-//			        //override the method
-//			        public void mouseDragged(MouseEvent arg0) {
-//			                     // to do .........................
-//			        }
-//			    });
-//			}
-//		}
-	}
+	protected void addListenner() {}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseExited(MouseEvent e) {}
 }

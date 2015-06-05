@@ -18,10 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * The BusinessFiguresPane class is a JPanel which is added
- * on the display panel to show users the business figures.
- * BusinessFiguresPane class is responsible for letting users
- * choose a route and displaying the corresponding business
+ * The BusinessFiguresLocationPane class is a JPanel which is added
+ * onto the JFrame once the Location Data button is clicked.
+ * BusinessFiguresLocationPane class is responsible for letting users
+ * choose a location and displaying the corresponding business
  * figures.
  *
  * @author Zhiheng Sun
@@ -34,6 +34,11 @@ public class BusinessFiguresLocationPane extends Panel {
 	private static JLabel totalWeight;
 	private static JLabel totalNumItems;
 
+	/**
+	 * Create the BusinessFiguresLocationPane by passing the gui it is on
+	 *
+	 * @param gui the gui the BusinessFiguresLocationPane is on
+	 */
 	public BusinessFiguresLocationPane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
@@ -47,10 +52,8 @@ public class BusinessFiguresLocationPane extends Panel {
 		this.setAlignmentX(LEFT_ALIGNMENT);
 
 		// create labels for the business figures
-		//isBusinessFigures = true;
 		JLabel labelComboLocation = new JLabel("Select Location", SwingConstants.CENTER);
 		comboBoxLocation = new JComboBox(getLocations());
-		//comboBoxOrigin.setEditable(true);
 		comboBoxLocation.setSelectedItem(null);
 		comboBoxListenner(comboBoxLocation, "location");
 
@@ -89,23 +92,24 @@ public class BusinessFiguresLocationPane extends Panel {
 		add(labelItems);
 		add(totalNumItems);
 	}
+	
 	@Override
 	protected void addListenner() {}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent e ) {}
 
-	// controller calls to set the updated revenue
+	// controller calls to set the updated volume
 	public void setTotalVol(double vol){
 		totalVol.setText("" + vol);
 	}
 
-	// controller calls to set the updated expenditure
+	// controller calls to set the updated weight
 	public void setTotalWeight(double wei){
 		totalWeight.setText("" + wei);
 	}
 
-	// controller calls to set the updated events
+	// controller calls to set the updated number of items
 	public void setNumItems(double items){
 		totalNumItems.setText("" + items);
 	}
