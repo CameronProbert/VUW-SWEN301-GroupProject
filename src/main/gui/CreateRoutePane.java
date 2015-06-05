@@ -16,6 +16,13 @@ import main.logic.Location;
 import main.logic.Route;
 
 /**
+ * The CreateRoutePane class is a JPanel which is added onto the JFrame
+ * once the Create Route button is clicked. CreateRoutePane class is
+ * responsible for letting the user enter the information of the new route
+ * and pass the information into the system.
+ *
+ * @author zhaojiang chang
+ *
  */
 public class CreateRoutePane extends Panel{
 
@@ -25,6 +32,11 @@ public class CreateRoutePane extends Panel{
 	private JButton reset;
 	private JButton add;
 
+	/**
+	 * Create the CreateRoutePane by passing the gui it is on
+	 *
+	 * @param gui the gui the CreateRoutePane is on
+	 */
 	public CreateRoutePane(GUI gui) {
 		super(gui);
 		updateButtonClicked = false;
@@ -156,6 +168,7 @@ public class CreateRoutePane extends Panel{
 				}
 			}
 		});
+
 		reset.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -170,26 +183,12 @@ public class CreateRoutePane extends Panel{
 						comboBoxDestination.setSelectedItem(null);
 						comboBoxTransportFirm.setSelectedItem(null);
 						comboBoxTransportType.setSelectedItem(null);
-						comboBoxTransportDay.setSelectedItem(null);			
+						comboBoxTransportDay.setSelectedItem(null);
 					}
-					
+
 				}
 			}
 		});
-	}
-
-	public static double getTPCNewPricePerGram() {
-		return ((Number)textTPNewCostPerGram.getValue()).doubleValue();
-	}
-
-	public static double getTPCNewCostPerCubic() {
-		return ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
-	}
-	public static boolean updateClicked(){
-		if(updateButtonClicked==true){
-			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -215,9 +214,19 @@ public class CreateRoutePane extends Panel{
 			amount = ((Number)textTPDuration.getValue()).intValue();
 		}
 	}
-	public String toStringTPU(){
-		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+"   New Price Per Gram: "+ ((Number)textTPNewCostPerGram.getValue()).doubleValue()
-				+"    New Price Per Gram:"+ ((Number)textTPNewCostPerCubic.getValue()).doubleValue() +"   Transport Firm: "+transportFirm+"   transport Type:  "+ transportType
-				+" max Weight:  "+ textTPmaxWeight+" max Volume:  "+ textTPmaxVolume+" Frequency:  "+ textTPFrequency+"  Duration:  "+ textTPDuration);
+
+	// the following methods are the getters
+	public static double getTPCNewPricePerGram() {
+		return ((Number)textTPNewCostPerGram.getValue()).doubleValue();
+	}
+
+	public static double getTPCNewCostPerCubic() {
+		return ((Number)textTPNewCostPerCubic.getValue()).doubleValue();
+	}
+	public static boolean updateClicked(){
+		if(updateButtonClicked==true){
+			return true;
+		}
+		return false;
 	}
 }

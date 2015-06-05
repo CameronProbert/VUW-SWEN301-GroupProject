@@ -14,19 +14,25 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
- * Transport Cost Update Panel
+ * The TransportCostUpdatePane class is a JPanel which is added onto the JFrame
+ * once the Transport Cost Update button is clicked. TransportCostUpdatePane class is
+ * responsible for letting the user enter the information of the new cost
+ * and pass the information into the system.
  *
- *  @author zhaojiang chang
+ * @author zhaojiang chang
  *
  */
 public class TransportCostUpdatePane extends Panel{
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JButton reset;
 	private JButton update;
 
+	/**
+	 * Create the TransportCostUpdatePane by passing the gui it is on
+	 *
+	 * @param gui the gui the TransportCostUpdatePane is on
+	 */
 	public TransportCostUpdatePane(GUI gui) {
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
@@ -91,13 +97,14 @@ public class TransportCostUpdatePane extends Panel{
 					if(response == JOptionPane.YES_OPTION){
 						comboBoxOrigin.setSelectedItem(null);
 						comboBoxDestination.setSelectedItem(null);
-						init();					
+						init();
 					}
 
 				}
 			}
 		});
 	}
+
 	@Override
 	public void propertyChange(PropertyChangeEvent e ) {
 		// TODO Auto-generated method stub
@@ -109,6 +116,7 @@ public class TransportCostUpdatePane extends Panel{
 		}
 	}
 
+	// the following methods are the getters
 	public static double getCPUTextCustomerNewPricePerGram() {
 		return ((Number)textCustomerNewPricePerGram.getValue()).doubleValue();
 	}
@@ -116,9 +124,4 @@ public class TransportCostUpdatePane extends Panel{
 	public static double getCPUTextNewPricePerCB() {
 		return ((Number)textCustomerNewPricePerCubic.getValue()).doubleValue();
 	}
-	public String toStringCPU(){
-		return("Origin: "+ origin +"  Destination: "+ destination+"  Priority: "+priority+ "   New price per gram: "+
-				((Number)textCustomerNewPricePerGram.getValue()).doubleValue()+"   New price per cubic centimeter:"+((Number)textCustomerNewPricePerCubic.getValue()).doubleValue());
-	}
-
 }

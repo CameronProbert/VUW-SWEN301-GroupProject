@@ -44,7 +44,7 @@ public class GUI {
 	private Clerk clerk;
 
 	/**
-	 * @wbp.parser.entryPoint
+	 * Set up the frame and the layeredPane and add the loginGUI onto the layeredPane
 	 */
 	public void setUp() {
 		frame = new JFrame();
@@ -70,26 +70,39 @@ public class GUI {
 		addPanel(loginGUI);
 	}
 
+	/**
+	 * add the given panel onto the layeredPane
+	 * @param panel the given panel
+	 */
+	protected void addPanel(Panel panel){
+		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
+		frame.repaint();
+	}
+
+	/**
+	 * remove the given panel from the layeredPane
+	 * @param panel the given panel
+	 */
+	protected void removePanel(Panel panel){
+		layeredPane.remove(panel);
+		frame.repaint();
+	}
+
+	/**
+	 * add the given panel onto the background layeredPane
+	 * @param panel the given panel
+	 */
+	protected void addBGPanel(Panel panel){
+		layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
+	}
+
+	/** the  following methods are getters and setters */
 	public void setUIController(UIController u){
 		this.controller = u;
 	}
 
 	public UIController getUIController(){
 		return this.controller;
-	}
-
-	protected void addPanel(Panel panel){
-		layeredPane.add(panel, JLayeredPane.MODAL_LAYER);
-		frame.repaint();
-	}
-
-	protected void removePanel(Panel panel){
-		layeredPane.remove(panel);
-		frame.repaint();
-	}
-
-	protected void addBGPanel(Panel panel){
-		layeredPane.add(panel, JLayeredPane.DEFAULT_LAYER);
 	}
 
 	protected Panel getBackgroundPanel(){
@@ -141,7 +154,6 @@ public class GUI {
 	}
 
 	public void setBusinessFiguresPane(BusinessFiguresRoutePane businessFiguresPane) {
-		// TODO Auto-generated method stub
 		this.bfp = businessFiguresPane;
 	}
 	public BusinessFiguresRoutePane getBusinessFiguresPane(){
