@@ -38,7 +38,7 @@ public class Monitor {
 		loadUsers();
 		handler = new LogHandler();
 		locations = handler.getLocations();
-		for(Location loc: locations){
+		for (Location loc : locations) {
 			loc.attachMonitor(this);
 		}
 		routes = handler.getRoutes();
@@ -160,7 +160,7 @@ public class Monitor {
 				deliveries.add((MailDelivery) event);
 			}
 		}
-		if(deliveries.size()==0){
+		if (deliveries.size() == 0) {
 			System.out.println("no dels");
 		}
 		return deliveries;
@@ -206,13 +206,15 @@ public class Monitor {
 	}
 
 	/**
-	 * Creates a mail delivery event
-	 * TODO handle if we cannot find a route between two locations
+	 * Creates a mail delivery event TODO handle if we cannot find a route
+	 * between two locations
+	 * 
 	 * @param data
 	 * @return
-	 * @throws LocationsNotConnectedException 
+	 * @throws LocationsNotConnectedException
 	 */
-	public BusinessEvent createMailDelivery(Map<String, String> data) throws LocationsNotConnectedException {
+	public BusinessEvent createMailDelivery(Map<String, String> data)
+			throws LocationsNotConnectedException {
 		MailDelivery event = null;
 		String clerkName = currentUser.getName();
 		String time = data.get("time");
@@ -239,12 +241,12 @@ public class Monitor {
 			routes = standard.getBestRoute();
 			if (routes == null || routes.isEmpty()) {
 				System.err
-				.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
 			revenue = standard.getCostOfRoute();
 			priority = 0;
 		}
-		if (routes.isEmpty()){
+		if (routes.isEmpty()) {
 			throw new LocationsNotConnectedException();
 		}
 		double expectedTime = calculateTime(routes);
@@ -292,25 +294,6 @@ public class Monitor {
 		event = new CustomerPriceChange(clerkName, date, oldGr, newGr, oldVol,
 				newVol, routes);
 		return event;
-	}
-
-	/**
-	 * Finds the route associated with the origin and destination locations
-	 *
-	 * @param origin
-	 * @param destination
-	 * @return
-	 */
-	private List<Route> findRoutes(Location origin, Location destination,
-			String priority) {
-		List<Route> routeList = new ArrayList<Route>();
-		for (Route r : routes) {
-			if (r.getOrigin().equals(origin)
-					&& r.getDestination().equals(destination)) {
-				routeList.add(r);
-			}
-		}
-		return routeList;
 	}
 
 	/**
@@ -381,7 +364,7 @@ public class Monitor {
 		}
 		if (route == null) {
 			System.out
-			.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+					.println("CREATED ROOT IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		origin.addOutbound(route);
 		origin.addInbound(route);
@@ -498,13 +481,14 @@ public class Monitor {
 	 * @param route
 	 */
 	public void getEventsForRoute(Route route) {
-		double revenue = route.getRevenue(getMailEvents()); // TODO double check the mail delivery list is populated
+		double revenue = route.getRevenue(getMailEvents()); // TODO double check
+															// the mail delivery
+															// list is populated
 		double expenditure = route.getExpenditure(getMailEvents());
 		int numOfEvents = route.getNumEvents(getMailEvents());
-		double averageDeliveryTime = 0;
 		boolean isCritical = false;
-		for(Route r: findCriticalRoutes()){
-			if(route.equals(r)){
+		for (Route r : findCriticalRoutes()) {
+			if (route.equals(r)) {
 				isCritical = true;
 			}
 		}
@@ -514,50 +498,75 @@ public class Monitor {
 	}
 
 	/**
-	 * Given a location will return the info about it and call the mehod to update
+	 * Given a location will return the info about it and call the mehod to
+	 * update
+	 * 
 	 * @param loc
 	 */
-	public void getEventsForLocation(Location loc){
+	public void getEventsForLocation(Location loc) {
 		double totalVol = loc.getTotalVolume();
 		double totalWeight = loc.getTotalWeight();
 		int totalNumItems = loc.getDeliveriesIn();
 		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
 	}
 
-	public List<MailDelivery> getNotReceivedDels(){
+	/**
+	 * Returns a list of the deliveries that have not yet been received
+	 * 
+	 * @return
+	 */
+	public List<MailDelivery> getNotReceivedDels() {
 		List<MailDelivery> unrecMail = new ArrayList<MailDelivery>();
-		for(MailDelivery m : getMailEvents()){
-			if(m.getTimeTaken()==0){
+		for (MailDelivery m : getMailEvents()) {
+			if (m.getTimeTaken() == 0) {
 				unrecMail.add(m);
 			}
 		}
 		return unrecMail;
 	}
 
-	public void setTimeTaken(MailDelivery m, String time){
+	/**
+	 * Sets the time taken for a mail delivery
+	 * 
+	 * @param m
+	 * @param time
+	 */
+	public void setTimeTaken(MailDelivery m, String time) {
 		m.setTimeTaken(time);
 	}
 
-	public List<String> getMailDelGeneric(){
+	/**
+	 * Returns a list of strings that represent all the mail deliveries
+	 * currently in the system
+	 * 
+	 * @return
+	 */
+	public List<String> getMailDelGeneric() {
 		List<String> descriptions = new ArrayList<String>();
-		for(MailDelivery m : getMailEvents()){
-			if(!descriptions.contains(m.shortDes())){
+		for (MailDelivery m : getMailEvents()) {
+			if (!descriptions.contains(m.shortDes())) {
 				descriptions.add(m.shortDes());
 			}
 		}
 		return descriptions;
 	}
 
-	public double getAverageDeliveryTime(String delDes){
+	/**
+	 * Gets the average delivery time for a particular route
+	 * 
+	 * @param delDes
+	 * @return
+	 */
+	public double getAverageDeliveryTime(String delDes) {
 		int totNum = 0;
 		double avTime = 0;
-		for(MailDelivery m : getMailEvents()){
-			if(m.shortDes().equals(delDes)){
-				totNum ++;
+		for (MailDelivery m : getMailEvents()) {
+			if (m.shortDes().equals(delDes)) {
+				totNum++;
 				avTime += m.getTimeTaken();
 			}
 		}
-		return avTime/totNum;
+		return avTime / totNum;
 	}
 
 	/**

@@ -28,6 +28,7 @@ public class MailDelivery extends BusinessEvent {
 	private double revenue;
 	private double timeTaken;
 
+	// TODO Get rid of the 'time' parameter
 	public MailDelivery(String clerk, String date, String or, String des,
 			double we, double vol, double prio, double rev, double time,
 			List<Route> routes) {
@@ -95,7 +96,7 @@ public class MailDelivery extends BusinessEvent {
 	 * Code adapted from user London's question on
 	 * http://stackoverflow.com/questions
 	 * /5351483/calculate-date-time-difference-in-java
-	 * 
+	 * @author Cameron Probert
 	 * @param endTime
 	 */
 	public void setTimeTaken(String endTime) {
