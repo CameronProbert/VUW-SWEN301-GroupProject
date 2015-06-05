@@ -40,7 +40,6 @@ public class Monitor {
 		locations = handler.getLocations();
 		routes = handler.getRoutes();
 		initialiseGUI();
-		calculateBusinessFigures();
 	}
 
 	/**
@@ -79,7 +78,7 @@ public class Monitor {
 	/**
 	 * Recalculates the business figures and updates the gui with them
 	 */
-	private void calculateBusinessFigures() {
+	public void calculateBusinessFigures() {
 		double revenue = calculateRevenue();
 		double expenditure = calculateExpenditure();
 		try {

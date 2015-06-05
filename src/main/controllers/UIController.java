@@ -100,4 +100,8 @@ public class UIController {
 		monitor.getEventsForRoute(selectedRoute);
 	}
 
+	public void updateBusinessFiguresTotal() {
+		monitor.calculateBusinessFigures();
+	}
+
 }

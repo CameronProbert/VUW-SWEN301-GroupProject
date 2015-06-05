@@ -147,6 +147,7 @@ public class GUI {
 
 	public void setBusinessFiguresTotal(BusinessFiguresTotal businessFiguresTotal){
 		this.bft = businessFiguresTotal;
+		controller.updateBusinessFiguresTotal();
 	}
 
 	public BusinessFiguresTotal getBusinessFiguresTotal(){
