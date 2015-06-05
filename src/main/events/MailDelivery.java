@@ -1,6 +1,9 @@
 package main.events;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.w3c.dom.Attr;
@@ -11,6 +14,7 @@ import main.logic.Route;
 
 /**
  * A business event which describes sending a package on a delivery
+ * 
  * @author burlinfran
  *
  */
@@ -23,10 +27,10 @@ public class MailDelivery extends BusinessEvent {
 	private double priority;
 	private double revenue;
 	private double timeTaken;
-	private double timeStart;
-	private boolean isReceived;
 
-	public MailDelivery(String clerk, String date, String or, String des, double we, double vol, double prio, double rev, double time, List<Route> routes) {
+	public MailDelivery(String clerk, String date, String or, String des,
+			double we, double vol, double prio, double rev, double time,
+			List<Route> routes) {
 		this.clerk = clerk;
 		this.date = date;
 		origin = or;
@@ -35,18 +39,16 @@ public class MailDelivery extends BusinessEvent {
 		volume = vol;
 		priority = prio;
 		revenue = rev;
-		timeStart = time;
 		timeTaken = 0;
 		this.routes = routes;
 
-		isReceived = false; //initialise false
 	}
 
 	public boolean isReceived() {
-		return isReceived;
+		return (timeTaken!=0);
 	}
 
-	//getters
+	// getters
 	public String getOrigin() {
 		return origin;
 	}
@@ -58,6 +60,7 @@ public class MailDelivery extends BusinessEvent {
 	public double getWeight() {
 		return weight;
 	}
+
 	public double getVolume() {
 		return volume;
 	}
@@ -74,13 +77,9 @@ public class MailDelivery extends BusinessEvent {
 		return timeTaken;
 	}
 
-	public double getStartTime(){
-		return timeStart;
-	}
-
-	//setters
+	// setters
 	public void setWeight(int w) {
-		weight=w;
+		weight = w;
 	}
 
 	public void setVolume(int v) {
@@ -91,12 +90,37 @@ public class MailDelivery extends BusinessEvent {
 		priority = p;
 	}
 
-	public void setTimeTaken(double time) {
-		timeTaken = time;
-		isReceived = true;
+	/**
+	 * Finds the total time taken to complete this delivery, from creating the mail delivery event
+	 * Code adapted from user London's question on
+	 * http://stackoverflow.com/questions
+	 * /5351483/calculate-date-time-difference-in-java
+	 * 
+	 * @param endTime
+	 */
+	public void setTimeTaken(String endTime) {
+
+		// Custom date format
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+		Date d1 = null;
+		Date d2 = null;
+		try {
+			d1 = format.parse(date);
+			d2 = format.parse(endTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		// Get msec from each, and subtract.
+		double diff = d2.getTime() - d1.getTime();
+		double diffSeconds = (diff / 1000) % 60;
+		double diffMinutes = (diff / (60 * 1000)) % 60;
+		double diffHours = diff / (60 * 60 * 1000);
+		System.out.println("Time in seconds: " + diffSeconds + " seconds.");
+		System.out.println("Time in minutes: " + diffMinutes + " minutes.");
+		System.out.println("Time in hours: " + diffHours + " hours.");
 	}
-
-
 
 	@Override
 	public Element toXML(Document doc) {
@@ -135,7 +159,8 @@ public class MailDelivery extends BusinessEvent {
 		mail.appendChild(revenue);
 
 		Element timeTaken = doc.createElement("timeTaken");
-		timeTaken.appendChild(doc.createTextNode(String.valueOf(getTimeTaken())));
+		timeTaken
+				.appendChild(doc.createTextNode(String.valueOf(getTimeTaken())));
 		mail.appendChild(timeTaken);
 
 		return mail;
@@ -143,11 +168,10 @@ public class MailDelivery extends BusinessEvent {
 
 	@Override
 	public String toString() {
-		String str =  origin + " "
-				+ destination + " $" + revenue + " (";
-		if(priority==0){
+		String str = origin + " " + destination + " $" + revenue + " (";
+		if (priority == 0) {
 			str += "Standard)";
-		}else{
+		} else {
 			str += "Air)";
 		}
 		return str;
@@ -166,19 +190,18 @@ public class MailDelivery extends BusinessEvent {
 		des.add("priority = " + priority);
 		des.add("revenue = " + revenue);
 		des.add("time taken = " + timeTaken);
-		des.add("is received = " + isReceived);
+		des.add("is received = " + isReceived());
 		return des;
 	}
 
-	public String shortDes(){
+	public String shortDes() {
 		String des = origin + " to " + destination + " (";
-		if(priority==0){
+		if (priority == 0) {
 			des += "Standard)";
-		}else{
+		} else {
 			des += "Air)";
 		}
 		return des;
 	}
-
 
 }
