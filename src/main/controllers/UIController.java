@@ -108,6 +108,8 @@ public class UIController {
 	}
 
 	public void getBFRoute(Route selectedRoute) {
+		System.out.println("))))" + selectedRoute);
+
 		monitor.getEventsForRoute(selectedRoute);
 	}
 
