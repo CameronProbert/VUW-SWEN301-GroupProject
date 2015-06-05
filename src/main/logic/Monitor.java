@@ -38,6 +38,9 @@ public class Monitor {
 		loadUsers();
 		handler = new LogHandler();
 		locations = handler.getLocations();
+		for(Location loc: locations){
+			loc.attachMonitor(this);
+		}
 		routes = handler.getRoutes();
 		initialiseGUI();
 	}
@@ -61,7 +64,8 @@ public class Monitor {
 						* r.getPricePerVolumeTransport();
 				double profit = costToCust - costToTrans;
 				if (!deliveryProfit.containsKey(r)) {
-					deliveryProfit.put(r, deliveryProfit.get(r) + profit);
+					Double p = deliveryProfit.get(r);
+					deliveryProfit.put(r, p + profit);
 				} else {
 					deliveryProfit.put(r, profit);
 				}
@@ -155,6 +159,9 @@ public class Monitor {
 			if (event instanceof MailDelivery) {
 				deliveries.add((MailDelivery) event);
 			}
+		}
+		if(deliveries.size()==0){
+			System.out.println("no dels");
 		}
 		return deliveries;
 	}
@@ -311,6 +318,7 @@ public class Monitor {
 			}
 		}
 		Location loc = new Location(locationName);
+		loc.attachMonitor(this);
 		return loc;
 	}
 
@@ -504,8 +512,6 @@ public class Monitor {
 		double totalVol = loc.getTotalVolume();
 		double totalWeight = loc.getTotalWeight();
 		int totalNumItems = loc.getDeliveriesIn();
-		System.out.println("Printing in the monitor....................." + totalVol + " " +
-				totalWeight + " " + totalNumItems);
 		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
 	}
 
@@ -519,7 +525,7 @@ public class Monitor {
 		return unrecMail;
 	}
 
-	public void setTimeTaken(MailDelivery m, double time){
+	public void setTimeTaken(MailDelivery m, String time){
 		m.setTimeTaken(time);
 	}
 

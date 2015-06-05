@@ -199,6 +199,7 @@ public class Location implements Comparable<Location> {
 	public int getDeliveriesIn(){
 		int mailIn = 0;
 		for(MailDelivery del: monitor.getMailEvents()){
+			System.out.println("inside monitor");
 			for(Route r: del.getRoutes()){
 				if(inbound.contains(r)){
 					mailIn++;
@@ -210,6 +211,9 @@ public class Location implements Comparable<Location> {
 
 	public double getTotalVolume(){
 		double totalVol = 0;
+		if(monitor==null){
+			System.out.println("monitor nulllllll");
+		}
 		for(MailDelivery del: monitor.getMailEvents()){
 			for(Route r: del.getRoutes()){
 				if(inbound.contains(r)){
