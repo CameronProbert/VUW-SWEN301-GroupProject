@@ -13,8 +13,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
+import com.sun.org.apache.bcel.internal.util.ClassLoader;
+
 import java.io.File;
 import java.io.FileReader;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import main.events.*;
 import main.logic.InvalidLocationException;
@@ -41,8 +45,14 @@ public class LoadXML {
 
 	public LoadXML(String fileName){
 		try {
-
-			File fXmlFile = new File(fileName);
+			URL url = ClassLoader.getSystemResource(fileName);
+			File fXmlFile;
+			try{
+				fXmlFile = new File(url.toURI());
+			}catch(URISyntaxException e){
+				fXmlFile = new File(url.getPath());
+			}
+			//File fXmlFile = new File(fileName);
 			FileReader fr = new FileReader(fXmlFile);
 			if (fr.read()!=-1){ // if file is not empty
 

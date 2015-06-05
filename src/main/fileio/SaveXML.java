@@ -2,6 +2,8 @@ package main.fileio;
 
 import java.util.List;
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +17,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.sun.org.apache.bcel.internal.util.ClassLoader;
 
 import main.events.*;
 
@@ -57,7 +61,15 @@ public class SaveXML {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(fileName));
+			URL url = ClassLoader.getSystemResource(fileName);
+			File fXmlFile;
+			try{
+				fXmlFile = new File(url.toURI());
+			}catch(URISyntaxException e){
+				fXmlFile = new File(url.getPath());
+			}
+
+			StreamResult result = new StreamResult(fXmlFile);
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);
