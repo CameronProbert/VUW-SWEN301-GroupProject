@@ -122,11 +122,12 @@ public class UIController {
 	    return monitor.getNotReceivedDels();
 	}
 
-	public void updateMailDelTime(MailDelivery selectedMailReceived) {
+	public void updateMailDelTime(MailDelivery selectedMail) {
 		// TODO Auto-generated method stub
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		monitor.setTimeTaken(selectedMailReceived, dateFormat.format(date).toString());
+		System.out.println("aaaa: "+dateFormat.format(date).toString());
+		monitor.setTimeTaken(selectedMail, dateFormat.format(date).toString());
 	}
 
 }
