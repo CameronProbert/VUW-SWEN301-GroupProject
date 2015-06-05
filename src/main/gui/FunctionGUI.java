@@ -419,6 +419,7 @@ public class FunctionGUI extends Panel{
 				if(button == mailReceivedButton){
 					buttonColorSwitch("Mail Received", button);
 					init();
+					refreshComboBoxMailDeliveryList();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new MailReceivedPane(gui), JSplitPane.RIGHT);
 				}
