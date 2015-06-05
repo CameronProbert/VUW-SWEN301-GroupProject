@@ -38,6 +38,9 @@ public class Monitor {
 		loadUsers();
 		handler = new LogHandler();
 		locations = handler.getLocations();
+		for(Location loc: locations){
+			loc.attachMonitor(this);
+		}
 		routes = handler.getRoutes();
 		initialiseGUI();
 	}
@@ -61,7 +64,8 @@ public class Monitor {
 						* r.getPricePerVolumeTransport();
 				double profit = costToCust - costToTrans;
 				if (!deliveryProfit.containsKey(r)) {
-					deliveryProfit.put(r, deliveryProfit.get(r) + profit);
+					Double p = deliveryProfit.get(r);
+					deliveryProfit.put(r, p + profit);
 				} else {
 					deliveryProfit.put(r, profit);
 				}
@@ -156,6 +160,9 @@ public class Monitor {
 				deliveries.add((MailDelivery) event);
 			}
 		}
+		if(deliveries.size()==0){
+			System.out.println("no dels");
+		}
 		return deliveries;
 	}
 
@@ -174,7 +181,12 @@ public class Monitor {
 			event = createCustPriceChange(route, eventData);
 			break;
 		case "mailDelivery":
-			event = createMailDelivery(eventData);
+			try {
+				event = createMailDelivery(eventData);
+			} catch (LocationsNotConnectedException e) {
+				// TODO Update user somehow
+				return false;
+			}
 			break;
 		case "transportCostUpdate":
 			event = createTransUpdate(route, eventData);
@@ -195,11 +207,12 @@ public class Monitor {
 
 	/**
 	 * Creates a mail delivery event
-	 *
+	 * TODO handle if we cannot find a route between two locations
 	 * @param data
 	 * @return
+	 * @throws LocationsNotConnectedException 
 	 */
-	public BusinessEvent createMailDelivery(Map<String, String> data) {
+	public BusinessEvent createMailDelivery(Map<String, String> data) throws LocationsNotConnectedException {
 		MailDelivery event = null;
 		String clerkName = currentUser.getName();
 		String time = data.get("time");
@@ -212,7 +225,7 @@ public class Monitor {
 		double priority = 0;
 		double revenue = 0;
 		List<Route> routes = null;
-		if (data.get("priority").equals("air")) {
+		if (data.get("priority").equals("Air")) {
 			DijkAir air = new DijkAir(findLocation(origin),
 					findLocation(destination), weight, volume);
 			air.initialiseGraph(locations);
@@ -220,16 +233,19 @@ public class Monitor {
 			revenue = air.getCostOfRoute();
 			priority = 1;
 		} else {
-			DijkAir standard = new DijkAir(findLocation(origin),
+			DijkStandard standard = new DijkStandard(findLocation(origin),
 					findLocation(destination), weight, volume);
 			standard.initialiseGraph(locations);
 			routes = standard.getBestRoute();
-			if (routes == null) {
+			if (routes == null || routes.isEmpty()) {
 				System.err
 				.println("ERROR ROUTES IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
 			revenue = standard.getCostOfRoute();
 			priority = 0;
+		}
+		if (routes.isEmpty()){
+			throw new LocationsNotConnectedException();
 		}
 		double expectedTime = calculateTime(routes);
 		event = new MailDelivery(clerkName, time, origin, destination, weight,
@@ -306,11 +322,12 @@ public class Monitor {
 	 */
 	private Location findLocation(String locationName) {
 		for (Location l : locations) {
-			if (l.getName().equals(locationName)) {
+			if (l.getName().equalsIgnoreCase(locationName)) {
 				return l;
 			}
 		}
 		Location loc = new Location(locationName);
+		loc.attachMonitor(this);
 		return loc;
 	}
 
@@ -504,8 +521,6 @@ public class Monitor {
 		double totalVol = loc.getTotalVolume();
 		double totalWeight = loc.getTotalWeight();
 		int totalNumItems = loc.getDeliveriesIn();
-		System.out.println("Printing in the monitor....................." + totalVol + " " +
-				totalWeight + " " + totalNumItems);
 		controller.setLocationFigures(totalVol, totalWeight, totalNumItems);
 	}
 
@@ -519,7 +534,7 @@ public class Monitor {
 		return unrecMail;
 	}
 
-	public void setTimeTaken(MailDelivery m, double time){
+	public void setTimeTaken(MailDelivery m, String time){
 		m.setTimeTaken(time);
 	}
 

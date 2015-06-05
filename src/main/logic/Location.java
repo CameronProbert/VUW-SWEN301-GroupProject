@@ -1,6 +1,7 @@
 package main.logic;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import main.events.MailDelivery;
@@ -198,9 +199,17 @@ public class Location implements Comparable<Location> {
 
 	public int getDeliveriesIn(){
 		int mailIn = 0;
-		for(MailDelivery del: monitor.getMailEvents()){
-			for(Route r: del.getRoutes()){
+		for(Route r: inbound){
+			//System.out.println(r.toString());
+		}
+		List<MailDelivery> deliveries = monitor.getMailEvents();
+		for(MailDelivery del: deliveries){
+			System.out.println("Mail del -----------------------------------------------\n" + del.toString());
+			List<Route> routes = del.getRoutes();
+			for(Route r: routes){
+				System.out.println(r.toString());
 				if(inbound.contains(r)){
+					System.out.println("inside monitor tot del in ----------");
 					mailIn++;
 				}
 			}
@@ -213,6 +222,7 @@ public class Location implements Comparable<Location> {
 		for(MailDelivery del: monitor.getMailEvents()){
 			for(Route r: del.getRoutes()){
 				if(inbound.contains(r)){
+					System.out.println("inside monitor tot volume in ----------");
 					totalVol+=del.getVolume();
 				}
 			}
@@ -225,6 +235,7 @@ public class Location implements Comparable<Location> {
 		for(MailDelivery del: monitor.getMailEvents()){
 			for(Route r: del.getRoutes()){
 				if(inbound.contains(r)){
+					System.out.println("inside monitor tot weight in ----------");
 					totalWeight+=del.getWeight();
 				}
 			}

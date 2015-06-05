@@ -169,11 +169,11 @@ public class DijkStandard {
 		return best;
 	}
 
-	private double cost(Route r){
+	public double cost(Route r){
 		return r.getPricePerGramTransport()*weight + r.getPricePerVolumeTransport()*volume;
 	}
 
-	private double getCostOfRoute(){
+	public double getCostOfRoute(){
 		double finalCost = 0;
 		for(Route r: getBestRoute()){
 			finalCost+=cost(r);
