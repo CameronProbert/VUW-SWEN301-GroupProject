@@ -191,7 +191,13 @@ public class Monitor {
 			event = createTransUpdate(route, eventData);
 			break;
 		case "createRoute":
-			event = createOpenRoute(eventData);
+			try {
+				event = createOpenRoute(eventData);
+			} catch (InvalidFrequencyException e) {
+				Utility.showMessageDialog("",
+						"Frequency has to be greater than 0 and smaller than 24.");
+				return false;
+			}
 			break;
 		case "transportDiscontinued":
 			event = createDeleteRoute(route, eventData);
@@ -211,7 +217,7 @@ public class Monitor {
 	 * @return
 	 * @throws LocationsNotConnectedException
 	 */
-	public BusinessEvent createMailDelivery(Map<String, String> data)
+	private BusinessEvent createMailDelivery(Map<String, String> data)
 			throws LocationsNotConnectedException {
 		MailDelivery event = null;
 		String clerkName = currentUser.getName();
@@ -260,7 +266,7 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createCustPriceChange(Route route,
+	private BusinessEvent createCustPriceChange(Route route,
 			Map<String, String> data) {
 		CustomerPriceChange event = null;
 		String clerkName = currentUser.getName();
@@ -287,7 +293,7 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
+	private BusinessEvent createDeleteRoute(Route route, Map<String, String> data) {
 		List<Route> routesforEvent = new ArrayList<Route>();
 		routesforEvent.add(route);
 		this.routes.remove(route);
@@ -299,8 +305,9 @@ public class Monitor {
 	 *
 	 * @param data
 	 * @return
+	 * @throws InvalidFrequencyException 
 	 */
-	public BusinessEvent createOpenRoute(Map<String, String> data) {
+	private BusinessEvent createOpenRoute(Map<String, String> data) throws InvalidFrequencyException {
 		OpenNewRoute event = null;
 		Location origin = findLocation(data.get("origin"));
 		Location destination = findLocation(data.get("destination"));
@@ -316,6 +323,9 @@ public class Monitor {
 		double costVolCust = Double.parseDouble(data
 				.get("customerPricePerCubic"));
 		double frequency = Double.parseDouble(data.get("frequency"));
+		if (frequency <= 0 || frequency >= 24){
+			throw new InvalidFrequencyException();
+		}
 		DaysOfWeek day = DaysOfWeek.valueOf(data.get("transportDay"));
 		Route route = null;
 		try {
@@ -349,7 +359,7 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 */
-	public BusinessEvent createTransUpdate(Route route, Map<String, String> data) {
+	private BusinessEvent createTransUpdate(Route route, Map<String, String> data) {
 		TransportUpdate event = null;
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
