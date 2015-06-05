@@ -162,7 +162,7 @@ public class CreateRoutePane extends Panel{
 						int response = JOptionPane.showConfirmDialog(null, "Add new route?", "Add new route", g);
 						if(response == JOptionPane.YES_OPTION){
 							addBusinessEvent("createRoute");
-							refreshRouteList();						}
+							refreshComboBoxRouteList();						}
 					}
 
 				}

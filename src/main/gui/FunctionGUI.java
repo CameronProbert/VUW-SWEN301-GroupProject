@@ -200,12 +200,11 @@ public class FunctionGUI extends Panel{
 		businessFiguresLocationButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		businessFiguresLocationButton.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(businessFiguresLocationButton, BorderLayout.CENTER);
-		
+
 		mailReceivedButton = new Button("Mail Received");
 		mailReceivedButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		mailReceivedButton.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.add(mailReceivedButton, BorderLayout.CENTER);
-
 
 		button_3 = new Button("");
 		buttonPanel.add(button_3, BorderLayout.SOUTH);
@@ -249,9 +248,9 @@ public class FunctionGUI extends Panel{
 			previousEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getPreviousEvent();
-					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-					//						return;
-					//					}
+					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+						return;
+					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventTab(gui);
@@ -267,9 +266,9 @@ public class FunctionGUI extends Panel{
 			nextEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getNextEvent();
-					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-					//						return;
-					//					}
+					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+						return;
+					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventTab(gui);
@@ -285,9 +284,9 @@ public class FunctionGUI extends Panel{
 			newestEventButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					currentEvent = controller.getMostRecentEvent();
-					//					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
-					//						return;
-					//					}
+					if(currentEvent.get(0).equalsIgnoreCase("No data to display")){
+						return;
+					}
 					eventPane.remove(businessEventPane);
 					eventPane.repaint();
 					businessEventPane = new BusinessEventTab(gui);
@@ -419,6 +418,7 @@ public class FunctionGUI extends Panel{
 				if(button == mailReceivedButton){
 					buttonColorSwitch("Mail Received", button);
 					init();
+					refreshComboBoxMailDeliveryList();
 					displayPanel.setVisible(false);
 					jSplitPanel.add(new MailReceivedPane(gui), JSplitPane.RIGHT);
 				}

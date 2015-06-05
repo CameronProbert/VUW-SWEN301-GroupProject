@@ -65,7 +65,7 @@ public class TransportDiscontinuedPane extends Panel{
 						int response = JOptionPane.showConfirmDialog(null, "Do you want to discontinue a transport?", "Discontinue Transport", g);
 						if(response == JOptionPane.YES_OPTION){
 							addBusinessEvent("transportDiscontinued");
-							refreshRouteList();
+							refreshComboBoxRouteList();
 						}
 					}
 

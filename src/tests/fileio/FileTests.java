@@ -32,7 +32,7 @@ public class FileTests {
 	private final static String firmName = "Transport firm A";
 	private final static TransportType tt = TransportType.Standard;
 	private final static String clerk = "Sammy";
-	private final static String date = "10/12/2014 10:53";
+	private final static String date = "2015/03/03 10:53";
 
 	private final static double ppgTran = 10;
 	private final static double ppvTran = 15;
@@ -43,7 +43,7 @@ public class FileTests {
 	private final static double changedppvTran = 25;
 	private final static double changedppgCust = 20;
 	private final static double changedppvCust = 25;
-	private final static double timeTaken = 300;
+	private final static double timeTaken = 0;
 	private final static double depFreq = 2;
 	private final static double weight = 200;
 	private final static double volume = 25;

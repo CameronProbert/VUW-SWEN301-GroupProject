@@ -98,12 +98,14 @@ public class MailReceivedPane extends Panel{
 					}
 					else{
 						int g = JOptionPane.YES_NO_OPTION;
-						int response = JOptionPane.showConfirmDialog(null, "Do you want to update the mail delivery time?", "Mail delivery time update", g);
+						int response = JOptionPane.showConfirmDialog(null, "Confirm Received?", "Confirm Received", g);
 						if(response == JOptionPane.YES_OPTION){
 							for (MailDelivery md: controller.getMailDeliveries()) {
 								if(md.toString().equals(selectedMailReceived)){
 									controller.updateMailDelTime(md);
-
+									refreshComboBoxMailDeliveryList();
+									
+									//refreshComboBoxMailDeliveredList();
 								}
 							}
 						}
@@ -120,7 +122,6 @@ public class MailReceivedPane extends Panel{
 	
 	// controller calls to set the updated average delivery time
 	public void setAveTime(double time){
-		System.out.println("@@@@@@ " + time);
-		aveTime.setText("" + time);
+		aveTime.setText(" " + time +" hours.");
 	}
 }
