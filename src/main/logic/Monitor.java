@@ -314,8 +314,8 @@ public class Monitor {
 	 * @param data
 	 * @return
 	 * @throws InvalidFrequencyException
-	 * @throws InvalidLocationException 
-	 * @throws NoDaysToShipException 
+	 * @throws InvalidLocationException
+	 * @throws NoDaysToShipException
 	 */
 	private BusinessEvent createOpenRoute(Map<String, String> data)
 			throws InvalidFrequencyException, NoDaysToShipException, InvalidLocationException {
@@ -343,7 +343,7 @@ public class Monitor {
 				costWeightTrans, costVolTrans, costWeightCust, costVolCust,
 				frequency, day);
 		origin.addOutbound(route);
-		origin.addInbound(route);
+		destination.addInbound(route);
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(route);
 		this.routes.add(route);
@@ -391,6 +391,7 @@ public class Monitor {
 			}
 		}
 		Location loc = new Location(locationName);
+		locations.add(loc);
 		loc.attachMonitor(this);
 		return loc;
 	}
@@ -473,7 +474,6 @@ public class Monitor {
 	public void getEventsForRoute(Route route) {
 		List<MailDelivery> m = getMailEvents();
 		if(route==null){
-			System.out.println("route is nullllllllllllllllll");
 			return;
 		}
 		double revenue = route.getRevenue(m);
