@@ -175,23 +175,18 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				else if(type.equals("route")){
 					selectedRouteString = selected;
 					selectedRoute = routeMap.get(selectedRouteString);
-					if(isBusinessFiguresRoute){
-						controller.getBFRoute(selectedRoute);
-					}
+					controller.getBFRoute(selectedRoute);
 				}
 				else if(type.equals("location")){
 					selectedLocationString = selected;
-					if(isBusinessFiguresLocation){
-						for( Route s: controller.getRoutes()){
-							if(s.getOrigin().getName().equals(selectedLocationString)){
-								controller.getBFLocation(s.getOrigin());
+					for( Route s: controller.getRoutes()){
+						if(s.getOrigin().getName().equals(selectedLocationString)){
+							System.out.println(selectedLocationString);
+							controller.getBFLocation(s.getOrigin());
+						}
+						if(s.getDestination().equals(selectedLocationString)){
+							controller.getBFLocation(s.getDestination());
 
-								
-							}
-							if(s.getDestination().equals(selectedLocationString)){
-								controller.getBFLocation(s.getDestination());
-
-							}
 						}
 					}
 				}
@@ -330,14 +325,14 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				i++;
 			}
 		}
-		
+
 		String[] originsNew = new String[i];
 		for (int j = 0; j < originsNew.length; j++){
 			originsNew[j] = origins[j];
 		}
 		return originsNew;
 	}
-	
+
 	protected String[] getDestinations(){
 		String[] destinations = new String[controller.getRoutes().size()];
 		int j = 0;
@@ -347,7 +342,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				j++;
 			}
 		}
-		
+
 		String[] destinationsNew = new String[j];
 		for (int i = 0; i < destinationsNew.length; i++){
 			destinationsNew[i] = destinations[i];
@@ -384,7 +379,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				i++;
 			}
 		}
-		
+
 		String[] locationNew = new String[i];
 		for (int j = 0; j < locationNew.length; j++){
 			locationNew[j] = location[j];

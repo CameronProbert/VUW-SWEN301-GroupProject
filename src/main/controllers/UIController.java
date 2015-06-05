@@ -107,6 +107,7 @@ public class UIController {
 	}
 
 	public void getBFLocation(Location selectedLocation) {
+		System.out.println(selectedLocation.getName());
 		monitor.getEventsForLocation(selectedLocation);
 	}
 	
