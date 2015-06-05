@@ -108,7 +108,7 @@ public class MailDelivery extends BusinessEvent {
 		}
 
 		// Custom date format
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 		Date d1 = null;
 		Date d2 = null;
@@ -123,12 +123,7 @@ public class MailDelivery extends BusinessEvent {
 
 		// Get msec from each, and subtract.
 		long diff = d2.getTime() - d1.getTime();
-		long diffMinutes = (long)(diff / (60 * 1000)) % 60;
 		double diffHours = ((double)diff / (60 * 60 * 1000));
-		long diffDays = (long) (diff / (24 * 60 * 60 * 1000));
-		System.out.println("Time in minutes: " + diffMinutes + " minutes.");
-		System.out.println("Time in hours: " + diffHours%24 + " hours.");
-		System.out.println("Time in days: " + diffDays + " days.");
 		timeTaken = diffHours;
 	}
 
