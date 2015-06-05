@@ -120,6 +120,7 @@ public class MailDelivery extends BusinessEvent {
 		System.out.println("Time in seconds: " + diffSeconds + " seconds.");
 		System.out.println("Time in minutes: " + diffMinutes + " minutes.");
 		System.out.println("Time in hours: " + diffHours + " hours.");
+		timeTaken = diffHours;
 	}
 
 	@Override
