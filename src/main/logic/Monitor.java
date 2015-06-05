@@ -497,20 +497,16 @@ public class Monitor {
 	}
 
 	/**
-	 * Given a route, finds all the relevent statistics and pushes them to the
+	 * Given a route, finds all the relevant statistics and pushes them to the
 	 * GUI to be displayed
-	 * 
+	 *
 	 * @param route
 	 */
 	public void getEventsForRoute(Route route) {
-		double revenue = 0;
-		double expenditure = 0;
-		int numOfEvents = 0;
+		double revenue = route.getRevenue(getMailEvents()); // TODO double check the mail delivery list is populated
+		double expenditure = route.getExpenditure(getMailEvents());
+		int numOfEvents = route.getNumEvents(getMailEvents());
 		double averageDeliveryTime = 0;
-		List<BusinessEvent> events = handler.getEvents();
-		for (BusinessEvent event : events) {
-			//TODO THIS BIT
-		}
 		controller.setSingleTransportFigures(revenue, expenditure, numOfEvents,
 				averageDeliveryTime);
 	}
@@ -566,7 +562,7 @@ public class Monitor {
 
 	/**
 	 * Finds the user with the specified id
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -581,7 +577,7 @@ public class Monitor {
 
 	/**
 	 * Removes the user with the specified id
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */

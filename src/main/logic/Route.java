@@ -5,6 +5,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+import main.events.MailDelivery;
+
 /**
  * The Route class represents a real route between two destinations
  *
@@ -292,6 +294,47 @@ public class Route {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * calculates the revenue for a route given the mail events
+	 */
+	public double getRevenue(List<MailDelivery> mail){
+		double revenue = 0;
+		for(MailDelivery m: mail){
+			if(m.getRoutes().contains(this)){
+				revenue += m.getVolume()*pricePerVolumeCustomer+
+						m.getWeight()*pricePerGramCustomer;
+			}
+		}
+		return revenue;
+	}
+
+	/**
+	 * calculates the expenditure for a route given the mail events
+	 */
+	public double getExpenditure(List<MailDelivery> mail){
+		double expen = 0;
+		for(MailDelivery m: mail){
+			if(m.getRoutes().contains(this)){
+				expen += m.getVolume()*pricePerVolumeTransport+
+						m.getWeight()*pricePerGramTransport;
+			}
+		}
+		return expen;
+	}
+
+	/**
+	 * calculates the number of mail deliveries on this route
+	 */
+	public int getNumEvents(List<MailDelivery> mail){
+		int total = 0;
+		for(MailDelivery m: mail){
+			if(m.getRoutes().contains(this)){
+				total++;
+			}
+		}
+		return total;
 	}
 
 	/**
