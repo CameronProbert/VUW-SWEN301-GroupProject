@@ -16,7 +16,7 @@
       <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
+    <date>2015/03/03 10:53</date>
   </event>
   <event type="Mail Delivery">
     <route>
@@ -34,7 +34,7 @@
       <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
+    <date>2015/03/03 10:53</date>
     <origin>Auckland</origin>
     <destination>Wellington</destination>
     <weight>200.0</weight>
@@ -59,7 +59,7 @@
       <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
+    <date>2015/03/03 10:53</date>
     <oldPricePGram>10.0</oldPricePGram>
     <newPricePGram>20.0</newPricePGram>
     <oldPricePVolume>15.0</oldPricePVolume>
@@ -81,7 +81,7 @@
       <departureFrequency>2.0</departureFrequency>
     </route>
     <clerk>Sammy</clerk>
-    <date>2015/03/03 10:53:00</date>
+    <date>2015/03/03 10:53</date>
     <oldPricePGram>10.0</oldPricePGram>
     <newPricePGram>20.0</newPricePGram>
     <oldPricePVolume>15.0</oldPricePVolume>

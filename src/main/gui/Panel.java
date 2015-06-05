@@ -54,7 +54,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	// the selected value in the comboboxes
 	protected static String origin = "";
 	protected static String destination = "";
-	protected static String priority = "";
+	protected static String priority = "Standard";
 	protected static String transportFirm = "";
 	protected static String transportType = "";
 	protected static String transportDay = "";
@@ -157,14 +157,12 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 				}
 				else if(type.equals("route")){
 					selectedRouteString = selected;
-					//refreshRouteMap();
 					selectedRoute = routeMap.get(selectedRouteString);
 					System.out.println("!!!!!! " + selectedRouteString);
 					if (isBusinessFiguresRoute){	
 						isBusinessFiguresRoute = false;
 						controller.getBFRoute(selectedRoute);
 					}
-					//refreshComboBoxRouteList();
 				}
 				else if(type.equals("location")){
 					selectedLocationString = selected;
@@ -199,7 +197,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		currentEvent.put("type", type);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		currentEvent.put("time",dateFormat.format(date) );
+		currentEvent.put("time",dateFormat.format(date));
 		if(type.equals("mailDelivery")){
 			currentEvent.put("origin", origin);
 			currentEvent.put("destination", destination);
@@ -234,9 +232,15 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 			currentEvent.put("customerPricePerCubic", "" + textCustomerNewPricePerCubic.getValue());
 			currentEvent.put("frequency", "" + textTPFrequency.getValue());
 			controller.addEvent(selectedRoute, currentEvent);
+			refreshRouteTab();
 		}
 	}
 
+	protected void refreshRouteTab(){
+		
+
+	}
+	
 	/**
 	 * put the route list into the route combobox
 	 */
@@ -423,6 +427,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		if(comboBoxMailDel==null) return;
 		comboBoxMailDel.removeAllItems();
 		//isComboBoxRouteModified = true;
+		System.out.println("size: " + controller.getMailDeliveries().size());
 		for (MailDelivery r: controller.getMailDeliveries()) {
 			String rt = r.toString();
 			comboBoxMailDel.addItem(rt);

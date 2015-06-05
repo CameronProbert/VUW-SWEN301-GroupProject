@@ -20,10 +20,9 @@ import javax.swing.SwingConstants;
 import main.events.MailDelivery;
 
 /**
- * The TransportDiscontinuedPane class is a JPanel which is added onto the JFrame
- * once the Transport Discontinued button is clicked. TransportDiscontinuedPane class is
- * responsible for letting the user select the transport they want to remove
- * and pass the information into the system.
+ * The MailReceivedPane class is a JPanel which is added onto the JFrame
+ * once the Mail Received button is clicked. MailReceivedPane class is
+ * responsible for letting the user confirming the mail received.
  *
  * @author zhaojiang chang
  *
@@ -34,9 +33,9 @@ public class MailReceivedPane extends Panel{
 	private static JLabel aveTime;
 
 	/**
-	 * Create the TransportDiscontinuedPane by passing the gui it is on
+	 * Create the MailReceivedPane by passing the gui it is on
 	 *
-	 * @param gui the gui the TransportDiscontinuedPane is on
+	 * @param gui the gui the MailReceivedPane is on
 	 */
 	public MailReceivedPane(GUI gui) {
 		super(gui);
@@ -104,8 +103,6 @@ public class MailReceivedPane extends Panel{
 								if(md.toString().equals(selectedMailReceived)){
 									controller.updateMailDelTime(md);
 									refreshComboBoxMailDeliveryList();
-									
-									//refreshComboBoxMailDeliveredList();
 								}
 							}
 						}
@@ -115,11 +112,11 @@ public class MailReceivedPane extends Panel{
 			}
 		});
 	}
-	
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
-	
+
 	// controller calls to set the updated average delivery time
 	public void setAveTime(double time){
 		aveTime.setText(" " + time +" hours.");

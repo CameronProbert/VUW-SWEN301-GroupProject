@@ -85,14 +85,6 @@ public class CreateRoutePane extends Panel{
 		JLabel labelCustomerCostPerCB= new JLabel("Customer $/volume", SwingConstants.CENTER);
 		textCustomerNewPricePerCubic = new JFormattedTextField(amountFormat);
 		formatToDobuleJTextField(textCustomerNewPricePerCubic);
-		//
-		//		JLabel labelmaxWeight= new JLabel("Max weight", SwingConstants.CENTER);
-		//		textTPmaxWeight = new JFormattedTextField(amountFormat);
-		//		formatToDobuleJTextField(textTPmaxWeight);
-		//
-		//		JLabel labelmaxVolume= new JLabel("Max volume", SwingConstants.CENTER);
-		//		textTPmaxVolume = new JFormattedTextField(amountFormat);
-		//		formatToDobuleJTextField(textTPmaxVolume);
 
 		JLabel labelFrequency= new JLabel("Frequency departs", SwingConstants.CENTER);
 		textTPFrequency = new JFormattedTextField(amountFormat);
@@ -102,12 +94,6 @@ public class CreateRoutePane extends Panel{
 		comboBoxTransportDay = new JComboBox(TransportDateList);
 		comboBoxTransportDay.setSelectedItem(null);
 		comboBoxListenner(comboBoxTransportDay, "transportDay");
-
-
-
-		//		JLabel labelDuration= new JLabel("Duration of the trip", SwingConstants.CENTER);
-		//		textTPDuration = new JFormattedTextField(amountFormat);
-		//		formatToIntegerJTextField(textTPDuration);
 
 		reset = new JButton("Reset");
 		add = new JButton("Add");
@@ -131,10 +117,6 @@ public class CreateRoutePane extends Panel{
 		add(textTPFrequency);
 		add(labelDay);
 		add(comboBoxTransportDay);
-
-		//		add(labelDuration);
-		//		add(textTPDuration);
-
 		add(reset);
 		add(add);
 	}
