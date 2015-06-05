@@ -45,6 +45,10 @@ public class Monitor {
 		initialiseGUI();
 	}
 
+	//=========================================================================
+	// Business model methods
+	//=========================================================================
+
 	/**
 	 * Finds all the routes that result in a loss to KPS
 	 *
@@ -136,16 +140,9 @@ public class Monitor {
 		return expenditure;
 	}
 
-	/**
-	 * Initialises the GUI
-	 */
-	private void initialiseGUI() {
-		gui = new GUI();
-		UIController controller = new UIController(gui, this);
-		gui.setUIController(controller);
-		this.setUIController(controller);
-		gui.setUp();
-	}
+	//=========================================================================
+	// New business event methods
+	//=========================================================================
 
 	/**
 	 * Returns a list of Mail Delivery Events
@@ -206,9 +203,8 @@ public class Monitor {
 	}
 
 	/**
-	 * Creates a mail delivery event TODO handle if we cannot find a route
-	 * between two locations
-	 * 
+	 * Creates a mail delivery event
+	 *
 	 * @param data
 	 * @return
 	 * @throws LocationsNotConnectedException
@@ -249,24 +245,9 @@ public class Monitor {
 		if (routes.isEmpty()) {
 			throw new LocationsNotConnectedException();
 		}
-		double expectedTime = calculateTime(routes);
 		event = new MailDelivery(clerkName, time, origin, destination, weight,
-				volume, priority, revenue, expectedTime, routes);
+				volume, priority, revenue, 0, routes);
 		return event;
-	}
-
-	/**
-	 * Calculates the time that it should take to send the package
-	 *
-	 * @param routes
-	 * @return
-	 */
-	private double calculateTime(List<Route> routes) {
-		double sum = 0;
-		for (Route r : routes) {
-			sum += r.getAverageTimeToDeliver();
-		}
-		return sum;
 	}
 
 	/**
@@ -294,24 +275,6 @@ public class Monitor {
 		event = new CustomerPriceChange(clerkName, date, oldGr, newGr, oldVol,
 				newVol, routes);
 		return event;
-	}
-
-	/**
-	 * Finds the location associated with the name of a location, if the
-	 * location does not exist then create it
-	 *
-	 * @param locationName
-	 * @return
-	 */
-	private Location findLocation(String locationName) {
-		for (Location l : locations) {
-			if (l.getName().equalsIgnoreCase(locationName)) {
-				return l;
-			}
-		}
-		Location loc = new Location(locationName);
-		loc.attachMonitor(this);
-		return loc;
 	}
 
 	/**
@@ -400,6 +363,28 @@ public class Monitor {
 		return event;
 	}
 
+	/**
+	 * Finds the location associated with the name of a location, if the
+	 * location does not exist then create it
+	 *
+	 * @param locationName
+	 * @return
+	 */
+	private Location findLocation(String locationName) {
+		for (Location l : locations) {
+			if (l.getName().equalsIgnoreCase(locationName)) {
+				return l;
+			}
+		}
+		Location loc = new Location(locationName);
+		loc.attachMonitor(this);
+		return loc;
+	}
+
+	//=========================================================================
+	// Returns event displayed to gui
+	//=========================================================================
+
 	public List<String> getMostRecentEvent() {
 		BusinessEvent event = handler.getNewestEvent();
 		if (event == null) {
@@ -461,18 +446,9 @@ public class Monitor {
 		return data;
 	}
 
-	/**
-	 * Loads a list of the users in from a file
-	 */
-	private void loadUsers() {
-		System.out.println("Loading in users...");
-		try {
-			allUsers = UserIO.loadUsers();
-		} catch (NoRegisteredUsersException e) {
-			e.printStackTrace();
-		}
-		System.out.println("Done loading users.");
-	}
+	//=========================================================================
+	// Methods to update statistics in the GUI
+	//=========================================================================
 
 	/**
 	 * Given a route, finds all the relevant statistics and pushes them to the
@@ -500,7 +476,7 @@ public class Monitor {
 	/**
 	 * Given a location will return the info about it and call the mehod to
 	 * update
-	 * 
+	 *
 	 * @param loc
 	 */
 	public void getEventsForLocation(Location loc) {
@@ -512,7 +488,7 @@ public class Monitor {
 
 	/**
 	 * Returns a list of the deliveries that have not yet been received
-	 * 
+	 *
 	 * @return
 	 */
 	public List<MailDelivery> getNotReceivedDels() {
@@ -527,7 +503,7 @@ public class Monitor {
 
 	/**
 	 * Sets the time taken for a mail delivery
-	 * 
+	 *
 	 * @param m
 	 * @param time
 	 */
@@ -538,7 +514,7 @@ public class Monitor {
 	/**
 	 * Returns a list of strings that represent all the mail deliveries
 	 * currently in the system
-	 * 
+	 *
 	 * @return
 	 */
 	public List<String> getMailDelGeneric() {
@@ -553,7 +529,7 @@ public class Monitor {
 
 	/**
 	 * Gets the average delivery time for a particular route
-	 * 
+	 *
 	 * @param delDes
 	 * @return
 	 */
@@ -567,6 +543,23 @@ public class Monitor {
 			}
 		}
 		return avTime / totNum;
+	}
+
+	//=========================================================================
+	// Methods relating to users
+	//=========================================================================
+
+	/**
+	 * Loads a list of the users in from a file
+	 */
+	private void loadUsers() {
+		System.out.println("Loading in users...");
+		try {
+			allUsers = UserIO.loadUsers();
+		} catch (NoRegisteredUsersException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Done loading users.");
 	}
 
 	/**
@@ -649,6 +642,10 @@ public class Monitor {
 		return false;
 	}
 
+	//=========================================================================
+	// Getters and Setters
+	//=========================================================================
+
 	/**
 	 * Returns the saved set of locations
 	 *
@@ -679,17 +676,6 @@ public class Monitor {
 	}
 
 	/**
-	 * Adds a locations to the list of locations
-	 *
-	 * @param locations
-	 */
-	public void rmLocations(Location... locations) {
-		for (Location l : locations) {
-			this.locations.remove(l);
-		}
-	}
-
-	/**
 	 * Returns the set of routes stored in this class
 	 *
 	 * @return
@@ -708,28 +694,6 @@ public class Monitor {
 	}
 
 	/**
-	 * Adds a locations to the list of locations
-	 *
-	 * @param locations
-	 */
-	public void addRoutes(Route... routes) {
-		for (Route r : routes) {
-			this.routes.add(r);
-		}
-	}
-
-	/**
-	 * Adds a locations to the list of locations
-	 *
-	 * @param locations
-	 */
-	public void rmRoutes(Route... routes) {
-		for (Route r : routes) {
-			this.routes.remove(r);
-		}
-	}
-
-	/**
 	 * Returns the monitor class as a string
 	 */
 	public String toString() {
@@ -742,6 +706,21 @@ public class Monitor {
 			sb.append("Nobody logged in.");
 		}
 		return sb.toString();
+	}
+
+	//=========================================================================
+	// Initializers
+	//=========================================================================
+
+	/**
+	 * Initializes the GUI
+	 */
+	private void initialiseGUI() {
+		gui = new GUI();
+		UIController controller = new UIController(gui, this);
+		gui.setUIController(controller);
+		this.setUIController(controller);
+		gui.setUp();
 	}
 
 	/**
