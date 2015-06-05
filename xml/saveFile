@@ -87,4 +87,169 @@
     <oldPricePVolume>15.0</oldPricePVolume>
     <newPricePVolume>25.0</newPricePVolume>
   </event>
+  <event type="Mail Delivery">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:42:21</date>
+    <origin>Auckland</origin>
+    <destination>Wellington</destination>
+    <weight>3.0</weight>
+    <volume>4.0</volume>
+    <priority>0.0</priority>
+    <revenue>160.0</revenue>
+    <timeTaken>0.005555555555555556</timeTaken>
+  </event>
+  <event type="Mail Delivery">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:42:25</date>
+    <origin>Auckland</origin>
+    <destination>Wellington</destination>
+    <weight>3.0</weight>
+    <volume>1.0</volume>
+    <priority>0.0</priority>
+    <revenue>85.0</revenue>
+    <timeTaken>0.0030555555555555557</timeTaken>
+  </event>
+  <event type="Mail Delivery">
+    <route>
+      <origin>Auckland</origin>
+      <destination>Wellington</destination>
+      <transportType>Standard</transportType>
+      <firmName>Transport firm A</firmName>
+      <costPGramForTransport>20.0</costPGramForTransport>
+      <costPVolumeForTransport>25.0</costPVolumeForTransport>
+      <costPGramToCustomer>20.0</costPGramToCustomer>
+      <costPVolumeToCustomer>25.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Monday</day>
+      </departureDays>
+      <departureFrequency>2.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:42:30</date>
+    <origin>Auckland</origin>
+    <destination>Wellington</destination>
+    <weight>4.0</weight>
+    <volume>5.0</volume>
+    <priority>0.0</priority>
+    <revenue>205.0</revenue>
+    <timeTaken>0.0</timeTaken>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>asdf</origin>
+      <destination>asdf</destination>
+      <transportType>Air</transportType>
+      <firmName>asdf</firmName>
+      <costPGramForTransport>21.0</costPGramForTransport>
+      <costPVolumeForTransport>3.0</costPVolumeForTransport>
+      <costPGramToCustomer>2.0</costPGramToCustomer>
+      <costPVolumeToCustomer>3.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>1.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:52:14</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>sdf</origin>
+      <destination>sdf</destination>
+      <transportType>Air</transportType>
+      <firmName>23</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>2.0</costPVolumeForTransport>
+      <costPGramToCustomer>3.0</costPGramToCustomer>
+      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:52:53</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>sdf</origin>
+      <destination>sdf</destination>
+      <transportType>Air</transportType>
+      <firmName>23</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>666.0</costPVolumeForTransport>
+      <costPGramToCustomer>3.0</costPGramToCustomer>
+      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:53:05</date>
+  </event>
+  <event type="New Route">
+    <route>
+      <origin>sdf</origin>
+      <destination>sdf</destination>
+      <transportType>Air</transportType>
+      <firmName>23</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>34.0</costPVolumeForTransport>
+      <costPGramToCustomer>3.0</costPGramToCustomer>
+      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:53:18</date>
+  </event>
+  <event type="Delete Route">
+    <route>
+      <origin>sdf</origin>
+      <destination>sdf</destination>
+      <transportType>Air</transportType>
+      <firmName>23</firmName>
+      <costPGramForTransport>1.0</costPGramForTransport>
+      <costPVolumeForTransport>2.0</costPVolumeForTransport>
+      <costPGramToCustomer>3.0</costPGramToCustomer>
+      <costPVolumeToCustomer>4.0</costPVolumeToCustomer>
+      <departureDays>
+        <day>Wednesday</day>
+      </departureDays>
+      <departureFrequency>5.0</departureFrequency>
+    </route>
+    <clerk>Cameron Probert</clerk>
+    <date>2015/06/05 23:54:47</date>
+  </event>
 </businessEvents>

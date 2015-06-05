@@ -219,6 +219,7 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 		}
 		else if (type.equals("transportDiscontinued")){
 			controller.addEvent(selectedRoute, currentEvent);
+			refreshRouteTab();
 		}
 		else if (type.equals("createRoute")){
 			currentEvent.put("origin", origin);
@@ -237,8 +238,9 @@ public abstract class Panel extends JPanel implements PropertyChangeListener {
 	}
 
 	protected void refreshRouteTab(){
-		
-
+		RoutesTab rtb = gui.getRouteTab();
+		rtb.removeLabels();
+		rtb.addLabels();
 	}
 	
 	/**

@@ -30,6 +30,7 @@ public class GUI {
 	protected BusinessFiguresRoutePane bfrp;
 	protected BusinessFiguresLocationPane bflp;
 	protected MailReceivedPane mrp;
+	protected RoutesTab rtp;
 
 	// the dimension of the frame
 	private static int width = 900;
@@ -176,5 +177,13 @@ public class GUI {
 	
 	public MailReceivedPane getMailReceivedPane(){
 		return mrp;
+	}
+	
+	public void setRouteTab(RoutesTab routeTap) {
+		this.rtp = routeTap;
+	}
+	
+	public RoutesTab getRouteTab(){
+		return rtp;
 	}
 }
