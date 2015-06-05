@@ -2,6 +2,7 @@ package main.gui;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -42,6 +43,7 @@ public class RoutesTab extends Panel implements MouseListener{
 		super(gui);
 		setBounds(300, 0, gui.getWidth()*3/4-10, gui.getHeight());
 		this.setPreferredSize(new Dimension(gui.getWidth()*3/5-60,gui.getHeight()-250));
+		gui.setRouteTab(this);
 	}
 
 	@Override
@@ -65,6 +67,12 @@ public class RoutesTab extends Panel implements MouseListener{
 			JLabel value = new JLabel(i+" : "+routeList().get(i), SwingConstants.LEFT);
 			value.setFont(new Font("Dialog", Font.PLAIN, 14));
 			add(value);
+		}
+	}
+	protected void removeLabels(){
+		Component[] comps = this.getComponents();
+		for( int i = 0; i<comps.length; i++){
+			remove(comps[i]);
 		}
 	}
 	
