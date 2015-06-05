@@ -622,7 +622,7 @@ public class Monitor {
 	public boolean makeNewUser(String id, String password, String name,
 			boolean isManager) {
 		Clerk user = null;
-		if (findUser(id) == null) {
+		if (findUser(id) != null) {
 			return false;
 		} else if (isManager) {
 			user = new Manager(name, id, password);
