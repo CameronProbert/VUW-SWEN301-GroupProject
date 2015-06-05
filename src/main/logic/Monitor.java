@@ -542,6 +542,7 @@ public class Monitor {
 				avTime += m.getTimeTaken();
 			}
 		}
+		controller.setAverageDeliveryTime(avTime / totNum);
 		return avTime / totNum;
 	}
 
